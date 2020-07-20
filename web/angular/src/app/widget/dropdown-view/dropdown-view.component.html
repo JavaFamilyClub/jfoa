@@ -1,0 +1,13 @@
+<div class="input-group w-100">
+  <button id="split-button" class="dropdown-button no-caret form-control" type="button"
+          [disabled]="disabled" [class.disabled]="disabled" [fixedDropdown]="dropdownMenu" [autoClose]="isOk"
+          (openChange)="toggled($event)">
+    <span>{{label ? label : "&nbsp;"}}</span>
+    <span class="caret-down-icon dropdown-caret"></span>
+  </button>
+  <ng-template #dropdownMenu>
+    <div class="dropdown-pane">
+      <ng-content></ng-content>
+    </div>
+  </ng-template>
+</div>

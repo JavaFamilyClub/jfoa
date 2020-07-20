@@ -1,0 +1,10 @@
+index:
+  components:
+    includes:
+    - '**/*.component.ts'
+  pipes:
+    includes:
+    - '**/*.pipe.ts'
+  directives:
+    includes:
+    - '**/*.directive.ts'

@@ -1,0 +1,19 @@
+%angboot-base {
+   @extend .#{$angboot-css-prefix};
+}
+
+$angboot-map: map-merge($angboot-base-map, (
+));
+
+@function unicode($str) {
+   @return unquote("\"") + $str + unquote("\"");
+}
+
+@each $icon-name, $icon-code in $angboot-map {
+   .#{$icon-name} {
+      @extend %angboot-base;
+   }
+   .#{$icon-name}::before {
+      content: unicode($icon-code);
+   }
+}

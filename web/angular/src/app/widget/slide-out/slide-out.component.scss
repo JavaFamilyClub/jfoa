@@ -1,0 +1,142 @@
+/*!
+ * Copyright (c) 2018, InetSoft Technology Corp, All Rights Reserved.
+ *
+ * The software and information contained herein are copyrighted and
+ * proprietary to InetSoft Technology Corp. This software is furnished
+ * pursuant to a written license agreement and may be used, copied,
+ * transmitted, and stored only in accordance with the terms of such
+ * license and with the inclusion of the above copyright notice. Please
+ * refer to the file "COPYRIGHT" for further copyright and licensing
+ * information. This software and information or any other copies
+ * thereof may not be provided or otherwise made available to any other
+ * person.
+ */
+:host {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+  max-width: 100%;
+}
+
+:host.left {
+  left: 0;
+}
+
+:host.right {
+  right: 0;
+}
+
+:host-context(slide-out) div.property-dialog-window.slide-out-content-container {
+  max-width: 750px;
+  width: 95vw;
+}
+
+.right.slide-out-wrapper {
+  flex-direction: row-reverse;
+}
+
+.slide-out-content-container {
+  height: 100%;
+  width: 1000px;
+  display: flex;
+
+  .content-div {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 50px;
+    height: 100%;
+  }
+
+  .v-resizer {
+    width: 4px;
+    min-width: 4px;
+    flex-grow: 0;
+
+    &:hover {
+      cursor: e-resize;
+    }
+  }
+}
+
+.slide-out-toggle-container {
+  position: relative;
+  width: 30px;
+  height: 100%;
+  display: inline-block;
+}
+
+.slide-out-toggle {
+  position: absolute;
+  top: -30px;
+
+  -webkit-transform-origin: 0 100%;
+  -moz-transform-origin: 0 100%;
+  -ms-transform-origin: 0 100%;
+  -o-transform-origin: 0 100%;
+
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+}
+
+.left .slide-out-label.rotate {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+
+.slide-out-label {
+  white-space: nowrap;
+  display: flex;
+  padding: 4px;
+}
+
+.right .slide-out-label {
+  flex-direction: row-reverse;
+}
+
+.slide-out-toggle-container:hover .count-label {
+  border: 1px solid gray;
+}
+
+.count-label {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+
+  width: 100%;
+  min-width: 1.4em;
+  height: 1.5em;
+  text-align: center;
+  margin: 2px;
+}
+
+.spacer {
+  width: 8px;
+  height: 2em;
+  border-right: 1px dashed gray;
+}
+
+.dropdown-pane {
+  .slideout-list {
+    max-height: 200px;
+    overflow: auto;
+    min-width: 10em;
+  }
+}
+
+@media(min-width: 576px) {
+  .slide-out-content-container {
+    max-width: 500px;
+  }
+}
+
+.warning-message {
+  position: fixed;
+  top: calc(100% - 50px);
+  left: 50px;
+}

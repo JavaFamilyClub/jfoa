@@ -1,0 +1,59 @@
+.angboot-icon-size {
+   @extend .base-title-bar-icon-size;
+   min-width: $title-bar-height;
+   margin-right: 5px;
+}
+
+.title-bar-container {
+   height: $title-bar-height;
+   width: 100%;
+   background-color: $bg-title-bar-container;
+}
+
+.base-title-bar-icon-size {
+   font-size: 24px;
+   text-align: center;
+   vertical-align: middle;
+   height: $title-bar-height;
+}
+
+.tile-bar-icon-size {
+   @extend .base-title-bar-icon-size;
+   min-width: 42px;
+}
+
+.title-bar-align-right {
+   margin-left: auto;
+}
+
+// margin
+.lmargin-15 {
+   margin-left: 15px !important;
+}
+
+// select
+.btn-icon-selected {
+   i {
+      color: $primary;
+   }
+}
+
+// header
+.title-bar-header {
+   .btn:focus,.btn:active {
+      box-shadow: none !important;
+   }
+
+   .btn-default:active {
+      background-color: unset;
+      color: unset;
+      &:disabled {
+         background-color: unset;
+         color: unset;
+      }
+      &:hover {
+         background-color: unset;
+         color: unset;
+      }
+   }
+}

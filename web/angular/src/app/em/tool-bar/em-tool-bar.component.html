@@ -1,0 +1,10 @@
+<mat-toolbar class="em-tool-bar-container mat-toolbar mat-toolbar-single-row">
+  <button type="button" class="btn btn-default em-tool-bar-toggle-btn"
+          (click)="toggle()">
+    <i class="txt-dark tile-bar-icon-size"
+       [class.icon-menu-off]="isToggle"
+       [class.icon-menu-on]="!isToggle"></i>
+    <span class="sr-only">Home</span>
+  </button>
+  {{tabDesc}}
+</mat-toolbar>

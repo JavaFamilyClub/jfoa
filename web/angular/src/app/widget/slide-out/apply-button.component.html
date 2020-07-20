@@ -1,0 +1,14 @@
+<div class="input-group">
+  <div class="input-group-prepend">
+    <button type="button" class="btn btn-default" [disabled]="disabled"
+            (click)="onApply.emit(false)">
+      _#(Apply)
+    </button>
+  </div>
+  <div class="input-group-append">
+    <button type="button" class="btn btn-default" [disabled]="disabled"
+            (click)="onApply.emit(true)" title="_#(Apply and Collapse)">
+      <i class="chevron-circle-arrow-left-icon btn-icon-color" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>

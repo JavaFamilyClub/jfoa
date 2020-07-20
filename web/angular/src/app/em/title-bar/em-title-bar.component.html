@@ -1,0 +1,53 @@
+<div class="title-bar-container btn-toolbar title-bar-header">
+
+  <div role="group" aria-label="Angboot Btn">
+    <div class="angboot-icon-size">
+      <img class="angboot-icon-size txt-light" src="favicon.ico"/>
+      <span class="sr-only">Angboot</span>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group" aria-label="EM Title Bar Left Buttons">
+    <a href="..">
+      <button type="button" class="btn btn-default tile-bar-icon-size title-bar-btn bg-primary">
+        <i class="icon-home"></i>
+        <span class="sr-only">Home</span>
+      </button>
+    </a>
+
+    <button type="button" class="lmargin-15 btn btn-default tile-bar-icon-size title-bar-btn"
+            (click)="changeTab(MONITOR_PAGE)"
+            [class.btn-icon-selected]="currentTab == MONITOR_PAGE">
+      <i class="icon-monitor"></i>
+      <span class="sr-only">Monitor</span>
+    </button>
+
+    <button type="button" class="btn btn-default tile-bar-icon-size title-bar-btn"
+            (click)="changeTab(SETTING_PAGE)"
+            [class.btn-icon-selected]="currentTab == SETTING_PAGE">
+      <i class="icon-setting"></i>
+      <span class="sr-only">Setting</span>
+    </button>
+  </div>
+
+  <div class="btn-group title-bar-align-right" role="group" aria-label="EM Home Btn Group">
+    <button type="button" class="btn btn-default tile-bar-icon-size title-bar-btn"
+      (click)="help()">
+      <i class="icon-help"></i>
+      <span class="sr-only">Help</span>
+    </button>
+
+    <div class="d-inline-block" ngbDropdown>
+      <button id="account-dropdown-toggle" type="button" ngbDropdownToggle
+              class="btn btn-default tile-bar-icon-size title-bar-btn">
+        <i class="icon-account"></i>
+        <span class="sr-only">Account</span>
+      </button>
+
+      <div ngbDropdownMenu aria-labelledby="account-dropdown-toggle">
+        <a ngbDropdownItem href="/logout">Log Out</a>
+      </div>
+    </div>
+  </div>
+
+</div>

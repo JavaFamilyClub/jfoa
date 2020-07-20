@@ -1,0 +1,40 @@
+<div class="title-bar-container btn-toolbar">
+
+  <div role="group" aria-label="Angboot Btn">
+    <div class="angboot-icon-size">
+      <img class="angboot-icon-size txt-light" src="favicon.ico"/>
+      <span class="sr-only">Angboot</span>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group" aria-label="Portal Tab Btn">
+    <a href="..">
+      <button type="button" class="btn btn-default tile-bar-icon-size bg-primary">
+        <i class="icon-home"></i>
+        <span class="sr-only">Home</span>
+      </button>
+    </a>
+  </div>
+
+  <div class="btn-group title-bar-align-right" role="group" aria-label="Portal Home Btn Group">
+    <button type="button" class="btn btn-default tile-bar-icon-size title-bar-btn"
+            (click)="help()">
+      <i class="icon-help"></i>
+      <span class="sr-only">Help</span>
+    </button>
+
+    <div class="d-inline-block" ngbDropdown>
+      <button id="account-dropdown-toggle" type="button" ngbDropdownToggle
+              class="btn btn-default tile-bar-icon-size title-bar-btn">
+        <i class="icon-account"></i>
+        <span class="sr-only">Account</span>
+      </button>
+
+      <div ngbDropdownMenu aria-labelledby="account-dropdown-toggle">
+        <a ngbDropdownItem href="/userlogin">Sign In</a>
+        <a ngbDropdownItem href="/logout">Sign Out</a>
+      </div>
+    </div>
+  </div>
+
+</div>

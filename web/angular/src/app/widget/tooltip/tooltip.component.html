@@ -1,0 +1,11 @@
+<ng-container *ngIf="contentIsTemplate(); else contentIsString">
+  <div class="compact-p">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </div>
+</ng-container>
+
+<ng-template #contentIsString>
+  <div class="compact-p">
+    <div [ngClass]="tooltipCSS" [innerHTML]="content"></div>
+  </div>
+</ng-template>

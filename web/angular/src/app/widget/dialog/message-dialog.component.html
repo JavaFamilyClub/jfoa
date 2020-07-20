@@ -1,0 +1,28 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+  <div class="container-fluid">
+    <div class="form-row">
+      <div class="col-auto" *ngIf="title == 'Trap'">
+        <img [src]='errorSource()'>
+      </div>
+      <div class="col">
+        <p class="text-info" [wExpandString]="expandValues">{{message}}</p>
+      </div>
+    </div>
+    <div class="form-row" *ngIf="showProgress">
+      <div class="col">
+        <ngb-progressbar type="info" [value]="100" [striped]="true" [animated]="true"
+                         height="1rem">
+        </ngb-progressbar>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button *ngFor="let option of options; let first = first" type="button" class="btn"
+          [class.btn-primary]="first"  [class.btn-default]="!first" #btn
+          [attr.autofocus]="first ? '' : null"
+          (click)="clickButton(option.symbol)">{{option.label}}</button>
+</div>

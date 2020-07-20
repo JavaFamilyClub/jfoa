@@ -1,0 +1,43 @@
+buildscript {
+   repositories {
+      jcenter()
+      mavenCentral()
+   }
+}
+
+allprojects {
+   group = 'club.javafamily'
+   version = '0.0.1-SNAPSHOT'
+
+   repositories {
+      jcenter()
+      mavenCentral()
+   }
+
+   buildscript {
+      ext {
+         springBootVersion = '2.3.1.RELEASE'
+         dubboVersion = '2.7.5'
+         dubboCuratorVersion = '2.13.0'
+         mybatisVersion = '2.0.1'
+         swaggerVersion = "2.9.2"
+         quartzVersion = '2.3.0'
+         druidVersion = '1.1.18'
+
+         // all projects variable
+         productionBuild = project.hasProperty('buildenv') && project.property('buildenv') == 'prod'
+      }
+   }
+
+   configurations {
+      api
+      tools
+      developmentOnly
+      compile.extendsFrom(api)
+      compileOnly.extendsFrom(tools, annotationProcessor)
+   }
+}
+
+wrapper {
+   gradleVersion = '6.4.1'
+}

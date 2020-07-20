@@ -1,0 +1,43 @@
+<div class="slide-out-wrapper h-100 d-flex {{side}}" *ngIf="visible">
+  <div class="slide-out-toggle-container bg-white3">
+    <div class="slide-out-toggle">
+      <div class="slide-out-label rotate align-middle cursor-pointer" (click)="toggle()">
+        <span class="pl-1 pr-1">{{title ? title : "_#(Dialog)"}}</span>
+        <i class="pl-1 pr-1"
+           [class.chevron-circle-arrow-up-icon]="open"
+           [class.chevron-circle-arrow-down-icon]="!open"></i>
+        <i class="pl-1 pr-1 close-icon cursor-pointer" (click)="dismissComponent(null)"></i>
+        <ng-container *ngIf="getCurrentSlideouts().length > 1">
+          <div class="spacer"></div>
+          <div class="count-label txt-primary" blockMouse
+               [fixedDropdown]="dropdownMenu" dropdownPlacement="bottom">
+            {{getCurrentSlideouts().length}}
+          </div>
+          <ng-template #dropdownMenu>
+            <div class="dropdown-pane p-1">
+              <button class="form-control" (click)="dismissAll()">_#(Close All)</button>
+              <div class="slideout-list mt-2">
+                <div *ngFor="let slideout of getCurrentSlideouts(); let i = index"
+                     class="dropdown-item"
+                     [class.selected]="isSlideoutOnTop(i)"
+                     (click)="showSlideout(i)">
+                  {{slideout.title}}
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="open" #contentContainer
+       class="slide-out-content-container bg-white1 {{windowClass}} {{sizeClass}}"
+       [style.width.px]="explicitWidth">
+    <div class="content-div">
+      <ng-content></ng-content>
+    </div>
+    <div class="v-resizer bg-white4" (mousedown)="startResize($event)"></div>
+  </div>
+</div>
+<notifications *ngIf="changedByOthers" class="warning-message" [timeout]="0"
+               message="_#(common.widget.slidOut.changedByOthers)"></notifications>

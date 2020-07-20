@@ -1,0 +1,6 @@
+index:
+  components:
+    includes:
+      - '**/*.component.ts'
+    excludes:
+      - 'app.component.ts'

@@ -1,0 +1,20 @@
+.input-group-prepend {
+  button {
+    border-right: 1px dashed;
+  }
+}
+
+.input-group-append {
+  button {
+    border-left: none;
+    padding-top: 3px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    i {
+      font-size: 16px;
+      color: inherit;
+    }
+  }
+}

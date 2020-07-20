@@ -1,0 +1,132 @@
+buildscript {
+   ext {
+      productionBuild = project.hasProperty('buildenv') && project.property('buildenv') == 'prod'
+   }
+
+   repositories {
+      jcenter()
+      mavenCentral()
+   }
+}
+
+plugins {
+   // The `moowork.gradle` plugin unSupport gradle 6+ now,
+   // so using `github.node-gradle` for install node and npm
+   // if the grunt and gulp is not required now.
+   // See: https://github.com/srs/gradle-node-plugin/pull/349
+   id "com.github.node-gradle.node" version "2.2.0"
+
+   id 'maven-publish'
+}
+
+node {
+   version = '10.17.0'
+   npmVersion = '6.11.3'
+   download = true
+   workDir = file("${buildDir}/tools/nodejs")
+}
+
+task generateIndexFiles(type: NpmTask, dependsOn: npmInstall) {
+   group 'build'
+   description 'Generate index files.'
+   args = ['run', 'generate-index-files']
+}
+
+task compileDevelopment(type: NpmTask, dependsOn: npmInstall) {
+   onlyIf { !productionBuild }
+   description = 'Compiles applications using development settings'
+   args = ['run', 'build']
+}
+
+task compileProduction(type: NpmTask, dependsOn: npmInstall) {
+   onlyIf { productionBuild }
+   group 'build'
+   description = 'Compiles the applications using production settings'
+   args = ['run', 'build:prod']
+}
+
+task compile(dependsOn: npmInstall) {
+   group 'build'
+   description 'Compile angular'
+   dependsOn compileDevelopment, compileProduction
+}
+
+task lint(type: NpmTask, dependsOn: npmInstall) {
+   group 'verification'
+   description = 'Runs the linter on the TypeScript source code'
+   args = ['run', 'lint']
+}
+
+task test(type: NpmTask, dependsOn: lint) {
+   group 'verification'
+   description = "Runs the tests, including linting"
+   args = ['run', 'test']
+}
+
+task build(dependsOn: [compile, test]) {
+   group 'build'
+   description = 'Build web'
+}
+
+task webCodeTestReport(type: NpmTask) {
+   group 'verification'
+   description = "Runs the report-coverage after test."
+   args = ['run', 'report-coverage']
+}
+
+task cleanChunk(type: Delete) {
+   group 'build'
+   delete = ['../server/build/resources/main/static/app', 'dist', 'build']
+}
+
+task clean(dependsOn: [cleanChunk]) {
+   group 'build'
+}
+
+task cleanAll(type: Delete, dependsOn: [clean]) {
+   group 'build'
+   delete = ['node_modules', '.gradle']
+}
+
+task watch(type: NpmTask, dependsOn: npmInstall) {
+   group 'build'
+   description 'watch angular compile'
+
+   args = ['run', 'build:watch']
+}
+
+task jar(type: Jar, dependsOn: compile) {
+   group 'build'
+   description = 'Assembles the JAR file containing the compiled resources'
+   archiveFileName = "jfoa-web-${project.version}.jar"
+   destinationDirectory = file("${buildDir}/libs")
+
+   from('dist/prod') {
+      include '**/*'
+   }
+}
+
+publishing {
+   publications {
+      maven(MavenPublication) {
+         artifactId = 'jfoa-web'
+
+         afterEvaluate {
+            artifact jar
+         }
+      }
+   }
+
+   repositories {
+      maven {
+         credentials {
+            username 'admin'
+            password 'dreamLi0416!@#'
+         }
+
+         def snapshotsUrl = 'http://javafamily.club:8081/repository/maven-snapshots/'
+         def releasesUrl = 'http://javafamily.club:8081/repository/maven-releases/'
+         url = project.version.endsWith('-SNAPSHOT') ? snapshotsUrl : releasesUrl
+      }
+   }
+}

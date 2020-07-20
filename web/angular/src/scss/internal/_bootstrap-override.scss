@@ -1,0 +1,22 @@
+.navbar {
+  padding: 0px;
+}
+
+// 去除 dropdown 的 caret 下拉图标
+.dropdown-toggle:after{
+  display:none;
+}
+
+.btn {
+  // clear padding
+  padding: 0px;
+  // clear color
+  color: #ffffff;
+  // clear radius
+  border-radius: 0px;
+}
+
+.btn:hover, .btn:focus {
+  // clear display border after click btn.
+  box-shadow: none;
+}

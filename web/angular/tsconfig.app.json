@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc",
+    "baseUrl": "",
+    "types": [
+      "node",
+      "geojson"
+    ]
+  },
+  "exclude": [
+    "src/app/common/test/**/*.ts",
+    "**/*.spec.ts"
+  ],
+  "angularCompilerOptions": {
+    "preserveWhitespaces": "off"
+  }
+}

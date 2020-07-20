@@ -1,0 +1,22 @@
+.split-pane-container.horizontal {
+    height: 100%;
+}
+
+.split-pane-container.vertical {
+  width: 100%;
+  height: 100%;
+}
+
+.gutter {
+  background: #eee no-repeat 50%;
+}
+
+.gutter.gutter-horizontal {
+  height: 100%;
+  float: left;
+  cursor: col-resize;
+}
+
+.gutter.gutter-vertical {
+  cursor: row-resize;
+}

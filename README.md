@@ -1,2 +1,1 @@
-# jfoa
-JavaFamily OA Project
+# JavaFamily OA Project
