@@ -10,13 +10,17 @@ allprojects {
    version = '0.0.1-SNAPSHOT'
 
    repositories {
+      maven {
+         url 'http://maven.aliyun.com/nexus/content/groups/public'
+      }
+
       jcenter()
       mavenCentral()
    }
 
    buildscript {
       ext {
-         springBootVersion = '2.3.1.RELEASE'
+         springBootVersion = '2.1.6.RELEASE'
          dubboVersion = '2.7.5'
          dubboCuratorVersion = '2.13.0'
          mybatisVersion = '2.0.1'
@@ -39,5 +43,5 @@ allprojects {
 }
 
 wrapper {
-   gradleVersion = '6.4.1'
+   gradleVersion = '6.2.2'
 }
