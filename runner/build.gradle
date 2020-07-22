@@ -1,5 +1,3 @@
-import org.apache.tools.ant.filters.ReplaceTokens
-
 buildscript {
    repositories {
       maven {
@@ -84,27 +82,15 @@ processResources {
       !file("$buildDir/resources/main/application.yml").exists()
    }
 
-   filesMatching('application.yml') {
-      String replacement = rootProject.project("${webModule}").projectDir.getCanonicalPath().replace('\\', '/')
-      replacement += '/dist'
-      filter ReplaceTokens, tokens: ['WEB_DIST_DIR': replacement]
-   }
-}
-
-processTestResources {
-   onlyIf {
-      !file("$buildDir/resources/test/application.yml").exists()
-   }
-
-   filesMatching('application.yml') {
-      String replacement = rootProject.project("${webModule}").projectDir.getCanonicalPath().replace('\\', '/')
-      replacement += '/dist'
-      filter ReplaceTokens, tokens: ['WEB_DIST_DIR': replacement]
-   }
+//   filesMatching('application.yml') {
+//      String replacement = rootProject.project("${webModule}").projectDir.getCanonicalPath().replace('\\', '/')
+//      replacement += '/dist'
+//      filter ReplaceTokens, tokens: ['WEB_DIST_DIR': replacement]
+//   }
 }
 
 tasks.bootJar.configure {
-   archivesBaseName = "javafamily-oa";
+   archivesBaseName = "javafamily-oa"
 }
 
 tasks.bootJar.dependsOn(tasks.findByPath(":${webModule}:build"))

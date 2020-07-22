@@ -1,3 +1,0 @@
-jfoa:
-   web:
-      dist: @WEB_DIST_DIR@
