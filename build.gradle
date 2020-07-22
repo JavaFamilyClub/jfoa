@@ -20,6 +20,7 @@ allprojects {
 
    buildscript {
       ext {
+         // all projects variable
          springBootVersion = '2.1.6.RELEASE'
          dubboVersion = '2.7.5'
          dubboCuratorVersion = '2.13.0'
@@ -27,8 +28,11 @@ allprojects {
          swaggerVersion = "2.9.2"
          quartzVersion = '2.3.0'
          druidVersion = '1.1.18'
+         jupiterVersion = '5.6.2'
+         poiVersion = "4.1.2"
+         shiroVersion = "1.5.3"
 
-         // all projects variable
+         webModule = project.hasProperty('webModule') ? project.property('webModule') : 'web:angular'
          productionBuild = project.hasProperty('buildenv') && project.property('buildenv') == 'prod'
       }
    }

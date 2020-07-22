@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 buildscript {
    repositories {
       maven {
@@ -47,11 +49,62 @@ dependencies {
    implementation 'org.springframework.boot:spring-boot-devtools'
    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
+   // test
    testImplementation('org.springframework.boot:spring-boot-starter-test') {
       exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
    }
+
+   testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}") {
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+   testImplementation("org.junit.jupiter:junit-jupiter-params:${jupiterVersion}") {
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+
+   testImplementation("org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}") {
+      exclude group: 'org.junit.platform', module: 'junit-platform-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+   testImplementation "org.junit.platform:junit-platform-engine:1.6.2"
+   testImplementation "org.junit.platform:junit-platform-commons:1.6.2"
 }
 
 test {
    useJUnitPlatform()
+
+   testLogging {
+      events "passed", "skipped", "failed"
+   }
 }
+
+processResources {
+   onlyIf {
+      !file("$buildDir/resources/main/application.yml").exists()
+   }
+
+   filesMatching('application.yml') {
+      String replacement = rootProject.project("${webModule}").projectDir.getCanonicalPath().replace('\\', '/')
+      replacement += '/dist'
+      filter ReplaceTokens, tokens: ['WEB_DIST_DIR': replacement]
+   }
+}
+
+processTestResources {
+   onlyIf {
+      !file("$buildDir/resources/test/application.yml").exists()
+   }
+
+   filesMatching('application.yml') {
+      String replacement = rootProject.project("${webModule}").projectDir.getCanonicalPath().replace('\\', '/')
+      replacement += '/dist'
+      filter ReplaceTokens, tokens: ['WEB_DIST_DIR': replacement]
+   }
+}
+
+tasks.bootJar.configure {
+   archivesBaseName = "javafamily-oa";
+}
+
+tasks.bootJar.dependsOn(tasks.findByPath(":${webModule}:build"))

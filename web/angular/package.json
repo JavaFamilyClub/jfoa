@@ -1,6 +1,6 @@
 {
-  "name": "angboot-web",
-  "version": "0.2.2",
+  "name": "jfoa-web",
+  "version": "0.0.1",
   "scripts": {
     "ng": "node --max-old-space-size=4096 ./node_modules/@angular/cli/bin/ng",
     "start": "npm run ng -- serve",
