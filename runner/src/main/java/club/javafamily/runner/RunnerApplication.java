@@ -1,13 +1,13 @@
-package club.javafamily.jfoa;
+package club.javafamily.runner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JfoaApplication {
+public class RunnerApplication {
 
    public static void main(String[] args) {
-      SpringApplication.run(JfoaApplication.class, args);
+      SpringApplication.run(RunnerApplication.class, args);
    }
 
 }
