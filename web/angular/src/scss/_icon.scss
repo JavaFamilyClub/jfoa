@@ -1,17 +1,17 @@
-%angboot-base {
-   @extend .#{$angboot-css-prefix};
+%jfoa-base {
+   @extend .#{$jfoa-css-prefix};
 }
 
-$angboot-map: map-merge($angboot-base-map, (
+$jfoa-map: map-merge($jfoa-base-map, (
 ));
 
 @function unicode($str) {
    @return unquote("\"") + $str + unquote("\"");
 }
 
-@each $icon-name, $icon-code in $angboot-map {
+@each $icon-name, $icon-code in $jfoa-map {
    .#{$icon-name} {
-      @extend %angboot-base;
+      @extend %jfoa-base;
    }
    .#{$icon-name}::before {
       content: unicode($icon-code);
