@@ -13,8 +13,8 @@
     "lint": "tsc -p rules/tsconfig.json && npm run ng -- lint",
     "e2e": "npm run ng -- e2e --serve false",
     "generate-index-files": "node ./generate-index-files.js",
-    "test": "JEST_JUNIT_OUTPUT=./build/test-results/junit.xml npm run ng -- test angboot-web --ci --runInBand --reporters=default --reporters=jest-junit",
-    "test:watch": "JEST_JUNIT_OUTPUT=./build/test-results/junit.xml npm run ng -- test angboot-web --ci --runInBand --reporters=default --reporters=jest-junit --watch",
+    "test": "JEST_JUNIT_OUTPUT=./build/test-results/junit.xml npm run ng -- test jfoa-web --ci --runInBand --reporters=default --reporters=jest-junit",
+    "test:watch": "JEST_JUNIT_OUTPUT=./build/test-results/junit.xml npm run ng -- test jfoa-web --ci --runInBand --reporters=default --reporters=jest-junit --watch",
     "report-coverage": "codecov --token=1eb18219-afec-47c9-8f90-1210b4ec4d07"
   },
   "private": true,

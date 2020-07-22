@@ -15,7 +15,7 @@
     "eofline": false,
     "file-header": [
       true,
-      "Copyright ?\\(c\\) \\d{4}(-\\d{4})?, AngBoot Technology Corp, All Rights Reserved\\."
+      "Copyright ?\\(c\\) \\d{4}(-\\d{4})?, JavaFamily Technology Corp, All Rights Reserved\\."
     ],
     "forin": true,
     "import-blacklist": [true, "rxjs/Rx"],
