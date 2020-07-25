@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../out-tsc",
     "baseUrl": "",
@@ -8,11 +8,14 @@
       "geojson"
     ]
   },
-  "exclude": [
-    "src/app/common/test/**/*.ts",
-    "**/*.spec.ts"
-  ],
   "angularCompilerOptions": {
     "preserveWhitespaces": "off"
-  }
+  },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
 }
