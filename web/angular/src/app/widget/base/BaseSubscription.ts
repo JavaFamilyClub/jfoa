@@ -15,6 +15,7 @@
 import { OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 
+// TODO: Add Angular decorator.
 export class BaseSubscription implements OnDestroy {
    protected subscriptions = new Subscription();
 

@@ -33,7 +33,7 @@ export class SlideOutComponent {
    @Output() dismiss: EventEmitter<any> = new EventEmitter<any>();
    public visible: boolean = true;
    open: boolean = true;
-   @ViewChild("contentContainer", { static: false }) contentContainer: ElementRef;
+   @ViewChild("contentContainer") contentContainer: ElementRef;
    private resizeListener: () => void;
    private resizeEndListener: () => void;
    explicitWidth: number = null;
