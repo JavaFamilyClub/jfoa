@@ -31,7 +31,7 @@ const appRoutes: Routes = [
          },
          {
             path: "setting",
-            loadChildren: () => import('./setting/em-setting.module').then(m => m.EmSettingModule)
+            loadChildren: () => import("./setting/em-setting.module").then(m => m.EmSettingModule)
          },
          {
             path: "**",

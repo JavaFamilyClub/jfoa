@@ -26,6 +26,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Rule = void 0;
 var Lint = require("tslint");
 var Rule = /** @class */ (function (_super) {
     __extends(Rule, _super);

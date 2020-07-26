@@ -1,14 +1,14 @@
 @import "variables";
 
-$jfoa-font-path: "assets/icons/fonts" !default;
+$jfoa-font-path: "fonts" !default;
 
 @font-face {
    font-family: 'jfoa';
-   src:  url('#{$jfoa-font-path}/jfoa.eot?8uxeg8');
-   src:  url('#{$jfoa-font-path}/jfoa.eot?8uxeg8#iefix') format('embedded-opentype'),
-     url('#{$jfoa-font-path}/jfoa.ttf?8uxeg8') format('truetype'),
-     url('#{$jfoa-font-path}/jfoa.woff?8uxeg8') format('woff'),
-     url('#{$jfoa-font-path}/jfoa.svg?8uxeg8#jfoa') format('svg');
+   src: url('#{$jfoa-font-path}/jfoa.eot?8uxeg8');
+   src: url('#{$jfoa-font-path}/jfoa.eot?8uxeg8#iefix') format('embedded-opentype'),
+      url('#{$jfoa-font-path}/jfoa.ttf?8uxeg8') format('truetype'),
+      url('#{$jfoa-font-path}/jfoa.woff?8uxeg8') format('woff'),
+      url('#{$jfoa-font-path}/jfoa.svg?8uxeg8#jfoa') format('svg');
    font-weight: normal;
    font-style: normal;
 }

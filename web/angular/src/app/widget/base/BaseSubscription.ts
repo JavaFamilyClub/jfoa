@@ -12,12 +12,16 @@
  * person.
  */
 
-import { OnDestroy } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 
-// TODO: Add Angular decorator.
+@Injectable()
 export class BaseSubscription implements OnDestroy {
-   protected subscriptions = new Subscription();
+   protected subscriptions: Subscription;
+
+   constructor() {
+      this.subscriptions = new Subscription();
+   }
 
    ngOnDestroy(): void {
       if(!!this.subscriptions) {

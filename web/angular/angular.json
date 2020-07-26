@@ -20,12 +20,20 @@
             "showCircularDependencies": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/icons/fonts"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss"
+            ],
+            "allowedCommonJsDependencies": [
+              "rxjs",
+              "jquery",
+              "lodash",
+              "util",
+              "echarts"
             ],
             "scripts": []
           },
