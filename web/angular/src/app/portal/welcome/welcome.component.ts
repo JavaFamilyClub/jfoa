@@ -40,9 +40,11 @@ export class WelcomeComponent implements OnInit {
       };
 
       // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(this.chartRegion.nativeElement);
+      if(!!this.chartRegion) {
+         let myChart = echarts.init(this.chartRegion.nativeElement);
 
-      myChart.setOption(mockDataOption);
+         myChart.setOption(mockDataOption);
+      }
    }
 
 }

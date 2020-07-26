@@ -16,12 +16,12 @@ import { Component } from "@angular/core";
 import { GuiTool } from "../../common/util/gui-tool";
 
 @Component({
-   selector: "portal-title-bar",
-   templateUrl: "portal-title-bar.component.html",
-   styleUrls: ["portal-title-bar.component.scss"]
+   selector: "portal-tool-bar",
+   templateUrl: "portal-tool-bar.component.html",
+   styleUrls: ["portal-tool-bar.component.scss"]
 })
-export class PortalTitleBarComponent {
+export class PortalToolBarComponent {
    help(): void {
-      GuiTool.openBrowserTab("https://dreamli1314.github.io/angboot/");
+      GuiTool.openBrowserTab("https://javafamilyclub.github.io/jfoa");
    }
 }

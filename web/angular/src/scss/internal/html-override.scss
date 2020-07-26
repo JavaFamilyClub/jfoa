@@ -8,3 +8,7 @@ body {
    margin: 0px;
    font-family: Roboto, "Helvetica Neue", sans-serif; /* Angular material */
 }
+
+button:focus {
+   outline: none !important; // fix mat-button style after mouse down
+}

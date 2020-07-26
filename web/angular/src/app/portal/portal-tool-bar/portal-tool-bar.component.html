@@ -1,0 +1,39 @@
+<mat-toolbar>
+  <div role="group" aria-label="JavaFamily Btn">
+    <div class="jfoa-icon-size">
+      <img class="jfoa-icon-size txt-light" src="../jfoa-icon.ico"/>
+      <span class="sr-only">JavaFamily</span>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group" aria-label="Portal Tab Btn">
+    <a mat-button mat-icon-button aria-label="Home" title="Home"
+            class="tile-bar-icon-size bg-primary" href="..">
+      <mat-icon class="jfoa" fontIcon="icon-home"></mat-icon>
+    </a>
+  </div>
+
+  <div class="btn-group title-bar-align-right" role="group" aria-label="Portal Manager Btn Group">
+    <button mat-button mat-icon-button aria-label="Help" title="Help"
+            class="tile-bar-icon-size"
+            (click)="help()">
+      <mat-icon class="jfoa" fontIcon="icon-help"></mat-icon>
+    </button>
+
+    <div class="d-inline-block">
+      <button mat-icon-button [matMenuTriggerFor]="accountMatMenu"
+              aria-label="Account" title="Account"
+              class="tile-bar-icon-size title-bar-btn">
+        <mat-icon class="jfoa" fontIcon="icon-account"></mat-icon>
+      </button>
+
+      <mat-menu #accountMatMenu="matMenu">
+        <ng-template matMenuContent>
+          <button mat-menu-item>Sign In</button>
+          <button mat-menu-item>Sign Up</button>
+          <button mat-menu-item>Sign Out</button>
+        </ng-template>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
