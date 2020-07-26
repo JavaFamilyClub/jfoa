@@ -22,8 +22,9 @@ allprojects {
       ext {
          // all projects variable
          springBootVersion = '2.1.6.RELEASE'
-         dubboVersion = '2.7.5'
          dubboCuratorVersion = '2.13.0'
+         mysqlVersion = '8.0.20'
+         dubboVersion = '2.7.5'
          mybatisVersion = '2.0.1'
          swaggerVersion = "2.9.2"
          quartzVersion = '2.3.0'

@@ -7,9 +7,6 @@ buildscript {
       jcenter()
       mavenCentral()
    }
-
-   ext {
-   }
 }
 
 plugins {
@@ -38,14 +35,33 @@ repositories {
 }
 
 dependencies {
+   // Spring
    implementation 'org.springframework.boot:spring-boot-starter-web'
    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-   runtimeOnly 'com.h2database:h2'
+   // Cache
+   implementation 'org.springframework.boot:spring-boot-starter-cache'
+   implementation 'net.sf.ehcache:ehcache'
+
+   // datasource
+   runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
+   runtimeOnly 'com.h2database:h2' // for test and develop mode
    implementation "com.alibaba:druid:${druidVersion}"
 
+   // security
+   implementation("org.apache.shiro:shiro-ehcache:${shiroVersion}") {
+      exclude(group: 'net.sf.ehcache')
+   }
+   implementation "org.apache.shiro:shiro-spring:${shiroVersion}"
+
+   // tools
    implementation 'org.springframework.boot:spring-boot-devtools'
    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+   // springfox swagger
+   implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
+   implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
 
    // test
    testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -82,11 +98,39 @@ processResources {
       !file("$buildDir/resources/main/application.yml").exists()
    }
 
+//   exclude {
+//      "*.sql"
+//   }
+
 //   filesMatching('application.yml') {
 //      String replacement = rootProject.project("${webModule}").projectDir.getCanonicalPath().replace('\\', '/')
 //      replacement += '/dist'
 //      filter ReplaceTokens, tokens: ['WEB_DIST_DIR': replacement]
 //   }
+}
+
+task cleanAll(type: Delete, dependsOn: [clean]) {
+   group 'build'
+   delete = ['out']
+}
+
+task server() {
+   group 'application'
+   description 'run the application'
+
+   doLast {
+      javaexec {
+         classpath sourceSets.main.runtimeClasspath
+         def envMode = productionBuild ? 'prod' : 'dev'
+
+         main = 'club.javafamily.runner.RunnerApplication'
+         jvmArgs = [
+            "-Dspring.profiles.active=${envMode}",
+            '-Djava.rmi.server.hostname=127.0.0.1',
+            '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005']
+         args = ['--stop-port', '8082', '--stop-key', 'stop']
+      }
+   }
 }
 
 tasks.bootJar.configure {
