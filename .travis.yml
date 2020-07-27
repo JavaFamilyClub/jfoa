@@ -1,0 +1,42 @@
+language: java
+sudo: false
+
+jdk:
+   - openjdk8
+#   - oraclejdk8 # CI can't download oracle jdk8
+
+# cache
+cache: false
+
+# install
+before_install:
+# For permission denied in travis-ci
+   - chmod +x gradlew
+
+services:
+# For karma test to start browser.
+   - xvfb
+
+install: skip
+
+# build
+script:
+   - ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
+#   - ./gradlew jacocoTestReport
+#   - ./gradlew codeCoverageReport
+
+# notifications
+notifications:
+   email:
+      recipients:
+         - javafamily.club@outlook.com
+      on_success: change
+      on_failure: always
+      on_cancel: never
+      on_error: never
+      on_start: never
+
+after_success:
+#   - bash <(curl -s https://codecov.io/bash)
+#   - ./gradlew webCodeTestReport
+   - ./gradlew cleanAll
