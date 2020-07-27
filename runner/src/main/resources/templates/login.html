@@ -13,12 +13,12 @@
     <form action="/api/1.0/login" method="post">
       <div class="card">
         <div class="card-header">
-          请登录
+          Sign In
         </div>
         <div class="card-body">
 
           <div id="userNameGroup" class="form-group">
-            <label class="required-field" for="userName">用户名</label>
+            <label class="required-field" for="userName">Account</label>
             <input type="text" class="form-control form-control-danger" id="userName"
                    name="userName" autofocus
                    th:value="${result != null ? result.data : ''}"/>
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div id="passwordGroup" class="form-group">
-            <label class="required-field" for="password">密码</label>
+            <label class="required-field" for="password">Password</label>
             <input type="password" class="form-control form-control-danger" id="password" name="password" />
             <div id="passwordError" class="form-control-feedback" style="display: none;">
               Please enter your password.
@@ -35,7 +35,7 @@
           </div>
           <div id="rememberMeGroup" class="form-group">
             <input type="checkbox" id="rememberMe" name="rememberMe" />
-            <span class="required-field" for="rememberMe">记住我</span>
+            <span class="required-field" for="rememberMe">Remember Me</span>
           </div>
 
           <div th:if="${result ne null}"  class="alert-error-message">
@@ -44,7 +44,7 @@
         </div>
         <div class="card-footer">
           <button type="submit" id="loginButton" class="btn btn-primary btn-block">
-            登录
+            Sign In
           </button>
         </div>
       </div>

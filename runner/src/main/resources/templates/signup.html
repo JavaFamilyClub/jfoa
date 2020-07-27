@@ -1,0 +1,58 @@
+<!--
+  ~ Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+  ~
+  ~ The software and information contained herein are copyrighted and
+  ~ proprietary to AngBoot Technology Corp. This software is furnished
+  ~ pursuant to a written license agreement and may be used, copied,
+  ~ transmitted, and stored only in accordance with the terms of such
+  ~ license and with the inclusion of the above copyright notice. Please
+  ~ refer to the file "COPYRIGHT" for further copyright and licensing
+  ~ information. This software and information or any other copies
+  ~ thereof may not be provided or otherwise made available to any other
+  ~ person.
+  -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaFamily OA Sign Up</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/login.css" />
+  <link rel="icon" type="image/x-icon" href="jfoa-favicon.ico">
+</head>
+
+<body>
+<div class="container-fluid login-root">
+  <form action="#" th:action="@{/api/1.0/signup}" th:object="${customer}"  method="post">
+    <div class="card">
+      <div class="card-header">
+        Sign Up
+      </div>
+      <div class="card-body">
+
+        <div id="emialGroup" class="form-group">
+          <label class="required-field" for="email">Email</label>
+          <input type="text" class="form-control form-control-danger" id="email"
+                 name="email" th:field="*{email}" autofocus
+                 th:value="${result != null ? result.data : ''}"/>
+          <div id="emialError" class="form-control-feedback" style="display: none;">
+            Please enter your user email.
+          </div>
+        </div>
+
+        <div th:if="${result ne null}"  class="alert-error-message">
+          <label th:text="${result.message }"></label>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" id="loginButton" class="btn btn-primary btn-block">
+          Sign Up
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+
+</html>

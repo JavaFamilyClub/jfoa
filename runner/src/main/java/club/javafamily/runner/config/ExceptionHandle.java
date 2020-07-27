@@ -1,5 +1,6 @@
 package club.javafamily.runner.config;
 
+import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.common.ResponseResult;
 import club.javafamily.runner.enums.ExceptionEnum;
 import org.apache.shiro.authc.*;
@@ -51,6 +52,13 @@ public class ExceptionHandle {
       model.addAttribute("result", result);
 
       return "login";
+   }
+
+   @ExceptionHandler(MessageException.class)
+   public String messageException(MessageException exception, Model model) {
+      model.addAttribute("message", exception.getMessage());
+
+      return "error/exception";
    }
 
    @ExceptionHandler(Exception.class)

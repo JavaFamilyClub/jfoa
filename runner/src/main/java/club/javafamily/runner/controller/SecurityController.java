@@ -1,14 +1,23 @@
 package club.javafamily.runner.controller;
 
+import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.service.CustomerService;
+import club.javafamily.runner.vo.CustomerVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -17,11 +26,6 @@ public class SecurityController {
   @Autowired
   public SecurityController(CustomerService customerService) {
     this.customerService = customerService;
-  }
-
-  @GetMapping("/login")
-  public String gotoLoginPage() {
-    return "login";
   }
 
   @PostMapping("/api/1.0/login")
@@ -45,10 +49,53 @@ public class SecurityController {
       }
     }
 
-    // 登录成功跳转到 / 页面
+    // redirect index page when login success.
     return "redirect:/";
   }
 
+  @GetMapping("signup")
+  public String gotoSignupPage(ModelMap map) {
+    CustomerVO customerVO = new CustomerVO();
+
+    map.put("customer", customerVO);
+
+    return "signup";
+  }
+
+  @PostMapping("/api/1.0/signup")
+  public String signup(@Valid @ModelAttribute CustomerVO customer,
+                       BindingResult bindingResult,
+                       HttpServletRequest request)
+  {
+    List<ObjectError> allErrors = bindingResult.getAllErrors();
+    StringBuilder sb = new StringBuilder();
+
+    for(int i = 0; i < allErrors.size(); i++) {
+      ObjectError error = allErrors.get(i);
+
+      if(error instanceof FieldError) {
+        sb.append(((FieldError) error).getField())
+           .append(": ")
+           .append(error.getDefaultMessage());
+      }
+      else {
+        sb.append(error.getDefaultMessage());
+      }
+
+      if(i < allErrors.size() - 1) {
+        sb.append("\n");
+      }
+    }
+
+    if(StringUtils.hasText(sb)) {
+      throw new MessageException(sb.toString());
+    }
+
+    // goto login after sign up.
+    return "login";
+  }
+
+  @RequiresAuthentication
   @GetMapping("/api/1.0/principal")
   @ResponseBody
   public String getCurrentUser() {

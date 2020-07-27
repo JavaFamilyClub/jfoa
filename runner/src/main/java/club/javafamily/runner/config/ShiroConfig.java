@@ -75,7 +75,9 @@ public class ShiroConfig {
       // 配置可以匿名访问的地址，可以根据实际情况自己添加，放行一些静态资源等，anon 表示放行
       filterChainMap.put("/app/**", "anon"); // web
       filterChainMap.put("/css/**", "anon");
-      filterChainMap.put("**/*.ico", "anon");
+      filterChainMap.put("/", "anon");
+      filterChainMap.put("/index.html", "anon");
+      filterChainMap.put("/**/*.ico", "anon");
       filterChainMap.put("/imgs/**", "anon");
       filterChainMap.put("/js/**", "anon");
       filterChainMap.put("/assets/**", "anon");
@@ -84,6 +86,10 @@ public class ShiroConfig {
       // login
       filterChainMap.put("/login", "anon");
       filterChainMap.put("/api/1.0/login", "anon");
+
+      // sign up
+      filterChainMap.put("/signup", "anon");
+      filterChainMap.put("/api/1.0/signup", "anon");
 
       // error page
       filterChainMap.put("/error/**", "anon");

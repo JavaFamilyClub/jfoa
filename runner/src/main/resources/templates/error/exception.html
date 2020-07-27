@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Server Error</title>
+  <link rel="stylesheet" type="text/css" href="/css/login.css" />
 </head>
 <body>
-  服务器出错, 请稍后再试.
+  <div th:if="${message ne null}"  class="alert-error-message">
+    Server error: <label th:text="${message }"></label>
+  </div>
+  <div th:if="${message eq null}">
+    Server error, please try again later.
+  </div>
 </body>
 </html>
