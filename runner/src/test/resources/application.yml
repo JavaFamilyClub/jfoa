@@ -1,0 +1,116 @@
+
+spring:
+   # Mail Config
+   mail:
+      # 邮件服务地址
+      host: smtp.office365.com
+      # 端口,可不写默认
+      port: 587
+      # 编码格式
+      default-encoding: utf-8
+      # 用户名
+      username: javafamily.no-reply@outlook.com
+      # 授权码，就是我们刚才准备工作获取的代码
+      password: dreamLi0812!@#
+      # 其它参数
+      properties:
+         mail:
+            smtp:
+               starttls:
+                  enable: true
+               # 如果是用 SSL 方式，需要配置如下属性,使用qq邮箱的话需要开启
+               ssl:
+                  enable: false
+                  required: false
+               # 邮件接收时间的限制，单位毫秒
+               timeout: 80000
+               # 连接时间的限制，单位毫秒
+               connectiontimeout: 80000
+               # 邮件发送时间的限制，单位毫秒
+               writetimeout: 80000
+
+   # Cache Config
+   cache:
+      ehcache:
+         config: classpath:ehcache.xml
+      type: ehcache
+
+   # Test Env
+   profiles:
+      active: test
+
+ds:
+   # Hibernate config
+   hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      formatSql: true
+      show-sql: true
+   # Datasource
+   druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      filters: stat,slf4j
+      maxPoolPreparedStatementPerConnectionSize: 20
+      useGlobalDataSourceStat: true
+      connectionProperties: druid.stat.mergeSql
+
+---
+
+spring:
+   profiles: prod
+server:
+   port: 80
+
+ds:
+   hibernate:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      show-sql: false
+   druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://123.56.42.60:3306/db_jfoa?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: 123456
+
+---
+
+spring:
+   profiles: dev
+
+server:
+   port: 8080
+
+ds:
+   hibernate:
+      dialect: org.hibernate.dialect.H2Dialect
+   druid:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:./build/resources/main/jfoadb/jfoa_db
+      username: jfoa
+      password: jfoa
+
+---
+
+spring:
+   profiles: test
+
+server:
+   port: 10001
+
+ds:
+   hibernate:
+      dialect: org.hibernate.dialect.H2Dialect
+   druid:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:./build/resources/test/jfoadb/jfoa_db
+      username: jfoa
+      password: jfoa

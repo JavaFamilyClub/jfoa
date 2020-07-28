@@ -17,10 +17,14 @@ import java.util.Map;
 @Service
 public class EmailService {
 
-   @Autowired
-   private JavaMailSender mailSender;
+   private final JavaMailSender mailSender;
 
-   private static final String SENDER = "javafamily.club@outlook.com";
+   private static final String SENDER = "javafamily.no-reply@outlook.com";
+
+   @Autowired
+   public EmailService(JavaMailSender mailSender) {
+      this.mailSender = mailSender;
+   }
 
    /**
     * 发送普通邮件
@@ -29,17 +33,14 @@ public class EmailService {
     * @param subject 主题
     * @param content 内容
     */
-   public void sendSimpleMailMessge(String to, String subject, String content) {
+   public void sendSimpleMailMessage(String to, String subject, String content) {
       SimpleMailMessage message = new SimpleMailMessage();
       message.setFrom(SENDER);
       message.setTo(to);
       message.setSubject(subject);
       message.setText(content);
-      try {
-         mailSender.send(message);
-      } catch (Exception e) {
-         logger.error("发送简单邮件时发生异常!", e);
-      }
+
+      mailSender.send(message);
    }
 
    /**
@@ -49,19 +50,18 @@ public class EmailService {
     * @param subject 主题
     * @param content 内容
     */
-   public void sendMimeMessge(String to, String subject, String content) {
+   public void sendMimeMessage(String to, String subject, String content)
+      throws MessagingException
+   {
       MimeMessage message = mailSender.createMimeMessage();
-      try {
-         //true表示需要创建一个multipart message
-         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-         helper.setFrom(SENDER);
-         helper.setTo(to);
-         helper.setSubject(subject);
-         helper.setText(content, true);
-         mailSender.send(message);
-      } catch (MessagingException e) {
-         logger.error("发送MimeMessge时发生异常！", e);
-      }
+
+      //true表示需要创建一个multipart message
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setFrom(SENDER);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setText(content, true);
+      mailSender.send(message);
    }
 
    /**
@@ -72,24 +72,24 @@ public class EmailService {
     * @param content  内容
     * @param filePath 附件路径
     */
-   public void sendMimeMessge(String to, String subject, String content, String filePath) {
+   public void sendMimeMessage(String to, String subject, String content,
+                               String filePath)
+      throws MessagingException
+   {
       MimeMessage message = mailSender.createMimeMessage();
-      try {
-         //true表示需要创建一个multipart message
-         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-         helper.setFrom(SENDER);
-         helper.setTo(to);
-         helper.setSubject(subject);
-         helper.setText(content, true);
 
-         FileSystemResource file = new FileSystemResource(new File(filePath));
-         String fileName = file.getFilename();
-         helper.addAttachment(fileName, file);
+      //true表示需要创建一个multipart message
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setFrom(SENDER);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setText(content, true);
 
-         mailSender.send(message);
-      } catch (MessagingException e) {
-         logger.error("发送带附件的MimeMessge时发生异常！", e);
-      }
+      FileSystemResource file = new FileSystemResource(new File(filePath));
+      String fileName = file.getFilename();
+      helper.addAttachment(fileName, file);
+
+      mailSender.send(message);
    }
 
    /**
@@ -100,25 +100,25 @@ public class EmailService {
     * @param content  内容
     * @param rscIdMap 需要替换的静态文件
     */
-   public void sendMimeMessge(String to, String subject, String content, Map<String, String> rscIdMap) {
+   public void sendMimeMessage(String to, String subject,
+                               String content, Map<String, String> rscIdMap)
+      throws MessagingException
+   {
       MimeMessage message = mailSender.createMimeMessage();
-      try {
-         //true表示需要创建一个multipart message
-         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-         helper.setFrom(SENDER);
-         helper.setTo(to);
-         helper.setSubject(subject);
-         helper.setText(content, true);
 
-         for (Map.Entry<String, String> entry : rscIdMap.entrySet()) {
-            FileSystemResource file = new FileSystemResource(new File(entry.getValue()));
-            helper.addInline(entry.getKey(), file);
-         }
+      //true表示需要创建一个multipart message
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setFrom(SENDER);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setText(content, true);
 
-         mailSender.send(message);
-      } catch (MessagingException e) {
-         logger.error("发送带静态文件的MimeMessge时发生异常！", e);
+      for (Map.Entry<String, String> entry : rscIdMap.entrySet()) {
+         FileSystemResource file = new FileSystemResource(new File(entry.getValue()));
+         helper.addInline(entry.getKey(), file);
       }
+
+      mailSender.send(message);
    }
 
    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
