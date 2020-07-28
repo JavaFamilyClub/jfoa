@@ -15,6 +15,7 @@
 package club.javafamily.runner.service;
 
 import club.javafamily.runner.domain.Customer;
+
 import java.util.List;
 
 public interface CustomerService {
@@ -50,8 +51,9 @@ public interface CustomerService {
     * insert a user
     *
     * @param user
+    * @return
     */
-   void insertCustomer(Customer user);
+   Integer insertCustomer(Customer user);
 
    /**
     * update user

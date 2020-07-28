@@ -14,10 +14,13 @@
 
 package club.javafamily.runner.vo;
 
+import club.javafamily.runner.domain.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.util.Random;
+import java.util.UUID;
 
 @JsonIgnoreProperties
 public class CustomerVO implements Serializable {
@@ -37,5 +40,13 @@ public class CustomerVO implements Serializable {
       return "CustomerVO{" +
          "email='" + email + '\'' +
          '}';
+   }
+
+   public Customer convert() {
+      Customer user = new Customer();
+      user.setAccount(email);
+      user.autoGenerator();
+
+      return user;
    }
 }

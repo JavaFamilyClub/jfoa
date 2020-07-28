@@ -19,7 +19,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.*;
 
 @Entity(name = "t_customer")
 public class Customer implements Serializable {
@@ -29,6 +29,7 @@ public class Customer implements Serializable {
    private String name;
    private String account;
    private String password;
+   private boolean verify;
 
    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
@@ -74,6 +75,14 @@ public class Customer implements Serializable {
       this.roles = roles;
    }
 
+   public boolean isVerify() {
+      return verify;
+   }
+
+   public void setVerify(boolean verify) {
+      this.verify = verify;
+   }
+
    @Override
    public String toString() {
       return "Customer{" +
@@ -86,4 +95,19 @@ public class Customer implements Serializable {
    public boolean isAdmin() {
       return SecurityUtil.Admin.equals(this.account);
    }
+
+   public void autoGenerator() {
+      autoGeneratorName();
+      autoGeneratorPwd();
+   }
+
+   public void autoGeneratorName() {
+      setName("JavaFamily" + random.nextInt());
+   }
+
+   public void autoGeneratorPwd() {
+      setPassword(UUID.randomUUID().toString());
+   }
+
+   private static final Random random = new Random();
 }

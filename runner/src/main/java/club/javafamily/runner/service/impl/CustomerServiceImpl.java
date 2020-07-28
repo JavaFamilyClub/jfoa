@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.service.impl;
 
+import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.dao.CustomerDao;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
@@ -22,6 +23,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -67,8 +69,32 @@ public class CustomerServiceImpl implements CustomerService {
 
    @Transactional
    @Override
-   public void insertCustomer(Customer user) {
-      customerDao.insert(user);
+   public Integer insertCustomer(Customer user) {
+      if(isValid(user)) {
+         return customerDao.insert(user);
+      }
+
+      return null;
+   }
+
+   private boolean isValid(Customer user) {
+      if(user == null || StringUtils.isEmpty(user.getAccount())) {
+         throw new MessageException("Account must is not empty!");
+      }
+
+      if(getCustomerByAccount(user.getAccount()) != null) {
+         throw new MessageException("The account(" + user.getAccount() + ") has been registered");
+      }
+
+      if(StringUtils.isEmpty(user.getName())) {
+         user.autoGeneratorName();
+      }
+
+      if(StringUtils.isEmpty(user.getPassword())) {
+         user.autoGeneratorPwd();
+      }
+
+      return true;
    }
 
    @Transactional
