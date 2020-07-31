@@ -5,11 +5,12 @@ import club.javafamily.runner.domain.Role;
 import club.javafamily.runner.enums.PermissionEnum;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class SecurityUtil {
+   // api
+   public static final String API_VERSION = "/api/1.0";
 
    // user constant
    public static final String Admin = "admin";
@@ -116,5 +117,9 @@ public final class SecurityUtil {
       SimpleHash simpleHash = new SimpleHash("MD5", password, userName, 1024);
 
       return simpleHash.toHex();
+   }
+
+   public static String generatorRegisterSuccessToken() {
+      return UUID.randomUUID().toString();
    }
 }

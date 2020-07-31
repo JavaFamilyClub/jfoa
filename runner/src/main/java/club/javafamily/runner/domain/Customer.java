@@ -19,6 +19,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.*;
 
 @Entity(name = "t_customer")
@@ -30,6 +31,7 @@ public class Customer implements Serializable {
    private String account;
    private String password;
    private boolean verify;
+   private Date registerDate;
 
    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
@@ -83,12 +85,21 @@ public class Customer implements Serializable {
       this.verify = verify;
    }
 
+   public Date getRegisterDate() {
+      return registerDate;
+   }
+
+   public void setRegisterDate(Date registerDate) {
+      this.registerDate = registerDate;
+   }
+
    @Override
    public String toString() {
       return "Customer{" +
          "id=" + id +
          ", name='" + name + '\'' +
          ", account='" + account + '\'' +
+         ", registerDate='" + registerDate + '\'' +
          '}';
    }
 
@@ -99,6 +110,7 @@ public class Customer implements Serializable {
    public void autoGenerator() {
       autoGeneratorName();
       autoGeneratorPwd();
+      registerDate = new Date(System.currentTimeMillis());
    }
 
    public void autoGeneratorName() {

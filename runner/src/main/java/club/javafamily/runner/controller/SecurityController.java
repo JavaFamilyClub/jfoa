@@ -21,6 +21,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
+import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
+
 @Controller
 public class SecurityController {
 
@@ -29,7 +31,7 @@ public class SecurityController {
     this.customerService = customerService;
   }
 
-  @PostMapping("/api/1.0/login")
+  @PostMapping(API_VERSION + "/login")
   public String login(@RequestParam String userName, @RequestParam String password,
                       @RequestParam(required = false) boolean rememberMe) {
     Subject currentUser = SecurityUtils.getSubject();
@@ -59,7 +61,7 @@ public class SecurityController {
     return "signup";
   }
 
-  @PostMapping("/api/1.0/signup")
+  @PostMapping(API_VERSION + "/signup")
   public String signup(@Valid @ModelAttribute CustomerVO customerVO,
                        BindingResult bindingResult,
                        HttpServletRequest request)
@@ -97,13 +99,21 @@ public class SecurityController {
     }
 
     // sign up success
+    customerService.notifySignUpSuccess(id);
 
     // goto login after sign up.
     return "signupSuccess";
   }
 
+  @GetMapping(API_VERSION + "/customer/verify")
+  public String verify(String token, String customerId, Long dateTime) {
+    // TODO user verify
+
+    return "verifyResult";
+  }
+
   @RequiresAuthentication
-  @GetMapping("/api/1.0/principal")
+  @GetMapping(API_VERSION + "/principal")
   @ResponseBody
   public String getCurrentUser() {
     Subject subject = SecurityUtils.getSubject();

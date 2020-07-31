@@ -15,25 +15,32 @@
 package club.javafamily.runner.config;
 
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
+import static club.javafamily.runner.common.service.AmqpService.*;
+
 @Configuration
+@EnableRabbit
 public class RabbitMQConfig {
 
    private final AmqpAdmin amqpAdmin;
-
-   public static final String DIRECT_EXCHANGE = "jfoa-direct";
-
-   public static final String REGISTER_QUEUE = "jsof-register-queue";
 
    @Autowired
    public RabbitMQConfig(AmqpAdmin amqpAdmin) {
       this.amqpAdmin = amqpAdmin;
    }
 
+   /**
+    * init exchange, queue, binding.
+    */
    @PostConstruct
    private void init() {
       amqpAdmin.deleteExchange(DIRECT_EXCHANGE);
@@ -45,10 +52,19 @@ public class RabbitMQConfig {
       Binding binding = new Binding(REGISTER_QUEUE,
          Binding.DestinationType.QUEUE,
          DIRECT_EXCHANGE,
-         DIRECT_EXCHANGE, // routingKey is exchange name
+         DIRECT_REGISTER_ROUTER_KEY,
          null);
 
       amqpAdmin.declareBinding(binding);
+   }
+
+   /**
+    * Serialize Message to JSON.
+    */
+   @Bean
+   @ConditionalOnMissingBean
+   public MessageConverter messageConverter() {
+      return new Jackson2JsonMessageConverter();
    }
 
 }

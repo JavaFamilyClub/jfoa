@@ -15,25 +15,24 @@
 package club.javafamily.runner.service.impl;
 
 import club.javafamily.runner.common.MessageException;
+import club.javafamily.runner.common.service.AmqpService;
 import club.javafamily.runner.dao.CustomerDao;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.List;
+import java.util.*;
+
+import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
 
 @Service("customerService")
 public class CustomerServiceImpl implements CustomerService {
-
-   @Autowired
-   public CustomerServiceImpl(CustomerDao customerDao) {
-      this.customerDao = customerDao;
-   }
 
    @Transactional(readOnly = true)
    @Override
@@ -109,5 +108,36 @@ public class CustomerServiceImpl implements CustomerService {
       customerDao.delete(user);
    }
 
+   @Async
+   @Transactional(readOnly = true)
+   @Override
+   public void notifySignUpSuccess(Integer id) {
+      Customer customer = getCustomer(id);
+
+      if(customer == null) {
+         throw new MessageException("Register user is not exist: " + id);
+      }
+
+      Map<String, Object> params = new HashMap<>();
+
+      params.put(AMQP_REGISTER_NOTIFY_CUSTOMER_KEY, customer);
+      params.put(AMQP_REGISTER_NOTIFY_VERIFY_LINK_KEY,
+         // TODO fix link
+         "http://localhost:8080" + API_VERSION + "/customer/verify");
+
+      amqpService.sendRegisterMsg(params);
+   }
+
+   @Autowired
+   public CustomerServiceImpl(AmqpService amqpService, CustomerDao customerDao) {
+      this.amqpService = amqpService;
+      this.customerDao = customerDao;
+   }
+
+   private final AmqpService amqpService;
    private final CustomerDao customerDao;
+
+   public static final String AMQP_REGISTER_NOTIFY_CUSTOMER_KEY = "customer";
+   public static final String AMQP_REGISTER_NOTIFY_VERIFY_LINK_KEY = "verifyLink";
+   public static final String AMQP_REGISTER_EMAIL_SUBJECT_KEY = "Registered successfully";
 }

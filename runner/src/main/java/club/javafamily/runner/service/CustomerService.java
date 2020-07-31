@@ -66,4 +66,6 @@ public interface CustomerService {
     * delete a user
     */
    void deleteCustomer(Customer user);
+
+   void notifySignUpSuccess(Integer id);
 }

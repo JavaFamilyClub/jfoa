@@ -18,6 +18,8 @@ import org.springframework.context.annotation.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
+
 @Configuration
 public class ShiroConfig {
 
@@ -85,11 +87,12 @@ public class ShiroConfig {
       filterChainMap.put("/swagger-ui.html/**", "anon");
       // login
       filterChainMap.put("/login", "anon");
-      filterChainMap.put("/api/1.0/login", "anon");
+      filterChainMap.put(API_VERSION + "/login", "anon");
 
       // sign up
       filterChainMap.put("/signup", "anon");
-      filterChainMap.put("/api/1.0/signup", "anon");
+      filterChainMap.put(API_VERSION + "/signup", "anon");
+      filterChainMap.put(API_VERSION + "/customer/verify", "anon");
 
       // error page
       filterChainMap.put("/error/**", "anon");
