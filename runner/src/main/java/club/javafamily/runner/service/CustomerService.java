@@ -67,5 +67,5 @@ public interface CustomerService {
     */
    void deleteCustomer(Customer user);
 
-   void notifySignUpSuccess(Integer id);
+   void notifySignUpSuccess(Customer customer);
 }

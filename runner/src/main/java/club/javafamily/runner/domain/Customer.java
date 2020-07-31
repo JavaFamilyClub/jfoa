@@ -15,15 +15,21 @@
 package club.javafamily.runner.domain;
 
 import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.util.Tool;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.*;
 
+import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE;
+
 @Entity(name = "t_customer")
-public class Customer implements Serializable {
+public class Customer implements Serializable, Cloneable {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer id;
@@ -31,6 +37,8 @@ public class Customer implements Serializable {
    private String account;
    private String password;
    private boolean verify;
+   @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
+   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
    private Date registerDate;
 
    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
@@ -103,6 +111,21 @@ public class Customer implements Serializable {
          '}';
    }
 
+   @Override
+   public Object clone() throws CloneNotSupportedException {
+      Customer customer = (Customer) super.clone();
+      customer.id = id;
+      customer.account = account;
+      customer.name = name;
+      customer.password = password;
+      customer.verify = verify;
+      customer.registerDate = registerDate;
+      customer.roles = Tool.deepCloneCollection(roles);
+
+      return customer;
+   }
+
+   @JsonIgnore
    public boolean isAdmin() {
       return SecurityUtil.Admin.equals(this.account);
    }

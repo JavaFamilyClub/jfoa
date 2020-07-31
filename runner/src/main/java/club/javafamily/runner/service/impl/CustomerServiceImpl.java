@@ -15,6 +15,7 @@
 package club.javafamily.runner.service.impl;
 
 import club.javafamily.runner.common.MessageException;
+import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 import club.javafamily.runner.common.service.AmqpService;
 import club.javafamily.runner.dao.CustomerDao;
 import club.javafamily.runner.domain.Customer;
@@ -111,21 +112,16 @@ public class CustomerServiceImpl implements CustomerService {
    @Async
    @Transactional(readOnly = true)
    @Override
-   public void notifySignUpSuccess(Integer id) {
-      Customer customer = getCustomer(id);
+   public void notifySignUpSuccess(Customer customer) {
+      RegisterUserInfo info = new RegisterUserInfo();
 
-      if(customer == null) {
-         throw new MessageException("Register user is not exist: " + id);
-      }
+      info.setAccount(customer.getAccount());
+      info.setPassword(customer.getPassword());
+      info.setUserName(Objects.toString(customer.getName(), customer.getAccount()));
+      // TODO fix link
+      info.setVerifyBaseLink("http://localhost:8080" + API_VERSION + "/customer/verify");
 
-      Map<String, Object> params = new HashMap<>();
-
-      params.put(AMQP_REGISTER_NOTIFY_CUSTOMER_KEY, customer);
-      params.put(AMQP_REGISTER_NOTIFY_VERIFY_LINK_KEY,
-         // TODO fix link
-         "http://localhost:8080" + API_VERSION + "/customer/verify");
-
-      amqpService.sendRegisterMsg(params);
+      amqpService.sendRegisterMsg(info);
    }
 
    @Autowired
@@ -137,7 +133,7 @@ public class CustomerServiceImpl implements CustomerService {
    private final AmqpService amqpService;
    private final CustomerDao customerDao;
 
-   public static final String AMQP_REGISTER_NOTIFY_CUSTOMER_KEY = "customer";
+   public static final String AMQP_REGISTER_NOTIFY_CUSTOMER_KEY = "jfoa-create-customer";
    public static final String AMQP_REGISTER_NOTIFY_VERIFY_LINK_KEY = "verifyLink";
    public static final String AMQP_REGISTER_EMAIL_SUBJECT_KEY = "Registered successfully";
 }

@@ -64,8 +64,7 @@ public class SecurityController {
   @PostMapping(API_VERSION + "/signup")
   public String signup(@Valid @ModelAttribute CustomerVO customerVO,
                        BindingResult bindingResult,
-                       HttpServletRequest request)
-  {
+                       HttpServletRequest request) throws CloneNotSupportedException {
     List<ObjectError> allErrors = bindingResult.getAllErrors();
     StringBuilder sb = new StringBuilder();
 
@@ -92,14 +91,17 @@ public class SecurityController {
 
     Customer customer = customerVO.convert();
 
+    Customer cloneCustomer = (Customer) customer.clone(); // for keep original password.
     Integer id = customerService.insertCustomer(customer);
 
     if(id == null) {
       throw new MessageException("Registration User Failed. " + customer.getAccount());
     }
 
+    cloneCustomer.setId(id);
+
     // sign up success
-    customerService.notifySignUpSuccess(id);
+    customerService.notifySignUpSuccess(cloneCustomer);
 
     // goto login after sign up.
     return "signupSuccess";

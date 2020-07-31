@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.common.service;
 
-import java.util.Map;
+import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 
 public interface AmqpService {
    String DIRECT_EXCHANGE = "jfoa-direct";
@@ -23,10 +23,10 @@ public interface AmqpService {
 
    /**
     * send registered message.
-    * @param params parameters.
+    * @param info user infos.
     */
-   default void sendRegisterMsg(Map<String, Object> params) {
-      publishMsg(DIRECT_EXCHANGE, REGISTER_QUEUE, params);
+   default void sendRegisterMsg(RegisterUserInfo info) {
+      publishMsg(DIRECT_EXCHANGE, DIRECT_REGISTER_ROUTER_KEY, info);
    }
 
    /**
@@ -35,5 +35,5 @@ public interface AmqpService {
     * @param routerKey routerKey
     * @param params params
     */
-   void publishMsg(String exchange, String routerKey, Map<String, Object> params);
+   <T> void publishMsg(String exchange, String routerKey, T params);
 }

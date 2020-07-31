@@ -13,6 +13,10 @@
  */
 
 import { TestBed, async } from "@angular/core/testing";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
@@ -26,7 +30,11 @@ describe("PortalToolBarComponent", () => {
       TestBed.configureTestingModule({
          imports: [
             BrowserModule,
-            RouterTestingModule
+            RouterTestingModule,
+            MatToolbarModule,
+            MatButtonModule,
+            MatIconModule,
+            MatMenuModule
          ],
          declarations: [
             PortalToolBarComponent

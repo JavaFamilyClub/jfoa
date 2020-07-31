@@ -35,6 +35,14 @@ spring:
          config: classpath:ehcache.xml
       type: ehcache
 
+   # Rabbitmq
+   rabbitmq:
+      host: javafamily.club
+      port: 5672
+      virtual-host: /
+      username: jfoa
+      password: jfoa
+
    # Test Env
    profiles:
       active: test
