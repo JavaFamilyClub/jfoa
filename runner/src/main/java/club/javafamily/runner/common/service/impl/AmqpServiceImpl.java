@@ -58,9 +58,13 @@ public class AmqpServiceImpl implements AmqpService {
       sb.append("<br>");
 
       String token = SecurityUtil.generatorRegisterSuccessToken();
+      // TODO: Using redis replace
+      // SecurityUtils.getSubject().getSession(true).setAttribute(REGISTERED_TOKEN, token);
+
       String link = info.getVerifyBaseLink()
          + Tool.getConcat(info.getVerifyBaseLink())
-         + "token=" + token + "&customer=" + info.getAccount();
+         + "token=" + token + "&customer=" + info.getAccount()
+         + "&dateTime=" + System.currentTimeMillis();
 
       sb.append("<a href='");
       sb.append(link);

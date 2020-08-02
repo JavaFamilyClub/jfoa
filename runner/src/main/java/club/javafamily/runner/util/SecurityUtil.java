@@ -28,6 +28,9 @@ public final class SecurityUtil {
    public static final String PART_DIVIDER_TOKEN = ":";
    public static final String SUBPART_DIVIDER_TOKEN = ",";
 
+   // session
+   public static final String REGISTERED_TOKEN = "registered-token";
+
    public static String buildPermissionString(String principle,
                                               Role role,
                                               Permission permission)

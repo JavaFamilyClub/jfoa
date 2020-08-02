@@ -3,11 +3,13 @@ package club.javafamily.runner.controller;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
+import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.vo.CustomerVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -108,8 +110,31 @@ public class SecurityController {
   }
 
   @GetMapping(API_VERSION + "/customer/verify")
-  public String verify(String token, String customerId, Long dateTime) {
-    // TODO user verify
+  public String verify(String token, String customer, Long dateTime,
+                       ModelMap modelMap)
+  {
+    Session session = SecurityUtils.getSubject().getSession();
+    Customer user = customerService.getCustomerByAccount(customer);
+    boolean verify = false;
+
+    if(session != null && user != null) {
+      String realToken
+         = (String) session.getAttribute(SecurityUtil.REGISTERED_TOKEN);
+
+      if(token.equals(realToken)) {
+        user.setVerify(true);
+        customerService.updateCustomer(user);
+        verify = true;
+      }
+      else {
+        modelMap.put("reason", "Token is not correct!");
+      }
+    }
+    else {
+      modelMap.put("reason", "User is not exist!");
+    }
+
+    modelMap.put("result", verify);
 
     return "verifyResult";
   }
