@@ -20,6 +20,7 @@ import club.javafamily.runner.common.service.AmqpService;
 import club.javafamily.runner.dao.CustomerDao;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
+import club.javafamily.runner.util.SecurityUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,9 @@ public class CustomerServiceImpl implements CustomerService {
    @Override
    public Integer insertCustomer(Customer user) {
       if(isValid(user)) {
+         user.setPassword(
+            SecurityUtil.generatorPassword(user.getAccount(), user.getPassword()));
+
          return customerDao.insert(user);
       }
 

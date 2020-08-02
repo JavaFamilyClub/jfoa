@@ -14,7 +14,7 @@ spring:
       # 用户名
       username: javafamily.no-reply@outlook.com
       # 授权码，就是我们刚才准备工作获取的代码
-      password: ENC(D5mtFNAcxIgTrC0Ae9RM5M8/CvVsC5S6WB230hbztgjnU++jR5mUTtwLGt8n81zY)
+      password: ENC(Dei9QlGM89UdMyvlvEXVE6DX9aMKZBlRs+Rt5DXUpH3T10DsKRIUTpEOQDIT/I3j)
       # 其它参数
       properties:
          mail:

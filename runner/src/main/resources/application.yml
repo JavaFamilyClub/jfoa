@@ -14,21 +14,23 @@ spring:
       # 用户名
       username: javafamily.no-reply@outlook.com
       # 授权码，就是我们刚才准备工作获取的代码
-      password: ENC(D5mtFNAcxIgTrC0Ae9RM5M8/CvVsC5S6WB230hbztgjnU++jR5mUTtwLGt8n81zY)
+      password: ENC(Dei9QlGM89UdMyvlvEXVE6DX9aMKZBlRs+Rt5DXUpH3T10DsKRIUTpEOQDIT/I3j)
       # 其它参数
       properties:
          mail:
             smtp:
+               starttls:
+                  enable: true
                # 如果是用 SSL 方式，需要配置如下属性,使用qq邮箱的话需要开启
                ssl:
-                  enable: true
-                  required: true
+                  enable: false
+                  required: false
                # 邮件接收时间的限制，单位毫秒
-               timeout: 10000
+               timeout: 80000
                # 连接时间的限制，单位毫秒
-               connectiontimeout: 10000
+               connectiontimeout: 80000
                # 邮件发送时间的限制，单位毫秒
-               writetimeout: 10000
+               writetimeout: 80000
 
    # Cache Config
    cache:
