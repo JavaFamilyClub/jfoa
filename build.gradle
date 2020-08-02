@@ -30,8 +30,9 @@ allprojects {
          quartzVersion = '2.3.0'
          druidVersion = '1.1.18'
          jupiterVersion = '5.6.2'
-         poiVersion = "4.1.2"
-         shiroVersion = "1.5.3"
+         poiVersion = '4.1.2'
+         shiroVersion = '1.5.3'
+         jasyptVersion = '3.0.3'
 
          webModule = project.hasProperty('webModule') ? project.property('webModule') : 'web:angular'
          productionBuild = project.hasProperty('buildenv') && project.property('buildenv') == 'prod'
