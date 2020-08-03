@@ -57,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
       Object principal = subject.getPrincipal();
       Customer user = null;
 
-      if (principal != null) {
+      if(principal != null) {
          user = getCustomerByAccount(principal.toString());
       }
 

@@ -9,7 +9,6 @@ import club.javafamily.runner.vo.EmailCustomerVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 
 import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
 import static club.javafamily.runner.util.SecurityUtil.REGISTERED_USER_STORE_PREFIX;
@@ -128,16 +126,6 @@ public class SecurityController {
     modelMap.put("result", verify);
 
     return "verifyResult";
-  }
-
-  @RequiresAuthentication
-  @GetMapping(API_VERSION + "/principal")
-  @ResponseBody
-  public String getCurrentUser() {
-    Subject subject = SecurityUtils.getSubject();
-    Object principal = subject.getPrincipal();
-
-    return Objects.toString(principal, "");
   }
 
   @GetMapping("/error")
