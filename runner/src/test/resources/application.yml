@@ -48,8 +48,7 @@ spring:
 
    # Redis
    redis:
-      #      host: javafamily.club
-      host: 127.0.0.1
+      host: javafamily.club
       port: 6379
       database: 15
 

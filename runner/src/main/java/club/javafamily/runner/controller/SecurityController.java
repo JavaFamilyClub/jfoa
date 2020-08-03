@@ -5,13 +5,11 @@ import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
-import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.vo.EmailCustomerVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,7 +62,8 @@ public class SecurityController {
   @PostMapping(API_VERSION + "/signup")
   public String signup(@Valid @ModelAttribute EmailCustomerVO customerVO,
                        BindingResult bindingResult,
-                       HttpServletRequest request) throws CloneNotSupportedException {
+                       HttpServletRequest request)
+  {
     List<ObjectError> allErrors = bindingResult.getAllErrors();
     StringBuilder sb = new StringBuilder();
 
@@ -89,7 +88,14 @@ public class SecurityController {
       throw new MessageException(sb.toString());
     }
 
-    customerService.signup(customerVO);
+    StringBuilder path = new StringBuilder();
+    path.append(request.getServerName());
+    path.append(":");
+    path.append(request.getServerPort());
+    path.append(API_VERSION);
+    path.append("/customer/verify");
+
+    customerService.signup(customerVO, path.toString());
 
     // goto login after sign up.
     return "signupSuccess";

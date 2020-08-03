@@ -18,7 +18,7 @@ import club.javafamily.runner.domain.Customer;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.concurrent.TimeUnit;
+import java.util.Objects;
 
 public class RegisterUserInfo implements Serializable {
    private String account;
@@ -67,6 +67,22 @@ public class RegisterUserInfo implements Serializable {
       user.setAccount(account);
 
       return user;
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      RegisterUserInfo that = (RegisterUserInfo) o;
+      return account.equals(that.account) &&
+         Objects.equals(password, that.password) &&
+         Objects.equals(token, that.token) &&
+         Objects.equals(verifyBaseLink, that.verifyBaseLink);
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(account, password, token, verifyBaseLink);
    }
 
    @Override

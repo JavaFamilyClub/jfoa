@@ -23,7 +23,6 @@ import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.vo.CustomerVO;
-import club.javafamily.runner.vo.EmailCustomerVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +31,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
+import java.util.List;
 
-import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
 import static club.javafamily.runner.util.SecurityUtil.REGISTERED_USER_STORE_PREFIX;
 
 @Service("customerService")
@@ -119,14 +117,13 @@ public class CustomerServiceImpl implements CustomerService {
 
    @Async
    @Override
-   public void signup(CustomerVO customerVO) {
+   public void signup(CustomerVO customerVO, String baseLink) {
       RegisterUserInfo info = new RegisterUserInfo();
 
       info.setAccount(customerVO.getIdentity());
       info.setPassword(SecurityUtil.generatorRegisterUserPassword());
       info.setToken(SecurityUtil.generatorRegisterSuccessToken());
-      // TODO fix link
-      info.setVerifyBaseLink("http://localhost:8080" + API_VERSION + "/customer/verify");
+      info.setVerifyBaseLink(baseLink);
 
       redisClient.set(REGISTERED_USER_STORE_PREFIX + info.getAccount(),
          info, SecurityUtil.DEFAULT_USER_ACTIVE_TIME);

@@ -16,7 +16,6 @@ package club.javafamily.runner.service;
 
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.vo.CustomerVO;
-import club.javafamily.runner.vo.EmailCustomerVO;
 
 import java.util.List;
 
@@ -69,5 +68,5 @@ public interface CustomerService {
     */
    void deleteCustomer(Customer user);
 
-   void signup(CustomerVO customerVO);
+   void signup(CustomerVO customerVO, String baseLink);
 }
