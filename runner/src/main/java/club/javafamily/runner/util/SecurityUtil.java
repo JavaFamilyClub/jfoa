@@ -30,6 +30,8 @@ public final class SecurityUtil {
 
    // session
    public static final String REGISTERED_TOKEN = "registered-token";
+   public static final String REGISTERED_USER_STORE_PREFIX = "jf-registered-user^^_^^";
+   public static final Integer DEFAULT_USER_ACTIVE_TIME = 10 * 60; // 10 m (based on second)
 
    public static String buildPermissionString(String principle,
                                               Role role,
@@ -123,6 +125,10 @@ public final class SecurityUtil {
    }
 
    public static String generatorRegisterSuccessToken() {
+      return UUID.randomUUID().toString();
+   }
+
+   public static String generatorRegisterUserPassword() {
       return UUID.randomUUID().toString();
    }
 }

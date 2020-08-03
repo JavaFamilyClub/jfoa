@@ -36,7 +36,7 @@ public class Customer implements Serializable, Cloneable {
    private String name;
    private String account;
    private String password;
-   private boolean verify;
+   private boolean active;
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
    @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
    private Date registerDate;
@@ -85,12 +85,12 @@ public class Customer implements Serializable, Cloneable {
       this.roles = roles;
    }
 
-   public boolean isVerify() {
-      return verify;
+   public boolean isActive() {
+      return active;
    }
 
-   public void setVerify(boolean verify) {
-      this.verify = verify;
+   public void setActive(boolean active) {
+      this.active = active;
    }
 
    public Date getRegisterDate() {
@@ -118,7 +118,7 @@ public class Customer implements Serializable, Cloneable {
       customer.account = account;
       customer.name = name;
       customer.password = password;
-      customer.verify = verify;
+      customer.active = active;
       customer.registerDate = registerDate;
       customer.roles = Tool.deepCloneCollection(roles);
 
@@ -141,7 +141,7 @@ public class Customer implements Serializable, Cloneable {
    }
 
    public void autoGeneratorPwd() {
-      setPassword(UUID.randomUUID().toString());
+      setPassword(SecurityUtil.generatorRegisterUserPassword());
    }
 
    private static final Random random = new Random();

@@ -1,10 +1,12 @@
 package club.javafamily.runner.controller;
 
 import club.javafamily.runner.common.MessageException;
+import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
+import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.vo.CustomerVO;
+import club.javafamily.runner.vo.EmailCustomerVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -24,14 +26,10 @@ import java.util.List;
 import java.util.Objects;
 
 import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
+import static club.javafamily.runner.util.SecurityUtil.REGISTERED_USER_STORE_PREFIX;
 
 @Controller
 public class SecurityController {
-
-  @Autowired
-  public SecurityController(CustomerService customerService) {
-    this.customerService = customerService;
-  }
 
   @PostMapping(API_VERSION + "/login")
   public String login(@RequestParam String userName, @RequestParam String password,
@@ -56,7 +54,7 @@ public class SecurityController {
 
   @GetMapping("signup")
   public String gotoSignupPage(ModelMap map) {
-    CustomerVO customerVO = new CustomerVO();
+    EmailCustomerVO customerVO = new EmailCustomerVO();
 
     map.put("customer", customerVO);
 
@@ -64,7 +62,7 @@ public class SecurityController {
   }
 
   @PostMapping(API_VERSION + "/signup")
-  public String signup(@Valid @ModelAttribute CustomerVO customerVO,
+  public String signup(@Valid @ModelAttribute EmailCustomerVO customerVO,
                        BindingResult bindingResult,
                        HttpServletRequest request) throws CloneNotSupportedException {
     List<ObjectError> allErrors = bindingResult.getAllErrors();
@@ -91,39 +89,26 @@ public class SecurityController {
       throw new MessageException(sb.toString());
     }
 
-    Customer customer = customerVO.convert();
-
-    Customer cloneCustomer = (Customer) customer.clone(); // for keep original password.
-    Integer id = customerService.insertCustomer(customer);
-
-    if(id == null) {
-      throw new MessageException("Registration User Failed. " + customer.getAccount());
-    }
-
-    cloneCustomer.setId(id);
-
-    // sign up success
-    customerService.notifySignUpSuccess(cloneCustomer);
+    customerService.signup(customerVO);
 
     // goto login after sign up.
     return "signupSuccess";
   }
 
   @GetMapping(API_VERSION + "/customer/verify")
-  public String verify(String token, String customer, Long dateTime,
-                       ModelMap modelMap)
+  public String verify(String token, String identity, ModelMap modelMap)
   {
-    Session session = SecurityUtils.getSubject().getSession();
-    Customer user = customerService.getCustomerByAccount(customer);
+    RegisterUserInfo info = redisClient.get(REGISTERED_USER_STORE_PREFIX + identity);
     boolean verify = false;
 
-    if(session != null && user != null) {
-      String realToken
-         = (String) session.getAttribute(SecurityUtil.REGISTERED_TOKEN);
+    if(info != null) {
+      String realToken = info.getToken();
 
       if(token.equals(realToken)) {
-        user.setVerify(true);
-        customerService.updateCustomer(user);
+        Customer user = info.convertModel();
+        user.setActive(true);
+        user.setRoles(null); // TODO add user role
+        customerService.insertCustomer(user);
         verify = true;
       }
       else {
@@ -131,7 +116,7 @@ public class SecurityController {
       }
     }
     else {
-      modelMap.put("reason", "User is not exist!");
+      modelMap.put("reason", "This token is expired!");
     }
 
     modelMap.put("result", verify);
@@ -154,5 +139,14 @@ public class SecurityController {
     return "/error/exception";
   }
 
+  @Autowired
+  public SecurityController(CustomerService customerService,
+                            RedisClient<RegisterUserInfo> redisClient)
+  {
+    this.redisClient = redisClient;
+    this.customerService = customerService;
+  }
+
+  private final RedisClient<RegisterUserInfo> redisClient;
   private final CustomerService customerService;
 }

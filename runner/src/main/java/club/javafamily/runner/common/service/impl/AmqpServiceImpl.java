@@ -15,8 +15,7 @@
 package club.javafamily.runner.common.service.impl;
 
 import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
-import club.javafamily.runner.common.service.AmqpService;
-import club.javafamily.runner.common.service.EmailService;
+import club.javafamily.runner.common.service.*;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.util.Tool;
 import org.slf4j.Logger;
@@ -51,20 +50,16 @@ public class AmqpServiceImpl implements AmqpService {
 
    private String buildRegisterSuccessMailContent(RegisterUserInfo info) {
       StringBuilder sb = new StringBuilder();
-      String name = info.getUserName();
-      sb.append(name);
+      sb.append("Hi:");
       sb.append(":<br>");
       sb.append("    Congratulations on your successful registration, please click the link below to activate your account:");
       sb.append("<br>");
 
-      String token = SecurityUtil.generatorRegisterSuccessToken();
-      // TODO: Using redis replace
-      // SecurityUtils.getSubject().getSession(true).setAttribute(REGISTERED_TOKEN, token);
+      String token = info.getToken();
 
       String link = info.getVerifyBaseLink()
          + Tool.getConcat(info.getVerifyBaseLink())
-         + "token=" + token + "&customer=" + info.getAccount()
-         + "&dateTime=" + System.currentTimeMillis();
+         + "token=" + token + "&identity=" + info.getAccount();
 
       sb.append("<a href='");
       sb.append(link);
@@ -82,11 +77,15 @@ public class AmqpServiceImpl implements AmqpService {
    }
 
    @Autowired
-   public AmqpServiceImpl(RabbitTemplate rabbitTemplate, EmailService emailService) {
+   public AmqpServiceImpl(RabbitTemplate rabbitTemplate, EmailService emailService,
+                          RedisClient<String> redisClient)
+   {
+      this.redisClient = redisClient;
       this.emailService = emailService;
       this.rabbitTemplate = rabbitTemplate;
    }
 
+   private final RedisClient<String> redisClient;
    private final EmailService emailService;
    private final RabbitTemplate rabbitTemplate;
 

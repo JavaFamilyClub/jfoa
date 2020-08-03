@@ -17,10 +17,13 @@ package club.javafamily.runner.service.impl;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 import club.javafamily.runner.common.service.AmqpService;
+import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.dao.CustomerDao;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.vo.CustomerVO;
+import club.javafamily.runner.vo.EmailCustomerVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,7 @@ import org.springframework.util.StringUtils;
 import java.util.*;
 
 import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
+import static club.javafamily.runner.util.SecurityUtil.REGISTERED_USER_STORE_PREFIX;
 
 @Service("customerService")
 public class CustomerServiceImpl implements CustomerService {
@@ -114,30 +118,35 @@ public class CustomerServiceImpl implements CustomerService {
    }
 
    @Async
-   @Transactional(readOnly = true)
    @Override
-   public void notifySignUpSuccess(Customer customer) {
+   public void signup(CustomerVO customerVO) {
       RegisterUserInfo info = new RegisterUserInfo();
 
-      info.setAccount(customer.getAccount());
-      info.setPassword(customer.getPassword());
-      info.setUserName(Objects.toString(customer.getName(), customer.getAccount()));
+      info.setAccount(customerVO.getIdentity());
+      info.setPassword(SecurityUtil.generatorRegisterUserPassword());
+      info.setToken(SecurityUtil.generatorRegisterSuccessToken());
       // TODO fix link
       info.setVerifyBaseLink("http://localhost:8080" + API_VERSION + "/customer/verify");
 
+      redisClient.set(REGISTERED_USER_STORE_PREFIX + info.getAccount(),
+         info, SecurityUtil.DEFAULT_USER_ACTIVE_TIME);
+
+      // sign up success
       amqpService.sendRegisterMsg(info);
    }
 
    @Autowired
-   public CustomerServiceImpl(AmqpService amqpService, CustomerDao customerDao) {
+   public CustomerServiceImpl(AmqpService amqpService, CustomerDao customerDao,
+                              RedisClient<RegisterUserInfo> redisClient)
+   {
       this.amqpService = amqpService;
       this.customerDao = customerDao;
+      this.redisClient = redisClient;
    }
 
+   private final RedisClient<RegisterUserInfo> redisClient;
    private final AmqpService amqpService;
    private final CustomerDao customerDao;
 
-   public static final String AMQP_REGISTER_NOTIFY_CUSTOMER_KEY = "jfoa-create-customer";
-   public static final String AMQP_REGISTER_NOTIFY_VERIFY_LINK_KEY = "verifyLink";
    public static final String AMQP_REGISTER_EMAIL_SUBJECT_KEY = "Registered successfully";
 }

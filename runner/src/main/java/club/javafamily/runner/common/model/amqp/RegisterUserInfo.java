@@ -14,12 +14,16 @@
 
 package club.javafamily.runner.common.model.amqp;
 
+import club.javafamily.runner.domain.Customer;
+
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.concurrent.TimeUnit;
 
 public class RegisterUserInfo implements Serializable {
    private String account;
-   private String userName;
    private String password;
+   private String token;
    private String verifyBaseLink;
 
    public String getAccount() {
@@ -30,20 +34,20 @@ public class RegisterUserInfo implements Serializable {
       this.account = account;
    }
 
-   public String getUserName() {
-      return userName;
-   }
-
-   public void setUserName(String userName) {
-      this.userName = userName;
-   }
-
    public String getPassword() {
       return password;
    }
 
    public void setPassword(String password) {
       this.password = password;
+   }
+
+   public String getToken() {
+      return token;
+   }
+
+   public void setToken(String token) {
+      this.token = token;
    }
 
    public String getVerifyBaseLink() {
@@ -54,12 +58,23 @@ public class RegisterUserInfo implements Serializable {
       this.verifyBaseLink = verifyBaseLink;
    }
 
+
+   public Customer convertModel() {
+      Customer user = new Customer();
+      user.autoGeneratorName();
+      user.setPassword(password);
+      user.setRegisterDate(new Date(System.currentTimeMillis()));
+      user.setAccount(account);
+
+      return user;
+   }
+
    @Override
    public String toString() {
       return "RegisterUserInfo{" +
          "account='" + account + '\'' +
-         ", userName='" + userName + '\'' +
          ", password='" + password + '\'' +
+         ", token='" + token + '\'' +
          ", verifyBaseLink='" + verifyBaseLink + '\'' +
          '}';
    }

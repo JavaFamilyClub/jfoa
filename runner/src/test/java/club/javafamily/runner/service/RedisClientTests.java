@@ -33,7 +33,7 @@ public class RedisClientTests {
 
       System.out.println("info: " + info);
 
-      TimeUnit.MILLISECONDS.sleep(21);
+      TimeUnit.SECONDS.sleep(21);
 
       RegisterUserInfo info2 = redisClient.get(key);
 

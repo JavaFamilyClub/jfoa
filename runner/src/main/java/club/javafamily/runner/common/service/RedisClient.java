@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisClient <T extends Serializable> {
 
-   private final RedisTemplate redisTemplate;
+   private final RedisTemplate<String, T> redisTemplate;
 
    @Autowired
    public RedisClient(RedisTemplate redisTemplate) {
@@ -23,11 +23,11 @@ public class RedisClient <T extends Serializable> {
       set(key, value, -1);
    }
 
-   public void set(String key, T value, long millis) {
+   public void set(String key, T value, long seconds) {
       ValueOperations<String, T> opsForValue = getValueOperations();
 
-      if(millis > 0) {
-         opsForValue.set(key, value, millis, TimeUnit.MILLISECONDS);
+      if(seconds > 0) {
+         opsForValue.set(key, value, seconds, TimeUnit.SECONDS);
       }
       else {
          opsForValue.set(key, value);
