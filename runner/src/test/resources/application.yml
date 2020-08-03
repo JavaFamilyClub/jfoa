@@ -46,6 +46,13 @@ spring:
       username: jfoa
       password: ENC(Fsj3Z7OHFAvOfjf7GSol02jS6ddGr9HSVAm1fBx8iwig942jxj5goh/8QJFrRq2p)
 
+   # Redis
+   redis:
+      #      host: javafamily.club
+      host: 127.0.0.1
+      port: 6379
+      database: 15
+
    # Test Env
    profiles:
       active: test

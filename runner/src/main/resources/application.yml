@@ -5,31 +5,21 @@ jasypt:
 spring:
    # Mail Config
    mail:
-      # 邮件服务地址
       host: smtp.office365.com
-      # 端口,可不写默认
       port: 587
-      # 编码格式
       default-encoding: utf-8
-      # 用户名
       username: javafamily.no-reply@outlook.com
-      # 授权码，就是我们刚才准备工作获取的代码
       password: ENC(Dei9QlGM89UdMyvlvEXVE6DX9aMKZBlRs+Rt5DXUpH3T10DsKRIUTpEOQDIT/I3j)
-      # 其它参数
       properties:
          mail:
             smtp:
                starttls:
                   enable: true
-               # 如果是用 SSL 方式，需要配置如下属性,使用qq邮箱的话需要开启
                ssl:
                   enable: false
                   required: false
-               # 邮件接收时间的限制，单位毫秒
                timeout: 80000
-               # 连接时间的限制，单位毫秒
                connectiontimeout: 80000
-               # 邮件发送时间的限制，单位毫秒
                writetimeout: 80000
 
    # Cache Config
@@ -45,6 +35,13 @@ spring:
       virtual-host: /
       username: jfoa
       password: ENC(Fsj3Z7OHFAvOfjf7GSol02jS6ddGr9HSVAm1fBx8iwig942jxj5goh/8QJFrRq2p)
+
+   # Redis
+   redis:
+#      host: javafamily.club
+      host: 127.0.0.1
+      port: 6379
+      database: 0
 
 ds:
    # Hibernate config
@@ -105,6 +102,10 @@ ds:
       username: jfoa
       password: jfoa
 
+debug: true
+logging:
+   level:
+      club.javafamily.*: debug
 ---
 
 spring:
@@ -121,3 +122,8 @@ ds:
       url: jdbc:h2:./build/resources/test/jfoadb/jfoa_db
       username: jfoa
       password: jfoa
+
+debug: true
+logging:
+   level:
+      club.javafamily.*: debug

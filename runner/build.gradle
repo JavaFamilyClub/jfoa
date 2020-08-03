@@ -45,6 +45,7 @@ dependencies {
    // Cache
    implementation 'org.springframework.boot:spring-boot-starter-cache'
    implementation 'net.sf.ehcache:ehcache'
+   implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
    // datasource
    runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
