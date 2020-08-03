@@ -102,7 +102,8 @@ public class SecurityController {
   @GetMapping(API_VERSION + "/customer/verify")
   public String verify(String token, String identity, ModelMap modelMap)
   {
-    RegisterUserInfo info = redisClient.get(REGISTERED_USER_STORE_PREFIX + identity);
+    String key = REGISTERED_USER_STORE_PREFIX + identity;
+    RegisterUserInfo info = redisClient.get(key);
     boolean verify = false;
 
     if(info != null) {
@@ -113,6 +114,7 @@ public class SecurityController {
         user.setActive(true);
         user.setRoles(null); // TODO add user role
         customerService.insertCustomer(user);
+        redisClient.delete(key);
         verify = true;
       }
       else {

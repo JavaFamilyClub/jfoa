@@ -33,7 +33,7 @@ public class EmailServiceTests {
    @Autowired
    private EmailService mailService;
 
-   private static final String TO = "243853974@qq.com";
+   private static final String TO = "18829346477@163.com";
    private static final String SUBJECT = "JFOA Test Email";
    private static final String CONTENT = "test content";
 

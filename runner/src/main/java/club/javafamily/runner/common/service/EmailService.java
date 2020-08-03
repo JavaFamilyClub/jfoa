@@ -17,6 +17,7 @@ package club.javafamily.runner.common.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -33,7 +34,8 @@ public class EmailService {
 
    private final JavaMailSender mailSender;
 
-   private static final String SENDER = "javafamily.no-reply@outlook.com";
+   @Value("${spring.mail.username}")
+   private String SENDER;
 
    @Autowired
    public EmailService(JavaMailSender mailSender) {

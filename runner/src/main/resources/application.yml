@@ -86,11 +86,28 @@ ds:
 
 ---
 
+server:
+   port: 8080
+
 spring:
    profiles: dev
 
-server:
-   port: 8080
+   # Mail Config
+   mail:
+      host: smtp.qq.com
+      port: 465
+      default-encoding: utf-8
+      username: 243853974@qq.com
+      password: ENC(h9Bgd9w/zExbkGHmyOehfYkXQAbr0wu1wWG+o8fg8VfpyPtuQHqtMZmOi98vKIcForQIpMxIzazZoGvRX3Ad+w==)
+      properties:
+         mail:
+            smtp:
+               ssl:
+                  enable: true
+                  required: true
+               timeout: 80000
+               connectiontimeout: 80000
+               writetimeout: 80000
 
 ds:
    hibernate:
@@ -109,6 +126,23 @@ logging:
 
 spring:
    profiles: test
+
+   # Mail Config
+   mail:
+      host: smtp.qq.com
+      port: 465
+      default-encoding: utf-8
+      username: 243853974@qq.com
+      password: ENC(h9Bgd9w/zExbkGHmyOehfYkXQAbr0wu1wWG+o8fg8VfpyPtuQHqtMZmOi98vKIcForQIpMxIzazZoGvRX3Ad+w==)
+      properties:
+         mail:
+            smtp:
+               ssl:
+                  enable: true
+                  required: true
+               timeout: 80000
+               connectiontimeout: 80000
+               writetimeout: 80000
 
 server:
    port: 10001
