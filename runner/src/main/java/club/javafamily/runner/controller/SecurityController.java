@@ -10,6 +10,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -87,6 +89,7 @@ public class SecurityController {
     }
 
     StringBuilder path = new StringBuilder();
+    path.append("http://");
     path.append(request.getServerName());
     path.append(":");
     path.append(request.getServerPort());
@@ -106,6 +109,8 @@ public class SecurityController {
     RegisterUserInfo info = redisClient.get(key);
     boolean verify = false;
 
+    LOGGER.debug("Getting registered user info is: {}", info);
+
     if(info != null) {
       String realToken = info.getToken();
 
@@ -115,6 +120,7 @@ public class SecurityController {
         user.setRoles(null); // TODO add user role
         customerService.insertCustomer(user);
         redisClient.delete(key);
+        LOGGER.debug("Registered user: {}", user);
         verify = true;
       }
       else {
@@ -143,6 +149,8 @@ public class SecurityController {
     this.customerService = customerService;
   }
 
-  private final RedisClient<RegisterUserInfo> redisClient;
   private final CustomerService customerService;
+  private final RedisClient<RegisterUserInfo> redisClient;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(SecurityController.class);
 }

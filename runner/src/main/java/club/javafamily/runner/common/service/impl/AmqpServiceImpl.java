@@ -16,7 +16,6 @@ package club.javafamily.runner.common.service.impl;
 
 import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 import club.javafamily.runner.common.service.*;
-import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.util.Tool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +50,7 @@ public class AmqpServiceImpl implements AmqpService {
    private String buildRegisterSuccessMailContent(RegisterUserInfo info) {
       StringBuilder sb = new StringBuilder();
       sb.append("Hi:");
-      sb.append(":<br>");
+      sb.append("<br>");
       sb.append("    Congratulations on your successful registration, please click the link below to activate your account:");
       sb.append("<br>");
 

@@ -2,19 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>User Activate Success</title>
+  <title>User Activate Result</title>
   <link rel="icon" type="image/x-icon" href="jfoa-favicon.ico">
 </head>
 
 <body>
-  <div th:if="result eq true">
+  <div th:if="${result}">
     <h1>Registration Success!</h1>
   </div>
 
-  <div th:if="result eq false">
+  <div th:if="${!result}">
     <h1>Registration Failed!</h1>
 
-    <h4>Reason: <span th:text="reason"></span></h4>
+    <h4>Reason: <span th:text="${reason}"></span></h4>
   </div>
 
 </body>
