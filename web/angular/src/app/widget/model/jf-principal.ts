@@ -11,17 +11,7 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-
-import { Component, OnInit } from "@angular/core";
-
-@Component({
-   selector: "portal-welcome",
-   templateUrl: "welcome.component.html",
-   styleUrls: ["welcome.component.scss"]
-})
-export class WelcomeComponent implements OnInit {
-
-   ngOnInit(): void {
-   }
-
+export interface JfPrincipal {
+   userName: string;
+   authenticated: boolean;
 }

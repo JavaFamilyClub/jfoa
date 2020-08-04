@@ -22,6 +22,7 @@ import { ModelService } from "./services/model.service";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DomService } from "./dom-service/dom.service";
 import { DropdownStackService } from "./fixed-dropdown/dropdown-stack.service";
+import { PrincipalService } from "./services/principal-service";
 import { SlideOutService } from "./slide-out/slide-out.service";
 import { FixedDropdownService } from "./fixed-dropdown/fixed-dropdown.service";
 import { TooltipService } from "./tooltip/tooltip.service";
@@ -57,13 +58,14 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
       ...MODULE_DIRECTIVES
    ],
    providers: [
-       FixedDropdownService,
-       DropdownStackService,
-       ModelService,
-       SlideOutService,
-       TooltipService,
-       DebounceService,
-       DomService
+      FixedDropdownService,
+      DropdownStackService,
+      ModelService,
+      SlideOutService,
+      TooltipService,
+      DebounceService,
+      PrincipalService,
+      DomService
    ]
 })
 export class WidgetModule {

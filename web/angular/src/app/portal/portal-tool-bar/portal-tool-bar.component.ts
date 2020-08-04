@@ -13,7 +13,12 @@
  */
 
 import { Component } from "@angular/core";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ComponentTool } from "../../common/util/component-tool";
 import { GuiTool } from "../../common/util/gui-tool";
+import { JfPrincipal } from "../../widget/model/jf-principal";
+import { PrincipalService } from "../../widget/services/principal-service";
+import { UserProfileDialog } from "../dialog/user-profile-dialog";
 
 @Component({
    selector: "portal-tool-bar",
@@ -21,7 +26,23 @@ import { GuiTool } from "../../common/util/gui-tool";
    styleUrls: ["portal-tool-bar.component.scss"]
 })
 export class PortalToolBarComponent {
+
+   constructor(private modalService: NgbModal,
+               private principalService: PrincipalService)
+   {
+   }
+
+   get principal(): JfPrincipal {
+      return this.principalService.principal;
+   }
+
    help(): void {
       GuiTool.openBrowserTab("https://javafamilyclub.github.io/jfoa");
+   }
+
+   editProfile(event: MouseEvent): void {
+      const dialog = ComponentTool.showDialog(this.modalService, UserProfileDialog, (result) => {
+         console.log("User profile setting result: ", result);
+      });
    }
 }

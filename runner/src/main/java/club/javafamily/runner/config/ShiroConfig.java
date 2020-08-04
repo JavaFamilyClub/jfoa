@@ -94,6 +94,9 @@ public class ShiroConfig {
       filterChainMap.put(API_VERSION + "/signup", "anon");
       filterChainMap.put(API_VERSION + "/customer/verify", "anon");
 
+      // public api
+      filterChainMap.put(API_VERSION + "/public/**", "anon");
+
       // error page
       filterChainMap.put("/error/**", "anon");
 

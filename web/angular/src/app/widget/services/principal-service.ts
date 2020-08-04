@@ -12,16 +12,26 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
+import { BaseSubscription } from "../base/BaseSubscription";
+import { JfPrincipal } from "../model/jf-principal";
+import { ModelService } from "./model.service";
 
-@Component({
-   selector: "portal-welcome",
-   templateUrl: "welcome.component.html",
-   styleUrls: ["welcome.component.scss"]
-})
-export class WelcomeComponent implements OnInit {
+const GET_PRINCIPAL_URI = "/public/principal";
 
-   ngOnInit(): void {
+@Injectable()
+export class PrincipalService extends BaseSubscription {
+   principal: JfPrincipal;
+
+   constructor(private modelService: ModelService) {
+      super();
+
+      this.refresh();
    }
 
+   private refresh(): void {
+      this.subscriptions.add(this.modelService.getModel<JfPrincipal>(GET_PRINCIPAL_URI).subscribe((principal) => {
+         this.principal = principal;
+      }));
+   }
 }

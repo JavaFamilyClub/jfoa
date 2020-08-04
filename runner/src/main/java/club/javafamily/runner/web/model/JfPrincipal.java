@@ -12,16 +12,26 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
+package club.javafamily.runner.web.model;
 
-@Component({
-   selector: "portal-welcome",
-   templateUrl: "welcome.component.html",
-   styleUrls: ["welcome.component.scss"]
-})
-export class WelcomeComponent implements OnInit {
+public class JfPrincipal {
 
-   ngOnInit(): void {
+   public String getUserName() {
+      return userName;
    }
 
+   public void setUserName(String userName) {
+      this.userName = userName;
+   }
+
+   public boolean isAuthenticated() {
+      return authenticated;
+   }
+
+   public void setAuthenticated(boolean authenticated) {
+      this.authenticated = authenticated;
+   }
+
+   private boolean authenticated;
+   private String userName;
 }

@@ -37,6 +37,11 @@ export namespace NetTool {
    }
 
    export function xsrfToken(): string {
-      return `${PARAMETER_NAME}=${tokenValue()}`;
+      const token = tokenValue();
+      if(!!token) {
+         return `${PARAMETER_NAME}=${tokenValue()}`;
+      }
+
+      return null;
    }
 }

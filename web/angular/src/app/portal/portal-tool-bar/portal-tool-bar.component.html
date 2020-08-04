@@ -14,13 +14,13 @@
   </div>
 
   <div class="btn-group title-bar-align-right" role="group" aria-label="Portal Manager Btn Group">
-    <button mat-button mat-icon-button aria-label="Help" title="Help"
-            class="tile-bar-icon-size"
-            (click)="help()">
-      <mat-icon class="jfoa" fontIcon="icon-help"></mat-icon>
-    </button>
-
     <div class="d-inline-block">
+      <button mat-button mat-icon-button aria-label="Help" title="Help"
+              class="tile-bar-icon-size"
+              (click)="help()">
+        <mat-icon class="jfoa" fontIcon="icon-help"></mat-icon>
+      </button>
+
       <button mat-icon-button [matMenuTriggerFor]="accountMatMenu"
               aria-label="Account" title="Account"
               class="tile-bar-icon-size title-bar-btn">
@@ -29,11 +29,16 @@
 
       <mat-menu #accountMatMenu="matMenu">
         <ng-template matMenuContent>
-          <a mat-menu-item href="/login">Sign In</a>
-          <a mat-menu-item href="/signup">Sign Up</a>
-          <a mat-menu-item href="/logout">Sign Out</a>
+          <button mat-menu-item (click)="editProfile($event)"
+                  [disabled]="!principal?.authenticated"
+            >Profile ({{principal.userName}})</button>
+          <mat-divider></mat-divider>
+          <a *ngIf="!principal?.authenticated" mat-menu-item href="/login">Sign In</a>
+          <a *ngIf="!principal?.authenticated" mat-menu-item href="/signup">Sign Up</a>
+          <a *ngIf="principal?.authenticated" mat-menu-item href="/logout">Sign Out</a>
         </ng-template>
       </mat-menu>
+
     </div>
   </div>
 </mat-toolbar>

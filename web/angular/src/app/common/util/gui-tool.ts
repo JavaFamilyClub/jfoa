@@ -417,10 +417,11 @@ export namespace GuiTool {
                                   params?: HttpParams,
                                   target: string = "_blank"): void {
       url = GuiTool.appendParams(url, params);
+      const tokenEntry = NetTool.xsrfToken();
 
-      if(url.indexOf(NetTool.PARAMETER_NAME) < 0) {
+      if(url.indexOf(NetTool.PARAMETER_NAME) < 0 && !!tokenEntry) {
          url += url.indexOf("?") < 0 ? "?" : "&";
-         url += NetTool.xsrfToken();
+         url += tokenEntry;
       }
 
       window.open(url, target);

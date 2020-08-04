@@ -17,7 +17,7 @@ package club.javafamily.runner.web.controller;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.web.model.JFPrincipal;
+import club.javafamily.runner.web.model.JfPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,10 +27,11 @@ import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
 @RestController(SecurityUtil.API_VERSION)
 public class UserController {
 
-   @GetMapping(API_VERSION + "/principal")
-   public JFPrincipal getCurrentUser() {
-      JFPrincipal principal = new JFPrincipal();
+   @GetMapping(API_VERSION + "/public/principal")
+   public JfPrincipal getCurrentUser() {
+      JfPrincipal principal = new JfPrincipal();
       Customer user = customerService.getCurrentCustomer();
+      principal.setAuthenticated(user != null);
 
       if(user == null) {
          principal.setUserName(SecurityUtil.Anonymous);

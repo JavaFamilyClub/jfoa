@@ -25,9 +25,11 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { ComponentTool } from "../../common/util/component-tool";
 
+const API_VERSION = "../api/1.0";
+
 @Injectable()
 export class ModelService {
-    private headers: HttpHeaders;
+    private readonly headers: HttpHeaders;
     private formHeaders: HttpHeaders;
     private _errorHandler: (error: any) => boolean;
 
@@ -53,13 +55,13 @@ export class ModelService {
             headers: this.headers,
             params: params
         };
-        return this.http.get<T>(controller, options).pipe(
+        return this.http.get<T>(API_VERSION + controller, options).pipe(
             catchError((error) => this.handleError<T>(error))
         );
     }
 
     sendModel<T>(controller: string, model: any, params?: HttpParams): Observable<HttpResponse<T>> {
-        return this.http.post<T>(controller, model, {
+        return this.http.post<T>(API_VERSION + controller, model, {
             headers: this.headers,
             observe: "response",
             params: params }
@@ -69,7 +71,7 @@ export class ModelService {
     }
 
     sendModelByForm<T>(controller: string, formValue: any, params?: HttpParams): Observable<HttpResponse<T>> {
-        return this.http.post<T>(controller, formValue, {
+        return this.http.post<T>(API_VERSION + controller, formValue, {
             headers: this.formHeaders,
             observe: "response",
             params: params }
@@ -82,7 +84,7 @@ export class ModelService {
      * Use put method to send model.
      */
     putModel<T>(controller: string, model: any, params?: HttpParams): Observable<HttpResponse<T>> {
-        return this.http.put<T>(controller, model, {
+        return this.http.put<T>(API_VERSION + controller, model, {
             headers: this.headers,
             observe: "response",
             params: params }
@@ -106,7 +108,7 @@ export class ModelService {
                     res.status ? `${res.status} - ${res.statusText}` : "_#(js:server.error.connectionLost)";
 
         if(!error || !this.errorHandler || !this.errorHandler(error)) {
-            ComponentTool.showMessageDialog(this.modalService, "Error", errMsg);
+            ComponentTool.showMessageDialog(this.modalService, "Error", errMsg).then(() => {});
         }
 
         return throwError(errMsg);

@@ -20,10 +20,12 @@
  */
 
 import { Type } from "@angular/core";
+import { UserProfileDialog } from "./dialog/user-profile-dialog";
 import { PortalToolBarComponent } from "./portal-tool-bar/portal-tool-bar.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 
 export const MODULE_COMPONENTS: Type<any>[] = [
    PortalToolBarComponent,
-   WelcomeComponent
+   WelcomeComponent,
+   UserProfileDialog
 ];

@@ -2,7 +2,7 @@
  * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -12,17 +12,15 @@
  * person.
  */
 
-package club.javafamily.runner.web.model;
+import { Component, EventEmitter, Output } from "@angular/core";
 
-public class JFPrincipal {
-
-   public String getUserName() {
-      return userName;
-   }
-
-   public void setUserName(String userName) {
-      this.userName = userName;
-   }
-
-   private String userName;
+@Component({
+   selector: "user-profile-dialog",
+   templateUrl: "user-profile-dialog.html",
+   styleUrls: ["user-profile-dialog.scss"]
+})
+export class UserProfileDialog {
+   @Output() onCommit = new EventEmitter<any>();
+   @Output() onCancel = new EventEmitter<void>();
 }
+
