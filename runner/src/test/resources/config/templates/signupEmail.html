@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaFamily OA</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" th:href="@{/favicon.ico}">
+</head>
+<body>
+    <div>
+        <div>Hi:</div>
+        <div>感谢您的注册, 请在十分钟内点击下方链接以激活账户.</div>
+
+        <a th:href="${activeLink}" th:text="${activeLink}"></a>
+
+        <hr>
+
+        <div>请牢记您的账户信息:</div>
+
+        <ul>
+            <li>账户名: <span th:text="${account}"></span></li>
+            <li>密码: <span th:text="${password}"></span></li>
+        </ul>
+    </div>
+</body>
+</html>
