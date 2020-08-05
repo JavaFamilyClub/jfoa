@@ -16,6 +16,7 @@ package club.javafamily.runner.common.service.impl;
 
 import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 import club.javafamily.runner.common.service.*;
+import club.javafamily.runner.util.HTMLTemplateUtils;
 import club.javafamily.runner.util.Tool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,9 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static club.javafamily.runner.service.impl.CustomerServiceImpl.AMQP_REGISTER_EMAIL_SUBJECT_KEY;
 
@@ -48,31 +52,18 @@ public class AmqpServiceImpl implements AmqpService {
    }
 
    private String buildRegisterSuccessMailContent(RegisterUserInfo info) {
-      StringBuilder sb = new StringBuilder();
-      sb.append("Hi:");
-      sb.append("<br>");
-      sb.append("    Congratulations on your successful registration, please click the link below to activate your account:");
-      sb.append("<br>");
-
       String token = info.getToken();
-
       String link = info.getVerifyBaseLink()
          + Tool.getConcat(info.getVerifyBaseLink())
          + "token=" + token + "&identity=" + info.getAccount();
 
-      sb.append("<a href='");
-      sb.append(link);
-      sb.append("'>");
-      sb.append(link);
-      sb.append("</a>");
+      Map<String, Object> vars = new HashMap<>();
 
-      sb.append("<br>");
+      vars.put("activeLink", link);
+      vars.put("account", info.getAccount());
+      vars.put("password", info.getPassword());
 
-      sb.append("Your password is: <br>");
-      sb.append(info.getPassword());
-      sb.append("<br>");
-
-      return sb.toString();
+      return HTMLTemplateUtils.render(REGISTERED_INFO_MAIL_TEMPLATE, vars);
    }
 
    @Autowired
@@ -87,6 +78,8 @@ public class AmqpServiceImpl implements AmqpService {
    private final RedisClient<String> redisClient;
    private final EmailService emailService;
    private final RabbitTemplate rabbitTemplate;
+
+   private static final String REGISTERED_INFO_MAIL_TEMPLATE = "signupEmail";
 
    private static final Logger LOGGER = LoggerFactory.getLogger(AmqpServiceImpl.class);
 }

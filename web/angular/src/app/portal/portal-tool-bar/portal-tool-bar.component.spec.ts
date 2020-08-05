@@ -12,21 +12,44 @@
  * person.
  */
 
+import { HttpClient, HttpHandler } from "@angular/common/http";
 import { TestBed, async } from "@angular/core/testing";
 import { MatButtonModule } from "@angular/material/button";
+import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { observable, of } from "rxjs";
+import { ModelService } from "../../widget/services/model.service";
+import { PrincipalService } from "../../widget/services/principal-service";
 import { PortalToolBarComponent } from "./portal-tool-bar.component";
 
 describe("PortalToolBarComponent", () => {
 
    let router: any;
+   let modelService: any;
+   let http: any;
+   let modalService: any;
 
    beforeEach(async(() => {
+      modelService = {
+         getModel: jest.fn(() => of({})),
+         sendModel: jest.fn(),
+         putModel: jest.fn()
+      };
+
+      modalService = {
+         open: jest.fn()
+      };
+
+      http = {
+         get: jest.fn(() => of({}))
+      };
+
       TestBed.configureTestingModule({
          imports: [
             BrowserModule,
@@ -34,7 +57,8 @@ describe("PortalToolBarComponent", () => {
             MatToolbarModule,
             MatButtonModule,
             MatIconModule,
-            MatMenuModule
+            MatMenuModule,
+            MatDividerModule
          ],
          declarations: [
             PortalToolBarComponent
@@ -43,7 +67,20 @@ describe("PortalToolBarComponent", () => {
             {
                provide: Router,
                useValue: router
-            }
+            },
+            {
+               provide: NgbModal,
+               useValue: modalService
+            },
+            {
+               provide: HttpClient,
+               useValue: http
+            },
+            {
+               provide: ModelService,
+               useValue: modelService
+            },
+            PrincipalService
          ]
       }).compileComponents();
    }));

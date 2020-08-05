@@ -15,7 +15,7 @@ public final class HTMLTemplateUtils {
 
    static {
       ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
-      resolver.setPrefix("classpath:/config/templates/");
+      resolver.setPrefix("/config/templates/");
       resolver.setSuffix(".html");
       engine = new TemplateEngine();
       engine.setTemplateResolver(resolver);
@@ -27,7 +27,7 @@ public final class HTMLTemplateUtils {
     * @param params variables
     * @return rendered HTML string
     */
-   public static String render(String template, Map<String,Object> params){
+   public static String render(String template, Map<String,Object> params) {
       Context context = new Context();
       context.setVariables(params);
 
