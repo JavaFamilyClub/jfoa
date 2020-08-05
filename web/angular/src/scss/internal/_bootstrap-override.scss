@@ -20,3 +20,316 @@
   // clear display border after click btn.
   box-shadow: none;
 }
+
+/* overwrite bootstrap-float-label */
+.has-float-label {
+  .form-control:placeholder-shown:not(:focus) + * {
+    font-size: 100%;
+    top: .75em;
+    opacity: 1;
+    background: none;
+    font-weight: normal;
+  }
+
+  .form-control-sm:placeholder-shown:not(:focus) + * {
+    top: .5em;
+  }
+
+  .form-control:placeholder-shown:not(:focus) + button {
+    font-size: 100%;
+    top: 0;
+  }
+
+  > span.invalid-feedback {
+    position: relative;
+    left: 1em;
+    width: auto;
+    margin-right: 2em;
+    margin-bottom: -1em;
+    float: left;
+    color: $jfoa-red-dark;
+    background-size: 55% 55%;
+  }
+
+  .form-control.is-invalid {
+    border-color: $jfoa-red-dark;
+  }
+
+  > .form-control.is-invalid + span::after,
+  > span.invalid-feedback::after {
+    top: calc(50% - .5em);
+    height: 1em;
+  }
+
+  > span.helper-text {
+    top: auto;
+    bottom: -1em;
+  }
+
+  > .form-control.is-invalid ~ span.helper-text {
+    display: none;
+  }
+
+  .form-control.date-picker-input + .dropdown-menu,
+  .dropdown-menu {
+    opacity: 1 !important;
+  }
+
+  > span , label:not(.no-float-label) {
+    font-size: 85%;
+    font-weight: bold;
+
+    margin-top: -10px;
+    background:
+       linear-gradient(60deg, transparent 5px, white 5px),
+       linear-gradient(300deg, transparent 5px, white 5px);
+    background-position: bottom left, bottom right;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    padding: 10px;
+    padding-bottom: 1px;
+  }
+
+  span::after {
+    background: none;
+  }
+
+  .form-control[readonly] {
+    opacity: 0.5;
+  }
+
+  label.no-float-label {
+    position: static;
+    cursor: default;
+    font-size: 100%;
+    opacity: 1;
+    -webkit-transition: none;
+    transition: none;
+    z-index: 0;
+    line-height: 1;
+    padding: 0;
+  }
+}
+
+/* comparable to when invalid feedback is not using an input-group */
+.input-group ~ span.invalid-feedback {
+  display: block;
+  color: $jfoa-red-dark;
+}
+
+/* override boostrap input-group */
+.input-group {
+  > span.invalid-feedback {
+    position: absolute;
+    cursor: text;
+    font-size: 85%;
+    opacity: 1;
+    bottom: -.5em;
+    left: 0.75rem;
+    z-index: 3;
+    line-height: 1;
+    padding: 0 1px;
+    color: $jfoa-red-dark;
+    width: auto;
+
+    &::after {
+      content: " ";
+      display: block;
+      position: absolute;
+      background: white; //left as not themeable
+      height: 1em;
+      top: calc(50% - .5em);
+      left: -.2em;
+      right: -.2em;
+      z-index: -1;
+    }
+  }
+}
+
+/* fieldset related */
+.container-fluid > fieldset > legend {
+  margin-left: -($grid-gutter-width / 2);
+}
+
+:not(.modal-body) > fieldset:first-child {
+  margin-top: .5rem;
+}
+
+fieldset legend {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+fieldset.float-title {
+  border-radius: 3px;
+  padding-bottom: 0.5em;
+
+  legend {
+    font-size: 85%;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-left: 1em;
+    width: auto;
+    width: unset;
+  }
+}
+
+// override bootstrap form-check layout for better alignment
+.form-check-label {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.form-check-input {
+  position: static;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+.form-check {
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+}
+
+.form-check-inline {
+  display: inline-flex;
+}
+
+.form-inline {
+  @include media-breakpoint-up(sm) {
+    .form-check-label {
+      padding-left: 0;
+    }
+  }
+}
+
+.form-inline > [class*="col-"] > * {
+  margin: 3px 5px 0 0;
+}
+
+/* Enhance bootstrap dropdown */
+.dropdown-item {
+  &.disabled, &:disabled {
+    pointer-events: none;
+    background-color: unset;
+    opacity: 0.5;
+  }
+}
+
+.table-cell-padding-sm {
+  padding: $table-cell-padding-sm
+}
+
+/**
+@TODO review to make sure all are bootstrap override/enhancement
+*/
+
+.dropdown-item {
+  cursor: default;
+}
+
+.full-view-container:not(.format-painter-mode) .non-editable-text:not(.cursor-pointer) {
+  cursor: default;
+}
+
+.btn-xs {
+  /* ~half size of bootstraps btn-sm*/
+  padding: 0 0.25rem !important;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+}
+
+.dropdown-toggle.no-caret::after {
+  display: none;
+}
+
+// make it consistent with icon size
+.dropdown-toggle::after {
+  border-top:0.5em solid $jfoa-default-icon-color;
+  border-right: 0.4em solid transparent;
+  border-left: 0.4em solid transparent;
+}
+
+.dropdown-toggle.white-toggle::after {
+  border-top:0.5em solid white;
+  border-right: 0.4em solid transparent;
+  border-left: 0.4em solid transparent;
+}
+
+// override ngb-tp-meridian color
+.ngb-tp-meridian button {
+  color: $secondary;
+  border-color: $secondary;
+}
+
+// override and fix ngb-datepicker layout issue on month/year dropdown
+ngb-datepicker-navigation-select.d-block {
+  display: flex !important;
+}
+
+ngb-datepicker {
+  background: white !important;
+}
+
+// override bootstrap input-group
+//  1. get rid of icon gray background
+//  2. input-group should not wrap
+.input-group {
+  flex-wrap: nowrap;
+
+  .input-group-btn-addon {
+    padding: 5px 12px;
+    border: 1px solid $input-group-addon-border-color;
+    &:enabled:hover {
+      background-color: $hover-bg-blue;
+    }
+  }
+
+  .input-group-btn-addon-no-padding {
+    @extend .input-group-btn-addon;
+    padding: 0px !important;
+  }
+}
+
+.input-group select.form-control:not([size]):not([multiple]) {
+  height: unset;
+}
+
+.has-float-label .form-control[readonly] {
+  opacity: 1;
+  background: white;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .has-float-label .form-control {
+    background: white;
+  }
+}
+
+//bootstrap related
+.col-xs-12 > textarea, .col-xs-12 > * > textarea {
+  height: 100%;
+  width: 100%;
+}
+
+//enhance/override .modal from bootstrap. seems to only be used in app-error-message.component
+div.modal.fade.first-child.in {
+  overflow: visible;
+}
+
+.modal {
+  overflow: auto;
+  display: block;
+  z-index: 10500;
+}
+
+.compact-p p {
+  margin: 0;
+}
+
+.default-p p {
+  margin-bottom: 1em;
+}

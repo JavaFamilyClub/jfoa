@@ -17,8 +17,12 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ComponentTool } from "../../common/util/component-tool";
 import { GuiTool } from "../../common/util/gui-tool";
 import { JfPrincipal } from "../../widget/model/jf-principal";
+import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
 import { UserProfileDialog } from "../dialog/user-profile-dialog";
+import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-model";
+
+const GET_USER_PROFILE_UTI = "/user/profile";
 
 @Component({
    selector: "portal-tool-bar",
@@ -28,6 +32,7 @@ import { UserProfileDialog } from "../dialog/user-profile-dialog";
 export class PortalToolBarComponent {
 
    constructor(private modalService: NgbModal,
+               private modelService: ModelService,
                private principalService: PrincipalService)
    {
    }
@@ -41,8 +46,15 @@ export class PortalToolBarComponent {
    }
 
    editProfile(event: MouseEvent): void {
-      const dialog = ComponentTool.showDialog(this.modalService, UserProfileDialog, (result) => {
-         console.log("User profile setting result: ", result);
+      this.modelService.getModel<UserProfileDialogModel>(GET_USER_PROFILE_UTI)
+         .subscribe((model) =>
+      {
+         const dialog = ComponentTool.showDialog(this.modalService,
+            UserProfileDialog, (result) =>
+         {
+            console.log("User profile setting result: ", result);
+         });
+         dialog.model = model;
       });
    }
 }

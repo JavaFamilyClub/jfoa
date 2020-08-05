@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.model;
+package club.javafamily.runner.web.security.model;
 
 public class JfPrincipal {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
  * proprietary to JavaFamily Technology Corp. This software is furnished
@@ -12,18 +12,7 @@
  * person.
  */
 
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-model";
-
-@Component({
-   selector: "user-profile-dialog",
-   templateUrl: "user-profile-dialog.html",
-   styleUrls: ["user-profile-dialog.scss"]
-})
-export class UserProfileDialog {
-   @Input() model: UserProfileDialogModel;
-
-   @Output() onCommit = new EventEmitter<UserProfileDialogModel>();
-   @Output() onCancel = new EventEmitter<void>();
+export class UserProfileDialogModel {
+   account: string;
+   name: string;
 }
-

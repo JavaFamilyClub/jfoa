@@ -12,12 +12,12 @@
  * person.
  */
 
-package club.javafamily.runner.web.controller;
+package club.javafamily.runner.web.portal.controller;
 
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.web.model.JfPrincipal;
+import club.javafamily.runner.web.security.model.JfPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
