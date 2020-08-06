@@ -12,3 +12,13 @@ body {
 button:focus {
    outline: none !important; // fix mat-button style after mouse down
 }
+
+span.href-style {
+   cursor: pointer;
+   color: #546E7A;
+
+   &:hover {
+      text-decoration: underline;
+      color: #607D8B;
+   }
+}

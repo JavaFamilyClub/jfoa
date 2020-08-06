@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h3 class="modal-title">Profile Setting</h3>
+  <h3 class="modal-title">Profile Settings</h3>
 </div>
 <div class="modal-body">
   <label class="has-float-label">
@@ -17,6 +17,6 @@
 <div class="modal-footer">
   <button class="btn btn-primary"
           [disabled]="name.invalid"
-          (click)="onCommit.emit(model)">OK</button>
+          (click)="ok()">OK</button>
   <button class="btn btn-default" (click)="onCancel.emit()">Cancel</button>
 </div>

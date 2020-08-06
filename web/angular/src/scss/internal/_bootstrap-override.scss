@@ -7,18 +7,22 @@
   display:none;
 }
 
-.btn {
-  // clear padding
-  padding: 0px;
-  // clear color
-  color: #ffffff;
-  // clear radius
-  border-radius: 0px;
-}
+//.btn {
+//  // clear padding
+//  padding: 0px;
+//  // clear color
+//  color: #ffffff;
+//  // clear radius
+//  border-radius: 4px;
+//}
 
-.btn:hover, .btn:focus {
-  // clear display border after click btn.
-  box-shadow: none;
+//.btn:hover, .btn:focus {
+//  // clear display border after click btn.
+//  box-shadow: none;
+//}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.1rem $jfoa-orange !important;
 }
 
 /* overwrite bootstrap-float-label */

@@ -29,8 +29,10 @@ export class PrincipalService extends BaseSubscription {
       this.refresh();
    }
 
-   private refresh(): void {
-      this.subscriptions.add(this.modelService.getModel<JfPrincipal>(GET_PRINCIPAL_URI).subscribe((principal) => {
+   refresh(): void {
+      this.subscriptions.add(this.modelService.getModel<JfPrincipal>(
+         GET_PRINCIPAL_URI).subscribe((principal) =>
+      {
          this.principal = principal;
       }));
    }

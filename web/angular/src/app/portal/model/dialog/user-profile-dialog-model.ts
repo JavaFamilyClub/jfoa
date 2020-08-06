@@ -13,6 +13,7 @@
  */
 
 export class UserProfileDialogModel {
+   id: number;
    account: string;
    name: string;
 }

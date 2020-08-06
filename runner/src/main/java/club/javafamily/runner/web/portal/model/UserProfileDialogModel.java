@@ -15,8 +15,17 @@
 package club.javafamily.runner.web.portal.model;
 
 public class UserProfileDialogModel {
+   private Integer id;
    private String account;
    private String name;
+
+   public Integer getId() {
+      return id;
+   }
+
+   public void setId(Integer id) {
+      this.id = id;
+   }
 
    public String getAccount() {
       return account;
@@ -37,6 +46,7 @@ public class UserProfileDialogModel {
    @Override
    public String toString() {
       return "UserProfileDialogModel{" +
+         "id='" + id + '\'' +
          "account='" + account + '\'' +
          ", name='" + name + '\'' +
          '}';

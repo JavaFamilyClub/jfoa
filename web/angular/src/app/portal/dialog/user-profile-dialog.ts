@@ -13,7 +13,11 @@
  */
 
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ModelService } from "../../widget/services/model.service";
+import { PrincipalService } from "../../widget/services/principal-service";
 import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-model";
+
+const USER_PROFILE_UTI = "/user/profile";
 
 @Component({
    selector: "user-profile-dialog",
@@ -23,7 +27,19 @@ import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-mode
 export class UserProfileDialog {
    @Input() model: UserProfileDialogModel;
 
-   @Output() onCommit = new EventEmitter<UserProfileDialogModel>();
+   @Output() onCommit = new EventEmitter<void>();
    @Output() onCancel = new EventEmitter<void>();
+
+   constructor(private modelService: ModelService,
+               private principalService: PrincipalService)
+   {
+   }
+
+   ok(): void {
+      this.modelService.putModel(USER_PROFILE_UTI, this.model).subscribe(() => {
+         this.principalService.refresh();
+         this.onCommit.emit();
+      });
+   }
 }
 

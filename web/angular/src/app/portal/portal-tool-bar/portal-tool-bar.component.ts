@@ -22,7 +22,7 @@ import { PrincipalService } from "../../widget/services/principal-service";
 import { UserProfileDialog } from "../dialog/user-profile-dialog";
 import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-model";
 
-const GET_USER_PROFILE_UTI = "/user/profile";
+const USER_PROFILE_UTI = "/user/profile";
 
 @Component({
    selector: "portal-tool-bar",
@@ -46,14 +46,11 @@ export class PortalToolBarComponent {
    }
 
    editProfile(event: MouseEvent): void {
-      this.modelService.getModel<UserProfileDialogModel>(GET_USER_PROFILE_UTI)
+      this.modelService.getModel<UserProfileDialogModel>(USER_PROFILE_UTI)
          .subscribe((model) =>
       {
          const dialog = ComponentTool.showDialog(this.modalService,
-            UserProfileDialog, (result) =>
-         {
-            console.log("User profile setting result: ", result);
-         });
+            UserProfileDialog, () => {});
          dialog.model = model;
       });
    }

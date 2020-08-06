@@ -33,12 +33,33 @@ public class UserProfileDialogController {
    @GetMapping("/user/profile")
    public UserProfileDialogModel getModel() {
       Customer customer = customerService.getCurrentCustomer();
+
+      if(customer == null) {
+         return null;
+      }
+
       UserProfileDialogModel model = new UserProfileDialogModel();
 
+      model.setId(customer.getId());
       model.setAccount(customer.getAccount());
       model.setName(customer.getName());
 
       return model;
+   }
+
+   @PutMapping("/user/profile")
+   public void updateModel(@RequestBody UserProfileDialogModel model) {
+      Integer id = model.getId();
+      Customer customer = customerService.getCustomer(id);
+
+      if(customer == null) {
+         return;
+      }
+
+      customer.setName(model.getName());
+      customer.setAccount(model.getAccount());
+
+      customerService.updateCustomer(customer);
    }
 
    private final CustomerService customerService;
