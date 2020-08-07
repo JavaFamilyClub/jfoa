@@ -2,21 +2,35 @@
   <h3 class="modal-title">Profile Settings</h3>
 </div>
 <div class="modal-body">
-  <label class="has-float-label">
-    <input id="name" name="name"
-           [class.is-invalid]="name.invalid"
-           type="text" class="form-control"
-           [(ngModel)]="model.name" #name="ngModel" required>
-    <span>User Name:</span>
-    <span class="invalid-feedback" *ngIf="name.hasError('required')">
-      Name is required.
-    </span>
-  </label>
+  <form [formGroup]="form">
+    <label class="has-float-label">
+      <input name="name"
+             [class.is-invalid]="form.get('name').invalid"
+             type="text" class="form-control"
+             formControlName="name"
+             [(ngModel)]="model.name">
+      <span>User Name:</span>
+      <span class="invalid-feedback" *ngIf="form.get('name').hasError('required')">
+        Name is required.
+      </span>
+    </label>
+    <label class="has-float-label">
+      <input name="email"
+             [class.is-invalid]="form.get('email').invalid"
+             type="text" class="form-control"
+             formControlName="email"
+             [(ngModel)]="model.account">
+      <span>Email:</span>
+      <span class="invalid-feedback" *ngIf="form.get('email').hasError('email')">
+        Email format error.
+      </span>
+    </label>
+  </form>
 </div>
 
 <div class="modal-footer">
   <button class="btn btn-primary"
-          [disabled]="name.invalid"
+          [disabled]="form.invalid"
           (click)="ok()">OK</button>
   <button class="btn btn-default" (click)="onCancel.emit()">Cancel</button>
 </div>

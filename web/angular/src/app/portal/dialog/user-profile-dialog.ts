@@ -12,7 +12,8 @@
  * person.
  */
 
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
 import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-model";
@@ -24,15 +25,25 @@ const USER_PROFILE_UTI = "/user/profile";
    templateUrl: "user-profile-dialog.html",
    styleUrls: ["user-profile-dialog.scss"]
 })
-export class UserProfileDialog {
+export class UserProfileDialog implements OnInit {
    @Input() model: UserProfileDialogModel;
 
    @Output() onCommit = new EventEmitter<void>();
    @Output() onCancel = new EventEmitter<void>();
 
-   constructor(private modelService: ModelService,
+   form: FormGroup;
+
+   constructor(private fb: FormBuilder,
+               private modelService: ModelService,
                private principalService: PrincipalService)
    {
+   }
+
+   ngOnInit(): void {
+      this.form = this.fb.group({
+         name: this.fb.control(this.model.name, [Validators.required]),
+         email: this.fb.control(this.model.account, [Validators.email])
+      });
    }
 
    ok(): void {

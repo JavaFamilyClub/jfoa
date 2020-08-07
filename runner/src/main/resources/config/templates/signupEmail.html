@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>JavaFamily OA</title>
+    <meta name="format-detection" content="telephone=no,email=no">
     <link rel="icon" type="image/x-icon" href="../../public/jfoa-favicon.ico" th:href="@{../../public/jfoa-icon.ico}">
+    <link rel="stylesheet" href="./signupEmail.css" th:href="@{./signupEmail.css}">
 </head>
 <body>
-    <div>
+    <div class="signup-container">
         <div>Hi:</div>
-        <div>感谢您的注册, 请在十分钟内点击下方链接以激活账户.</div>
+        <div class="success-message">感谢您的注册, 请在<strong>十分钟内</strong>点击下方链接以激活账户.</div>
 
-        <a th:href="${activeLink}" th:text="${activeLink}"></a>
+        <div class="active-link">
+            <a th:href="${activeLink}" th:text="${activeLink}">http://www.javafamily.club</a>
+        </div>
 
         <hr>
 
-        <div>请牢记您的账户信息:</div>
+        <div class="message-bold">请牢记您的账户信息:</div>
 
         <ul>
-            <li>账户名: <span th:text="${account}"></span></li>
-            <li>密码: <span th:text="${password}"></span></li>
+            <li><span class="message-bold">账户名:</span> <span th:text="${account}"></span></li>
+            <li><span class="message-bold">密码:</span> <span th:text="${password}"></span></li>
         </ul>
     </div>
 </body>
