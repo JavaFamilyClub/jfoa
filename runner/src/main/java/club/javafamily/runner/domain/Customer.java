@@ -33,9 +33,10 @@ public class Customer implements Serializable, Cloneable {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer id;
-   private String name;
    private String account;
+   private String name;
    private String password;
+   private String email;
    private boolean active;
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
    @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
@@ -77,6 +78,14 @@ public class Customer implements Serializable, Cloneable {
       this.password = password;
    }
 
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
+   }
+
    public Set<Role> getRoles() {
       return roles;
    }
@@ -107,6 +116,7 @@ public class Customer implements Serializable, Cloneable {
          "id=" + id +
          ", name='" + name + '\'' +
          ", account='" + account + '\'' +
+         ", email='" + email + '\'' +
          ", registerDate='" + registerDate + '\'' +
          '}';
    }

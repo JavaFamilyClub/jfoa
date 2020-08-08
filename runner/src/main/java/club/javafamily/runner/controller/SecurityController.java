@@ -5,6 +5,7 @@ import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
+import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.vo.EmailCustomerVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -88,11 +89,7 @@ public class SecurityController {
       throw new MessageException(sb.toString());
     }
 
-    StringBuilder path = new StringBuilder();
-    path.append("http://");
-    path.append(request.getServerName());
-    path.append(":");
-    path.append(request.getServerPort());
+    StringBuilder path = SecurityUtil.getBaseUrl(request);
     path.append(API_VERSION);
     path.append("/customer/verify");
 
@@ -103,13 +100,17 @@ public class SecurityController {
   }
 
   @GetMapping(API_VERSION + "/customer/verify")
-  public String verify(String token, String identity, ModelMap modelMap)
+  public String verify(String token,
+                       String identity,
+                       ModelMap modelMap,
+                       HttpServletRequest request)
   {
     String key = REGISTERED_USER_STORE_PREFIX + identity;
     RegisterUserInfo info = redisClient.get(key);
     boolean verify = false;
 
     LOGGER.debug("Getting registered user info is: {}", info);
+    StringBuilder redirectLink = SecurityUtil.getBaseUrl(request);
 
     if(info != null) {
       String realToken = info.getToken();
@@ -117,21 +118,24 @@ public class SecurityController {
       if(token.equals(realToken)) {
         Customer user = info.convertModel();
         user.setActive(true);
-        user.setRoles(null); // TODO add user role
         customerService.insertCustomer(user);
         redisClient.delete(key);
         LOGGER.debug("Registered user: {}", user);
         verify = true;
+        redirectLink.append("/login");
       }
       else {
+        redirectLink.append("/signup");
         modelMap.put("reason", "Token is not correct!");
       }
     }
     else {
+      redirectLink.append("/signup");
       modelMap.put("reason", "This token is expired!");
     }
 
     modelMap.put("result", verify);
+    modelMap.put("redirectLink", redirectLink);
 
     return "verifyResult";
   }

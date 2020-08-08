@@ -7,8 +7,7 @@
       <input name="name"
              [class.is-invalid]="form.get('name').invalid"
              type="text" class="form-control"
-             formControlName="name"
-             [(ngModel)]="model.name">
+             formControlName="name">
       <span>User Name:</span>
       <span class="invalid-feedback" *ngIf="form.get('name').hasError('required')">
         Name is required.
@@ -18,8 +17,7 @@
       <input name="email"
              [class.is-invalid]="form.get('email').invalid"
              type="text" class="form-control"
-             formControlName="email"
-             [(ngModel)]="model.account">
+             formControlName="email">
       <span>Email:</span>
       <span class="invalid-feedback" *ngIf="form.get('email').hasError('email')">
         Email format error.

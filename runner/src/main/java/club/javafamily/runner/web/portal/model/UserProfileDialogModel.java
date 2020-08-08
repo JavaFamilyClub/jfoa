@@ -18,6 +18,7 @@ public class UserProfileDialogModel {
    private Integer id;
    private String account;
    private String name;
+   private String email;
 
    public Integer getId() {
       return id;
@@ -43,12 +44,21 @@ public class UserProfileDialogModel {
       this.name = name;
    }
 
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
+   }
+
    @Override
    public String toString() {
       return "UserProfileDialogModel{" +
          "id='" + id + '\'' +
          "account='" + account + '\'' +
          ", name='" + name + '\'' +
+         ", email='" + email + '\'' +
          '}';
    }
 }

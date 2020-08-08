@@ -2,17 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta th:if="${result}" http-equiv="refresh"
+        content="3;URL=http://javafamily.club"
+        th:content="'3;URL=' + ${redirectLink}">
   <title>User Activate Result</title>
   <link rel="icon" type="image/x-icon" href="jfoa-favicon.ico">
 </head>
 
 <body>
   <div th:if="${result}">
-    <h1>Registration Success!</h1>
+    <h1>Registration Success! will go to <a th:href="${redirectLink}">login</a> page after 3s.</h1>
   </div>
 
   <div th:if="${!result}">
-    <h1>Registration Failed!</h1>
+    <h1>Registration Failed!, click go to <a th:href="${redirectLink}">sign up</a> page</h1>
 
     <h4>Reason: <span th:text="${reason}"></span></h4>
   </div>

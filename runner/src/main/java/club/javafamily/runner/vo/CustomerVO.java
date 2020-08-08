@@ -3,6 +3,8 @@ package club.javafamily.runner.vo;
 import java.io.Serializable;
 
 public interface CustomerVO extends Serializable {
-   String getIdentity();
+   String getAccount();
+
+   String getEmail();
 
 }

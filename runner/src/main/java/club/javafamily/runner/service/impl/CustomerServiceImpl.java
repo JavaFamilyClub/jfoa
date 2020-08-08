@@ -120,7 +120,8 @@ public class CustomerServiceImpl implements CustomerService {
    public void signup(CustomerVO customerVO, String baseLink) {
       RegisterUserInfo info = new RegisterUserInfo();
 
-      info.setAccount(customerVO.getIdentity());
+      info.setAccount(customerVO.getAccount());
+      info.setEmail(customerVO.getEmail());
       info.setPassword(SecurityUtil.generatorRegisterUserPassword());
       info.setToken(SecurityUtil.generatorRegisterSuccessToken());
       info.setVerifyBaseLink(baseLink);

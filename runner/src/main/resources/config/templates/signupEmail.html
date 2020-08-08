@@ -5,25 +5,31 @@
     <title>JavaFamily OA</title>
     <meta name="format-detection" content="telephone=no,email=no">
     <link rel="icon" type="image/x-icon" href="../../public/jfoa-favicon.ico" th:href="@{../../public/jfoa-icon.ico}">
-    <link rel="stylesheet" href="./signupEmail.css" th:href="@{./signupEmail.css}">
 </head>
 <body>
-    <div class="signup-container">
-        <div>Hi:</div>
-        <div class="success-message">感谢您的注册, 请在<strong>十分钟内</strong>点击下方链接以激活账户.</div>
+    <div style="width: 100%; height: 100%; margin: 5px; padding: 0;">
+        <div>Hi, My dear friend:</div>
+        <div style="margin-left: 20px">感谢您的注册, 请在<strong style="color: red">十分钟内</strong>点击下方链接以激活账户.</div>
 
-        <div class="active-link">
+        <div style="margin: 25px 20px;">
             <a th:href="${activeLink}" th:text="${activeLink}">http://www.javafamily.club</a>
         </div>
 
         <hr>
 
-        <div class="message-bold">请牢记您的账户信息:</div>
+        <div><strong>请牢记您的账户信息:</strong></div>
 
         <ul>
-            <li><span class="message-bold">账户名:</span> <span th:text="${account}"></span></li>
-            <li><span class="message-bold">密码:</span> <span th:text="${password}"></span></li>
+            <li><strong>账户名:</strong> <span th:text="${account}"></span></li>
+            <li><strong>密码:</strong> <span th:text="${password}"></span></li>
         </ul>
+
+        <hr>
+
+        <div style="margin-top: 30px">
+            <div><strong>-- Java Family</strong></div>
+            <div><small>javafamily.club@outlook.com</small></div>
+        </div>
     </div>
 </body>
 </html>

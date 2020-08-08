@@ -121,7 +121,7 @@ ds:
 debug: true
 logging:
    level:
-      club.javafamily.*: debug
+      club.javafamily.*: info
 ---
 
 spring:

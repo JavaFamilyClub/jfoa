@@ -42,6 +42,7 @@ public class UserProfileDialogController {
 
       model.setId(customer.getId());
       model.setAccount(customer.getAccount());
+      model.setEmail(customer.getEmail());
       model.setName(customer.getName());
 
       return model;
@@ -57,7 +58,9 @@ public class UserProfileDialogController {
       }
 
       customer.setName(model.getName());
-      customer.setAccount(model.getAccount());
+      // unsupport modify account now.
+//      customer.setAccount(model.getAccount());
+      customer.setEmail(model.getEmail());
 
       customerService.updateCustomer(customer);
    }

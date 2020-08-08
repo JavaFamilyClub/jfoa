@@ -5,6 +5,7 @@ import club.javafamily.runner.domain.Role;
 import club.javafamily.runner.enums.PermissionEnum;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -116,6 +117,16 @@ public final class SecurityUtil {
          default:
             return "";
       }
+   }
+
+   public static StringBuilder getBaseUrl(HttpServletRequest request) {
+      StringBuilder path = new StringBuilder();
+      path.append("http://");
+      path.append(request.getServerName());
+      path.append(":");
+      path.append(request.getServerPort());
+
+      return path;
    }
 
    public static String generatorPassword(String userName, String password) {

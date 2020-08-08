@@ -42,7 +42,15 @@ export class UserProfileDialog implements OnInit {
    ngOnInit(): void {
       this.form = this.fb.group({
          name: this.fb.control(this.model.name, [Validators.required]),
-         email: this.fb.control(this.model.account, [Validators.email])
+         email: this.fb.control(this.model.email, [Validators.email])
+      });
+
+      this.form.get("name").valueChanges.subscribe(val => {
+         this.model.name = val;
+      });
+
+      this.form.get("email").valueChanges.subscribe(val => {
+         this.model.email = val;
       });
    }
 

@@ -22,6 +22,7 @@ import java.util.Objects;
 
 public class RegisterUserInfo implements Serializable {
    private String account;
+   private String email;
    private String password;
    private String token;
    private String verifyBaseLink;
@@ -32,6 +33,14 @@ public class RegisterUserInfo implements Serializable {
 
    public void setAccount(String account) {
       this.account = account;
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
    }
 
    public String getPassword() {
@@ -65,6 +74,7 @@ public class RegisterUserInfo implements Serializable {
       user.setPassword(password);
       user.setRegisterDate(new Date(System.currentTimeMillis()));
       user.setAccount(account);
+      user.setEmail(email);
 
       return user;
    }

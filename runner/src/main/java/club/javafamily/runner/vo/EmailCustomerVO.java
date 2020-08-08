@@ -18,15 +18,18 @@ import club.javafamily.runner.domain.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.Email;
-import java.io.Serializable;
-import java.util.Random;
-import java.util.UUID;
 
 @JsonIgnoreProperties
 public class EmailCustomerVO implements CustomerVO {
    @Email(message = "Email Format Error.")
    private String email;
 
+   @Override
+   public String getAccount() {
+      return email;
+   }
+
+   @Override
    public String getEmail() {
       return email;
    }
@@ -45,13 +48,9 @@ public class EmailCustomerVO implements CustomerVO {
    public Customer convert() {
       Customer user = new Customer();
       user.setAccount(email);
+      user.setEmail(email);
       user.autoGenerator();
 
       return user;
-   }
-
-   @Override
-   public String getIdentity() {
-      return getEmail();
    }
 }
