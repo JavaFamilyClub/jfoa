@@ -89,6 +89,13 @@ public class SecurityController {
       throw new MessageException(sb.toString());
     }
 
+    String account = customerVO.getAccount();
+    Customer user = customerService.getCustomerByAccount(account);
+
+    if(user != null) {
+      throw new MessageException("The account has been registered: " + account);
+    }
+
     StringBuilder path = SecurityUtil.getBaseUrl(request);
     path.append(API_VERSION);
     path.append("/customer/verify");

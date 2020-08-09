@@ -14,6 +14,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Gender } from "../../common/enum/gender";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
 import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-model";
@@ -33,6 +34,8 @@ export class UserProfileDialog implements OnInit {
 
    form: FormGroup;
 
+   readonly Gender = Gender;
+
    constructor(private fb: FormBuilder,
                private modelService: ModelService,
                private principalService: PrincipalService)
@@ -42,7 +45,8 @@ export class UserProfileDialog implements OnInit {
    ngOnInit(): void {
       this.form = this.fb.group({
          name: this.fb.control(this.model.name, [Validators.required]),
-         email: this.fb.control(this.model.email, [Validators.email])
+         email: this.fb.control(this.model.email, [Validators.email]),
+         gender: this.fb.control(this.model.gender, [])
       });
 
       this.form.get("name").valueChanges.subscribe(val => {
@@ -51,6 +55,10 @@ export class UserProfileDialog implements OnInit {
 
       this.form.get("email").valueChanges.subscribe(val => {
          this.model.email = val;
+      });
+
+      this.form.get("gender").valueChanges.subscribe(val => {
+         this.model.gender = val;
       });
    }
 

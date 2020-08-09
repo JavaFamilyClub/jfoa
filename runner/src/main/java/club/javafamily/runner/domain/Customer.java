@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.domain;
 
+import club.javafamily.runner.enums.Gender;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.util.Tool;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,7 +25,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.*;
+import java.util.Random;
+import java.util.Set;
 
 import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE;
 
@@ -37,6 +39,7 @@ public class Customer implements Serializable, Cloneable {
    private String name;
    private String password;
    private String email;
+   private Gender gender = Gender.Unknown;
    private boolean active;
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
    @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
@@ -108,6 +111,14 @@ public class Customer implements Serializable, Cloneable {
 
    public void setRegisterDate(Date registerDate) {
       this.registerDate = registerDate;
+   }
+
+   public Gender getGender() {
+      return gender;
+   }
+
+   public void setGender(Gender gender) {
+      this.gender = gender;
    }
 
    @Override

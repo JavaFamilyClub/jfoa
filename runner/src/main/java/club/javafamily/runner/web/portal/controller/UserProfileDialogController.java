@@ -44,6 +44,7 @@ public class UserProfileDialogController {
       model.setAccount(customer.getAccount());
       model.setEmail(customer.getEmail());
       model.setName(customer.getName());
+      model.setGender(customer.getGender());
 
       return model;
    }
@@ -61,6 +62,7 @@ public class UserProfileDialogController {
       // unsupport modify account now.
 //      customer.setAccount(model.getAccount());
       customer.setEmail(model.getEmail());
+      customer.setGender(model.getGender());
 
       customerService.updateCustomer(customer);
    }

@@ -12,12 +12,13 @@
  * person.
  */
 
-import { Gender } from "../../../common/enum/gender";
+package club.javafamily.runner.enums;
 
-export class UserProfileDialogModel {
-   id: number;
-   account: string;
-   name: string;
-   email: string;
-   gender: Gender;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
+public enum Gender {
+   Male,
+   Female,
+   Unknown
 }

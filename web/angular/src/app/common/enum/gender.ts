@@ -11,13 +11,8 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-
-import { Gender } from "../../../common/enum/gender";
-
-export class UserProfileDialogModel {
-   id: number;
-   account: string;
-   name: string;
-   email: string;
-   gender: Gender;
+export enum Gender {
+   Male,
+   Female,
+   Unknown
 }

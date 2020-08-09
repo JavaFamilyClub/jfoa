@@ -1,0 +1,12 @@
+.profile-settings-container {
+   display: flex;
+   flex-direction: column;
+}
+
+.profile-settings-container form > * {
+   margin: 5px 0;
+}
+
+.profile-settings-container .mat-radio-button {
+   margin: 0 5px;
+}

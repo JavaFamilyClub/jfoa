@@ -3,6 +3,12 @@ jasypt:
       password: "javafamily.club"
 
 spring:
+   devtools:
+      restart:
+         additional-paths:
+            - src/main/java
+            - application.yml
+         exclude: static/**,jfoadb/**
    # Mail Config
    mail:
       host: smtp.office365.com
@@ -91,6 +97,12 @@ server:
 
 spring:
    profiles: dev
+
+   # thymeleaf
+   thymeleaf:
+      cache: false
+      session:
+         store-type: none
 
    # Mail Config
    mail:

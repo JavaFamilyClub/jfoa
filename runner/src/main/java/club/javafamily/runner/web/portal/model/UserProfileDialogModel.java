@@ -14,11 +14,14 @@
 
 package club.javafamily.runner.web.portal.model;
 
+import club.javafamily.runner.enums.Gender;
+
 public class UserProfileDialogModel {
    private Integer id;
    private String account;
    private String name;
    private String email;
+   private Gender gender;
 
    public Integer getId() {
       return id;
@@ -50,6 +53,14 @@ public class UserProfileDialogModel {
 
    public void setEmail(String email) {
       this.email = email;
+   }
+
+   public Gender getGender() {
+      return gender;
+   }
+
+   public void setGender(Gender gender) {
+      this.gender = gender;
    }
 
    @Override

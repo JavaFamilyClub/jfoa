@@ -2,27 +2,55 @@
   <h3 class="modal-title">Profile Settings</h3>
 </div>
 <div class="modal-body">
-  <form [formGroup]="form">
-    <label class="has-float-label">
-      <input name="name"
-             [class.is-invalid]="form.get('name').invalid"
-             type="text" class="form-control"
+  <form [formGroup]="form" class="profile-settings-container">
+<!--    <label class="has-float-label">-->
+<!--      <input name="name"-->
+<!--             [class.is-invalid]="form.get('name').invalid"-->
+<!--             type="text" class="form-control"-->
+<!--             formControlName="name">-->
+<!--      <span>User Name:</span>-->
+<!--      <span class="invalid-feedback" *ngIf="form.get('name').hasError('required')">-->
+<!--        Name is required.-->
+<!--      </span>-->
+<!--    </label>-->
+
+    <mat-form-field>
+      <mat-label>User Name:</mat-label>
+      <input matInput placeholder="Please input a valid username."
              formControlName="name">
-      <span>User Name:</span>
-      <span class="invalid-feedback" *ngIf="form.get('name').hasError('required')">
+      <mat-error *ngIf="form.get('name').hasError('required')">
         Name is required.
-      </span>
-    </label>
-    <label class="has-float-label">
-      <input name="email"
-             [class.is-invalid]="form.get('email').invalid"
-             type="text" class="form-control"
+      </mat-error>
+    </mat-form-field>
+
+<!--    <label class="has-float-label">-->
+<!--      <input name="email"-->
+<!--             [class.is-invalid]="form.get('email').invalid"-->
+<!--             type="text" class="form-control"-->
+<!--             formControlName="email">-->
+<!--      <span>Email:</span>-->
+<!--      <span class="invalid-feedback" *ngIf="form.get('email').hasError('email')">-->
+<!--        Email format error.-->
+<!--      </span>-->
+<!--    </label>-->
+
+    <mat-form-field>
+      <mat-label>Email:</mat-label>
+      <input matInput placeholder="Please input a valid email."
              formControlName="email">
-      <span>Email:</span>
-      <span class="invalid-feedback" *ngIf="form.get('email').hasError('email')">
+      <mat-error *ngIf="form.get('email').hasError('email')">
         Email format error.
-      </span>
-    </label>
+      </mat-error>
+    </mat-form-field>
+
+    <div>
+      <label>Gender:</label>
+      <mat-radio-group formControlName="gender">
+        <mat-radio-button [value]="Gender.Male">Male</mat-radio-button>
+        <mat-radio-button [value]="Gender.Female">Female</mat-radio-button>
+        <mat-radio-button [value]="Gender.Unknown">Unknown</mat-radio-button>
+      </mat-radio-group>
+    </div>
   </form>
 </div>
 
