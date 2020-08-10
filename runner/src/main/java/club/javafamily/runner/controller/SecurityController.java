@@ -63,7 +63,8 @@ public class SecurityController {
   @PostMapping(API_VERSION + "/signup")
   public String signup(@Valid @ModelAttribute EmailCustomerVO customerVO,
                        BindingResult bindingResult,
-                       HttpServletRequest request)
+                       HttpServletRequest request,
+                       ModelMap map)
   {
     List<ObjectError> allErrors = bindingResult.getAllErrors();
     StringBuilder sb = new StringBuilder();
@@ -97,10 +98,12 @@ public class SecurityController {
     }
 
     StringBuilder path = SecurityUtil.getBaseUrl(request);
+    String loginLink = path.toString() + "/login";
     path.append(API_VERSION);
     path.append("/customer/verify");
 
     customerService.signup(customerVO, path.toString());
+    map.put("loginLink", loginLink);
 
     // goto login after sign up.
     return "signupSuccess";

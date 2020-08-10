@@ -31,6 +31,7 @@ $input-btn-focus-color: $primary;
 
 @import '~bootstrap/scss/bootstrap';
 @import "~bootstrap-float-label/bootstrap-float-label";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 @import "./assets/icons/style.scss";
 @import './scss/_imports';
