@@ -37,14 +37,14 @@ public interface CustomerService {
    /**
     * get current
     *
-    * @return
+    * @return Current login user.
     */
    Customer getCurrentCustomer();
 
    /**
     * get all Users
     *
-    * @return
+    * @return Customer List
     */
    List<Customer> getCustomers();
 

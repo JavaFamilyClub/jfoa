@@ -30,10 +30,6 @@ const appRoutes: Routes = [
             loadChildren: () => import("./setting/em-setting.module").then(m => m.EmSettingModule)
          },
          {
-            path: "setting",
-            loadChildren: () => import("./setting/em-setting.module").then(m => m.EmSettingModule)
-         },
-         {
             path: "**",
             redirectTo: "monitor"
          }

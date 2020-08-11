@@ -4,7 +4,7 @@ public enum PermissionEnum {
    READ(1),
    WRITE(2),
    DELETE(4),
-   VERIFY(8),
+   ACCESS(8),
    ADMIN(16);
 
    private int permission;
@@ -26,7 +26,7 @@ public enum PermissionEnum {
          case 4:
             return DELETE;
          case 8:
-            return VERIFY;
+            return ACCESS;
          case 16:
             return ADMIN;
          default:

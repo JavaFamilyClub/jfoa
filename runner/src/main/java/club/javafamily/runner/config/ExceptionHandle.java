@@ -5,12 +5,11 @@ import club.javafamily.runner.common.ResponseResult;
 import club.javafamily.runner.enums.ExceptionEnum;
 import org.apache.shiro.authc.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletRequest;
 
-@ControllerAdvice("club.javafamily.runner.controller")
+@RestControllerAdvice({ "club.javafamily.runner.controller", "club.javafamily.runner.web..*.controller" })
 public class ExceptionHandle {
 
    @ExceptionHandler(UnknownAccountException.class)

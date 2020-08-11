@@ -3,8 +3,7 @@ package club.javafamily.runner.enums;
 public enum ActionType {
   ADD(1, "Add"),
   DELETE(2, "Delete"),
-  MODIFY(3, "Modify"),
-  VERIFY(4, "Verify");
+  MODIFY(3, "Modify");
 
   private int type;
   private String label;

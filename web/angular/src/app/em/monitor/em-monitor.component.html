@@ -1,12 +1,17 @@
 <mat-drawer-container class="em-monitor-container" autosize>
-  <mat-drawer #drawer mode="side" opened class="em-monitor-left-sidenav">
+  <mat-drawer #drawer mode="side" opened class="em-monitor-left-sidenav"
+              disableClose>
     <div class="mat-drawer-inner-container">
-      Monitoring Tree
+      <mat-nav-list>
+        <mat-list-item>
+          <a matLine routerLink="audit">Audit</a>
+        </mat-list-item>
+      </mat-nav-list>
     </div>
   </mat-drawer>
 
   <div class="em-monitor-right-sidenav">
-    Monitor content...
+    <router-outlet></router-outlet>
   </div>
 
 </mat-drawer-container>

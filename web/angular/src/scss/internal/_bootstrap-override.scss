@@ -1,10 +1,10 @@
 .navbar {
-  padding: 0px;
+  padding: 0;
 }
 
 // 去除 dropdown 的 caret 下拉图标
 .dropdown-toggle:after{
-  display:none;
+  display: none;
 }
 
 //.btn {
@@ -16,10 +16,10 @@
 //  border-radius: 4px;
 //}
 
-//.btn:hover, .btn:focus {
-//  // clear display border after click btn.
-//  box-shadow: none;
-//}
+.btn:hover, .btn:focus {
+  // clear display border after click btn.
+  box-shadow: none;
+}
 
 .form-control:focus {
   box-shadow: 0 0 0 0.1rem $jfoa-orange !important;

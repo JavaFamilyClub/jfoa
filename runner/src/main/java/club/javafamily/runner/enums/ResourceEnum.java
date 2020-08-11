@@ -1,8 +1,14 @@
 package club.javafamily.runner.enums;
 
 public enum ResourceEnum {
-  PORTAL(1, "Portal"),
-  EM(2, "Enterprise Manager");
+  // pages
+  Portal(1, "Portal"),
+  EM(2, "Enterprise Manager"),
+
+  // ops
+  Audit(65, "Audit"),
+  Customer(66, "Customer")
+  ;
 
   private int type;
   private String label;

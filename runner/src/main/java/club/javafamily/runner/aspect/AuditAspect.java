@@ -9,8 +9,6 @@ import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.service.LogService;
 import club.javafamily.runner.util.SecurityUtil;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -25,7 +23,6 @@ import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.util.Date;
-import java.util.Objects;
 
 @Configuration
 @Aspect
@@ -51,6 +48,7 @@ public class AuditAspect {
     try {
       principal = customerService.getCurrentCustomer();
     } catch (Exception ignore) {
+      LOGGER.debug("Get principal error!", ignore);
     }
 
     try {
@@ -110,14 +108,14 @@ public class AuditAspect {
       result = pjp.proceed();
     }
     catch (Throwable throwable) {
-      if (log != null) {
+      if(log != null) {
         log.setMessage("Execute Failed: " + throwable.getMessage());
       }
 
       throw throwable;
     }
     finally {
-      if (log != null) {
+      if(log != null) {
         logService.insertLog(log);
       }
     }

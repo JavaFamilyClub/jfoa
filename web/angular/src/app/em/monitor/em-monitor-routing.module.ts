@@ -14,12 +14,19 @@
 
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AuditViewComponent } from "./audit/audit-view.component";
 import { EmMonitorComponent } from "./em-monitor.component";
 
 const appRoutes: Routes = [
    {
       path: "",
       component: EmMonitorComponent,
+      children: [
+         {
+            path: "audit",
+            component: AuditViewComponent
+         }
+      ]
    }
 ];
 

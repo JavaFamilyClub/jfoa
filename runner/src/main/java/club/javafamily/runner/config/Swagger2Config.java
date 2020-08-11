@@ -24,9 +24,9 @@ public class Swagger2Config {
 
    private ApiInfo apiInfo() {
       return new ApiInfoBuilder()
-         .title("PSS APIs")
+         .title("JavaFamily OA APIs")
          .version("1.0")
-         .description("Pss RESTful APIs")
+         .description("JavaFamily OA RESTful APIs")
          .build();
    }
 }

@@ -87,10 +87,10 @@ public final class SecurityUtil {
          permissions.add(getOperatorPermission(PermissionEnum.DELETE));
       }
 
-      if(PermissionEnum.VERIFY.getPermission()
-         == (permission & PermissionEnum.VERIFY.getPermission()))
+      if(PermissionEnum.ACCESS.getPermission()
+         == (permission & PermissionEnum.ACCESS.getPermission()))
       {
-         permissions.add(getOperatorPermission(PermissionEnum.VERIFY));
+         permissions.add(getOperatorPermission(PermissionEnum.ACCESS));
       }
 
       if(PermissionEnum.ADMIN.getPermission()
@@ -110,8 +110,8 @@ public final class SecurityUtil {
             return "w";
          case DELETE:
             return "d";
-         case VERIFY:
-            return "v";
+         case ACCESS:
+            return "a";
          case ADMIN:
             return ALL_PERMISSION;
          default:
@@ -121,7 +121,8 @@ public final class SecurityUtil {
 
    public static StringBuilder getBaseUrl(HttpServletRequest request) {
       StringBuilder path = new StringBuilder();
-      path.append("http://");
+      path.append(request.getScheme());
+      path.append("://");
       path.append(request.getServerName());
       path.append(":");
       path.append(request.getServerPort());

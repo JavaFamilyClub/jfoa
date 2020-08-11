@@ -16,16 +16,21 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatTableModule } from "@angular/material/table";
+import { AuditViewComponent } from "./audit/audit-view.component";
 import { EmMonitorRoutingModule } from "./em-monitor-routing.module";
 import { EmMonitorComponent } from "./em-monitor.component";
 
 @NgModule({
    declarations: [
       EmMonitorComponent,
+      AuditViewComponent,
    ],
    imports: [
       CommonModule,
@@ -35,7 +40,11 @@ import { EmMonitorComponent } from "./em-monitor.component";
       MatButtonModule,
       MatSnackBarModule,
       MatSidenavModule,
-      MatInputModule
+      MatInputModule,
+      MatListModule,
+      MatIconModule,
+      MatCardModule,
+      MatTableModule
    ],
    entryComponents: [
    ],

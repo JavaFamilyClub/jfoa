@@ -51,8 +51,8 @@ export class PortalToolBarComponent {
       {
          const dialog = ComponentTool.showDialog(this.modalService,
             UserProfileDialog, () => {}, {
-               backdrop: 'static',
-               size: 'lg'
+               backdrop: "static",
+               size: "lg"
             });
          dialog.model = model;
       });

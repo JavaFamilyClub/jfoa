@@ -14,12 +14,16 @@
 
 package club.javafamily.runner.service.impl;
 
+import club.javafamily.runner.annotation.Audit;
+import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 import club.javafamily.runner.common.service.AmqpService;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.dao.CustomerDao;
 import club.javafamily.runner.domain.Customer;
+import club.javafamily.runner.enums.ActionType;
+import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.vo.CustomerVO;
@@ -70,9 +74,10 @@ public class CustomerServiceImpl implements CustomerService {
       return customerDao.getAll();
    }
 
+   @Audit(ResourceEnum.Customer)
    @Transactional
    @Override
-   public Integer insertCustomer(Customer user) {
+   public Integer insertCustomer(@AuditObject("getName()") Customer user) {
       if(isValid(user)) {
          user.setPassword(
             SecurityUtil.generatorPassword(user.getAccount(), user.getPassword()));
@@ -103,15 +108,19 @@ public class CustomerServiceImpl implements CustomerService {
       return true;
    }
 
+   @Audit(value = ResourceEnum.Customer,
+      actionType = ActionType.MODIFY)
    @Transactional
    @Override
-   public void updateCustomer(Customer user) {
+   public void updateCustomer(@AuditObject("getName()") Customer user) {
       customerDao.update(user);
    }
 
+   @Audit(value = ResourceEnum.Customer,
+      actionType = ActionType.DELETE)
    @Transactional
    @Override
-   public void deleteCustomer(Customer user) {
+   public void deleteCustomer(@AuditObject("getName()") Customer user) {
       customerDao.delete(user);
    }
 

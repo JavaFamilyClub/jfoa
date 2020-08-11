@@ -1,17 +1,18 @@
 package club.javafamily.runner.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-public class Log {
+@Entity(name = "t_log")
+public class Log implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  private Date date;
-  private String customer;
-  private String action;
   private String resource;
+  private String action;
+  private String customer;
+  private Date date;
   private String message;
 
   public Integer getId() {
