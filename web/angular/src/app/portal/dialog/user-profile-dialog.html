@@ -3,17 +3,6 @@
 </div>
 <div class="modal-body">
   <form [formGroup]="form" class="profile-settings-container">
-<!--    <label class="has-float-label">-->
-<!--      <input name="name"-->
-<!--             [class.is-invalid]="form.get('name').invalid"-->
-<!--             type="text" class="form-control"-->
-<!--             formControlName="name">-->
-<!--      <span>User Name:</span>-->
-<!--      <span class="invalid-feedback" *ngIf="form.get('name').hasError('required')">-->
-<!--        Name is required.-->
-<!--      </span>-->
-<!--    </label>-->
-
     <mat-form-field>
       <mat-label>User Name:</mat-label>
       <input matInput placeholder="Please input a valid username."
@@ -22,17 +11,6 @@
         Name is required.
       </mat-error>
     </mat-form-field>
-
-<!--    <label class="has-float-label">-->
-<!--      <input name="email"-->
-<!--             [class.is-invalid]="form.get('email').invalid"-->
-<!--             type="text" class="form-control"-->
-<!--             formControlName="email">-->
-<!--      <span>Email:</span>-->
-<!--      <span class="invalid-feedback" *ngIf="form.get('email').hasError('email')">-->
-<!--        Email format error.-->
-<!--      </span>-->
-<!--    </label>-->
 
     <mat-form-field>
       <mat-label>Email:</mat-label>

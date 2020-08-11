@@ -19,7 +19,7 @@ import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
 import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-model";
 
-const USER_PROFILE_UTI = "/user/profile";
+const USER_PROFILE_URI = "/user/profile";
 
 @Component({
    selector: "user-profile-dialog",
@@ -63,7 +63,7 @@ export class UserProfileDialog implements OnInit {
    }
 
    ok(): void {
-      this.modelService.putModel(USER_PROFILE_UTI, this.model).subscribe(() => {
+      this.modelService.putModel(USER_PROFILE_URI, this.model).subscribe(() => {
          this.principalService.refresh();
          this.onCommit.emit();
       });
