@@ -98,7 +98,8 @@ public class AuditAspect {
       log.setCustomer(opUser);
       log.setResource(resource.getLabel() + ":" + objectName);
       log.setAction(actionType.getLabel());
-    } catch (Exception ignore) {
+    }
+    catch (Exception ignore) {
       LOGGER.warn("Build Log Failed!");
     }
 
@@ -107,7 +108,7 @@ public class AuditAspect {
     try {
       result = pjp.proceed();
     }
-    catch (Throwable throwable) {
+    catch(Throwable throwable) {
       if(log != null) {
         log.setMessage("Execute Failed: " + throwable.getMessage());
       }

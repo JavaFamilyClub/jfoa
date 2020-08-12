@@ -12,7 +12,7 @@
  * person.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { ModelService } from "../../../widget/services/model.service";
 import { Log } from "./model/log";
@@ -20,9 +20,9 @@ import { Log } from "./model/log";
 const LOG_ALL_URI = "/logs";
 
 @Component({
-  selector: 'audit-view',
-  templateUrl: './audit-view.component.html',
-  styleUrls: ['./audit-view.component.scss']
+  selector: "audit-view",
+  templateUrl: "./audit-view.component.html",
+  styleUrls: ["./audit-view.component.scss"]
 })
 export class AuditViewComponent implements OnInit {
   dataSource: MatTableDataSource<Log>;
