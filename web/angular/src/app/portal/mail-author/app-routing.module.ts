@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -14,27 +14,12 @@
 
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { PortalAppComponent } from "./app.component";
-import { WelcomeComponent } from "./welcome/welcome.component";
+import { MailAuthorComponent } from "./mail-author.component";
 
 const appRoutes: Routes = [
    {
       path: "",
-      component: PortalAppComponent,
-      children: [
-          {
-              path: "welcome",
-              component: WelcomeComponent
-          },
-          {
-             path: "mailAuthor",
-             loadChildren: () => import("./mail-author/mail-author-app.module").then(m => m.MailAuthorAppModule)
-          },
-          {
-              path: "**",
-              redirectTo: "welcome"
-          }
-      ]
+      component: MailAuthorComponent
    }
 ];
 
@@ -46,5 +31,5 @@ const appRoutes: Routes = [
       RouterModule
    ]
 })
-export class PortalAppRoutingModule {
+export class AppRoutingModule {
 }

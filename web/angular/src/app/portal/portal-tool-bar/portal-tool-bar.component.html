@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar *ngIf="!!principal">
   <div role="group" aria-label="JavaFamily Btn">
     <div class="jfoa-icon-size">
       <img class="jfoa-icon-size txt-light" src="../jfoa-icon.ico"/>
@@ -15,6 +15,13 @@
 
   <div class="btn-group title-bar-align-right" role="group" aria-label="Portal Manager Btn Group">
     <div class="d-inline-block">
+      <button mat-icon-button *ngIf="principal?.authenticated"
+              routerLink="./mailAuthor"
+              aria-label="Mail Author" title="Mail Author"
+              class="tile-bar-icon-size title-bar-btn">
+        <mat-icon class="jfoa" fontIcon="icon-mail-write"></mat-icon>
+      </button>
+
       <button mat-button mat-icon-button aria-label="Help" title="Help"
               class="tile-bar-icon-size"
               (click)="help()">

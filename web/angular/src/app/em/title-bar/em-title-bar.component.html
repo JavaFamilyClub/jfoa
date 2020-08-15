@@ -1,4 +1,4 @@
-<div class="title-bar-container btn-toolbar title-bar-header">
+<mat-toolbar>
 
   <div role="group" aria-label="JavaFamily Btn">
     <div class="jfoa-icon-size">
@@ -31,23 +31,30 @@
   </div>
 
   <div class="btn-group title-bar-align-right" role="group" aria-label="EM Home Btn Group">
-    <button type="button" class="btn btn-default tile-bar-icon-size title-bar-btn"
-      (click)="help()">
-      <i class="icon-help"></i>
-      <span class="sr-only">Help</span>
-    </button>
-
-    <div class="d-inline-block" ngbDropdown>
-      <button id="account-dropdown-toggle" type="button" ngbDropdownToggle
-              class="btn btn-default tile-bar-icon-size title-bar-btn">
-        <i class="icon-account"></i>
-        <span class="sr-only">Account</span>
+    <div class="d-inline-block">
+      <button mat-button mat-icon-button aria-label="Help" title="Help"
+              class="tile-bar-icon-size"
+              (click)="help()">
+        <mat-icon class="jfoa" fontIcon="icon-help"></mat-icon>
       </button>
 
-      <div ngbDropdownMenu aria-labelledby="account-dropdown-toggle">
-        <a ngbDropdownItem href="/logout">Log Out</a>
-      </div>
+      <button mat-icon-button [matMenuTriggerFor]="accountMatMenu"
+              aria-label="Account" title="Account"
+              class="tile-bar-icon-size title-bar-btn">
+        <mat-icon class="jfoa" fontIcon="icon-account"></mat-icon>
+      </button>
+
+      <mat-menu #accountMatMenu="matMenu">
+        <ng-template matMenuContent>
+          <button mat-menu-item (click)="editProfile($event)"
+                  [disabled]="!principal?.authenticated"
+          >Profile ({{principal.userName}})</button>
+          <mat-divider></mat-divider>
+          <a *ngIf="principal?.authenticated" mat-menu-item href="/logout">Sign Out</a>
+        </ng-template>
+      </mat-menu>
+
     </div>
   </div>
 
-</div>
+</mat-toolbar>

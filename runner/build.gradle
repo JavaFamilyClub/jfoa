@@ -63,7 +63,7 @@ dependencies {
    implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:${jasyptVersion}"
 
    // tools
-   implementation 'org.springframework.boot:spring-boot-devtools'
+//   implementation 'org.springframework.boot:spring-boot-devtools'
    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
    // springfox swagger

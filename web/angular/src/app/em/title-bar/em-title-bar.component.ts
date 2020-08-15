@@ -14,10 +14,18 @@
 
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { EmUrlConstants } from "../../common/constants/url/em-url-constants";
+import { ComponentTool } from "../../common/util/component-tool";
 import { GuiTool } from "../../common/util/gui-tool";
+import { UserProfileDialog } from "../../portal/dialog/user-profile-dialog";
+import { UserProfileDialogModel } from "../../portal/model/dialog/user-profile-dialog-model";
+import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
+import { PrincipalService } from "../../widget/services/principal-service";
 import { EmTab, EmTitleBarService } from "../service/em-title-bar.service";
+
+const USER_PROFILE_UTI = "/user/profile";
 
 @Component({
    selector: "em-title-bar",
@@ -27,7 +35,9 @@ import { EmTab, EmTitleBarService } from "../service/em-title-bar.service";
 export class EmTitleBarComponent {
 
    constructor(private router: Router,
+               private modalService: NgbModal,
                private modelService: ModelService,
+               private principalService: PrincipalService,
                private titleBarService: EmTitleBarService) {
    }
 
@@ -50,13 +60,24 @@ export class EmTitleBarComponent {
       this.router.navigateByUrl(tabURL);
    }
 
-   logout(): void {
-      // TODO redirect to login page by interceptor.
-      this.modelService.getModel(EmUrlConstants.LOGOUT_URL).subscribe((status) => {
-      });
+   get principal(): JfPrincipal {
+      return this.principalService.principal;
    }
 
    help(): void {
       GuiTool.openBrowserTab("https://dreamli1314.github.io/angboot/");
+   }
+
+   editProfile(event: MouseEvent): void {
+      this.modelService.getModel<UserProfileDialogModel>(USER_PROFILE_UTI)
+         .subscribe((model) =>
+         {
+            const dialog = ComponentTool.showDialog(this.modalService,
+               UserProfileDialog, () => {}, {
+                  backdrop: "static",
+                  size: "lg"
+               });
+            dialog.model = model;
+         });
    }
 }

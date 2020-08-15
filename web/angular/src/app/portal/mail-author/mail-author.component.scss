@@ -1,0 +1,41 @@
+.host {
+  width: 95%;
+  height: 100%;
+}
+
+.mail-author-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mail-author-container > *:not(button) {
+  width: 100%;
+}
+
+.mail-item {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.mail-subject {
+  @extend .mail-item;
+}
+
+.mail-content {
+  @extend .mail-item;
+}
+
+.mail-author-footer {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  vertical-align: middle;
+  padding-right: 25px;
+}
+
+.mail-author-loading {
+  width: 100%;
+  height: 100%;
+}

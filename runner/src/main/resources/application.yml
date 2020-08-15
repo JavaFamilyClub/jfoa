@@ -130,7 +130,6 @@ ds:
       username: jfoa
       password: jfoa
 
-debug: true
 logging:
    level:
       club.javafamily.*: info

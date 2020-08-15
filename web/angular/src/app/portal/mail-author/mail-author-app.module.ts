@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -16,54 +16,40 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
-import { MatDividerModule } from "@angular/material/divider";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
-import { MatMenuModule } from "@angular/material/menu";
-import { MatRadioModule } from "@angular/material/radio";
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
-import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { PortalAppComponent } from "./app.component";
-import { WidgetModule } from "../widget/widget.module";
-import { UserProfileDialog } from "./dialog/user-profile-dialog";
-import { MODULE_COMPONENTS } from "./index.components";
-import { PortalAppRoutingModule } from "./app-routing.module";
+import { WidgetModule } from "../../widget/widget.module";
+import { AppRoutingModule } from "./app-routing.module";
+import { MailAuthorComponent } from "./mail-author.component";
 
 @NgModule({
    declarations: [
-      PortalAppComponent,
-      ...MODULE_COMPONENTS
+      MailAuthorComponent
    ],
    imports: [
       CommonModule,
       FormsModule,
+      AppRoutingModule,
       WidgetModule,
       ReactiveFormsModule,
       NgbModule,
-      PortalAppRoutingModule,
-      MatToolbarModule,
+      MatSnackBarModule,
+      MatFormFieldModule,
+      MatInputModule,
       MatButtonModule,
       MatIconModule,
-      MatMenuModule,
-      MatDividerModule,
-      MatRadioModule,
-      MatFormFieldModule,
-      MatInputModule
+      MatProgressSpinnerModule
    ],
-   bootstrap: [PortalAppComponent],
+   bootstrap: [MailAuthorComponent],
    entryComponents: [
-      UserProfileDialog
    ],
    providers: [
-      {
-         provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-         useValue: {
-            duration: 2500
-         }
-      }
    ]
 })
-export class PortalAppModule {
+export class MailAuthorAppModule {
 }
+

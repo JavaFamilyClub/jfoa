@@ -1,0 +1,23 @@
+<div class="mail-author-container">
+
+  <mat-form-field class="mail-subject">
+    <input matInput placeholder="Subject"
+           [(ngModel)]="model.subject">
+  </mat-form-field>
+
+  <mat-form-field class="mail-content">
+    <textarea matInput placeholder="Write Email Content"
+              rows="5"
+              [(ngModel)]="model.content"></textarea>
+  </mat-form-field>
+
+  <div class="mail-author-footer">
+    <button mat-icon-button class="btn-primary" (click)="send()" title="Send">
+      <mat-icon aria-label="Send" class="icon-mail-send"></mat-icon>
+    </button>
+  </div>
+
+</div>
+
+<mat-spinner *ngIf="loading" class="mail-author-loading"></mat-spinner>
+

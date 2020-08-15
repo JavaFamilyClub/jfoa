@@ -13,6 +13,8 @@ public final class SecurityUtil {
    // api
    public static final String API_VERSION = "/api/1.0";
 
+   public static final String Author_Email = "javafamily.club@outlook.com";
+
    // user constant
    public static final String Admin = "admin";
    public static final String Anonymous = "Anonymous";

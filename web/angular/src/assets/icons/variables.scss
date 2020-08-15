@@ -5,10 +5,12 @@ $icon-edit: "\e901";
 $icon-help: "\e902";
 $icon-home: "\e903";
 $icon-logout: "\e904";
-$icon-menu-off: "\e905";
-$icon-menu-on: "\e906";
-$icon-monitor: "\e907";
-$icon-setting: "\e908";
+$icon-mail-send: "\e905";
+$icon-mail-write: "\e907";
+$icon-menu-off: "\e908";
+$icon-menu-on: "\e909";
+$icon-monitor: "\e90a";
+$icon-setting: "\e90b";
 
 $jfoa-base-map: (
    icon-account: $icon-account,
@@ -16,6 +18,8 @@ $jfoa-base-map: (
    icon-help: $icon-help,
    icon-home: $icon-home,
    icon-logout: $icon-logout,
+   icon-mail-send: $icon-mail-send,
+   icon-mail-write: $icon-mail-write,
    icon-menu-off: $icon-menu-off,
    icon-menu-on: $icon-menu-on,
    icon-monitor: $icon-monitor,
