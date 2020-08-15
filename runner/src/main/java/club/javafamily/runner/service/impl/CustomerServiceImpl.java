@@ -32,6 +32,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -54,7 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
       return customerDao.getUserByAccount(name);
    }
 
-   @Transactional(readOnly = true)
+   @Transactional(readOnly = true, propagation = Propagation.NESTED)
    @Override
    public Customer getCurrentCustomer() {
       Subject subject = SecurityUtils.getSubject();
