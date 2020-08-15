@@ -4,3 +4,6 @@
 
 - Customization
    - [Configuration](configuration.md)
+   
+- Exceptions
+   - [UnexpectedRollbackException](transactionrolledback.md)

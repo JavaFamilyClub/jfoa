@@ -55,7 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
       return customerDao.getUserByAccount(name);
    }
 
-   @Transactional(readOnly = true, propagation = Propagation.NESTED)
+   @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
    @Override
    public Customer getCurrentCustomer() {
       Subject subject = SecurityUtils.getSubject();
@@ -94,16 +94,16 @@ public class CustomerServiceImpl implements CustomerService {
          throw new MessageException("Account must is not empty!");
       }
 
+      if(StringUtils.isEmpty(user.getPassword())) {
+         throw new MessageException("Password must is not empty!");
+      }
+
       if(getCustomerByAccount(user.getAccount()) != null) {
          throw new MessageException("The account(" + user.getAccount() + ") has been registered");
       }
 
       if(StringUtils.isEmpty(user.getName())) {
          user.autoGeneratorName();
-      }
-
-      if(StringUtils.isEmpty(user.getPassword())) {
-         user.autoGeneratorPwd();
       }
 
       return true;
