@@ -52,6 +52,9 @@ export class MailAuthorComponent {
       this.modelService.sendModel(MAIL_AUTHOR_URI, this.model).subscribe(() => {
          this.loading = false;
          this.snackBar.open("Email Send success!", "Close");
-      }, () => { this.loading = false; });
+      }, () => {
+         this.loading = false;
+         this.snackBar.open("Email Send failed, Please try again later!", "Close");
+      });
    }
 }
