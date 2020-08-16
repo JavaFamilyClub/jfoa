@@ -37,6 +37,11 @@ export class MailAuthorComponent {
    }
 
    send(): void {
+      if(!!!this.model.subject) {
+         this.snackBar.open("Email Subject must not empty!", "Close");
+         return;
+      }
+
       if(!!!this.model.content) {
          this.snackBar.open("Email Content must not empty!", "Close");
          return;
@@ -46,6 +51,7 @@ export class MailAuthorComponent {
 
       this.modelService.sendModel(MAIL_AUTHOR_URI, this.model).subscribe(() => {
          this.loading = false;
+         this.snackBar.open("Email Send success!", "Close");
       }, () => { this.loading = false; });
    }
 }

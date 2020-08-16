@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -13,9 +13,15 @@
  */
 
 import { TestBed, async } from "@angular/core/testing";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatIconModule } from "@angular/material/icon";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterTestingModule } from "@angular/router/testing";
 import { ModelService } from "../../widget/services/model.service";
+import { PrincipalService } from "../../widget/services/principal-service";
 import { EmTab, EmTitleBarService } from "../service/em-title-bar.service";
 import { EmTitleBarComponent } from "./em-title-bar.component";
 
@@ -23,8 +29,10 @@ describe("EmTitleBarComponent", () => {
 
    let modelService: any;
    let emTitleBarService: any;
+   let principalService: any;
 
    beforeEach(async(() => {
+      principalService = { refresh: jest.fn() };
       modelService = { getModel: jest.fn() };
       emTitleBarService = { changeTab: jest.fn() };
       emTitleBarService.currentTab = EmTab.MONITOR;
@@ -32,7 +40,12 @@ describe("EmTitleBarComponent", () => {
       TestBed.configureTestingModule({
          imports: [
             BrowserModule,
-            RouterTestingModule
+            RouterTestingModule,
+            MatToolbarModule,
+            MatButtonModule,
+            MatMenuModule,
+            MatDividerModule,
+            MatIconModule
          ],
          declarations: [
             EmTitleBarComponent
@@ -45,6 +58,10 @@ describe("EmTitleBarComponent", () => {
             {
                provide: EmTitleBarService,
                useValue: emTitleBarService
+            },
+            {
+               provide: PrincipalService,
+               useValue: principalService
             }
          ]
       }).compileComponents();
