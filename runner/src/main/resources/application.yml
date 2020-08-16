@@ -86,9 +86,9 @@ ds:
       show-sql: false
    druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://123.56.42.60:3306/db_jfoa?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
+      url: jdbc:mysql://javafamily.club:3306/db_jfoa?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
       username: root
-      password: 123456
+      password: ENC(dOtsjEP7GiBc4d8/x0MIbCmV19HshULfCGIUaVKRqrwjckDZQWvLBq6vn7cCdzyR)
 
 ---
 

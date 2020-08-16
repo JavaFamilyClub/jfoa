@@ -31,7 +31,7 @@ export class MailAuthorComponent {
 
    model: MailAuthorModel = {
       subject: "",
-      content: `<br><hr><p>---- ${this.principal?.userName}(${this.principal?.email || ""})</p>`
+      content: ""
    };
 
    options = {

@@ -15,6 +15,8 @@
 package club.javafamily.runner.web.portal.controller;
 
 import club.javafamily.runner.common.service.EmailService;
+import club.javafamily.runner.domain.Customer;
+import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.portal.model.MailAuthorModel;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -32,14 +34,20 @@ public class MailAuthorController {
    public void mailAuthor(@RequestBody MailAuthorModel model)
       throws Exception
    {
+      Customer currentCustomer = customerService.getCurrentCustomer();
+      String userName = currentCustomer.getName();
+      String account = currentCustomer.getAccount();
+      String sign = "<br><hr><p>---- " + userName + "(" + account + ")</p>";
       emailService.sendMimeMessage(Author_Email, model.getSubject(),
-         model.getContent());
+         model.getContent() + sign);
    }
 
    @Autowired
-   public MailAuthorController(EmailService emailService) {
+   public MailAuthorController(CustomerService customerService, EmailService emailService) {
+      this.customerService = customerService;
       this.emailService = emailService;
    }
 
+   private final CustomerService customerService;
    private final EmailService emailService;
 }
