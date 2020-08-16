@@ -18,7 +18,7 @@ import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 
 public interface AmqpService {
    String DIRECT_EXCHANGE = "jfoa-direct";
-   String REGISTER_QUEUE = "jsoa-user-register-queue";
+   String REGISTER_QUEUE = "jfoa-user-register-queue";
    String DIRECT_REGISTER_ROUTER_KEY = DIRECT_EXCHANGE; // routingKey is exchange name
 
    /**

@@ -129,12 +129,15 @@ task server() {
       javaexec {
          classpath sourceSets.main.runtimeClasspath
          def envMode = productionBuild ? 'prod' : 'dev'
+         def debugCmd = productionBuild
+            ? ''
+            : '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
 
          main = 'club.javafamily.runner.RunnerApplication'
          jvmArgs = [
             "-Dspring.profiles.active=${envMode}",
             '-Djava.rmi.server.hostname=127.0.0.1',
-            '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005']
+            debugCmd]
          args = ['--stop-port', '8082', '--stop-key', 'stop']
       }
    }

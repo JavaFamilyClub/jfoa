@@ -58,7 +58,7 @@ export class MailAuthorComponent {
 
    constructor(private snackBar: MatSnackBar,
                private modelService: ModelService,
-               private principalService: PrincipalService,)
+               private principalService: PrincipalService)
    {
    }
 
