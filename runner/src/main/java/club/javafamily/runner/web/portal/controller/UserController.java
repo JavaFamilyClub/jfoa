@@ -38,6 +38,7 @@ public class UserController {
       }
       else {
          principal.setUserName(user.getName());
+         principal.setEmail(user.getEmail());
       }
 
       return principal;

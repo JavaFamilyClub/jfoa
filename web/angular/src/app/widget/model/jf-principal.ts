@@ -14,4 +14,5 @@
 export interface JfPrincipal {
    userName: string;
    authenticated: boolean;
+   email: string;
 }

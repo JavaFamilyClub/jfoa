@@ -24,4 +24,5 @@
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  z-index: $loading-z-index;
 }

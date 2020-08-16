@@ -18,7 +18,8 @@
       <button mat-icon-button *ngIf="principal?.authenticated"
               routerLink="./mailAuthor"
               aria-label="Mail Author" title="Mail Author"
-              class="tile-bar-icon-size title-bar-btn">
+              class="tile-bar-icon-size title-bar-btn"
+              [disabled]="!!!principal?.email">
         <mat-icon class="jfoa" fontIcon="icon-mail-write"></mat-icon>
       </button>
 

@@ -29,8 +29,10 @@ public class MailAuthorController {
 
    @RequiresAuthentication
    @PostMapping("/mail-author")
-   public void mailAuthor(@RequestBody MailAuthorModel model) {
-      emailService.sendSimpleMailMessage(Author_Email, model.getSubject(),
+   public void mailAuthor(@RequestBody MailAuthorModel model)
+      throws Exception
+   {
+      emailService.sendMimeMessage(Author_Email, model.getSubject(),
          model.getContent());
    }
 

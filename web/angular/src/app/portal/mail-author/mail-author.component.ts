@@ -12,9 +12,11 @@
  * person.
  */
 
-import { Component } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
+import { PrincipalService } from "../../widget/services/principal-service";
 import { MailAuthorModel } from "./mail-author-model";
 
 const MAIL_AUTHOR_URI = "/mail-author";
@@ -25,15 +27,43 @@ const MAIL_AUTHOR_URI = "/mail-author";
    styleUrls: ["mail-author.component.scss"]
 })
 export class MailAuthorComponent {
+   @ViewChild("froalaContainer") froalaContainer: ElementRef;
+
    model: MailAuthorModel = {
       subject: "",
-      content: ""
+      content: `<br><hr><p>---- ${this.principal?.userName}(${this.principal?.email || ""})</p>`
    };
+
+   options = {
+      language: "zh_cn",
+      placeholderText: "Write your email content.",
+      height: "300",
+      toolbarButtonsXS: ["undo", "redo", "|", "bold", "italic", "underline", "|", "fontSize", "align", "color"],
+      pasteAllowedStyleProps: ["font-size", "color"],
+      htmlAllowComments: false,
+      fontSizeDefaultSelection: "16",
+      colorsHEXInput: false,
+      toolbarSticky: false,
+      colorsBackground: ["#2E2E2E", "#767676", "#DF281B", "#F4821C", "#46AC43", "#2E5BF7", "#A249B3", "REMOVE"],
+      colorsText: ["#2E2E2E", "#767676", "#DF281B", "#F4821C", "#46AC43", "#2E5BF7", "#A249B3", "REMOVE"],
+      fontSize: ["14", "16", "18", "20"],
+      charCounterCount: true,
+      quickInsertButtons: ["image", "table", "ol", "ul"],
+      quickInsertEnabled: true,
+      embedlyKey: "JavaFamily",
+      embedlyEditButtons: []
+   };
+
    loading = false;
 
-   constructor(private modelService: ModelService,
-               private snackBar: MatSnackBar)
+   constructor(private snackBar: MatSnackBar,
+               private modelService: ModelService,
+               private principalService: PrincipalService,)
    {
+   }
+
+   get principal(): JfPrincipal {
+      return this.principalService.principal;
    }
 
    send(): void {

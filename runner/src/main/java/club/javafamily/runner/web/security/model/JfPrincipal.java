@@ -16,6 +16,9 @@ package club.javafamily.runner.web.security.model;
 
 public class JfPrincipal {
 
+   public JfPrincipal() {
+   }
+
    public String getUserName() {
       return userName;
    }
@@ -32,6 +35,15 @@ public class JfPrincipal {
       this.authenticated = authenticated;
    }
 
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
+   }
+
    private boolean authenticated;
    private String userName;
+   private String email;
 }

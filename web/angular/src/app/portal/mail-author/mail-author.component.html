@@ -5,10 +5,11 @@
            [(ngModel)]="model.subject">
   </mat-form-field>
 
-  <mat-form-field class="mail-content">
-    <textarea matInput placeholder="Write Email Content"
-              rows="5"
-              [(ngModel)]="model.content"></textarea>
+  <mat-form-field class="mail-content froala-page-size" floatLabel="always">
+    <textarea matInput #froalaContainer
+              [(ngModel)]="model.content"
+              placeholder="Write Email Content"
+              [froalaEditor]="options"></textarea>
   </mat-form-field>
 
   <div class="mail-author-footer">

@@ -28,10 +28,19 @@
   @extend .mail-item;
 }
 
+.froala-page-size {
+  min-height: 300px;
+  max-height: 600px;
+}
+
 .mail-author-footer {
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
   vertical-align: middle;
   padding-right: 25px;
+}
+
+::ng-deep .second-toolbar > #logo {
+  display: none !important;
 }
