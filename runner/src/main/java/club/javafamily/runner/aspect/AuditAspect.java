@@ -96,7 +96,7 @@ public class AuditAspect {
       log = new Log();
       log.setDate(new Date());
       log.setCustomer(opUser);
-      log.setResource(resource.getLabel() + ":" + objectName);
+      log.setResource(resource.getLabel() + ": " + objectName);
       log.setAction(actionType.getLabel());
     }
     catch (Exception ignore) {

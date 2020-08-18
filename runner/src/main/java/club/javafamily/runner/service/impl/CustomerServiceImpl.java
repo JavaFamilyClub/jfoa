@@ -78,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
    @Audit(ResourceEnum.Customer)
    @Transactional
    @Override
-   public Integer insertCustomer(@AuditObject("getName()") Customer user) {
+   public Integer insertCustomer(@AuditObject("getAccount()") Customer user) {
       if(isValid(user)) {
          user.setPassword(
             SecurityUtil.generatorPassword(user.getAccount(), user.getPassword()));

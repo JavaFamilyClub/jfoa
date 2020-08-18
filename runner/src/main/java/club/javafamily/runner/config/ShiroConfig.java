@@ -75,7 +75,6 @@ public class ShiroConfig {
       Map<String,String> filterChainMap = new LinkedHashMap<>();
 
       // 配置可以匿名访问的地址，可以根据实际情况自己添加，放行一些静态资源等，anon 表示放行
-      filterChainMap.put("/app/**", "anon"); // web
       filterChainMap.put("/css/**", "anon");
       filterChainMap.put("/", "anon");
       filterChainMap.put("/index.html", "anon");
@@ -85,6 +84,11 @@ public class ShiroConfig {
       filterChainMap.put("/assets/**", "anon");
       filterChainMap.put("/swagger-*/**", "anon");
       filterChainMap.put("/swagger-ui.html/**", "anon");
+
+      // web control
+      filterChainMap.put("/app/em/**", "authc");
+      filterChainMap.put("/app/**", "anon"); // portal and others.
+
       // login
       filterChainMap.put("/login", "anon");
       filterChainMap.put(API_VERSION + "/login", "anon");

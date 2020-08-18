@@ -3,7 +3,9 @@ package club.javafamily.runner.enums;
 public enum ActionType {
   ADD(1, "Add"),
   DELETE(2, "Delete"),
-  MODIFY(3, "Modify");
+  MODIFY(3, "Modify"),
+  Login(4, "Login"),
+  ;
 
   private int type;
   private String label;

@@ -17,6 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
       registry.addViewController("/login").setViewName("login");
       registry.addViewController("/signupSuccess").setViewName("signupSuccess");
       registry.addViewController("/verifyResult").setViewName("verifyResult");
+      registry.addViewController("/changePassword").setViewName("changePassword");
    }
 
    private static final Logger LOGGER = LoggerFactory.getLogger(WebMvcConfig.class);

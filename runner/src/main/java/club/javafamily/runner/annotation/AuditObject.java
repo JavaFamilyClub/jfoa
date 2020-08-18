@@ -10,5 +10,5 @@ public @interface AuditObject {
    /**
     * object name provider spel expression
     */
-   String value();
+   String value() default "";
 }

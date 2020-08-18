@@ -52,3 +52,8 @@ div.loading-indicator > div > i.fa {
 .alert-error-message {
   color: #F56C6C;
 }
+
+.create-account-span {
+  position: absolute;
+  right: 35px;
+}

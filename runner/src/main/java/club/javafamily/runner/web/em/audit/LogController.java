@@ -20,6 +20,7 @@ import club.javafamily.runner.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,11 @@ public class LogController {
 //   @RequiresPermissions({ "*:2:a", "*:65:r" })
    @GetMapping("/logs")
    public List<Log> getAll() {
-      return logService.getAll();
+      List<Log> logs = logService.getAll();
+      // reverse logs. because we more focus in recent logs.
+      Collections.reverse(logs);
+
+      return logs;
    }
 
    @Autowired

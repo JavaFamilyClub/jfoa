@@ -1,9 +1,13 @@
 package club.javafamily.runner.controller;
 
+import club.javafamily.runner.annotation.Audit;
+import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.domain.Customer;
+import club.javafamily.runner.enums.ActionType;
+import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.vo.EmailCustomerVO;
@@ -30,8 +34,10 @@ import static club.javafamily.runner.util.SecurityUtil.REGISTERED_USER_STORE_PRE
 @Controller
 public class SecurityController {
 
+  @Audit(value = ResourceEnum.Customer, actionType = ActionType.Login)
   @PostMapping(API_VERSION + "/login")
-  public String login(@RequestParam String userName, @RequestParam String password,
+  public String login(@RequestParam @AuditObject String userName,
+                      @RequestParam String password,
                       @RequestParam(required = false) boolean rememberMe) {
     Subject currentUser = SecurityUtils.getSubject();
 

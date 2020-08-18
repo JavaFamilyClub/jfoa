@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletRequest;
 
-@RestControllerAdvice({ "club.javafamily.runner.controller", "club.javafamily.runner.web..*.controller" })
+@ControllerAdvice({ "club.javafamily.runner.controller", "club.javafamily.runner.web..*.controller" })
 public class ExceptionHandle {
 
    @ExceptionHandler(UnknownAccountException.class)

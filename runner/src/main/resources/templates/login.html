@@ -36,9 +36,13 @@
           <div id="rememberMeGroup" class="form-group">
             <input type="checkbox" id="rememberMe" name="rememberMe" />
             <span class="required-field" for="rememberMe">Remember Me</span>
+
+            <span class="create-account-span">New to JavaFamily?&nbsp;&nbsp;
+              <a href="/signup"
+                 th:href="@{/signup}">Create an account.</a></span>
           </div>
 
-          <div th:if="${result ne null}"  class="alert-error-message">
+          <div th:if="${result ne null}" class="alert-error-message">
             <label th:text="${result.message }"></label>
           </div>
         </div>
