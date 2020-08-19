@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -27,6 +27,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { PortalAppComponent } from "./app.component";
 import { WidgetModule } from "../widget/widget.module";
+import { ChangePasswordDialog } from "./dialog/change-password-dialog";
 import { UserProfileDialog } from "./dialog/user-profile-dialog";
 import { MODULE_COMPONENTS } from "./index.components";
 import { PortalAppRoutingModule } from "./app-routing.module";
@@ -54,7 +55,8 @@ import { PortalAppRoutingModule } from "./app-routing.module";
    ],
    bootstrap: [PortalAppComponent],
    entryComponents: [
-      UserProfileDialog
+      UserProfileDialog,
+      ChangePasswordDialog
    ],
    providers: [
       {

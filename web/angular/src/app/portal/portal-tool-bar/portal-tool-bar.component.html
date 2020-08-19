@@ -40,11 +40,12 @@
           <button mat-menu-item (click)="editProfile($event)"
                   [disabled]="!principal?.authenticated"
             >Profile ({{principal.userName}})</button>
+          <button *ngIf="principal?.authenticated" mat-menu-item
+            (click)="openChangePasswordDialog()">Change Password</button>
           <mat-divider></mat-divider>
           <a *ngIf="!principal?.authenticated" mat-menu-item href="/login">Sign In</a>
           <a *ngIf="!principal?.authenticated" mat-menu-item href="/signup">Sign Up</a>
           <a *ngIf="principal?.authenticated" mat-menu-item href="/logout">Sign Out</a>
-          <a *ngIf="principal?.authenticated" mat-menu-item href="/changePassword">Change Password</a>
         </ng-template>
       </mat-menu>
 

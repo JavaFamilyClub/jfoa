@@ -3,30 +3,12 @@ jasypt:
       password: "javafamily.club"
 
 spring:
-   devtools:
-      restart:
-         additional-paths:
-            - src/main/java
-            - application.yml
-         exclude: static/**,jfoadb/**
-   # Mail Config
-   mail:
-      host: smtp.office365.com
-      port: 587
-      default-encoding: utf-8
-      username: javafamily.no-reply@outlook.com
-      password: ENC(Dei9QlGM89UdMyvlvEXVE6DX9aMKZBlRs+Rt5DXUpH3T10DsKRIUTpEOQDIT/I3j)
-      properties:
-         mail:
-            smtp:
-               starttls:
-                  enable: true
-               ssl:
-                  enable: false
-                  required: false
-               timeout: 80000
-               connectiontimeout: 80000
-               writetimeout: 80000
+#   devtools:
+#      restart:
+#         additional-paths:
+#            - src/main/java
+#            - application.yml
+#         exclude: static/**,jfoadb/**
 
    # Cache Config
    cache:
@@ -75,10 +57,30 @@ ds:
 
 ---
 
-spring:
-   profiles: prod
 server:
    port: 80
+
+spring:
+   profiles: prod
+
+   # Mail Config
+   mail:
+      host: smtp.office365.com
+      port: 587
+      default-encoding: utf-8
+      username: javafamily.no-reply@outlook.com
+      password: ENC(Dei9QlGM89UdMyvlvEXVE6DX9aMKZBlRs+Rt5DXUpH3T10DsKRIUTpEOQDIT/I3j)
+      properties:
+         mail:
+            smtp:
+               starttls:
+                  enable: true
+               ssl:
+                  enable: false
+                  required: false
+               timeout: 80000
+               connectiontimeout: 80000
+               writetimeout: 80000
 
 ds:
    hibernate:
@@ -133,6 +135,7 @@ ds:
 logging:
    level:
       club.javafamily.*: info
+
 ---
 
 spring:

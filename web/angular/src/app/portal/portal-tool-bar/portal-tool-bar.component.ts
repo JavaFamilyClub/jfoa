@@ -19,6 +19,7 @@ import { GuiTool } from "../../common/util/gui-tool";
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
+import { ChangePasswordDialog } from "../dialog/change-password-dialog";
 import { UserProfileDialog } from "../dialog/user-profile-dialog";
 import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-model";
 
@@ -56,5 +57,13 @@ export class PortalToolBarComponent {
             });
          dialog.model = model;
       });
+   }
+
+   openChangePasswordDialog(): void {
+      ComponentTool.showDialog(this.modalService,
+         ChangePasswordDialog, () => {}, {
+            backdrop: "static",
+            size: "lg"
+         });
    }
 }

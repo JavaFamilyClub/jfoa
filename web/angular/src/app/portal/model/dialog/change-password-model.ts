@@ -12,10 +12,9 @@
  * person.
  */
 
-export interface JfPrincipal {
-   readonly id: number;
-   readonly account: string;
-   readonly userName: string;
-   readonly authenticated: boolean;
-   readonly email: string;
+export interface ChangePasswordModel {
+   id: number;
+   oldPwd: string;
+   newPwd: string;
+   confirmPwd: string;
 }

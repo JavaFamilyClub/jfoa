@@ -37,6 +37,8 @@ public class UserController {
          principal.setUserName(SecurityUtil.Anonymous);
       }
       else {
+         principal.setId(user.getId());
+         principal.setAccount(user.getAccount());
          principal.setUserName(user.getName());
          principal.setEmail(user.getEmail());
       }

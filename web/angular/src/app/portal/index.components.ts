@@ -20,6 +20,7 @@
  */
 
 import { Type } from "@angular/core";
+import { ChangePasswordDialog } from "./dialog/change-password-dialog";
 import { UserProfileDialog } from "./dialog/user-profile-dialog";
 import { PortalToolBarComponent } from "./portal-tool-bar/portal-tool-bar.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
@@ -27,5 +28,6 @@ import { WelcomeComponent } from "./welcome/welcome.component";
 export const MODULE_COMPONENTS: Type<any>[] = [
    PortalToolBarComponent,
    WelcomeComponent,
-   UserProfileDialog
+   UserProfileDialog,
+   ChangePasswordDialog
 ];
