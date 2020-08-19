@@ -29,6 +29,8 @@ import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.vo.CustomerVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -58,8 +60,16 @@ public class CustomerServiceImpl implements CustomerService {
    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
    @Override
    public Customer getCurrentCustomer() {
-      Subject subject = SecurityUtils.getSubject();
-      Object principal = subject.getPrincipal();
+      Object principal = null;
+
+      try {
+         Subject subject = SecurityUtils.getSubject();
+         principal = subject.getPrincipal();
+      }
+      catch(Exception ignore) {
+         LOGGER.debug("Subject get principal error.");
+      }
+
       Customer user = null;
 
       if(principal != null) {
@@ -157,4 +167,6 @@ public class CustomerServiceImpl implements CustomerService {
    private final CustomerDao customerDao;
 
    public static final String AMQP_REGISTER_EMAIL_SUBJECT_KEY = "Registered successfully";
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImpl.class);
 }
