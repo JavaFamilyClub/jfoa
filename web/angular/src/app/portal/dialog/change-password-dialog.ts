@@ -65,19 +65,19 @@ export class ChangePasswordDialog extends BaseSubscription implements OnInit {
 
       this.subscriptions.add(this.form.get("oldPwd").valueChanges.subscribe(
          (value) => {
-            this.model.oldPwd = value
+            this.model.oldPwd = value;
          })
       );
 
       this.subscriptions.add(this.form.get("pwds.password").valueChanges.subscribe(
          (value) => {
-            this.model.newPwd = value
+            this.model.newPwd = value;
          })
       );
 
       this.subscriptions.add(this.form.get("pwds.confirmPassword").valueChanges.subscribe(
          (value) => {
-            this.model.confirmPwd = value
+            this.model.confirmPwd = value;
          })
       );
    }
