@@ -8,7 +8,8 @@ public enum ResourceEnum {
   // ops
   Audit(65, "Audit"),
   Customer(66, "Customer"),
-  MailAuthor(67, "MailAuthor")
+  MailAuthor(67, "MailAuthor"),
+  Password(68, "Passoword")
   ;
 
   private int type;

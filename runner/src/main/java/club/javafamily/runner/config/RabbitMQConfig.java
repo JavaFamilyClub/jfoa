@@ -48,13 +48,21 @@ public class RabbitMQConfig {
       amqpAdmin.deleteExchange(DIRECT_EXCHANGE);
       amqpAdmin.declareExchange(new DirectExchange(DIRECT_EXCHANGE, true, false));
 
-      amqpAdmin.deleteQueue(REGISTER_QUEUE);
-      amqpAdmin.declareQueue(new Queue(REGISTER_QUEUE));
+      bindingQueue(DIRECT_EXCHANGE, REGISTER_QUEUE, DIRECT_REGISTER_ROUTER_KEY);
+      bindingQueue(DIRECT_EXCHANGE, SEND_TEMPLATE_EMAIL_QUEUE, SEND_TEMPLATE_EMAIL_QUEUE_ROUTER_KEY);
+   }
 
-      Binding binding = new Binding(REGISTER_QUEUE,
+   private void bindingQueue(final String exchange,
+                             final String queue,
+                             final String routerKey)
+   {
+      amqpAdmin.deleteQueue(queue);
+      amqpAdmin.declareQueue(new Queue(queue));
+
+      Binding binding = new Binding(queue,
          Binding.DestinationType.QUEUE,
-         DIRECT_EXCHANGE,
-         DIRECT_REGISTER_ROUTER_KEY,
+         exchange,
+         routerKey,
          null);
 
       amqpAdmin.declareBinding(binding);

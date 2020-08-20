@@ -19,15 +19,13 @@ import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.security.model.JfPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
-
-@RestController(SecurityUtil.API_VERSION)
+@RestController
+@RequestMapping(SecurityUtil.API_VERSION)
 public class UserController {
 
-   @GetMapping(API_VERSION + "/public/principal")
+   @GetMapping("/public/principal")
    public JfPrincipal getCurrentUser() {
       JfPrincipal principal = new JfPrincipal();
       Customer user = customerService.getCurrentCustomer();

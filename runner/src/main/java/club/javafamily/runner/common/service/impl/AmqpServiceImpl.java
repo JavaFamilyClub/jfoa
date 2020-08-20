@@ -15,6 +15,7 @@
 package club.javafamily.runner.common.service.impl;
 
 import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
+import club.javafamily.runner.common.model.amqp.TemplateEmailMessage;
 import club.javafamily.runner.common.service.*;
 import club.javafamily.runner.util.HTMLTemplateUtils;
 import club.javafamily.runner.util.Tool;
@@ -37,6 +38,21 @@ public class AmqpServiceImpl implements AmqpService {
    @Override
    public <T> void publishMsg(String exchange, String routerKey, T params) {
       rabbitTemplate.convertAndSend(exchange, routerKey, params);
+   }
+
+   @RabbitListener(queues = {SEND_TEMPLATE_EMAIL_QUEUE})
+   public void receiveSendTemplateEmailMessage(
+      @Payload TemplateEmailMessage message)
+   {
+      try {
+         String template = message.getTemplate();
+         String subject = message.getSubject();
+         String content = HTMLTemplateUtils.render(template, message.getParams());
+         emailService.sendMimeMessage(message.getEmail(), subject, content);
+      }
+      catch(Exception e) {
+         LOGGER.warn("AMQP({}) execute error!", SEND_TEMPLATE_EMAIL_QUEUE, e);
+      }
    }
 
    @RabbitListener(queues = { REGISTER_QUEUE })

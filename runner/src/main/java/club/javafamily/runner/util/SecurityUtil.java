@@ -132,8 +132,8 @@ public final class SecurityUtil {
       return path;
    }
 
-   public static String generatorPassword(String userName, String password) {
-      SimpleHash simpleHash = new SimpleHash("MD5", password, userName, 1024);
+   public static String generatorPassword(String account, String password) {
+      SimpleHash simpleHash = new SimpleHash("MD5", password, account, 1024);
 
       return simpleHash.toHex();
    }
