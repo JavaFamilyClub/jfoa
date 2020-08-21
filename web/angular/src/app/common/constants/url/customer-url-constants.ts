@@ -12,9 +12,15 @@
  * person.
  */
 
-export interface ChangePasswordModel {
-   id: number;
-   oldPwd: string;
-   newPwd: string;
-   confirmPwd: string;
+export class CustomerUrlConstants {
+
+   /**
+    * Check Change Password Valid Url.
+    */
+   public static readonly PASSWORD_VERIFY = "/customer/password/verify";
+
+   /**
+    * Change Password Url.
+    */
+   public static readonly PASSWORD_CHANGE = "/customer/password";
 }

@@ -22,7 +22,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatRadioModule } from "@angular/material/radio";
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { PortalAppComponent } from "./app.component";
@@ -59,6 +59,7 @@ import { PortalAppRoutingModule } from "./app-routing.module";
       ChangePasswordDialog
    ],
    providers: [
+      MatSnackBar,
       {
          provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
          useValue: {

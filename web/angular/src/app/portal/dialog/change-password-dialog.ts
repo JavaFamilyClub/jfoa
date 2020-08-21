@@ -15,12 +15,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { CustomerUrlConstants } from "../../common/constants/url/customer-url-constants";
+import { ComponentTool } from "../../common/util/component-tool";
 import { FormValidators } from "../../common/util/form-validators";
 import { BaseSubscription } from "../../widget/base/BaseSubscription";
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
-import { ChangePasswordModel } from "../model/dialog/change-password-model";
+import { ChangePasswordDialogModel } from "../model/dialog/change-password-dialog-model";
 
 @Component({
    selector: "change-password",
@@ -31,19 +36,21 @@ export class ChangePasswordDialog extends BaseSubscription implements OnInit {
    @Output() onCommit = new EventEmitter<void>();
    @Output() onCancel = new EventEmitter<void>();
 
-   model: ChangePasswordModel;
+   model: ChangePasswordDialogModel;
 
    form: FormGroup;
    errorStateMatcher: ErrorStateMatcher;
 
    constructor(private fb: FormBuilder,
+               private snackBar: MatSnackBar,
+               private modalService: NgbModal,
                private modelService: ModelService,
                private principalService: PrincipalService,
                private defaultErrorMatcher: ErrorStateMatcher)
    {
       super();
       this.model = {
-         id: this.principal?.id,
+         account: this.principal?.account,
          oldPwd: "",
          newPwd: "",
          confirmPwd: ""
@@ -95,6 +102,24 @@ export class ChangePasswordDialog extends BaseSubscription implements OnInit {
 
    ok(): void {
       console.log("======model======", this.model);
+
+
+      this.modelService.putModel<boolean>(CustomerUrlConstants.PASSWORD_VERIFY,
+         this.model).subscribe((response) =>
+      {
+         if(response.body) {
+            this.modelService.putModel(CustomerUrlConstants.PASSWORD_CHANGE,
+               this.model).subscribe(() => {
+                  this.snackBar.open("Password changed successfully.");
+                  this.onCommit.emit();
+            });
+         }
+         else {
+            ComponentTool.showMessageDialog(
+               this.modalService, "Error", "The old password is error.")
+               .then(() => {});
+         }
+      });
    }
 }
 

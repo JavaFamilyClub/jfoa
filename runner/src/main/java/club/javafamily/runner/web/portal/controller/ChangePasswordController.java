@@ -23,6 +23,7 @@ import club.javafamily.runner.enums.ActionType;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.vo.ChangePasswordDialogModel;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,11 +38,11 @@ import javax.servlet.http.HttpServletRequest;
 public class ChangePasswordController {
 
    @RequiresAuthentication
-   @GetMapping("/password/change/verify")
-   public boolean verifyOldPassword(int id, String oldPwd) {
-      Customer customer = customerService.getCustomer(id);
+   @PutMapping("/customer/password/verify")
+   public boolean verifyOldPassword(@RequestBody() ChangePasswordDialogModel model) {
+      Customer customer = customerService.getCustomerByAccount(model.getAccount());
 
-      return SecurityUtil.generatorPassword(customer.getAccount(), oldPwd)
+      return SecurityUtil.generatorPassword(customer.getAccount(), model.getOldPwd())
          .equals(customer.getPassword());
    }
 
@@ -50,12 +51,14 @@ public class ChangePasswordController {
       value = ResourceEnum.Password,
       actionType = ActionType.MODIFY
    )
-   @GetMapping("/password/change")
-   public void changePassword(@AuditObject() String account,
-                              String newPwd,
-                              String confirmPwd,
+   @PutMapping("/customer/password")
+   public void changePassword(@RequestBody() @AuditObject("getAccount()") ChangePasswordDialogModel model,
                               HttpServletRequest request)
    {
+      String account = model.getAccount();
+      String newPwd = model.getNewPwd();
+      String confirmPwd = model.getConfirmPwd();
+
       if(StringUtils.isEmpty(newPwd) || StringUtils.isEmpty(confirmPwd)) {
          throw new MessageException("The password cannot be empty.");
       }
