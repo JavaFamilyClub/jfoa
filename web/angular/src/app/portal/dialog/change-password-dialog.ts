@@ -101,9 +101,6 @@ export class ChangePasswordDialog extends BaseSubscription implements OnInit {
    }
 
    ok(): void {
-      console.log("======model======", this.model);
-
-
       this.modelService.putModel<boolean>(CustomerUrlConstants.PASSWORD_VERIFY,
          this.model).subscribe((response) =>
       {

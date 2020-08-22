@@ -51,3 +51,7 @@
   opacity: 0;
   //display: none;
 }
+
+::ng-deep .fr-wrapper > .fr-placeholder {
+  margin-top: 0 !important;
+}
