@@ -12,7 +12,9 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { ModelService } from "../../../widget/services/model.service";
 import { Log } from "./model/log";
@@ -27,12 +29,17 @@ const LOG_ALL_URI = "/logs";
 export class AuditViewComponent implements OnInit {
   dataSource: MatTableDataSource<Log>;
 
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   constructor(private modelService: ModelService) {
   }
 
   ngOnInit(): void {
     this.modelService.getModel<Log[]>(LOG_ALL_URI).subscribe((logs) => {
       this.dataSource = new MatTableDataSource<Log>(logs);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 

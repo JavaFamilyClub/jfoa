@@ -43,13 +43,6 @@ public class AuditAspect {
   @Around("audit()")
   public Object recordLog(ProceedingJoinPoint pjp) throws Throwable {
     Log log = null;
-    Customer principal = null;
-
-    try {
-      principal = customerService.getCurrentCustomer();
-    } catch (Exception ignore) {
-      LOGGER.debug("Get principal error!", ignore);
-    }
 
     try {
       MethodSignature signature = (MethodSignature) pjp.getSignature();
@@ -87,15 +80,9 @@ public class AuditAspect {
         }
       }
 
-      String opUser = SecurityUtil.Anonymous;
-
-      if(principal != null) {
-        opUser = principal.getName() + "(" + principal.getAccount() + ")";
-      }
-
       log = new Log();
       log.setDate(new Date());
-      log.setCustomer(opUser);
+//      log.setCustomer(getAuditUser());// set in insert log for login action
       log.setResource(resource.getLabel() + ": " + objectName);
       log.setAction(actionType.getLabel());
     }
@@ -117,11 +104,24 @@ public class AuditAspect {
     }
     finally {
       if(log != null) {
+        log.setCustomer(getAuditUser());
         logService.insertLog(log);
       }
     }
 
     return result;
+  }
+
+  private String getAuditUser() {
+    try {
+      Customer principal = customerService.getCurrentCustomer();
+
+      return principal.getName() + "(" + principal.getAccount() + ")";
+    } catch (Exception ignore) {
+      LOGGER.debug("Get principal error!", ignore);
+    }
+
+    return SecurityUtil.Anonymous;
   }
 
   private final LogService logService;

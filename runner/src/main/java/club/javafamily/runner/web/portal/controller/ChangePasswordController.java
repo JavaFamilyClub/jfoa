@@ -78,6 +78,11 @@ public class ChangePasswordController {
 
       // send notify
       notifyHandle.getNotifyService(customer).changePasswordNotify(customer, request);
+
+      // logout and redirect to login page
+//      SecurityUtils.getSubject().logout();
+//
+//      return "redirect:/login";
    }
 
    @Autowired

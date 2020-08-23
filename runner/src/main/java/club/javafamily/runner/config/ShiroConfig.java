@@ -86,8 +86,12 @@ public class ShiroConfig {
       filterChainMap.put("/swagger-ui.html/**", "anon");
 
       // web control
+      // em
       filterChainMap.put("/app/em/**", "authc");
-      filterChainMap.put("/app/**", "anon"); // portal and others.
+      // mail author
+      filterChainMap.put("/app/portal/mailAuthor", "authc");
+      // portal and others.
+      filterChainMap.put("/app/**", "anon");
 
       // login
       filterChainMap.put("/login", "anon");
