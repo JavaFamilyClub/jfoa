@@ -45,7 +45,7 @@
   display: none !important;
 }
 
-::ng-deep .fr-wrapper > div[style*='z-index: 9999'] {
+::ng-deep .fr-wrapper > div[style*='z-index:9999'] {
   position: absolute;
   top: -10000px;
   opacity: 0;
@@ -53,5 +53,5 @@
 }
 
 ::ng-deep .fr-wrapper > .fr-placeholder {
-  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
