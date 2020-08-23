@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+./gradlew cleanAll bootJar -Pbuildenv=prod
+scp runner/build/libs/javafamily-oa-0.0.1-SNAPSHOT.jar root@javafamily.club:/root/workspace/repository/jfoa

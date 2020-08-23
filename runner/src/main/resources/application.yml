@@ -58,7 +58,13 @@ ds:
 ---
 
 server:
-   port: 80
+   port: 443
+
+# SSL
+   ssl:
+      key-store: runner/build/resources/main/config/ssl/javafamily.club.pfx
+      key-store-password: jj5qDzz4
+      key-store-type: PKCS12
 
 spring:
    profiles: prod
@@ -95,7 +101,7 @@ ds:
 ---
 
 server:
-   port: 8080
+   port: 80
 
 spring:
    profiles: dev
@@ -138,6 +144,9 @@ logging:
 
 ---
 
+server:
+   port: 10001
+
 spring:
    profiles: test
 
@@ -157,9 +166,6 @@ spring:
                timeout: 80000
                connectiontimeout: 80000
                writetimeout: 80000
-
-server:
-   port: 10001
 
 ds:
    hibernate:
