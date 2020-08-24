@@ -29,6 +29,8 @@ $secondary: $jfoa-orange-light;
 
 $input-btn-focus-color: $primary;
 
+$roboto-font-path: '../../../node_modules/roboto-fontface/fonts';
+@import '~roboto-fontface/css/roboto/sass/roboto-fontface.scss';
 @import '~bootstrap/scss/bootstrap';
 @import "~bootstrap-float-label/bootstrap-float-label";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";

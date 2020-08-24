@@ -4,8 +4,8 @@ html, body {
 
 body {
    overflow: hidden; /* prevent scrollbars in FF */
-   padding: 0px;
-   margin: 0px;
+   padding: 0;
+   margin: 0;
    font-family: Roboto, "Helvetica Neue", sans-serif; /* Angular material */
 }
 
@@ -21,4 +21,9 @@ span.href-style {
       text-decoration: underline;
       color: #607D8B;
    }
+}
+
+h1, h2, h3, h4, h5, h6, h7 {
+   margin: 0;
+   padding: 0;
 }

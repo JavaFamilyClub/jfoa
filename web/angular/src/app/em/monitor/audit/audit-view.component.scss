@@ -16,11 +16,14 @@ th.mat-sort-header-sorted {
 .audit-view-container {
    width: 100%;
    height: 100%;
-   padding: 20px;
+   padding: 0 20px;
    //margin-top: 20px;
 }
 
+.audit-view-header {
+}
+
 .audit-view-table {
-   height: 600px;
+   max-height: 650px;
    overflow: auto;
 }
