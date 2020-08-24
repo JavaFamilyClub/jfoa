@@ -32,7 +32,7 @@ public interface CustomerService {
     *
     * @return
     */
-   Customer getCustomerByAccount(String name);
+   Customer getCustomerByAccount(String account);
 
    /**
     * get current

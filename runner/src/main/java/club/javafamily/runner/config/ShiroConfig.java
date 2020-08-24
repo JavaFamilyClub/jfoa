@@ -84,6 +84,7 @@ public class ShiroConfig {
       filterChainMap.put("/assets/**", "anon");
       filterChainMap.put("/swagger-*/**", "anon");
       filterChainMap.put("/swagger-ui.html/**", "anon");
+      filterChainMap.put("/webjars/**", "anon");
 
       // web control
       // em

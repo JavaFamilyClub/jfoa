@@ -35,10 +35,9 @@ public class MainRealm extends AuthorizingRealm {
 
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-    // 获取用户名
-    String username = (String) principals.getPrimaryPrincipal();
+    String account = (String) principals.getPrimaryPrincipal();
 
-    Customer user = customerService.getCustomerByAccount(username);
+    Customer user = customerService.getCustomerByAccount(account);
 
     SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
     // 给该用户设置角色
@@ -58,7 +57,7 @@ public class MainRealm extends AuthorizingRealm {
 
       // 添加权限
       for(Permission permission: role.getPermissions()) {
-        authorizationInfo.addStringPermission(SecurityUtil.buildPermissionString(username, role, permission));
+        authorizationInfo.addStringPermission(SecurityUtil.buildPermissionString(account, role, permission));
       }
     }
 

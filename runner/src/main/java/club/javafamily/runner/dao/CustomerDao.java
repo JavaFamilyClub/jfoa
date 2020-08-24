@@ -28,13 +28,13 @@ public class CustomerDao extends BaseDao<Customer, Integer> {
       return Customer.class;
    }
 
-   public Customer getUserByAccount(String name) {
+   public Customer getUserByAccount(String account) {
       Session session = getSession();
 
       CriteriaBuilder cb = session.getCriteriaBuilder();
       CriteriaQuery<Customer> query = cb.createQuery(getClazz());
       Root<Customer> root = query.from(getClazz());
-      query.where(cb.equal(root.get("account"), name));
+      query.where(cb.equal(root.get("account"), account));
 
       return session.createQuery(query).uniqueResultOptional().orElse(null);
    }

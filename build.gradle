@@ -34,6 +34,8 @@ allprojects {
          shiroVersion = '1.5.3'
          jasyptVersion = '3.0.3'
          ognlVersion = '3.2.14'
+         bootstrapVersion = '4.3.1'
+         jqueryVersion = '3.3.1-2'
 
          webModule = project.hasProperty('webModule') ? project.property('webModule') : 'web:angular'
          productionBuild = project.hasProperty('buildenv') && project.property('buildenv') == 'prod'

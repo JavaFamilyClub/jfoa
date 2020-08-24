@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Server Error</title>
-  <link rel="stylesheet" type="text/css" href="/css/login.css" />
+  <link rel="stylesheet" type="text/css" href="/css/login.css" th:src="@{/css/login.css}" />
+  <link rel="icon" type="image/x-icon" href="jfoa-icon.ico" th:href="@{jfoa-icon.ico}">
 </head>
 <body>
   <div th:if="${message ne null}"  class="alert-error-message">

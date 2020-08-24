@@ -32,6 +32,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -43,18 +44,21 @@ import java.util.List;
 import static club.javafamily.runner.util.SecurityUtil.REGISTERED_USER_STORE_PREFIX;
 
 @Service("customerService")
+@CacheConfig(cacheNames = "customer-cache")
 public class CustomerServiceImpl implements CustomerService {
 
    @Transactional(readOnly = true)
+   @Cacheable(key = "'user_' + #p0")
    @Override
    public Customer getCustomer(Integer id) {
       return customerDao.get(id);
    }
 
    @Transactional(readOnly = true)
+   @Cacheable(key = "'user_by_account_' + #p0")
    @Override
-   public Customer getCustomerByAccount(String name) {
-      return customerDao.getUserByAccount(name);
+   public Customer getCustomerByAccount(String account) {
+      return customerDao.getUserByAccount(account);
    }
 
    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
@@ -80,6 +84,7 @@ public class CustomerServiceImpl implements CustomerService {
    }
 
    @Transactional(readOnly = true)
+   @Cacheable(key = "'users'")
    @Override
    public List<Customer> getCustomers() {
       return customerDao.getAll();
@@ -87,6 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
 
    @Audit(ResourceEnum.Customer)
    @Transactional
+   @CacheEvict(allEntries = true)
    @Override
    public Integer insertCustomer(@AuditObject("getAccount()") Customer user) {
       if(isValid(user)) {
@@ -122,6 +128,15 @@ public class CustomerServiceImpl implements CustomerService {
    @Audit(value = ResourceEnum.Customer,
       actionType = ActionType.MODIFY)
    @Transactional
+   @Caching(
+      put = {
+         @CachePut(key = "'user_' + #p0.id"),
+         @CachePut(key = "'user_by_account_' + #p0.account")
+      },
+      evict = {
+         @CacheEvict(key = "'users'"),
+      }
+   )
    @Override
    public void updateCustomer(@AuditObject("getName()") Customer user) {
       customerDao.update(user);
@@ -129,6 +144,7 @@ public class CustomerServiceImpl implements CustomerService {
 
    @Audit(value = ResourceEnum.Customer,
       actionType = ActionType.DELETE)
+   @CacheEvict(allEntries = true)
    @Transactional
    @Override
    public void deleteCustomer(@AuditObject("getName()") Customer user) {
