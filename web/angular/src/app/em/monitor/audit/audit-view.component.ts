@@ -16,6 +16,8 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ComponentTool } from "../../../common/util/component-tool";
 import { ModelService } from "../../../widget/services/model.service";
 import { Log } from "./model/log";
 
@@ -32,7 +34,12 @@ export class AuditViewComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private modelService: ModelService) {
+  displayedColumns: string[]
+     = ["id", "resource", "action", "customer", "date", "message"];
+
+  constructor(private modelService: ModelService,
+              private modalService: NgbModal)
+  {
   }
 
   ngOnInit(): void {
@@ -43,7 +50,9 @@ export class AuditViewComponent implements OnInit {
     });
   }
 
-  displayedColumns: string[]
-     = ["id", "resource", "action", "customer", "date", "message"];
+  showMessage(msg: string): void {
+    ComponentTool.showMessageDialog(this.modalService, "Error Detail", msg)
+       .then(() => {});
+  }
 
 }
