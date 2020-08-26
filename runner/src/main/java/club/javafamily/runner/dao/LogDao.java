@@ -18,7 +18,7 @@ import club.javafamily.runner.domain.Log;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class LogDao extends BaseDao<Log, Integer> {
+public class LogDao extends ExportableDao<Log, Integer> {
    @Override
    protected Class<Log> getClazz() {
       return Log.class;

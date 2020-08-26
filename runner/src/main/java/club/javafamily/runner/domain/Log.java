@@ -8,11 +8,17 @@ import java.util.Date;
 public class Log implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(columnDefinition = "int(3) COMMENT '编号'")
   private Integer id;
+  @Column(columnDefinition = "varchar(30) COMMENT '资源'")
   private String resource;
+  @Column(columnDefinition = "varchar(30) COMMENT '操作'")
   private String action;
+  @Column(columnDefinition = "varchar(30) COMMENT '操作人员'")
   private String customer;
+  @Column(columnDefinition = "DATETIME COMMENT '执行时间'")
   private Date date;
+  @Column(columnDefinition = "varchar(255) COMMENT '备注'")
   private String message;
 
   public Integer getId() {

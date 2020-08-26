@@ -62,6 +62,11 @@ dependencies {
    implementation "org.apache.shiro:shiro-spring:${shiroVersion}"
    implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:${jasyptVersion}"
 
+   // poi
+   implementation "org.apache.poi:poi:${poiVersion}"
+   implementation "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
+   implementation "org.apache.poi:poi-ooxml:${poiVersion}"
+
    // tools
 //   implementation 'org.springframework.boot:spring-boot-devtools'
    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
