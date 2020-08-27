@@ -8,7 +8,7 @@ import java.util.Date;
 public class Log implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(columnDefinition = "int(3) COMMENT '编号'")
+  @Column(columnDefinition = "integer") // integer COMMENT '编号'
   private Integer id;
   @Column(columnDefinition = "varchar(30) COMMENT '资源'")
   private String resource;
