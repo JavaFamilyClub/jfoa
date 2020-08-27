@@ -14,11 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.metamodel.Metamodel;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
 import java.util.List;
 
 @Service("logService")
-public class LogServiceImpl implements LogService, ExportableService {
+public class LogServiceImpl implements LogService {
 
    @Transactional
    @Override

@@ -5,7 +5,7 @@ import club.javafamily.runner.domain.Log;
 
 import java.util.List;
 
-public interface LogService {
+public interface LogService extends ExportableService {
    void insertLog(Log log);
 
    List<Log> getAll();

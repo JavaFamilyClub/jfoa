@@ -12,12 +12,17 @@
 - Https
 - Shiro
 - Hibernate
+- WebSocket
 
 ### 1.2 `Web`
 - Angular 10+
 - Jest
-- Bootstrap, Ng-Bootstrap, Angular-Material
+- Gulp
+- Bootstrap, Ng-Bootstrap
+- Angular-Material
 - SCSS
+- SockJS, StompJS(for WebSocket)
+- Froala Editor
 
 ### 1.3 `Tools`
 - [Travis CI](https://travis-ci.org/github/JavaFamilyClub/jfoa)
