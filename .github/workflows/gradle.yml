@@ -23,6 +23,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: gradlew.bat cleanAll build -Pbuildenv=prod --no-daemon --console plain
+      run: ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
     - name: Clean Env
-      run: gradlew.bat cleanAll
+      run: ./gradlew cleanAll
