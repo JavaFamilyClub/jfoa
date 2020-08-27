@@ -29,7 +29,7 @@ script:
 notifications:
    email:
       recipients:
-         - javafamily.club@outlook.com
+         - javafamily.no-reply@outlook.com
       on_success: change
       on_failure: always
       on_cancel: never
