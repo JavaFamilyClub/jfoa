@@ -20,9 +20,19 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+
+    - name: Set up Ruby for Sass
+      uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
+      with:
+        ruby-version: 2.6
+    -  name: Install ruby dependencies
+         run: bundle install
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+
     - name: Build with Gradle
       run: ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
+
     - name: Clean Env
       run: ./gradlew cleanAll
