@@ -25,6 +25,10 @@ const appRoutes: Routes = [
          {
             path: "audit",
             component: AuditViewComponent
+         },
+         {
+            path: "**",
+            redirectTo: "audit"
          }
       ]
    }

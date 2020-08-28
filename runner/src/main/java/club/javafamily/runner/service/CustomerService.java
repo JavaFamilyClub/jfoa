@@ -61,7 +61,7 @@ public interface CustomerService {
     *
     * @param user
     */
-   void updateCustomer(Customer user);
+   Customer updateCustomer(Customer user);
 
    /**
     * delete a user

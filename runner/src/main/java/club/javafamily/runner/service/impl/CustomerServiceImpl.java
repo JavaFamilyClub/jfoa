@@ -138,8 +138,10 @@ public class CustomerServiceImpl implements CustomerService {
       }
    )
    @Override
-   public void updateCustomer(@AuditObject("getName()") Customer user) {
+   public Customer updateCustomer(@AuditObject("getName()") Customer user) {
       customerDao.update(user);
+
+      return customerDao.get(user.getId());
    }
 
    @Audit(value = ResourceEnum.Customer,

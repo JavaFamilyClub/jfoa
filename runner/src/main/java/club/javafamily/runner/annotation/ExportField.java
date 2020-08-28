@@ -12,31 +12,22 @@
  * person.
  */
 
-package club.javafamily.runner.common.table.lens;
+package club.javafamily.runner.annotation;
 
-import club.javafamily.runner.common.table.cell.Cell;
+import org.springframework.core.annotation.AliasFor;
 
-/**
- * TableLens interface
- */
-public interface TableLens {
+import java.lang.annotation.*;
 
-   /**
-    * get cell
-    * @param row
-    * @param col
-    * @return
-    */
-   Cell getObject(int row, int col);
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+public @interface ExportField {
 
-   void setObject(int row, int col, Cell cell);
+   @AliasFor(attribute = "description")
+   String value() default "";
 
-   int getRowCount();
+   @AliasFor(attribute = "value")
+   String description() default "";
 
-   int getColCount();
-
-   String getTableName();
-
-   String getDescription();
-
+   int order();
 }

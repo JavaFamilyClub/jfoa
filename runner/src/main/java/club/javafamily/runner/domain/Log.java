@@ -1,5 +1,7 @@
 package club.javafamily.runner.domain;
 
+import club.javafamily.runner.annotation.ExportField;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -8,17 +10,22 @@ import java.util.Date;
 public class Log implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(columnDefinition = "integer") // integer COMMENT '编号'
+  @ExportField(description = "编号", order = 0)
   private Integer id;
-  @Column(columnDefinition = "varchar(30) COMMENT '资源'")
+
+  @ExportField(description = "资源", order = 1)
   private String resource;
-  @Column(columnDefinition = "varchar(30) COMMENT '操作'")
+
+  @ExportField(description = "操作", order = 2)
   private String action;
-  @Column(columnDefinition = "varchar(30) COMMENT '操作人员'")
+
+  @ExportField(description = "操作人员", order = 3)
   private String customer;
-  @Column(columnDefinition = "DATETIME COMMENT '执行时间'")
+
+  @ExportField(description = "执行时间", order = 4)
   private Date date;
-  @Column(columnDefinition = "varchar(255) COMMENT '备注'")
+
+  @ExportField(description = "备注", order = 5)
   private String message;
 
   public Integer getId() {
