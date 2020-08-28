@@ -27,6 +27,13 @@ jobs:
       with:
         ruby-version: 2.6
 
+    - name: ruby env
+      run: gem update
+    - name: install sass
+      run: gem install sass
+    - name: log ruby list
+      run: gem list
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
