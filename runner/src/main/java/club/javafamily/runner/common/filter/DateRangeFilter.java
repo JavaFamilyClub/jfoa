@@ -12,11 +12,11 @@
  * person.
  */
 
-package club.javafamily.runner.common.table.filter;
+package club.javafamily.runner.common.filter;
 
 import java.util.*;
 
-public class DateRangeFilter implements Filter<Date> {
+public class DateRangeFilter implements Filter<FilterInfo<Date>, Date> {
 
    @Override
    public List<FilterInfo<Date>> filters() {

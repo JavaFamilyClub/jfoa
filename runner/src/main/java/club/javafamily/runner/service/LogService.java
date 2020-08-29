@@ -1,11 +1,15 @@
 package club.javafamily.runner.service;
 
+import club.javafamily.runner.common.filter.DaoFilter;
 import club.javafamily.runner.domain.Log;
-
 import java.util.List;
 
 public interface LogService extends ExportableService {
    void insertLog(Log log);
 
-   List<Log> getAll();
+   default List<Log> getAll() {
+      return this.getAll(null);
+   }
+
+   List<Log> getAll(DaoFilter filter);
 }

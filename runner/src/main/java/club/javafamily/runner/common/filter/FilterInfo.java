@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.common.table.filter;
+package club.javafamily.runner.common.filter;
 
 import club.javafamily.runner.enums.OperatorEnum;
 
@@ -24,7 +24,7 @@ public interface FilterInfo <T> extends Serializable {
       return true;
    }
 
-   T getValue();
+   Comparable<T> getValue();
 
    String getKey();
 

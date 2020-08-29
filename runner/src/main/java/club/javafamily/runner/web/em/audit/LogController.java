@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.web.em.audit;
 
+import club.javafamily.runner.common.filter.DateRangeFilter;
 import club.javafamily.runner.domain.Log;
 import club.javafamily.runner.service.LogService;
 import club.javafamily.runner.util.SecurityUtil;
@@ -29,10 +30,13 @@ public class LogController {
 
 //   @RequiresPermissions({ "*:2:a", "*:65:r" })
    @PutMapping("/logs")
-   public List<Log> getAll() {
-      List<Log> logs = logService.getAll();
-      // reverse logs. because we more focus in recent logs.
-      Collections.reverse(logs);
+   public List<Log> getAll(@RequestBody DateRangeFilter filter) {
+      List<Log> logs = logService.getAll(filter);
+
+      if(filter == null) {
+         // reverse logs. because we more focus in recent logs.
+         Collections.reverse(logs);
+      }
 
       return logs;
    }

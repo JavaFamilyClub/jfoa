@@ -1,7 +1,8 @@
 package club.javafamily.runner.service.impl;
 
 import club.javafamily.runner.common.service.ExcelService;
-import club.javafamily.runner.common.table.filter.Filter;
+import club.javafamily.runner.common.filter.Filter;
+import club.javafamily.runner.common.filter.DaoFilter;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.dao.LogDao;
 import club.javafamily.runner.domain.Log;
@@ -26,8 +27,8 @@ public class LogServiceImpl implements LogService {
 
    @Transactional(readOnly = true)
    @Override
-   public List<Log> getAll() {
-      return logDao.getAll();
+   public List<Log> getAll(DaoFilter filter) {
+      return logDao.getAll(filter);
    }
 
    @Override

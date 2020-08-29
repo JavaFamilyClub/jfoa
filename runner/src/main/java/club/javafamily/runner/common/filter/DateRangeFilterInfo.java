@@ -12,13 +12,13 @@
  * person.
  */
 
-package club.javafamily.runner.common.table.filter;
+package club.javafamily.runner.common.filter;
 
 import club.javafamily.runner.enums.OperatorEnum;
 
 import java.util.Date;
 
-public class DateRangeFilterInfo implements FilterInfo <Date> {
+public class DateRangeFilterInfo extends DaoFilterInfo<Date> {
 
    public DateRangeFilterInfo() {
    }

@@ -1,14 +1,14 @@
 package club.javafamily.runner.dao;
 
-import club.javafamily.runner.common.table.filter.Filter;
-import club.javafamily.runner.common.table.filter.FilterInfo;
+import club.javafamily.runner.common.filter.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.criteria.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R> {
 
@@ -30,8 +30,9 @@ public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R
       return getSession().get(getClazz(), id);
    }
 
+   @SuppressWarnings("all")
    @Override
-   public List<T> getAll(Filter filter) {
+   public List<T> getAll(DaoFilter filter) {
       Session session = getSession();
 
       CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -40,14 +41,11 @@ public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R
 
       if(filter != null) {
          List<Predicate> conditions = new ArrayList<>();
-         List<FilterInfo> filters = filter.filters();
+         List<DaoFilterInfo<Comparable>> filters = filter.filters();
 
-         for(FilterInfo filterInfo : filters) {
-            String key = filterInfo.getKey();
-            Object value = filterInfo.getValue();
-
+         for(DaoFilterInfo filterInfo : filters) {
             if(filter.accept(filterInfo)) {
-//               conditions.add(criteriaBuilder.greaterThanOrEqualTo(root.get(key), value));
+               conditions.add(buildCondition(criteriaBuilder, root, filterInfo));
             }
          }
 
@@ -57,6 +55,33 @@ public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R
       }
 
       return session.createQuery(criteriaQuery).list();
+   }
+
+   private Predicate buildCondition(CriteriaBuilder criteriaBuilder,
+                                    Root<T> root,
+                                    DaoFilterInfo filterInfo)
+   {
+      String key = filterInfo.getKey();
+      Path path = root.get(key);
+      Comparable value = filterInfo.getValue();
+
+      switch(filterInfo.getOperator()) {
+         case GREATER_THAN_OR_EQUAL:
+            return criteriaBuilder.greaterThanOrEqualTo(path, value);
+         case GREATER_THAN:
+            return criteriaBuilder.greaterThan(path, value);
+         case LESS_THAN_OR_EQUAL:
+            return criteriaBuilder.lessThanOrEqualTo(path, value);
+         case LESS_THAN:
+            return criteriaBuilder.lessThan(path, value);
+         case NOT_EQUAL:
+            return criteriaBuilder.notEqual(path, value);
+
+         default:
+            return criteriaBuilder.equal(path, value);
+      }
+
+
    }
 
    @Override
