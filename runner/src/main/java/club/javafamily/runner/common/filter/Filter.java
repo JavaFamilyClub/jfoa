@@ -16,7 +16,7 @@ package club.javafamily.runner.common.filter;
 
 import java.util.List;
 
-public interface Filter <T extends FilterInfo<R>, R> {
+public interface Filter<T extends FilterInfo<R>, R> {
 
   List<T> filters();
 

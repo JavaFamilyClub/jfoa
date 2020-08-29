@@ -18,7 +18,7 @@ import club.javafamily.runner.enums.OperatorEnum;
 
 import java.io.Serializable;
 
-public interface FilterInfo <T> extends Serializable {
+public interface FilterInfo<T> extends Serializable {
 
    default boolean valid() {
       return true;

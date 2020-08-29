@@ -32,7 +32,7 @@ public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R
 
    @SuppressWarnings("all")
    @Override
-   public List<T> getAll(DaoFilter filter) {
+   public <R extends Comparable<R>> List<T> getAll(DaoFilter<R> filter) {
       Session session = getSession();
 
       CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -41,7 +41,7 @@ public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R
 
       if(filter != null) {
          List<Predicate> conditions = new ArrayList<>();
-         List<DaoFilterInfo<Comparable>> filters = filter.filters();
+         List<DaoFilterInfo<R>> filters = filter.filters();
 
          for(DaoFilterInfo filterInfo : filters) {
             if(filter.accept(filterInfo)) {

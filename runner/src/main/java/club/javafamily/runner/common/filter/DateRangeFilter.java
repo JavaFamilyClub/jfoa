@@ -16,11 +16,11 @@ package club.javafamily.runner.common.filter;
 
 import java.util.*;
 
-public class DateRangeFilter implements Filter<FilterInfo<Date>, Date> {
+public class DateRangeFilter extends DaoFilter<Date> {
 
    @Override
-   public List<FilterInfo<Date>> filters() {
-      List<FilterInfo<Date>> filters = new ArrayList<>();
+   public List<DaoFilterInfo<Date>> filters() {
+      List<DaoFilterInfo<Date>> filters = new ArrayList<>();
 
       if(this.startDate != null) {
          filters.add(new DateRangeFilterInfo(DATE_RANGE_START, startDate));

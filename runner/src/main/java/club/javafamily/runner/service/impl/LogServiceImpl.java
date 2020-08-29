@@ -27,7 +27,7 @@ public class LogServiceImpl implements LogService {
 
    @Transactional(readOnly = true)
    @Override
-   public List<Log> getAll(DaoFilter filter) {
+   public <T extends Comparable<T>> List<Log> getAll(DaoFilter<T> filter) {
       return logDao.getAll(filter);
    }
 
