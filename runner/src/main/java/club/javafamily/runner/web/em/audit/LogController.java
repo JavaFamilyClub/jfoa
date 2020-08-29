@@ -28,7 +28,7 @@ import java.util.List;
 public class LogController {
 
 //   @RequiresPermissions({ "*:2:a", "*:65:r" })
-   @GetMapping("/logs")
+   @PutMapping("/logs")
    public List<Log> getAll() {
       List<Log> logs = logService.getAll();
       // reverse logs. because we more focus in recent logs.

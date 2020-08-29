@@ -1,12 +1,14 @@
 package club.javafamily.runner.dao;
 
+import club.javafamily.runner.common.table.filter.Filter;
+import club.javafamily.runner.common.table.filter.FilterInfo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.*;
 
 public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R> {
 
@@ -29,13 +31,32 @@ public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R
    }
 
    @Override
-   public List<T> getAll() {
+   public List<T> getAll(Filter filter) {
       Session session = getSession();
 
-      CriteriaQuery<T> query = session.getCriteriaBuilder().createQuery(getClazz());
-      query.from(getClazz());
+      CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+      CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(getClazz());
+      Root<T> root = criteriaQuery.from(getClazz());
 
-      return session.createQuery(query).list();
+      if(filter != null) {
+         List<Predicate> conditions = new ArrayList<>();
+         List<FilterInfo> filters = filter.filters();
+
+         for(FilterInfo filterInfo : filters) {
+            String key = filterInfo.getKey();
+            Object value = filterInfo.getValue();
+
+            if(filter.accept(filterInfo)) {
+//               conditions.add(criteriaBuilder.greaterThanOrEqualTo(root.get(key), value));
+            }
+         }
+
+         if(conditions.size() > 0) {
+            criteriaQuery.where(criteriaBuilder.and(conditions.toArray(new Predicate[0])));
+         }
+      }
+
+      return session.createQuery(criteriaQuery).list();
    }
 
    @Override

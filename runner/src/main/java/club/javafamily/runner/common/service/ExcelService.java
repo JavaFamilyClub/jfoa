@@ -1,6 +1,6 @@
 package club.javafamily.runner.common.service;
 
-import club.javafamily.runner.common.table.filter.ExportFilter;
+import club.javafamily.runner.common.table.filter.Filter;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ExportType;
 import club.javafamily.runner.util.ExcelUtil;
@@ -17,7 +17,7 @@ public class ExcelService {
    public void export(TableLens tableLens,
                       HttpServletResponse response,
                       ExportType exportType,
-                      ExportFilter filter,
+                      Filter filter,
                       String fileName)
       throws Exception
    {

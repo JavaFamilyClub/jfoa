@@ -85,7 +85,7 @@ task clean(dependsOn: [cleanChunk]) {
 
 task cleanAll(type: Delete, dependsOn: [clean]) {
    group 'build'
-   delete = ['node_modules', '.gradle']
+   delete = ['node_modules']
 }
 
 task watch(type: NpmTask, dependsOn: npmInstall) {

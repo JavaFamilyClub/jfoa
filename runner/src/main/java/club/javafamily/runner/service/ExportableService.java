@@ -1,11 +1,10 @@
 package club.javafamily.runner.service;
 
-import club.javafamily.runner.common.table.filter.ExportFilter;
+import club.javafamily.runner.common.table.filter.Filter;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ExportType;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
 
 public interface ExportableService {
 
@@ -16,7 +15,7 @@ public interface ExportableService {
 
    default void export(HttpServletResponse response,
                        ExportType exportType,
-                       ExportFilter filter)
+                       Filter filter)
       throws Exception
    {
       switch(exportType) {
@@ -27,5 +26,5 @@ public interface ExportableService {
       }
    }
 
-   void exportExcel(HttpServletResponse response, ExportType exportType, ExportFilter filter) throws Exception;
+   void exportExcel(HttpServletResponse response, ExportType exportType, Filter filter) throws Exception;
 }

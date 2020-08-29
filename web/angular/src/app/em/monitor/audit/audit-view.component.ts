@@ -13,11 +13,16 @@
  */
 
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatDatepickerInputEvent, MatSingleDateSelectionModel } from "@angular/material/datepicker";
 import { MatPaginator } from "@angular/material/paginator";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Moment } from "moment";
+import { DateRangeFilter } from "../../../common/filter/date-range-filter";
 import { ComponentTool } from "../../../common/util/component-tool";
+import { Tool } from "../../../common/util/tool";
 import { ModelService } from "../../../widget/services/model.service";
 import { Log } from "./model/log";
 
@@ -29,6 +34,7 @@ const LOG_ALL_URI = "/logs";
   styleUrls: ["./audit-view.component.scss"]
 })
 export class AuditViewComponent implements OnInit {
+  filter: DateRangeFilter;
   dataSource: MatTableDataSource<Log>;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -38,21 +44,59 @@ export class AuditViewComponent implements OnInit {
      = ["id", "resource", "action", "customer", "date", "message"];
 
   constructor(private modelService: ModelService,
+              private snackBar: MatSnackBar,
               private modalService: NgbModal)
   {
+    this.resetFilter();
   }
 
   ngOnInit(): void {
-    this.modelService.getModel<Log[]>(LOG_ALL_URI).subscribe((logs) => {
-      this.dataSource = new MatTableDataSource<Log>(logs);
+    this.refresh();
+  }
+
+  refresh(): void {
+    this.modelService.putModel<Log[]>(LOG_ALL_URI, this.filter).subscribe((response) => {
+      this.dataSource = new MatTableDataSource<Log>(response.body);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
   }
 
+  resetFilter(): void {
+    this.filter = {
+      startDate: null,
+      endDate: null
+    };
+  }
+
+  isEmptyFilter(): boolean {
+    return !!!this.filter?.startDate && !!!this.filter?.endDate;
+  }
+
   showMessage(msg: string): void {
     ComponentTool.showMessageDialog(this.modalService, "Error Detail", msg)
        .then(() => {});
+  }
+
+  filterChanged(event: any, end = false): void {
+    console.log("=========event==============", event);
+    const value: Moment = event.value;
+
+    if(value.isValid()) {
+      const date = value.toDate();
+
+      if(end) {
+        if(!!this.filter.startDate && value.isAfter(this.filter.startDate)) {
+          this.filter.endDate = date;
+        }
+        else {
+          this.snackBar.open("Start Date can't is empty, and end date must after start date.");
+        }
+      }
+      else {
+        this.filter.startDate = date;
+      }
+    }
   }
 
 }

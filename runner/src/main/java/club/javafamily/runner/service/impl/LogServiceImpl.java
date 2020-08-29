@@ -1,8 +1,7 @@
 package club.javafamily.runner.service.impl;
 
 import club.javafamily.runner.common.service.ExcelService;
-import club.javafamily.runner.common.table.filter.ExportFilter;
-import club.javafamily.runner.common.table.lens.DefaultTableLens;
+import club.javafamily.runner.common.table.filter.Filter;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.dao.LogDao;
 import club.javafamily.runner.domain.Log;
@@ -40,7 +39,7 @@ public class LogServiceImpl implements LogService {
 
    @Transactional(readOnly = true)
    @Override
-   public void exportExcel(HttpServletResponse response, ExportType exportType, ExportFilter filter) throws Exception {
+   public void exportExcel(HttpServletResponse response, ExportType exportType, Filter filter) throws Exception {
       TableLens tableLens = getTableLens();
       excelService.export(tableLens, response, exportType, filter, "JavaFamily Audit");
    }

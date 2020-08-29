@@ -25,7 +25,13 @@ th.mat-sort-header-sorted {
 }
 
 .audit-view-actions {
+   padding-left: 10px;
+}
 
+.audit-filter-to, .audit-view-action-btn {
+   padding: 0 10px;
+   align-items: center;
+   display: flex;
 }
 
 .audit-view-table {

@@ -1,5 +1,7 @@
 package club.javafamily.runner.dao;
 
+import club.javafamily.runner.common.table.filter.Filter;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,7 +14,11 @@ public interface CURDDao <T, R extends Serializable> {
 
    T get(R id);
 
-   List<T> getAll();
+   default List<T> getAll() {
+      return this.getAll(null);
+   }
+
+   List<T> getAll(Filter filter);
 
    R insert(T entity);
 
