@@ -26,7 +26,7 @@
                (click)="endPicker.open()"
                (dateChange)="filterChanged($event, true)" readonly>
         <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-        <mat-datepicker #endPicker [disabled]="!!!filter.startDate"></mat-datepicker>
+        <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>
     </div>
 

@@ -86,16 +86,18 @@ export class AuditViewComponent implements OnInit {
       const date = value.toDate();
 
       if(end) {
-        if(!!this.filter.startDate && value.isAfter(this.filter.startDate)) {
-          this.filter.endDate = date;
+        if(!!this.filter.startDate && value.isBefore(this.filter.startDate)) {
+          this.snackBar.open("The end date must after start date.");
+          return;
         }
-        else {
-          this.snackBar.open("Start Date can't is empty, and end date must after start date.");
-        }
+
+        this.filter.endDate = date;
       }
       else {
         this.filter.startDate = date;
       }
+
+      this.refresh();
     }
   }
 

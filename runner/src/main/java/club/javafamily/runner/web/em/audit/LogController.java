@@ -33,7 +33,9 @@ public class LogController {
    public List<Log> getAll(@RequestBody DateRangeFilter filter) {
       List<Log> logs = logService.getAll(filter);
 
-      if(filter == null) {
+      if(filter == null ||
+         filter.getStartDate() == null && filter.getEndDate() != null)
+      {
          // reverse logs. because we more focus in recent logs.
          Collections.reverse(logs);
       }
