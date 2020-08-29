@@ -47,7 +47,7 @@ export const httpInterceptorProviders = [
       httpInterceptorProviders,
       {
          provide: MAT_DATE_LOCALE,
-         useValue: 'zh-CN'
+         useValue: "zh-CN"
       }
    ],
   bootstrap: [ AppComponent ]
