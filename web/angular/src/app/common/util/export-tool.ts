@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -11,15 +11,18 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
+import { ExportType } from "../enum/export-type";
 
-export class EmUrlConstants {
-   /**
-    * log out.
-    */
-   public static readonly LOGOUT_URL = "../logout";
-
-   /**
-    * Audit Export
-    */
-   public static readonly AUDIT_EXPORT = "/public/log/export";
+export namespace ExportTool {
+   export function getExportLabel(type: ExportType): string {
+      switch(type) {
+         case ExportType.Excel:
+            return "Excel";
+         case ExportType.Excel_2003:
+            return "Excel 2003";
+         default:
+            return "";
+      }
+   }
 }
+

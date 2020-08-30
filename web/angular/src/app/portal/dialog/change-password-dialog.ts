@@ -15,7 +15,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
-import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { CustomerUrlConstants } from "../../common/constants/url/customer-url-constants";

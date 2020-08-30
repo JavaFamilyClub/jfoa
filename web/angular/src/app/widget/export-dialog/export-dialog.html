@@ -1,0 +1,37 @@
+<modal-header title="Export" (onCancel)="onCancel.emit()">
+</modal-header>
+
+<div class="modal-body">
+  <div class="export-body-container">
+
+    <div>
+      <label class="has-float-label">
+        <select class="form-control" [(ngModel)]="model.type">
+          <option *ngFor="let exportType of exportFormats"
+                  [value]="exportType">{{getExportLabel(exportType)}}</option>
+        </select>
+        <span>Export Format</span>
+      </label>
+    </div>
+
+<!--    <mat-form-field>-->
+<!--      <mat-select [(value)]="model.type" [placeholder]="'Export Format'">-->
+<!--        <mat-option *ngFor="let exportType of exportFormats"-->
+<!--                    [value]="exportType">-->
+<!--          {{getExportLabel(exportType)}}-->
+<!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--      <mat-error *ngIf="form.get('exportType').hasError('required')"-->
+<!--        >Please choose an export type.</mat-error>-->
+<!--    </mat-form-field>-->
+
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary"
+          [disabled]="form.invalid"
+          (click)="export()">Ok</button>
+  <button class="btn btn-default" (click)="onCancel.emit()">Cancel</button>
+</div>
+

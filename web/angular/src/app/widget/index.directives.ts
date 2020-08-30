@@ -33,6 +33,7 @@ import { OutOfZoneDirective } from "./directive/out-of-zone.directive";
 import { ResizableTableDirective } from "./directive/resizable-table.directive";
 import { SelectionBoxDirective } from "./directive/selection-box.directive";
 import { SortColumnDirective } from "./directive/sort-column.directive";
+import { HelpLinkDirective } from "./help-link/help-link.directive";
 import { TooltipDirective } from "./tooltip/tooltip.directive";
 import { TooltipIfDirective } from "./directive/tooltip-if.directive";
 import { TouchScrollDirective } from "./directive/touch-scroll.directive";
@@ -46,6 +47,7 @@ export const MODULE_DIRECTIVES: Type<any>[] = [
    EnterSubmitDirective,
    ExpandStringDirective,
    FixedDropdownDirective,
+   HelpLinkDirective,
    InputTrimDirective,
    OutOfZoneDirective,
    ResizableTableDirective,

@@ -66,7 +66,7 @@ export namespace ComponentTool {
    export function showDialog<D>(modalService: any,
                                  dialogType: Type<D>,
                                  onCommit: (value: any) => any,
-                                 options: SlideOutOptions = {},
+                                 options: SlideOutOptions = { backdrop: "static" },
                                  onCancel: (value: any) => any = () => {},
                                  commitEmitter: string = "onCommit",
                                  cancelEmitter: string = "onCancel",

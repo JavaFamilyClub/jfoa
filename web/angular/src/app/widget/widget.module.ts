@@ -15,6 +15,11 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { ExportDialog } from "./export-dialog/export-dialog";
+import { HelpUrlService } from "./help-link/help-url.service";
 import { MODULE_COMPONENTS } from "./index.components";
 import { MODULE_DIRECTIVES } from "./index.directives";
 import { MODULE_PIPES } from "./index.pipes";
@@ -38,7 +43,10 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
       CommonModule,
       FormsModule,
       ReactiveFormsModule,
-      NgbModule
+      NgbModule,
+      MatSelectModule,
+      MatFormFieldModule,
+      MatInputModule
    ],
    declarations: [
       ...MODULE_COMPONENTS,
@@ -49,6 +57,7 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
       FixedDropdownComponent,
       FixedDropdownContextmenuComponent,
       MessageDialog,
+      ExportDialog,
       TooltipComponent,
       SlideOutComponent
    ],
@@ -65,7 +74,8 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
       TooltipService,
       DebounceService,
       PrincipalService,
-      DomService
+      DomService,
+      HelpUrlService
    ]
 })
 export class WidgetModule {

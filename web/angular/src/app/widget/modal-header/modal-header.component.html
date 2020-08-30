@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{title}}</h3>
+  <div class="pull-right">
+    <i *ngIf="showHelpLink" [helpLink]="cshid" tabindex="0"
+       aria-label="_#(Help Information)" role="link" enterClick></i>
+    <button type="button" class="close" (click)="onCancel.emit($event)"
+            aria-label="_#(Close)" title="_#(Close)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>

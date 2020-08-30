@@ -10,8 +10,15 @@
         <input matInput [matDatepicker]="startPicker" placeholder="From Date"
                [value]="filter.startDate" (click)="startPicker.open()"
                (dateChange)="filterChanged($event)" readonly>
-        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-        <mat-datepicker #startPicker  disabled="false"></mat-datepicker>
+
+        <div matSuffix>
+          <button mat-icon-button title="Clear" *ngIf="!!filter.startDate">
+            <mat-icon aria-label="Clear" class="icon-clear_circle"
+                      (click)="clearFilter()"></mat-icon>
+          </button>
+          <mat-datepicker #startPicker></mat-datepicker>
+          <mat-datepicker-toggle [for]="startPicker"></mat-datepicker-toggle>
+        </div>
       </mat-form-field>
     </div>
 
@@ -25,23 +32,25 @@
                [value]="filter.endDate" [min]="filter.startDate"
                (click)="endPicker.open()"
                (dateChange)="filterChanged($event, true)" readonly>
-        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-        <mat-datepicker #endPicker></mat-datepicker>
+
+        <div matSuffix>
+          <button mat-icon-button title="Clear" *ngIf="!!filter.endDate">
+            <mat-icon aria-label="Clear" class="icon-clear_circle"
+              (click)="clearFilter(true)"></mat-icon>
+          </button>
+          <mat-datepicker #endPicker></mat-datepicker>
+          <mat-datepicker-toggle [for]="endPicker"></mat-datepicker-toggle>
+        </div>
       </mat-form-field>
     </div>
 
-    <div class="audit-view-action-btn pl-lg-4">
-      <button mat-stroked-button>Filter</button>
+    <div class="audit-view-action-btn">
+      <button mat-icon-button class="btn btn-lg"
+              (click)="openExportDialog($event)">
+        <mat-icon class="icon-export"></mat-icon>
+      </button>
     </div>
 
-    <div class="audit-view-action-btn">
-      <button mat-stroked-button (click)="resetFilter()"
-        [disabled]="isEmptyFilter()">Clear</button>
-    </div>
-
-    <div class="audit-view-action-btn">
-      <button mat-stroked-button>Export</button>
-    </div>
   </div>
 
   <div class="audit-view-table row">

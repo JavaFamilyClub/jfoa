@@ -13,7 +13,6 @@
  */
 
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatDatepickerInputEvent, MatSingleDateSelectionModel } from "@angular/material/datepicker";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort } from "@angular/material/sort";
@@ -22,7 +21,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Moment } from "moment";
 import { DateRangeFilter } from "../../../common/filter/date-range-filter";
 import { ComponentTool } from "../../../common/util/component-tool";
-import { Tool } from "../../../common/util/tool";
+import { ExportDialog } from "../../../widget/export-dialog/export-dialog";
 import { ModelService } from "../../../widget/services/model.service";
 import { Log } from "./model/log";
 
@@ -69,17 +68,12 @@ export class AuditViewComponent implements OnInit {
     };
   }
 
-  isEmptyFilter(): boolean {
-    return !!!this.filter?.startDate && !!!this.filter?.endDate;
-  }
-
   showMessage(msg: string): void {
     ComponentTool.showMessageDialog(this.modalService, "Error Detail", msg)
        .then(() => {});
   }
 
   filterChanged(event: any, end = false): void {
-    console.log("=========event==============", event);
     const value: Moment = event.value;
 
     if(value.isValid()) {
@@ -101,4 +95,22 @@ export class AuditViewComponent implements OnInit {
     }
   }
 
+  clearFilter(end: boolean = false): void {
+    if(end) {
+      this.filter.endDate = null;
+    }
+    else {
+      this.filter.startDate = null;
+    }
+
+    this.refresh();
+  }
+
+  openExportDialog(event: MouseEvent): void {
+    event.stopPropagation();
+    event.preventDefault();
+
+    const exportDialog = ComponentTool.showDialog(this.modalService,
+       ExportDialog, () => {});
+  }
 }

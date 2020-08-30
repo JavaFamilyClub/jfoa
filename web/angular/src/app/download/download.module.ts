@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -12,14 +12,14 @@
  * person.
  */
 
-export class EmUrlConstants {
-   /**
-    * log out.
-    */
-   public static readonly LOGOUT_URL = "../logout";
+import { NgModule } from "@angular/core";
+import { DownloadTargetComponent } from "./download-target.component";
+import { DownloadService } from "./download.service";
 
-   /**
-    * Audit Export
-    */
-   public static readonly AUDIT_EXPORT = "/public/log/export";
+@NgModule({
+   providers: [ DownloadService ],
+   exports: [ DownloadTargetComponent ],
+   declarations: [ DownloadTargetComponent ]
+})
+export class DownloadModule {
 }

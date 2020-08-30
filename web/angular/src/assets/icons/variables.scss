@@ -1,20 +1,27 @@
 $jfoa-font-cache-buster: "53kz7tbqcku27x0eyz2xcxg4u4";
 
 $icon-account: "\e900";
-$icon-edit: "\e901";
-$icon-help: "\e902";
-$icon-home: "\e903";
-$icon-logout: "\e904";
-$icon-mail-send: "\e905";
-$icon-mail-write: "\e907";
-$icon-menu-off: "\e908";
-$icon-menu-on: "\e909";
-$icon-monitor: "\e90a";
-$icon-setting: "\e90b";
+$icon-clear_circle: "\e901";
+$icon-edit: "\e902";
+$icon-export_import: "\e903";
+$icon-export: "\e904";
+$icon-help: "\e905";
+$icon-home: "\e906";
+$icon-logout: "\e907";
+$icon-mail-send: "\e908";
+$icon-mail-write: "\e90a";
+$icon-menu-off: "\e90b";
+$icon-menu-on: "\e90c";
+$icon-monitor: "\e90d";
+$icon-refresh: "\e90e";
+$icon-setting: "\e90f";
 
 $jfoa-base-map: (
    icon-account: $icon-account,
+   icon-clear_circle: $icon-clear_circle,
    icon-edit: $icon-edit,
+   icon-export_import: $icon-export_import,
+   icon-export: $icon-export,
    icon-help: $icon-help,
    icon-home: $icon-home,
    icon-logout: $icon-logout,
@@ -23,5 +30,6 @@ $jfoa-base-map: (
    icon-menu-off: $icon-menu-off,
    icon-menu-on: $icon-menu-on,
    icon-monitor: $icon-monitor,
+   icon-refresh: $icon-refresh,
    icon-setting: $icon-setting
 );

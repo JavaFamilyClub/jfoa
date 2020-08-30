@@ -20,6 +20,7 @@ public interface ExportableService {
    {
       switch(exportType) {
          case Excel:
+         case Excel_2003:
             exportExcel(response, exportType, filter);
             break;
          default:

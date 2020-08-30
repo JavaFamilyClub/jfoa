@@ -28,6 +28,12 @@ public class DateRangeFilterInfo extends DaoFilterInfo<Date> {
       this.value = value;
    }
 
+   public DateRangeFilterInfo(String key, Date value, OperatorEnum operator) {
+      this.key = key;
+      this.value = value;
+      this.operator = operator;
+   }
+
    @Override
    public String getKey() {
       return key;

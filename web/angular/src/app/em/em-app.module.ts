@@ -21,6 +21,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { DownloadModule } from "../download/download.module";
 import { ModelService } from "../widget/services/model.service";
 import { WidgetModule } from "../widget/widget.module";
 import { EMAppComponent } from "./app.component";
@@ -49,7 +50,8 @@ import { EmSettingModule } from "./setting/em-setting.module";
       MatButtonModule,
       MatMenuModule,
       MatDividerModule,
-      MatIconModule
+      MatIconModule,
+      DownloadModule
    ],
    bootstrap: [
       EMAppComponent

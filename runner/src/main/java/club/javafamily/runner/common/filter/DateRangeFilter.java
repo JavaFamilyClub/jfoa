@@ -14,6 +14,8 @@
 
 package club.javafamily.runner.common.filter;
 
+import club.javafamily.runner.enums.OperatorEnum;
+
 import java.util.*;
 
 public class DateRangeFilter extends DaoFilter<Date> {
@@ -23,11 +25,11 @@ public class DateRangeFilter extends DaoFilter<Date> {
       List<DaoFilterInfo<Date>> filters = new ArrayList<>();
 
       if(this.startDate != null) {
-         filters.add(new DateRangeFilterInfo(DATE_RANGE_START, startDate));
+         filters.add(new DateRangeFilterInfo(DATE_RANGE_FIELD, startDate, OperatorEnum.GREATER_THAN_OR_EQUAL));
       }
 
       if(this.endDate != null) {
-         filters.add(new DateRangeFilterInfo(DATE_RANGE_END, endDate));
+         filters.add(new DateRangeFilterInfo(DATE_RANGE_FIELD, endDate, OperatorEnum.LESS_THAN_OR_EQUAL));
       }
 
       return filters;
@@ -49,8 +51,7 @@ public class DateRangeFilter extends DaoFilter<Date> {
       this.endDate = endDate;
    }
 
-   public static final String DATE_RANGE_START = "start";
-   public static final String DATE_RANGE_END = "end";
+   public static final String DATE_RANGE_FIELD = "date";
 
    private Date startDate;
    private Date endDate;

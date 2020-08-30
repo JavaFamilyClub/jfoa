@@ -24,8 +24,9 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { ComponentTool } from "../../common/util/component-tool";
+import { Tool } from "../../common/util/tool";
 
-const API_VERSION = "../api/1.0";
+const API_VERSION = Tool.API_VERSION;
 
 @Injectable()
 export class ModelService {

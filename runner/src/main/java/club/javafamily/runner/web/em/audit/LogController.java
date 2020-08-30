@@ -16,11 +16,13 @@ package club.javafamily.runner.web.em.audit;
 
 import club.javafamily.runner.common.filter.DateRangeFilter;
 import club.javafamily.runner.domain.Log;
+import club.javafamily.runner.enums.ExportType;
 import club.javafamily.runner.service.LogService;
 import club.javafamily.runner.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,6 +43,16 @@ public class LogController {
       }
 
       return logs;
+   }
+
+   @GetMapping("/public/log/export")
+   public void export(@RequestParam("format") int format,
+                      HttpServletResponse response)
+      throws Exception
+   {
+      System.out.println("===format===" + format);
+      ExportType exportType = ExportType.parse(format);
+      logService.export(response, exportType, null);
    }
 
    @Autowired

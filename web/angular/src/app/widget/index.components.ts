@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
  * proprietary to JavaFamily Technology Corp. This software is furnished
@@ -20,7 +20,9 @@
  */
 
 import { Type } from "@angular/core";
+import { ExportDialog } from "./export-dialog/export-dialog";
 import { ActionsContextmenuComponent } from "./fixed-dropdown/actions-contextmenu.component";
+import { ModalHeaderComponent } from "./modal-header/modal-header.component";
 import { ApplyButtonComponent } from "./slide-out/apply-button.component";
 import { DropdownView } from "./dropdown-view/dropdown-view.component";
 import { ErrorComponent } from "./error/error.component";
@@ -40,9 +42,11 @@ export const MODULE_COMPONENTS: Type<any>[] = [
    ApplyButtonComponent,
    DropdownView,
    ErrorComponent,
+   ExportDialog,
    FixedDropdownComponent,
    FixedDropdownContextmenuComponent,
    MessageDialog,
+   ModalHeaderComponent,
    NotificationsComponent,
    RepositoryTreeComponent,
    SlideOutBackdropComponent,
