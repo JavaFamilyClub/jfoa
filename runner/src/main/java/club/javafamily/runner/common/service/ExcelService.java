@@ -8,10 +8,8 @@ import club.javafamily.runner.util.ExportUtil;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.stereotype.Service;
 
-import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 
 @Service
 public class ExcelService {
@@ -55,12 +53,12 @@ public class ExcelService {
 
       HSSFRow dataRow;
 
-      for(int r = 1; r < tableLens.getRowCount(); r++) {
+      for(int r = tableLens.getHeaderRowCount(); r < tableLens.getRowCount(); r++) {
          dataRow = ExcelUtil.createRow(workbook, sheet, rowIndex++);
 
          for(int c = 0; c < columnCount; c++) {
             cell = ExcelUtil.createCell(workbook, dataRow, c);
-            ExcelUtil.fillData(helper, cell, tableLens.getObject(r, c));
+            ExcelUtil.fillData(helper, cell, tableLens.getObject(r, c).getValue());
          }
       }
 

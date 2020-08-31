@@ -13,8 +13,8 @@
  */
 
 import { HttpParams } from "@angular/common/http";
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { EmUrlConstants } from "../../common/constants/url/em-url-constants";
 import { ExportType } from "../../common/enum/export-type";
 import { ExportTool } from "../../common/util/export-tool";
@@ -24,9 +24,9 @@ import { DownloadService } from "../../download/download.service";
 import { ExportModel } from "../model/export-model";
 
 @Component({
-  selector: 'export-dialog',
-  templateUrl: './export-dialog.html',
-  styleUrls: ['./export-dialog.scss']
+  selector: "export-dialog",
+  templateUrl: "./export-dialog.html",
+  styleUrls: ["./export-dialog.scss"]
 })
 export class ExportDialog implements OnInit {
   @Input() model: ExportModel;

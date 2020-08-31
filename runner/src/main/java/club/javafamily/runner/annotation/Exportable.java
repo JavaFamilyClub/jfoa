@@ -18,10 +18,10 @@ import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
-@Target(ElementType.FIELD)
+@Target({ ElementType.FIELD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface ExportField {
+public @interface Exportable {
 
    @AliasFor(attribute = "description")
    String value() default "";
@@ -29,5 +29,7 @@ public @interface ExportField {
    @AliasFor(attribute = "value")
    String description() default "";
 
-   int order();
+   int order() default TABLE;
+
+   int TABLE = -1;
 }

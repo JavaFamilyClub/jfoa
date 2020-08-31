@@ -1,31 +1,32 @@
 package club.javafamily.runner.domain;
 
-import club.javafamily.runner.annotation.ExportField;
+import club.javafamily.runner.annotation.Exportable;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity(name = "t_log")
+@Exportable("Audit")
 public class Log implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @ExportField(description = "编号", order = 0)
+  @Exportable(description = "编号", order = 0)
   private Integer id;
 
-  @ExportField(description = "资源", order = 1)
+  @Exportable(description = "资源", order = 1)
   private String resource;
 
-  @ExportField(description = "操作", order = 2)
+  @Exportable(description = "操作", order = 2)
   private String action;
 
-  @ExportField(description = "操作人员", order = 3)
+  @Exportable(description = "操作人员", order = 3)
   private String customer;
 
-  @ExportField(description = "执行时间", order = 4)
+  @Exportable(description = "执行时间", order = 4)
   private Date date;
 
-  @ExportField(description = "备注", order = 5)
+  @Exportable(description = "备注", order = 5)
   private String message;
 
   public Integer getId() {
