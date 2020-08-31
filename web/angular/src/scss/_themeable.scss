@@ -9,6 +9,13 @@
   @include button-variant($jfoa-blue, $jfoa-blue);
 }
 
+.btn-llg, .btn-group-llg > .btn {
+  padding: 0.5rem 1rem;
+  font-size: 1.85rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
 //.btn-default {
 //  @include button-outline-variant($jfoa-blue-dark, $jfoa-blue);
 //}
