@@ -4,12 +4,14 @@ import club.javafamily.runner.common.filter.Filter;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ExportType;
 import club.javafamily.runner.util.ExcelUtil;
+import club.javafamily.runner.util.ExportUtil;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.stereotype.Service;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 
 @Service
 public class ExcelService {
@@ -39,12 +41,16 @@ public class ExcelService {
       HSSFCell cell;
       int colIndex = 0;
       int rowIndex = 1; // title row
-      HSSFRow header = ExcelUtil.createRow(workbook, sheet, rowIndex++);
+      int headerEndIndex = rowIndex + tableLens.getHeaderRowCount();
 
-      for(int i = 0; i < columnCount; i++) {
-         cell = ExcelUtil.createHeaderCell(workbook, header, colIndex);
-         ExcelUtil.fillData(helper, cell, tableLens.getObject(0, i).getValue());
-         colIndex++;
+      while(rowIndex < headerEndIndex) {
+         HSSFRow header = ExcelUtil.createRow(workbook, sheet, rowIndex++);
+
+         for(int i = 0; i < columnCount; i++) {
+            cell = ExcelUtil.createHeaderCell(workbook, header, colIndex);
+            ExcelUtil.fillData(helper, cell, tableLens.getObject(0, i).getValue());
+            colIndex++;
+         }
       }
 
       HSSFRow dataRow;
@@ -58,14 +64,10 @@ public class ExcelService {
          }
       }
 
+      fileName = ExcelUtil.buildExcelName(fileName, exportType);
+      ExportUtil.writeDownloadHeader(response, fileName);
+
       workbook.write(out);
-
-      String type = new MimetypesFileTypeMap().getContentType(fileName);
-
-      response.setCharacterEncoding("utf-8");
-      response.setContentType(type);
-      String downloadFileName = new String(fileName.getBytes("utf-8"), "iso-8859-1");
-      response.setHeader("Content-Disposition", "attachment;fileName=" + downloadFileName);
       out.flush();
    }
 

@@ -1,15 +1,18 @@
 package club.javafamily.runner.util;
 
+import club.javafamily.runner.enums.ExportType;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class ExcelUtil {
 
    public static String Excel_xls = ".xls";
-   public static String Excel2007_Suffix = ".xlsx";
+   public static String Excel_xlsx = ".xlsx";
 
    public static final int DEFAULT_ROW_HEIGHT = 25;
    public static final int DEFAULT_COL_WIDTH = 20 * 256;
@@ -138,5 +141,14 @@ public class ExcelUtil {
       }
 
       cell.setCellStyle(cellStyle);
+   }
+
+   public static String buildExcelName(String fileName, ExportType exportType) {
+      LocalDateTime localDateTime = LocalDateTime.now();
+      fileName = fileName
+         + localDateTime.format(DateTimeFormatter.ofPattern(Tool.DEFAULT_DATETIME_FORMAT))
+         + (exportType == ExportType.Excel_2003 ? Excel_xls : Excel_xlsx);
+
+      return fileName;
    }
 }
