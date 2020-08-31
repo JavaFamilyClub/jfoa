@@ -2,3 +2,15 @@
    background: #212121;
    color: #fff;
 }
+
+.btn-llg > .mat-icon-button i, .mat-icon-button .mat-icon {
+   line-height: 33px !important;
+}
+
+.btn-llg > .mat-icon, mat-icon {
+   background-repeat: no-repeat;
+   display: inline-block;
+   fill: currentColor;
+   height: 33px !important;
+   width: 33px !important;
+}
