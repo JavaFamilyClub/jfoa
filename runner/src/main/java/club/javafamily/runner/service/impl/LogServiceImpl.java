@@ -31,17 +31,19 @@ public class LogServiceImpl implements LogService {
       return logDao.getAll(filter);
    }
 
+   @Transactional(readOnly = true)
    @Override
-   public TableLens getTableLens() {
-      Metamodel metadata = logDao.getMetadata();
-
-      return null;
+   public <R extends Comparable<R>> TableLens getTableLens(DaoFilter<R> filter) {
+      return logDao.getTableLens(filter);
    }
 
    @Transactional(readOnly = true)
    @Override
-   public void exportExcel(HttpServletResponse response, ExportType exportType, Filter filter) throws Exception {
-      TableLens tableLens = getTableLens();
+   public <R extends Comparable<R>> void exportExcel(HttpServletResponse response,
+                                                     ExportType exportType,
+                                                     DaoFilter<R> filter) throws Exception
+   {
+      TableLens tableLens = getTableLens(filter);
       excelService.export(tableLens, response, exportType, filter, "JavaFamily Audit");
    }
 

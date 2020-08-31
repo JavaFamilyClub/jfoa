@@ -50,7 +50,6 @@ public class LogController {
                       HttpServletResponse response)
       throws Exception
    {
-      System.out.println("===format===" + format);
       ExportType exportType = ExportType.parse(format);
       logService.export(response, exportType, null);
    }

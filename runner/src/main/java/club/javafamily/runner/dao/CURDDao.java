@@ -18,7 +18,7 @@ public interface CURDDao <T, R extends Serializable> {
       return this.getAll(null);
    }
 
-   <R extends Comparable<R>> List<T> getAll(DaoFilter<R> filter);
+   <M extends Comparable<M>> List<T> getAll(DaoFilter<M> filter);
 
    R insert(T entity);
 

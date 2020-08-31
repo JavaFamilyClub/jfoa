@@ -24,7 +24,16 @@ public class DefaultTableLens implements TableLens {
    public DefaultTableLens(int rowCount, int colCount) {
       this.rowCount = rowCount;
       this.colCount = colCount;
-      this.data = new Cell[rowCount][colCount];
+   }
+
+   @Override
+   public void reset() {
+      if(colCount > 0) {
+         this.data = new Cell[rowCount][colCount];
+      }
+      else {
+         this.data = new Cell[rowCount][];
+      }
    }
 
    @Override
@@ -45,6 +54,14 @@ public class DefaultTableLens implements TableLens {
    @Override
    public int getColCount() {
       return colCount;
+   }
+
+   public void setRowCount(int rowCount) {
+      this.rowCount = rowCount;
+   }
+
+   public void setColCount(int colCount) {
+      this.colCount = colCount;
    }
 
    @Override

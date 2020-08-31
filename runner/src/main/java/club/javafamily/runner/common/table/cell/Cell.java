@@ -5,7 +5,7 @@ package club.javafamily.runner.common.table.cell;
  */
 public class Cell {
    private Object value;
-   private CellValueType type;
+   private CellValueType type = CellValueType.STRING;
 
    public Object getValue() {
       return value;

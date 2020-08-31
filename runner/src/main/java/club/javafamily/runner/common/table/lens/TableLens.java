@@ -39,4 +39,16 @@ public interface TableLens {
 
    String getDescription();
 
+   default void reset() {
+      // no op
+   }
+
+   default int getHeaderRowCount() {
+      return 1;
+   }
+
+   default int getHeaderColCount() {
+      return 0;
+   }
+
 }
