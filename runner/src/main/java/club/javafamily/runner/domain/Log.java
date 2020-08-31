@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity(name = "t_log")
-@Exportable("Audit")
+@Exportable("JavaFamily OA Audit")
 public class Log implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

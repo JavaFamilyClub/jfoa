@@ -14,7 +14,7 @@
 
 import { HttpParams } from "@angular/common/http";
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { EmUrlConstants } from "../../common/constants/url/em-url-constants";
 import { ExportType } from "../../common/enum/export-type";
 import { ExportTool } from "../../common/util/export-tool";
@@ -44,11 +44,11 @@ export class ExportDialog implements OnInit {
               private downloadService: DownloadService)
   {
     this.model = {
-      type: null
+      type: ExportType.Excel
     };
 
     this.form = this.fb.group({
-      exportType: this.fb.control(this.model.type, [])
+      exportType: this.fb.control(this.model.type, [Validators.required])
     });
   }
 
@@ -66,12 +66,9 @@ export class ExportDialog implements OnInit {
     const url = GuiTool.appendParams(
        Tool.API_VERSION + EmUrlConstants.AUDIT_EXPORT, params);
 
-    console.log("=========export=============", this.model,
-       "======url======", url);
+    this.downloadService.download(url);
 
-    // this.downloadService.download(url);
-
-    window.open(url);
+    // window.open(url);
 
     this.onCommit.emit(this.model);
   }
