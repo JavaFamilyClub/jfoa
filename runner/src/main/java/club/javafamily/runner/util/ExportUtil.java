@@ -14,6 +14,8 @@ import java.util.*;
 public final class ExportUtil {
    private ExportUtil() {}
 
+   private static final MimetypesFileTypeMap MIME_TYPES = new MimetypesFileTypeMap();
+
    public static Exportable getExportableTable(Class clazz) {
       Exportable exportable =
          (Exportable) clazz.getDeclaredAnnotation(Exportable.class);
@@ -58,7 +60,7 @@ public final class ExportUtil {
                                           String fileName)
       throws UnsupportedEncodingException
    {
-      String type = new MimetypesFileTypeMap().getContentType(fileName);
+      String type = MIME_TYPES.getContentType(fileName);
       response.setCharacterEncoding(StandardCharsets.UTF_8.name());
       response.setContentType(type);
       String downloadFileName = new String(

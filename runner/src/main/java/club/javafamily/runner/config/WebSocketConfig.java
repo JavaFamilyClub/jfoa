@@ -14,9 +14,13 @@
 
 package club.javafamily.runner.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.handler.invocation.HandlerMethodArgumentResolver;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.*;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSocketMessageBroker
@@ -25,9 +29,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
    @Override
    public void configureMessageBroker(MessageBrokerRegistry registry) {
       // Send Message Prefix(Server Send command prefix)
-      registry.enableSimpleBroker("/jf-command");
+      registry.enableSimpleBroker(COMMANDS_TOPIC);
       // Receive Message Prefix(Web send event prefix)
-      registry.setApplicationDestinationPrefixes("/jf-event");
+      registry.setApplicationDestinationPrefixes("/jf-events");
    }
 
    @Override
@@ -39,4 +43,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
          .withSockJS();
    }
 
+   @Override
+   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+      argumentResolvers.add(commandDispatcherArgumentResolver());
+   }
+
+   @Bean
+   public CommandDispatcherArgumentResolver commandDispatcherArgumentResolver() {
+      return new CommandDispatcherArgumentResolver();
+   }
+
+   public static final String COMMANDS_TOPIC = "/jf-commands";
 }
