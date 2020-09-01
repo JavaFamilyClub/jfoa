@@ -1,21 +1,58 @@
 package club.javafamily.runner.util;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
+import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Tool {
+   public static final String PROJECT_MAIN = "JavaFamily";
    public static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
    public static final String DEFAULT_TIME_ZONE = "GMT+8";
 
    private static final String NOCLONE = new String("noclone");
    private static Map<String, Object> cloneFns = new ConcurrentHashMap<>();
 
+   private static final SecureRandom secureRandom;
+
    private static final Logger LOG = LoggerFactory.getLogger(Tool.class);
+
+   static {
+      SecureRandom random = null;
+
+      if(!SystemUtils.IS_OS_WINDOWS) {
+         try {
+            random = SecureRandom.getInstance("NativePRNGNonBlocking");
+         }
+         catch(NoSuchAlgorithmException ignore) {
+         }
+      }
+
+      if(random == null) {
+         try {
+            random = SecureRandom.getInstance("SHA1PRNG");
+         }
+         catch(NoSuchAlgorithmException ignore) {
+         }
+      }
+
+      if(random == null) {
+         Random seedRandom = new Random(System.currentTimeMillis());
+         byte[] seed = new byte[16];
+         seedRandom.nextBytes(seed);
+         random = new SecureRandom(seed);
+      }
+
+      secureRandom = random;
+   }
 
    /**
     * Get the operator to use when concatenating an op parameter to a servlet
@@ -215,5 +252,9 @@ public class Tool {
       }
 
       return cls;
+   }
+
+   public static SecureRandom getSecureRandom() {
+      return secureRandom;
    }
 }

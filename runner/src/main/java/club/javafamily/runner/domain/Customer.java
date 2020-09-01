@@ -158,12 +158,10 @@ public class Customer implements Serializable, Cloneable {
    }
 
    public void autoGeneratorName() {
-      setName("JavaFamily" + random.nextInt());
+      setName(Tool.PROJECT_MAIN + Tool.getSecureRandom().nextInt());
    }
 
    public void autoGeneratorPwd() {
       setPassword(SecurityUtil.generatorRegisterUserPassword());
    }
-
-   private static final Random random = new Random();
 }
