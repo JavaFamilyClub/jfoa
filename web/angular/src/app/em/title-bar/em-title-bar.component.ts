@@ -13,6 +13,7 @@
  */
 
 import { Component } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { EmUrlConstants } from "../../common/constants/url/em-url-constants";
@@ -23,6 +24,7 @@ import { UserProfileDialogModel } from "../../portal/model/dialog/user-profile-d
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
+import { NotifyAllDialog } from "../dialog/notify-all-dialog";
 import { EmTab, EmTitleBarService } from "../service/em-title-bar.service";
 
 const USER_PROFILE_UTI = "/user/profile";
@@ -35,6 +37,7 @@ const USER_PROFILE_UTI = "/user/profile";
 export class EmTitleBarComponent {
 
    constructor(private router: Router,
+               private dialog: MatDialog,
                private modalService: NgbModal,
                private modelService: ModelService,
                private principalService: PrincipalService,
@@ -79,5 +82,11 @@ export class EmTitleBarComponent {
                });
             dialog.model = model;
          });
+   }
+
+   openNotifyDialog(): void {
+      const dialogRef = this.dialog.open(NotifyAllDialog, {
+         minWidth: "30%"
+      });
    }
 }

@@ -12,12 +12,28 @@
  * person.
  */
 
-import { Injectable } from "@angular/core";
-import { SocketClient } from "./socket-client";
+import { Component, Inject } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
-@Injectable({
-   providedIn: "root"
+@Component({
+   selector: "notify-all-dialog",
+   templateUrl: "notify-all-dialog.html",
+   styleUrls: ["notify-all-dialog.scss"]
 })
-export class SocketClientService {
-   private clients: Map<string, SocketClient> = new Map<string, SocketClient>();
+export class NotifyAllDialog {
+   notification: string;
+
+   constructor(private dialogRef: MatDialogRef<NotifyAllDialog>) {
+   }
+
+   close(): void {
+      this.dialogRef.close();
+   }
+
+   send(): void {
+      console.log("====notification======", this.notification);
+
+      this.close();
+   }
 }
+

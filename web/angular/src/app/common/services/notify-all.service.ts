@@ -12,10 +12,22 @@
  * person.
  */
 
-export class SocketClient {
-   stompClient: any;
+import { Injectable } from "@angular/core";
+import { SocketClient } from "../socket/socket-client";
+import { SocketClientService } from "../socket/socket-client-service";
 
-   constructor() {
-      // const socket = new SockJS();
+const COMMANDS_TOPIC = "/jf-commands";
+const NOTIFY_ALL_EVENT = COMMANDS_TOPIC + "/notify-all";
+
+@Injectable
+export class NotifyAllService {
+
+   client: SocketClient;
+
+   constructor(private clientService: SocketClientService) {
+      this.clientService.connect(NOTIFY_ALL_EVENT).subscribe(client => {
+         this.client = client;
+      });
    }
+
 }
