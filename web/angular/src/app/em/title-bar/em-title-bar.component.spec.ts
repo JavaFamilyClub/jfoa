@@ -12,8 +12,10 @@
  * person.
  */
 
+import { NgModule } from "@angular/core";
 import { TestBed, async } from "@angular/core/testing";
 import { MatButtonModule } from "@angular/material/button";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
@@ -45,6 +47,7 @@ describe("EmTitleBarComponent", () => {
             MatButtonModule,
             MatMenuModule,
             MatDividerModule,
+            MatDialogModule,
             MatIconModule
          ],
          declarations: [
