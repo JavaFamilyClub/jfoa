@@ -12,22 +12,31 @@
  * person.
  */
 
-import { Injectable } from "@angular/core";
-import { SocketClient } from "../socket/socket-client";
-import { SocketClientService } from "../socket/socket-client-service";
+package club.javafamily.runner.common.model.amqp;
 
-const COMMANDS_TOPIC = "/jf-commands";
-const NOTIFY_ALL_EVENT = COMMANDS_TOPIC + "/notify-all";
+public class StringWrapper {
 
-@Injectable
-export class NotifyAllService {
-
-   client: SocketClient;
-
-   constructor(private clientService: SocketClientService) {
-      this.clientService.connect(NOTIFY_ALL_EVENT).subscribe(client => {
-         this.client = client;
-      });
+   public StringWrapper() {
    }
 
+   public StringWrapper(String content) {
+      this.content = content;
+   }
+
+   public String getContent() {
+      return content;
+   }
+
+   public void setContent(String content) {
+      this.content = content;
+   }
+
+   @Override
+   public String toString() {
+      return "StringWrapper{" +
+         "content='" + content + '\'' +
+         '}';
+   }
+
+   private String content;
 }

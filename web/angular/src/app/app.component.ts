@@ -14,6 +14,7 @@
 
 import { Component } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
+import { NotifyAllClientService } from "./common/client/notify-all-client.service";
 
 @Component({
   selector: "app-root",
@@ -23,12 +24,15 @@ import { NavigationEnd, Router } from "@angular/router";
 export class AppComponent {
    loading = true;
 
-   constructor(private router: Router) {
+   constructor(private router: Router,
+               private notifyService: NotifyAllClientService)
+   {
       const subscription = router.events.subscribe((e) => {
          if (e instanceof NavigationEnd) {
             this.loading = false;
             subscription.unsubscribe();
          }
       });
+
    }
 }

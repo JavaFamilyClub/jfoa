@@ -12,13 +12,12 @@
  * person.
  */
 
+import { EventConstants } from "../constants/url/event-constants";
 import { ProjectEvent } from "./project-event";
+import Frame = Stomp.Frame;
 
 const SockJS = require("sockjs-client");
 const Stomp = require('stompjs');
-
-const COMMANDS_TOPIC = "/jf-commands";
-const PROJECT_COMMAND = "/project-command";
 
 export class SocketClient {
    stompClient: any;
@@ -31,10 +30,11 @@ export class SocketClient {
       this.stompClient.debug = null;
 
       this.stompClient.connect({}, (frame) => {
-         console.log('Connected: ' + frame);
+         console.log("Connected: " + frame);
          // TODO receive command
-         this.stompClient.subscribe(COMMANDS_TOPIC + PROJECT_COMMAND, (command) => {
-            alert(command);
+         this.stompClient.subscribe(EventConstants.NOTIFY_ALL_TOPIC, (messagae: Frame) => {
+            alert(messagae.body);
+            console.log("======message===========", messagae);
          });
       }, (error) => {
          console.log("WebSocket Error: ", error);
@@ -56,7 +56,7 @@ export class SocketClient {
 
       const body = JSON.stringify(dto);
 
-      this.stompClient.send("/jf-events/" + url, header, body);
+      this.stompClient.send(EventConstants.APP_EVENT_PREFIX + url, header, body);
    }
 
 }

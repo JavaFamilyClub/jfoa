@@ -43,6 +43,7 @@
     "jquery": "^3.5.1",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
+    "net": "^1.0.2",
     "roboto-fontface": "0.10.0",
     "rxjs": "^6.5.5",
     "sockjs-client": "^1.5.0",

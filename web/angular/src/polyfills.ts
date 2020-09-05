@@ -91,3 +91,7 @@ import "@angular/localize/init";
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+declare const window: any;
+
+(window as any).global = window;

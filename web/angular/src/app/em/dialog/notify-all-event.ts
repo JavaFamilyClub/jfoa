@@ -12,31 +12,11 @@
  * person.
  */
 
-import { Component } from "@angular/core";
-import { MatDialogRef } from "@angular/material/dialog";
-import { NotifyAllClientService } from "../../common/client/notify-all-client.service";
+import { ProjectEvent } from "../../common/socket/project-event";
 
-@Component({
-   selector: "notify-all-dialog",
-   templateUrl: "notify-all-dialog.html",
-   styleUrls: ["notify-all-dialog.scss"]
-})
-export class NotifyAllDialog {
-   notification: string;
+export class NotifyAllEvent implements ProjectEvent{
 
-   constructor(private dialogRef: MatDialogRef<NotifyAllDialog>,
-               private notifyService: NotifyAllClientService)
-   {
+   constructor(private message: string) {
    }
 
-   close(): void {
-      this.dialogRef.close();
-   }
-
-   send(): void {
-      this.notifyService.notify(this.notification);
-
-      this.close();
-   }
 }
-

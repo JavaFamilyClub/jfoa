@@ -28,10 +28,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
    @Override
    public void configureMessageBroker(MessageBrokerRegistry registry) {
-      // Send Message Prefix(Server Send command prefix)
-      registry.enableSimpleBroker(COMMANDS_TOPIC);
       // Receive Message Prefix(Web send event prefix)
       registry.setApplicationDestinationPrefixes("/jf-events");
+
+      // Send Message Prefix(Server Send command prefix)
+      registry.enableSimpleBroker(COMMANDS_TOPIC, NOTIFY_ALL_TOPIC);
    }
 
    @Override
@@ -54,4 +55,5 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
    }
 
    public static final String COMMANDS_TOPIC = "/jf-commands";
+   public static final String NOTIFY_ALL_TOPIC = "/notifications";
 }

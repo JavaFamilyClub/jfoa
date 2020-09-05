@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -12,19 +12,25 @@
  * person.
  */
 
-export class EmUrlConstants {
+export class EventConstants {
    /**
-    * log out.
+    * App event prefix.
     */
-   public static readonly LOGOUT_URL = "../logout";
+   public static readonly APP_EVENT_PREFIX = "/jf-events";
 
    /**
-    * Audit Export
+    * jf stomp endpoint
     */
-   public static readonly AUDIT_EXPORT = "/public/log/export";
+   public static readonly JF_STOMP_ENDPOINT = "/jf-websocket-channel";
 
    /**
-    * Notify all
+    * JF commands topic.
     */
-   public static readonly NOTIFY_ALL = "/notification/all";
+   public static readonly JF_COMMANDS_TOPIC = "/jf-commands";
+
+   /**
+    * notify all topic.
+    */
+   public static readonly NOTIFY_ALL_TOPIC = "/notifications";
+
 }
