@@ -12,12 +12,11 @@
  * person.
  */
 
-import { Component } from "@angular/core";
+import { Subject } from "rxjs";
+import { StompMessage } from "./stomp-message";
 
-@Component({
-   selector: "app-em",
-   templateUrl: "app.component.html",
-   styleUrls: ["app.component.scss"]
-})
-export class EMAppComponent {
+export interface StompTopic {
+   referenceCount: number;
+   subject: Subject<StompMessage>;
+   clientSubscription?: Stomp.Subscription;
 }

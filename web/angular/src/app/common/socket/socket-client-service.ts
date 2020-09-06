@@ -15,6 +15,7 @@
 import { Injectable, NgZone } from "@angular/core";
 import { Observable, of as observableOf } from "rxjs";
 import { SocketClient } from "./socket-client";
+import { StompClientConnection } from "./stomp-client-connection";
 
 @Injectable({
    providedIn: "root"
@@ -25,17 +26,21 @@ export class SocketClientService {
    constructor(private zone: NgZone) {
    }
 
-   connect(endpoint: string): Observable<SocketClient> {
+   connect(endpoint: string): Observable<StompClientConnection> {
       return this.zone.runOutsideAngular(() => {
          let client = this.clients.get(endpoint);
 
          if(!client) {
-            client = new SocketClient(endpoint);
+            client = new SocketClient(endpoint, (key) => this.onDisconnect(key));
             this.clients.set(endpoint, client);
          }
 
-         return observableOf(client);
+         return client.connect();
       });
+   }
+
+   private onDisconnect(endpoint: string) {
+      this.clients.delete(endpoint);
    }
 
 }

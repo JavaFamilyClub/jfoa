@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -15,9 +15,12 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+import { MatMessageDialog } from "./dialog/mat-message-dialog";
 import { ExportDialog } from "./export-dialog/export-dialog";
 import { HelpUrlService } from "./help-link/help-url.service";
 import { MODULE_COMPONENTS } from "./index.components";
@@ -45,8 +48,10 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
       ReactiveFormsModule,
       NgbModule,
       MatSelectModule,
+      MatDialogModule,
       MatFormFieldModule,
-      MatInputModule
+      MatInputModule,
+      MatButtonModule
    ],
    declarations: [
       ...MODULE_COMPONENTS,
@@ -57,6 +62,7 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
       FixedDropdownComponent,
       FixedDropdownContextmenuComponent,
       MessageDialog,
+      MatMessageDialog,
       ExportDialog,
       TooltipComponent,
       SlideOutComponent

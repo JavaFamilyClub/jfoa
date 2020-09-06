@@ -100,6 +100,9 @@ public class ShiroConfig {
       filterChainMap.put("/swagger-ui.html/**", "anon");
       filterChainMap.put("/webjars/**", "anon");
 
+      // websocket
+      filterChainMap.put(WebSocketConfig.JF_SOCKET_CHANNEL + "/**", "anon");
+
       // web control
       // em
       filterChainMap.put("/app/em/**", "authc");

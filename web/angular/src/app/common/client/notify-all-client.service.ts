@@ -12,22 +12,40 @@
  * person.
  */
 
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
+import { Subject } from "rxjs";
 import { NotifyAllEvent } from "../../em/dialog/notify-all-event";
 import { EmUrlConstants } from "../constants/url/em-url-constants";
+import { EventConstants } from "../constants/url/event-constants";
 import { ProjectEvent } from "../socket/project-event";
 import { SocketClient } from "../socket/socket-client";
 import { SocketClientService } from "../socket/socket-client-service";
+import { StompClientConnection } from "../socket/stomp-client-connection";
+import { StompMessage } from "../socket/stomp-message";
+import { NotificationChannel } from "./notification-channel";
 
 @Injectable({
    providedIn: "root"
 })
-export class NotifyAllClientService {
+export class NotifyAllClientService implements OnDestroy {
    private connecting: boolean = false;
-   private connection: SocketClient;
+   private connection: StompClientConnection;
+   private messageSubject = new Subject<string>();
+   private messageChannel = new NotificationChannel(this.messageSubject);
 
-   constructor(private socketClientService: SocketClientService) {
+   constructor(private socketClientService: SocketClientService)
+   {
       this.connect();
+   }
+
+   ngOnDestroy(): void {
+      if(!!this.connection) {
+         this.connection.disconnect();
+      }
+
+      if(!!this.messageSubject) {
+         this.messageSubject.unsubscribe();
+      }
    }
 
    private getHeaders(): any {
@@ -57,15 +75,24 @@ export class NotifyAllClientService {
    }
 
    sendEvent(url: string, event?: ProjectEvent): void {
+      const body = SocketClient.parseProjectEvent(event);
+
       if(this.connection) {
-         this.connection.send(url, this.getHeaders(), event);
+         this.connection.send(EventConstants.APP_EVENT_PREFIX + url, this.getHeaders(), body);
       }
       else {
          console.log("No connect to server.");
       }
    }
 
-   private subscribe(): void {
+   subscribe(): void {
+      this.connection.subscribe(EventConstants.NOTIFY_ALL_TOPIC, (message: StompMessage) => {
+         this.messageSubject.next(message.frame.body);
+      });
+   }
+
+   getMessageChannel(): NotificationChannel {
+      return this.messageChannel;
    }
 
 }

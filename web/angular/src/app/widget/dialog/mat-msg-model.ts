@@ -12,12 +12,8 @@
  * person.
  */
 
-import { Component } from "@angular/core";
-
-@Component({
-   selector: "app-em",
-   templateUrl: "app.component.html",
-   styleUrls: ["app.component.scss"]
-})
-export class EMAppComponent {
+export interface MatMsgModel {
+   title: string;
+   message: string;
+   confirm?: boolean;
 }

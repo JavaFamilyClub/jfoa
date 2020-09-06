@@ -39,7 +39,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
    public void registerStompEndpoints(StompEndpointRegistry registry) {
       // Register STOMP Endpoint，Using SockJS
       // web using endpoint create SockJS channel
-      registry.addEndpoint("/jf-websocket-channel")
+      registry.addEndpoint(JF_SOCKET_CHANNEL)
          .setAllowedOrigins("*")
          .withSockJS();
    }
@@ -54,6 +54,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
       return new CommandDispatcherArgumentResolver();
    }
 
+   public static final  String JF_SOCKET_CHANNEL = "/jf-websocket-channel";
    public static final String COMMANDS_TOPIC = "/jf-commands";
    public static final String NOTIFY_ALL_TOPIC = "/notifications";
 }

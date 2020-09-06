@@ -12,12 +12,13 @@
  * person.
  */
 
-import { Component } from "@angular/core";
+import { Subject } from "rxjs";
 
-@Component({
-   selector: "app-em",
-   templateUrl: "app.component.html",
-   styleUrls: ["app.component.scss"]
-})
-export class EMAppComponent {
+export class NotificationChannel {
+   constructor(private message: Subject<string>) {
+   }
+
+   onReceiveMessage(): Subject<string> {
+      return this.message;
+   }
 }

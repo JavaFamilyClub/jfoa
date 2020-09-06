@@ -11,13 +11,8 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
+import Frame = Stomp.Frame;
 
-import { Component } from "@angular/core";
-
-@Component({
-   selector: "app-em",
-   templateUrl: "app.component.html",
-   styleUrls: ["app.component.scss"]
-})
-export class EMAppComponent {
+export interface StompMessage {
+   frame: Frame;
 }

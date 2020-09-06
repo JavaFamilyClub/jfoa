@@ -12,17 +12,25 @@
  * person.
  */
 
-import { EventConstants } from "../constants/url/event-constants";
+import { Observable, Subject, of as observableOf, AsyncSubject } from "rxjs";
 import { ProjectEvent } from "./project-event";
-import Frame = Stomp.Frame;
+import { StompClientChannel } from "./stomp-client-channel";
+import { StompClientConnection } from "./stomp-client-connection";
 
 const SockJS = require("sockjs-client");
-const Stomp = require('stompjs');
+const Stomp = require("stompjs");
 
 export class SocketClient {
-   stompClient: any;
+   stompClient: Stomp.Client;
+   private clientSubject = new Subject<Stomp.Client>();
+   private clientChannel = new StompClientChannel(this.clientSubject);
+   private referenceCount = 0;
+   private connected = false;
+   private pendingConnections: Subject<StompClientConnection>[] = [];
 
-   constructor(private endpoint: string) {
+   constructor(private endpoint: string,
+               private onDisconnect: (endpoint: string) => any)
+   {
       const socket = new SockJS(resolveURL(this.endpoint));
       this.stompClient = Stomp.over(socket);
 
@@ -31,17 +39,67 @@ export class SocketClient {
 
       this.stompClient.connect({}, (frame) => {
          console.log("Connected: " + frame);
-         // TODO receive command
-         this.stompClient.subscribe(EventConstants.NOTIFY_ALL_TOPIC, (messagae: Frame) => {
-            alert(messagae.body);
-            console.log("======message===========", messagae);
+
+         this.clientSubject.next(this.stompClient);
+
+         this.pendingConnections.forEach((sub) => {
+            sub.next(this.createConnection());
+            sub.complete();
          });
+         this.pendingConnections = null;
+
+         this.connected = true;
       }, (error) => {
          console.log("WebSocket Error: ", error);
+
+         if(!!this.pendingConnections) {
+            console.error("Disconnected from server: ", error);
+            this.pendingConnections.forEach((sub) => {
+               sub.error(error);
+            });
+
+            this.connected = false;
+            this.pendingConnections = [];
+            this.onDisconnect(this.endpoint);
+            this.clientSubject.next(null);
+            this.clientSubject.complete();
+         }
       });
    }
 
-   send(url: string, header: any, event: ProjectEvent): void {
+   connect(): Observable<StompClientConnection> {
+      this.referenceCount = this.referenceCount + 1;
+
+      if(this.connected) {
+         return observableOf(this.createConnection());
+      }
+      else {
+         const subject: AsyncSubject<StompClientConnection> =
+            new AsyncSubject<StompClientConnection>();
+         this.pendingConnections.push(subject);
+         return subject.asObservable();
+      }
+   }
+
+   private createConnection(): StompClientConnection {
+      return new StompClientConnection(
+         this.clientChannel, this.onConnectionDisconnect);
+   }
+
+   private onConnectionDisconnect(): void {
+      this.referenceCount = this.referenceCount - 1;
+
+      if(this.referenceCount <= 0) {
+         this.connected = false;
+         this.stompClient.disconnect(() => {});
+         this.stompClient = null;
+         this.clientSubject.next(null);
+         this.clientSubject.complete();
+         this.onDisconnect(this.endpoint);
+      }
+   }
+
+   public static parseProjectEvent(event: ProjectEvent): string {
       let dto: {[name: string]: string} = {};
 
       for(let property in event) {
@@ -54,9 +112,7 @@ export class SocketClient {
          }
       }
 
-      const body = JSON.stringify(dto);
-
-      this.stompClient.send(EventConstants.APP_EVENT_PREFIX + url, header, body);
+      return JSON.stringify(dto);
    }
 
 }

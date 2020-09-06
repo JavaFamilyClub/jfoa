@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -16,7 +16,6 @@ import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { EmUrlConstants } from "../../common/constants/url/em-url-constants";
 import { ComponentTool } from "../../common/util/component-tool";
 import { GuiTool } from "../../common/util/gui-tool";
 import { UserProfileDialog } from "../../portal/dialog/user-profile-dialog";
@@ -41,7 +40,8 @@ export class EmTitleBarComponent {
                private modalService: NgbModal,
                private modelService: ModelService,
                private principalService: PrincipalService,
-               private titleBarService: EmTitleBarService) {
+               private titleBarService: EmTitleBarService)
+   {
    }
 
    readonly MONITOR_PAGE = EmTab.MONITOR;
@@ -68,7 +68,7 @@ export class EmTitleBarComponent {
    }
 
    help(): void {
-      GuiTool.openBrowserTab("https://dreamli1314.github.io/angboot/");
+      GuiTool.openBrowserTab("https://javafamilyclub.github.io/jfoa");
    }
 
    editProfile(event: MouseEvent): void {
@@ -85,7 +85,7 @@ export class EmTitleBarComponent {
    }
 
    openNotifyDialog(): void {
-      const dialogRef = this.dialog.open(NotifyAllDialog, {
+      this.dialog.open(NotifyAllDialog, {
          minWidth: "30%"
       });
    }

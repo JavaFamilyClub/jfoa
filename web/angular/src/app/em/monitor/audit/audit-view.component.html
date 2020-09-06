@@ -28,7 +28,7 @@
 
     <div class="audit-filter-end col2">
       <mat-form-field>
-        <input matInput [matDatepicker]="endPicker" placeholder="End date"
+        <input matInput [matDatepicker]="endPicker" placeholder="End Date"
                [value]="filter.endDate" [min]="filter.startDate"
                (click)="endPicker.open()"
                (dateChange)="filterChanged($event, true)" readonly>

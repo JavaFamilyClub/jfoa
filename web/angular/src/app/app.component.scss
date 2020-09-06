@@ -1,34 +1,6 @@
 .host {
   width: 100%;
   height: 100%;
-  padding: 0px;
-  margin: 0px;
-}
-
-.loading-splash {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
-  background-image: url("../assets/favicon.ico");
-  background-repeat: no-repeat;
-  background-position-y: calc(50% - 12px);
-  background-position-x: center;
-  background-size: 218px 96px;
-  display: none;
-
-  &.is-loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.loading-splash > span {
-  font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  font-size: 1rem;
-  margin-top: 96px;
-  padding: 0px;
-  line-height: 1;
+  padding: 0;
+  margin: 0;
 }

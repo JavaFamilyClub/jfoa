@@ -14,7 +14,10 @@
 
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from "@angular/material/dialog";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -23,7 +26,6 @@ import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 import { CsrfInterceptor } from "./common/services/csrf-interceptor";
 import { HttpDebounceInterceptor } from "./common/services/http-debounce-interceptor";
 import { HttpParamsCodecInterceptor } from "./common/services/http-params-codec-interceptor";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 export const httpInterceptorProviders = [
    {provide: HTTP_INTERCEPTORS, useClass: HttpDebounceInterceptor, multi: true},
@@ -40,14 +42,20 @@ export const httpInterceptorProviders = [
       CommonModule,
       BrowserAnimationsModule,
       HttpClientModule,
-      AppRoutingModule,
-      NgbModalModule
+      NgbModalModule,
+      AppRoutingModule
    ],
    providers: [
       httpInterceptorProviders,
       {
          provide: MAT_DATE_LOCALE,
          useValue: "zh-CN"
+      },
+      {
+         provide: MAT_DIALOG_DEFAULT_OPTIONS,
+         useValue: {
+            minWidth: "30%"
+         }
       }
    ],
   bootstrap: [ AppComponent ]

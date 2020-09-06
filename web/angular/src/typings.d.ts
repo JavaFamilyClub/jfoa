@@ -9,7 +9,7 @@ declare namespace Stomp {
    export function over(socket: any): Stomp.Client;
 
    export interface Client {
-      connect(headers: any, connectCallback: () => any, errorCallback?: (error: any) => any): void;
+      connect(headers: any, connectCallback: (frame: Frame) => any, errorCallback?: (error: any) => any): void;
       disconnect(disconnectCallback: () => any): void;
       send(destination: string, headers: any, body: string): void;
       subscribe(destination: string, callback: (message: Stomp.Frame) => any, headers?: any): Stomp.Subscription;
