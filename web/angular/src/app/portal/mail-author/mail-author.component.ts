@@ -78,6 +78,8 @@ export class MailAuthorComponent {
          return;
       }
 
+      console.log("debug: ", this.model.content);
+
       this.loading = true;
 
       this.modelService.sendModel(MAIL_AUTHOR_URI, this.model).subscribe(() => {
