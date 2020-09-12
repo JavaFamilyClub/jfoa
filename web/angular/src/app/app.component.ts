@@ -12,7 +12,7 @@
  * person.
  */
 
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, NgZone, OnDestroy, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NotifyAllClientService } from "./common/client/notify-all-client.service";
 import { ComponentTool } from "./common/util/component-tool";
@@ -26,7 +26,8 @@ import { BaseSubscription } from "./widget/base/BaseSubscription";
 export class AppComponent extends BaseSubscription implements OnInit, OnDestroy {
    notification: string;
 
-   constructor(private modalService: NgbModal,
+   constructor(private zone: NgZone,
+               private modalService: NgbModal,
                private notifyService: NotifyAllClientService)
    {
       super();
@@ -39,10 +40,12 @@ export class AppComponent extends BaseSubscription implements OnInit, OnDestroy 
          this.notification = message;
 
          if(!!this.notification) {
-            ComponentTool.showMessageDialog(this.modalService, "Notification", this.notification)
-               .then(() =>
-            {
-               this.notification = null;
+            this.zone.runTask(() => {
+               ComponentTool.showMessageDialog(this.modalService, "Notification", this.notification)
+                  .then(() =>
+                  {
+                     this.notification = null;
+                  });
             });
          }
       }));
