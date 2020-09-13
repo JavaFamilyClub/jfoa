@@ -25,11 +25,11 @@ gradlew[.bat] server -Pbuildenv=prod # Product Mode
 
 #### 2.2 Compile
 ```shell script
-gradlew[.bat] classes # 编译 Java 
+gradlew[.bat] classes # Compile Java 
 ```
 
 ```shell script
-gradlew[.bat] web:watch # watch 前端
+gradlew[.bat] web:watch # watch web
 Or
 gradlew[.bat] web:watch -Pbuildenv=prod # watch product mode
 ```
