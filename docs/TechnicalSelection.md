@@ -1,8 +1,6 @@
 # Technical Selection
 
-## 1. `jfoa` 技术栈
-
-### 1.1 `Server`
+## 1 `Server`
 - SpringBoot 2+
 - Java Mail
 - AMQP(Rabbit MQ)
@@ -14,7 +12,7 @@
 - Hibernate
 - WebSocket
 
-### 1.2 `Web`
+## 2 `Web`
 - Angular 10+
 - Jest
 - Gulp
@@ -24,12 +22,10 @@
 - SockJS, StompJS(for WebSocket)
 - Froala Editor
 
-### 1.3 `Tools`
+## 3 `Tools`
+- Gradle
 - [Travis CI](https://travis-ci.org/github/JavaFamilyClub/jfoa)
 - docsify
 - swagger, swagger-ui
 - jasypt
 
-## 2. 技术实现
-
-### 2.1 用户注册
