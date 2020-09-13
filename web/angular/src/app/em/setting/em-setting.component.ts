@@ -14,9 +14,17 @@
 
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatDrawer } from "@angular/material/sidenav";
+import { Searchable } from "../../common/annotation/searchable";
 import { BaseSubscription } from "../../widget/base/BaseSubscription";
 import { SideNavService } from "../service/side-nav.service";
 
+@Searchable({
+   title: "Setting",
+   route: "/em/setting",
+   keywords: [
+      "setting"
+   ]
+})
 @Component({
    selector: "em-setting",
    templateUrl: "em-setting.component.html",

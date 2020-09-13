@@ -19,6 +19,7 @@ import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Moment } from "moment";
+import { Searchable } from "../../../common/annotation/searchable";
 import { DateRangeFilter } from "../../../common/filter/date-range-filter";
 import { ComponentTool } from "../../../common/util/component-tool";
 import { ExportDialog } from "../../../widget/export-dialog/export-dialog";
@@ -27,6 +28,13 @@ import { Log } from "./model/log";
 
 const LOG_ALL_URI = "/logs";
 
+@Searchable({
+  title: "Audit",
+  route: "/em/monitor/audit",
+  keywords: [
+    "audit"
+  ]
+})
 @Component({
   selector: "audit-view",
   templateUrl: "./audit-view.component.html",

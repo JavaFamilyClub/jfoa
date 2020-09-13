@@ -96,9 +96,14 @@ public class ShiroConfig {
       filterChainMap.put("/imgs/**", "anon");
       filterChainMap.put("/js/**", "anon");
       filterChainMap.put("/assets/**", "anon");
-      filterChainMap.put("/swagger-*/**", "anon");
-      filterChainMap.put("/swagger-ui.html/**", "anon");
       filterChainMap.put("/webjars/**", "anon");
+
+      // swagger
+      filterChainMap.put("swagger-ui.html", "anon");
+      filterChainMap.put("/swagger-ui.html", "anon");
+      filterChainMap.put("/swagger-resources/**", "anon");
+      filterChainMap.put("/v2/api-docs/**", "anon");
+      filterChainMap.put("/webjars/springfox-swagger-ui/**", "anon");
 
       // websocket
       filterChainMap.put(WebSocketConfig.JF_SOCKET_CHANNEL + "/**", "anon");

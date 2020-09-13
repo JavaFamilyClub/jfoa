@@ -18,6 +18,11 @@ plugins {
 sourceCompatibility = '1.8'
 
 configurations {
+   all {
+      exclude group: 'commons-logging'
+      exclude group: 'log4j'
+   }
+
    api
    tools
    developmentOnly
@@ -71,6 +76,11 @@ dependencies {
    implementation "org.apache.poi:poi:${poiVersion}"
    implementation "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
    implementation "org.apache.poi:poi-ooxml:${poiVersion}"
+
+   // lucene
+   implementation "org.apache.lucene:lucene-core:${luceneVersion}"
+   implementation "org.apache.lucene:lucene-queryparser:${luceneVersion}"
+   implementation "org.apache.lucene:lucene-analyzers-common:${luceneVersion}"
 
    // tools
    implementation "org.apache.commons:commons-lang3"

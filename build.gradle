@@ -36,6 +36,7 @@ allprojects {
          ognlVersion = '3.2.14'
          bootstrapVersion = '4.5.2'
          jqueryVersion = '3.5.1'
+         luceneVersion = '7.7.3' // 8+ for jdk11
 
          webModule = project.hasProperty('webModule') ? project.property('webModule') : 'web:angular'
          productionBuild = project.hasProperty('buildenv') && project.property('buildenv') == 'prod'

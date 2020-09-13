@@ -4,10 +4,11 @@ import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.*;
@@ -254,6 +255,28 @@ public class Tool {
       return cls;
    }
 
+   public static File getCacheDir() {
+      URI resource;
+
+      try {
+         resource = Tool.class.getResource(CACHE_DIR).toURI();
+         File file = new File(resource);
+
+         if(!file.exists() || !file.isDirectory()) {
+            if(file.mkdirs()) {
+               LOG.info("Auto create cache dir: " + file.getAbsolutePath());
+            }
+         }
+
+         return file;
+      } catch (URISyntaxException e) {
+         e.printStackTrace();
+      }
+
+      return null;
+   }
+
+   private static final String CACHE_DIR = "/cache";
    public static SecureRandom getSecureRandom() {
       return secureRandom;
    }
