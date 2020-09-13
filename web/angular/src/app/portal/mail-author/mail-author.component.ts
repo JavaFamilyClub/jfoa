@@ -14,6 +14,7 @@
 
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Tool } from "../../common/util/tool";
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
@@ -27,12 +28,8 @@ const MAIL_AUTHOR_URI = "/mail-author";
    styleUrls: ["mail-author.component.scss"]
 })
 export class MailAuthorComponent {
+   model: MailAuthorModel;
    @ViewChild("froalaContainer") froalaContainer: ElementRef;
-
-   model: MailAuthorModel = {
-      subject: "",
-      content: ""
-   };
 
    options = {
       language: "zh_cn",
@@ -61,6 +58,14 @@ export class MailAuthorComponent {
                private modelService: ModelService,
                private principalService: PrincipalService)
    {
+      this.reset();
+   }
+
+   private reset(): void {
+      this.model = {
+         subject: "",
+         content: ""
+      };
    }
 
    get principal(): JfPrincipal {
@@ -78,16 +83,28 @@ export class MailAuthorComponent {
          return;
       }
 
-      console.log("debug: ", this.model.content);
+      const model = Tool.clone(this.model);
+
+      model.content = model.content.replace(
+         /<p .*>Powered by <a .*>Froala Editor<\/a><\/p>/, "");
+
+      model.content += this.sign;
 
       this.loading = true;
 
-      this.modelService.sendModel(MAIL_AUTHOR_URI, this.model).subscribe(() => {
+      this.modelService.sendModel(MAIL_AUTHOR_URI, model).subscribe(() => {
          this.loading = false;
          this.snackBar.open("Email Send success!", "Close");
+         this.reset();
       }, () => {
          this.loading = false;
          this.snackBar.open("Email Send failed, Please try again later!", "Close");
       });
+   }
+
+   private get sign(): string {
+      return "<br><hr><p>---- "
+         + this.principalService.principal?.userName
+         + "(" + this.principalService.principal?.account + ")</p>";
    }
 }
