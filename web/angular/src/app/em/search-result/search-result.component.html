@@ -1,0 +1,9 @@
+<div class="search-result-container w-100" *ngIf="!!searchModel">
+
+  <h1>Search Result</h1>
+
+  <div *ngFor="let searchable of searchModel.searchables">
+    <a [routerLink]="searchable.route">{{searchable.title}}</a>
+    <hr>
+  </div>
+</div>

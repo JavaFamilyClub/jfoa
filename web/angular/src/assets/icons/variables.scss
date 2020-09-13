@@ -14,9 +14,11 @@ $icon-mail-write: "\e90b";
 $icon-menu-off: "\e90c";
 $icon-menu-on: "\e90d";
 $icon-monitor: "\e90e";
-$icon-refresh: "\e90f";
-$icon-setting: "\e910";
-$icon-volume_up: "\e911";
+$icon-notify: "\e90f";
+$icon-refresh: "\e910";
+$icon-search: "\e911";
+$icon-setting: "\e912";
+$icon-volume_up: "\e913";
 
 $jfoa-base-map: (
    icon-account: $icon-account,
@@ -33,7 +35,9 @@ $jfoa-base-map: (
    icon-menu-off: $icon-menu-off,
    icon-menu-on: $icon-menu-on,
    icon-monitor: $icon-monitor,
+   icon-notify: $icon-notify,
    icon-refresh: $icon-refresh,
+   icon-search: $icon-search,
    icon-setting: $icon-setting,
    icon-volume_up: $icon-volume_up
 );

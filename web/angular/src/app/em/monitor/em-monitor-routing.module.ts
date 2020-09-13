@@ -14,6 +14,8 @@
 
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { SearchResultResolver } from "../search-result/search-result-resolver.service";
+import { SearchResultComponent } from "../search-result/search-result.component";
 import { AuditViewComponent } from "./audit/audit-view.component";
 import { EmMonitorComponent } from "./em-monitor.component";
 
@@ -25,6 +27,14 @@ const appRoutes: Routes = [
          {
             path: "audit",
             component: AuditViewComponent
+         },
+         {
+            path: "search",
+            component: SearchResultComponent,
+            resolve: {
+               searchResults: SearchResultResolver
+            },
+            runGuardsAndResolvers: "paramsOrQueryParamsChange",
          },
          {
             path: "**",

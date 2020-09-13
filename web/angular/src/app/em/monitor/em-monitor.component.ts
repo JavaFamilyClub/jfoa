@@ -14,6 +14,8 @@
 
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatDrawer } from "@angular/material/sidenav";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router } from "@angular/router";
 import { Searchable } from "../../common/annotation/searchable";
 import { BaseSubscription } from "../../widget/base/BaseSubscription";
 import { SideNavService } from "../service/side-nav.service";
@@ -33,7 +35,12 @@ import { SideNavService } from "../service/side-nav.service";
 export class EmMonitorComponent extends BaseSubscription implements OnInit {
    @ViewChild("drawer", { static: true }) sidenav: MatDrawer;
 
-   constructor(private sidenavService: SideNavService) {
+   searchText: string;
+
+   constructor(private sidenavService: SideNavService,
+               private router: Router,
+               private snackBar: MatSnackBar)
+   {
       super();
    }
 
@@ -43,5 +50,17 @@ export class EmMonitorComponent extends BaseSubscription implements OnInit {
       }));
    }
 
+   search(): void {
+      if(!!!this.searchText) {
+         this.snackBar.open("Search key words is empty!");
+         return;
+      }
+
+      const extras = {
+         queryParams: { search: this.searchText }
+      };
+      this.router.navigate(["em/monitor/search"], extras);
+      this.searchText = "";
+   }
 
 }

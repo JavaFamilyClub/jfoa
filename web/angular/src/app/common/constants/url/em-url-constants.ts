@@ -27,4 +27,9 @@ export class EmUrlConstants {
     * Notify all
     */
    public static readonly NOTIFY_ALL = "/notification/all";
+
+   /**
+    * Search Action
+    */
+   public static readonly SEARCH = "/public/tool/search";
 }
