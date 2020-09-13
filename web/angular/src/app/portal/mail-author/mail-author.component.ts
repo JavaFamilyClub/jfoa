@@ -34,8 +34,7 @@ export class MailAuthorComponent {
    options = {
       language: "zh_cn",
       placeholderText: "Write your email content.",
-      heightMin: "300",
-      heightMax: "500",
+      height: "280",
       toolbarButtonsXS: ["undo", "redo", "|", "bold", "italic", "underline", "|", "fontSize", "align", "color"],
       pasteAllowedStyleProps: ["font-size", "color"],
       htmlAllowComments: false,

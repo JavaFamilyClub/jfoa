@@ -15,6 +15,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatCardModule } from "@angular/material/card";
 import { SearchResultResolver } from "./search-result-resolver.service";
 import { SearchResultRoutingModule } from "./search-result-routing.module";
 import { SearchResultComponent } from "./search-result.component";
@@ -28,7 +29,8 @@ import { SearchService } from "./search.service";
       CommonModule,
       FormsModule,
       ReactiveFormsModule,
-      SearchResultRoutingModule
+      SearchResultRoutingModule,
+      MatCardModule
    ],
    entryComponents: [
    ],

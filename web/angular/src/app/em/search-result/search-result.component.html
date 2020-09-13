@@ -1,9 +1,16 @@
-<div class="search-result-container w-100" *ngIf="!!searchModel">
+<mat-card class="search-result-container" *ngIf="!!searchModel">
+  <mat-card-header>
+    <mat-card-title>Search Result</mat-card-title>
+  </mat-card-header>
 
-  <h1>Search Result</h1>
+  <mat-card-content>
+    <div *ngFor="let searchable of searchModel.searchables">
+      <a [routerLink]="searchable.route">{{searchable.title}}</a>
+      <hr>
+    </div>
+  </mat-card-content>
 
-  <div *ngFor="let searchable of searchModel.searchables">
-    <a [routerLink]="searchable.route">{{searchable.title}}</a>
-    <hr>
-  </div>
-</div>
+  <mat-card-footer>
+
+  </mat-card-footer>
+</mat-card>

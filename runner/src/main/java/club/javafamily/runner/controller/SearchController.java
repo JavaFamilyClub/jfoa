@@ -50,6 +50,12 @@ public class SearchController {
    public void createDocument() throws IOException {
       File searchLib = new File(Tool.getCacheDir(), "searchLib/");
 
+      if(searchLib.exists()) {
+         if(searchLib.delete()) {
+            LOGGER.info("Delete cache search lib dir: " + searchLib.getAbsolutePath());
+         }
+      }
+
       if(!searchLib.exists() || !searchLib.isDirectory()) {
          if(searchLib.mkdirs()) {
             LOGGER.info("Auto create dir: " + searchLib.getAbsolutePath());
