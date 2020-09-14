@@ -30,6 +30,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.MMapDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -51,14 +52,17 @@ public class SearchController {
       File searchLib = new File(Tool.getCacheDir(), "searchLib/");
 
       if(searchLib.exists()) {
-         if(searchLib.delete()) {
-            LOGGER.info("Delete cache search lib dir: " + searchLib.getAbsolutePath());
+         if(FileSystemUtils.deleteRecursively(searchLib)) {
+            LOGGER.info("Delete cache search lib dir: {}", searchLib.getAbsolutePath());
+         }
+         else {
+            LOGGER.info("Delete cached search lib({}) failed.", searchLib.getAbsolutePath());
          }
       }
 
       if(!searchLib.exists() || !searchLib.isDirectory()) {
          if(searchLib.mkdirs()) {
-            LOGGER.info("Auto create dir: " + searchLib.getAbsolutePath());
+            LOGGER.info("Auto create search lib dir: " + searchLib.getAbsolutePath());
          }
       }
 
