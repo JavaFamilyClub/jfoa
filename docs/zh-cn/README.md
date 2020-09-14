@@ -19,8 +19,8 @@
 > or that my work is valuable. 
 > I am happy if you can help me buy a cup of coffee. :heart:
 
-<img src="asset/img/aliPay.jpg" width="200"/>
-<img src="asset/img/wechatPay.jpg" width="200" align="right"/>
+<img src="../asset/img/aliPay.jpg" width="200"/>
+<img src="../asset/img/wechatPay.jpg" width="200" align="right"/>
 
 ## 社区
 > 用户和开发团队通常在 [Gitter聊天室](https://gitter.im/javafamilychat/jfoa)中。
@@ -32,14 +32,14 @@
 >
 > 我们主要在微信公众号平台分享 Java 相关技术.
 
-<img src="asset/img/JavaFamilyOfficial.jpg" width="200"/>
+<img src="../asset/img/JavaFamilyOfficial.jpg" width="200"/>
 
 > 对于一些需要思考的内容, 我们会在知识星球发布作业
 
-<img src="asset/img/zhishixingqiu.jpg" width="200"/>
+<img src="../asset/img/zhishixingqiu.jpg" width="200"/>
 
 > 最后, 对于文字不好阐述或者比较难的技术我们会在哔哩哔哩以视频方式分享
 
-<img src="asset/img/blibli.jpg" width="200"/>
+<img src="../asset/img/blibli.jpg" width="200"/>
 
 > 专注分享, 只为更好的您!

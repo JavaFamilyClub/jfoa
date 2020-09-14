@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-<img src="asset/favicon.ico" height="300" />
+<img src="../asset/favicon.ico" height="300" />
 
 # jfoa <small>0.0.1-SNAPSHOT</small>
 

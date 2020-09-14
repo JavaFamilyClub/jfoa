@@ -15,6 +15,7 @@
 <script>
    window.$docsify = {
       name: 'jfoa',
+      coverpage: ['/', '/zh-cn/'],
       search : [
          '/',            // => /README.md
          '/*',
@@ -44,17 +45,23 @@
       loadSidebar: true,
       mergeNavbar: true,
       alias: {
-         '/.*/_sidebar.md': '/_sidebar.md'
+         '/.*/_sidebar.md': '/_sidebar.md',
+         '/zh-cn/(.*)': 'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1'
       },
       auto2top: true, //Scrolls to the top of the screen when the route is changed.
       maxLevel: 4,
-      subMaxLevel: 2,
-      coverpage: true,
+      subMaxLevel: 2
       // logo: '/asset/logo.png'
    }
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/matomo.min.js"></script>
+<script>
+   ((window.gitter = {}).chat = {}).options = {
+      room: 'javafamilychat/jfoa'
+   };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
 </body>
 </html>
