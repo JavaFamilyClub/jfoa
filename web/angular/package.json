@@ -16,7 +16,8 @@
     "generate-index-files": "node ./generate-index-files.js",
     "test": "JEST_JUNIT_OUTPUT=./build/test-results/junit.xml npm run ng -- test jfoa-web --ci --runInBand --reporters=default --reporters=jest-junit",
     "test:watch": "JEST_JUNIT_OUTPUT=./build/test-results/junit.xml npm run ng -- test jfoa-web --ci --runInBand --reporters=default --reporters=jest-junit --watch",
-    "report-coverage": "codecov --token=1eb18219-afec-47c9-8f90-1210b4ec4d07"
+    "report-coverage": "codecov --token=1eb18219-afec-47c9-8f90-1210b4ec4d07",
+    "package": "npm run build:prod --output=./dist/client && electron-packager ./build/client jfoa-web --platform=darwin --arch=x64 --icon=./src/favicon.ico --app-version=0.0.1 --asar --overwrite --out=./dist"
   },
   "private": true,
   "dependencies": {
@@ -68,18 +69,20 @@
     "codecov": "^3.5.0",
     "codelyzer": "^6.0.0",
     "concurrently": "^3.5.1",
+    "electron": "^10.1.1",
+    "electron-packager": "^15.1.0",
     "gulp": "^4.0.2",
     "gulp-hub": "^4.2.0",
-    "through2": "^2.0.3",
-    "vinyl": "^2.2.0",
     "jest": "^24.9.0",
     "jest-canvas-mock": "^2.2.0",
     "jest-junit": "^6.3.0",
     "js-yaml": "^3.13.1",
     "rxjs-tslint": "^0.1.8",
+    "through2": "^2.0.3",
     "ts-node": "~8.10.2",
     "tslint": "~6.1.0",
     "typescript": "3.9.7",
+    "vinyl": "^2.2.0",
     "vinyl-fs": "^2.4.4"
   }
 }
