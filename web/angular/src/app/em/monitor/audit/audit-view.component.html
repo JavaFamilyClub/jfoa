@@ -1,56 +1,58 @@
 <div class="audit-view-container container-fluid">
 
-  <div class="audit-view-header row">
-    <h2>Audit</h2>
-  </div>
-
-  <div class="audit-view-actions row">
-    <div class="audit-filter-start col2">
-      <mat-form-field>
-        <input matInput [matDatepicker]="startPicker" placeholder="From Date"
-               [value]="filter.startDate" (click)="startPicker.open()"
-               (dateChange)="filterChanged($event)" readonly>
-
-        <div matSuffix>
-          <button mat-icon-button title="Clear" *ngIf="!!filter.startDate">
-            <mat-icon aria-label="Clear" class="icon-clear_circle"
-                      (click)="clearFilter()"></mat-icon>
-          </button>
-          <mat-datepicker #startPicker></mat-datepicker>
-          <mat-datepicker-toggle [for]="startPicker"></mat-datepicker-toggle>
-        </div>
-      </mat-form-field>
+  <div class="audit-view-header">
+    <div class="audit-view-title row">
+      <h2>Audit</h2>
     </div>
 
-    <div class="audit-filter-to">
-      to
+    <div class="audit-view-actions row">
+      <div class="audit-filter-start col2">
+        <mat-form-field>
+          <input matInput [matDatepicker]="startPicker" placeholder="From Date"
+                 [value]="filter.startDate" (click)="startPicker.open()"
+                 (dateChange)="filterChanged($event)" readonly>
+
+          <div matSuffix>
+            <button mat-icon-button title="Clear" *ngIf="!!filter.startDate">
+              <mat-icon aria-label="Clear" class="icon-clear_circle"
+                        (click)="clearFilter()"></mat-icon>
+            </button>
+            <mat-datepicker #startPicker></mat-datepicker>
+            <mat-datepicker-toggle [for]="startPicker"></mat-datepicker-toggle>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="audit-filter-to">
+        to
+      </div>
+
+      <div class="audit-filter-end col2">
+        <mat-form-field>
+          <input matInput [matDatepicker]="endPicker" placeholder="End Date"
+                 [value]="filter.endDate" [min]="filter.startDate"
+                 (click)="endPicker.open()"
+                 (dateChange)="filterChanged($event, true)" readonly>
+
+          <div matSuffix>
+            <button mat-icon-button title="Clear" *ngIf="!!filter.endDate">
+              <mat-icon aria-label="Clear" class="icon-clear_circle"
+                        (click)="clearFilter(true)"></mat-icon>
+            </button>
+            <mat-datepicker #endPicker></mat-datepicker>
+            <mat-datepicker-toggle [for]="endPicker"></mat-datepicker-toggle>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="audit-view-action-btn">
+        <button mat-icon-button class="btn btn-llg"
+                (click)="openExportDialog($event)">
+          <mat-icon class="icon-export"></mat-icon>
+        </button>
+      </div>
+
     </div>
-
-    <div class="audit-filter-end col2">
-      <mat-form-field>
-        <input matInput [matDatepicker]="endPicker" placeholder="End Date"
-               [value]="filter.endDate" [min]="filter.startDate"
-               (click)="endPicker.open()"
-               (dateChange)="filterChanged($event, true)" readonly>
-
-        <div matSuffix>
-          <button mat-icon-button title="Clear" *ngIf="!!filter.endDate">
-            <mat-icon aria-label="Clear" class="icon-clear_circle"
-              (click)="clearFilter(true)"></mat-icon>
-          </button>
-          <mat-datepicker #endPicker></mat-datepicker>
-          <mat-datepicker-toggle [for]="endPicker"></mat-datepicker-toggle>
-        </div>
-      </mat-form-field>
-    </div>
-
-    <div class="audit-view-action-btn">
-      <button mat-icon-button class="btn btn-llg"
-              (click)="openExportDialog($event)">
-        <mat-icon class="icon-export"></mat-icon>
-      </button>
-    </div>
-
   </div>
 
   <div class="audit-view-table row">
