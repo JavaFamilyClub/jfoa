@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication(exclude = {
    JpaRepositoriesAutoConfiguration.class,
@@ -16,7 +15,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableTransactionManagement
 @EnableCaching
 @EnableAsync
-@EnableSwagger2
 public class RunnerApplication {
 
    public static void main(String[] args) {
