@@ -11,14 +11,14 @@
 - Shiro
 - Hibernate
 - WebSocket
+- Lucene
 
 ## 2 `Web`
 - Angular 10+
 - Jest
 - Gulp
-- Bootstrap, Ng-Bootstrap
+- Bootstrap, Ng-Bootstrap, SCSS
 - Angular-Material
-- SCSS
 - SockJS, StompJS(for WebSocket)
 - Froala Editor
 

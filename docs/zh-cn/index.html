@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaFamily OA Project Document</title>
+  <link rel="icon" href="asset/img/logo.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="keywords" content="doc,docs,documentation,gitbook,creator,generator,github,jekyll,github-pages">
+  <meta name="description" content="JavaFamily OA Document">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
+</head>
+<body>
+<div id="app">Please wait, The Application is Loading...</div>
+<script>
+   window.$docsify = {
+      name: 'jfoa',
+      search : [
+         '/',            // => /README.md
+         '/*',
+         '/**',
+         '/zh-cn/',      // => /zh-cn/README.md
+         '/zh-cn/*',
+         '/zh-cn/**'
+      ],
+      search: {
+         noData: {
+            '/zh-cn/': '没有结果!',
+            '/': 'No results!'
+         },
+         paths: 'auto',
+         depth: 2,
+         placeholder: {
+            '/zh-cn/': '搜索',
+            '/': 'Search'
+         },
+         namespace: 'jfoa'
+      },
+      matomo: {
+         host: 'https://javafamilyclub.matomo.cloud/',
+         id: 1
+      },
+      repo: 'https://github.com/JavaFamilyClub/jfoa',
+      loadSidebar: true,
+      mergeNavbar: true,
+      alias: {
+         '/.*/_sidebar.md': '/_sidebar.md'
+      },
+      auto2top: true, //Scrolls to the top of the screen when the route is changed.
+      maxLevel: 4,
+      subMaxLevel: 2,
+      coverpage: true,
+      // logo: '/asset/logo.png'
+   }
+</script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/matomo.min.js"></script>
+</body>
+</html>

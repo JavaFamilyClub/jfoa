@@ -1,0 +1,31 @@
+# Technical Selection
+
+## 1 `Server`
+- SpringBoot 2+(后台基础框架)
+- Java Mail(邮件服务)
+- AMQP(Rabbit MQ)(异步, 解耦与削峰)
+- MySql(生产环境数据库), H2(开发与测试环境数据库)
+- Redis, Ehcache(缓存)
+- Druid(数据源)
+- Https(Https 安全访问)
+- Shiro(认证与授权)
+- Hibernate(Dao)
+- WebSocket(服务端推送)
+- Lucene(站内搜索)
+
+## 2 `Web`
+- Angular 10+(前端基础框架)
+- Jest(测试, 替代 karma)
+- Gulp(自动化构建工具)
+- Bootstrap, Ng-Bootstrap, SCSS(样式)
+- Angular-Material(基础样式库)
+- SockJS, StompJS(WebSocket 支持)
+- Froala Editor(富文本编辑器)
+
+## 3 `Tools`
+- Gradle(项目构建工具)
+- [Travis CI](https://travis-ci.org/github/JavaFamilyClub/jfoa) --- (CI 持续集成工具)
+- docsify(文档工具)
+- swagger, swagger-ui(API 工具)
+- jasypt(SpringBoot配置文件加密工具)
+
