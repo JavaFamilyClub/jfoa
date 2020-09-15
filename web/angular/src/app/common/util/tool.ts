@@ -22,7 +22,9 @@ declare var require: any;
  */
 export namespace Tool {
 
-    export const API_VERSION = "../api/1.0";
+    export const INSTALLER_URI = "https://javafamily.club/";
+    export const INSTALLER_API_VERSION = "api/1.0";
+    export const API_VERSION = "../" + INSTALLER_API_VERSION;
 
     export const isEquals: (obj0, obj1) => boolean = require("lodash/isEqual");
     export const clone: <T>(v: T) => T = require("lodash/cloneDeep");
@@ -203,5 +205,11 @@ export namespace Tool {
      */
     export function isNumber(obj: any) {
         return (+obj + "" === obj || isNumeric(obj)) && !isNaN(+obj);
+    }
+
+    export function isInstaller(): boolean {
+        let base: HTMLBaseElement = <HTMLBaseElement> window.document.querySelector("base");
+
+        return base.href.startsWith("file://");
     }
 }

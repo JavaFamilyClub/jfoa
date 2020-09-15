@@ -13,6 +13,7 @@
  */
 
 import { Observable, Subject, of as observableOf, AsyncSubject } from "rxjs";
+import { Tool } from "../util/tool";
 import { ProjectEvent } from "./project-event";
 import { StompClientChannel } from "./stomp-client-channel";
 import { StompClientConnection } from "./stomp-client-connection";
@@ -119,6 +120,13 @@ export class SocketClient {
 
 function resolveURL(url: string): string {
    let base: HTMLBaseElement = <HTMLBaseElement> window.document.querySelector("base");
+   const installer = Tool.isInstaller();
+
+   if(installer) {
+      url = url.startsWith("../") ? url.substring(3) : url;
+      return Tool.INSTALLER_URI + url;
+   }
+
    let baseHref: string = base.href.replace(/\/$/, "");
    return baseHref + "/" + url;
 }

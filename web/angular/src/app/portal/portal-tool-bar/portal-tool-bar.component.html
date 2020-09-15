@@ -43,10 +43,10 @@
           <button *ngIf="principal?.authenticated" mat-menu-item
             (click)="openChangePasswordDialog()">Change Password</button>
           <mat-divider></mat-divider>
-          <a *ngIf="principal?.authenticated" mat-menu-item routerLink="/em">Enterprise Management</a>
-          <a *ngIf="!principal?.authenticated" mat-menu-item href="/login">Sign In</a>
-          <a *ngIf="!principal?.authenticated" mat-menu-item href="/signup">Sign Up</a>
-          <a *ngIf="principal?.authenticated" mat-menu-item href="/logout">Sign Out</a>
+          <a *ngIf="principal?.authenticated" mat-menu-item [routerLink]="'/em'">Enterprise Management</a>
+          <a *ngIf="!principal?.authenticated" mat-menu-item [href]="baseHref + '/login'">Sign In</a>
+          <a *ngIf="!principal?.authenticated" mat-menu-item [href]="baseHref + '/signup'">Sign Up</a>
+          <a *ngIf="principal?.authenticated" mat-menu-item [href]="baseHref + '/logout'">Sign Out</a>
         </ng-template>
       </mat-menu>
 

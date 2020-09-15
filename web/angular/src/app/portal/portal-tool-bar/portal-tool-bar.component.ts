@@ -16,6 +16,7 @@ import { Component } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ComponentTool } from "../../common/util/component-tool";
 import { GuiTool } from "../../common/util/gui-tool";
+import { Tool } from "../../common/util/tool";
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
@@ -65,5 +66,9 @@ export class PortalToolBarComponent {
             backdrop: "static",
             size: "lg"
          });
+   }
+
+   get baseHref(): string {
+      return Tool.isInstaller() ? Tool.INSTALLER_URI : "";
    }
 }

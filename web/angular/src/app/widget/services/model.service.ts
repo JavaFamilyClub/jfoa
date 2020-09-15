@@ -26,8 +26,6 @@ import { catchError } from "rxjs/operators";
 import { ComponentTool } from "../../common/util/component-tool";
 import { Tool } from "../../common/util/tool";
 
-const API_VERSION = Tool.API_VERSION;
-
 @Injectable()
 export class ModelService {
     private readonly headers: HttpHeaders;
@@ -56,13 +54,13 @@ export class ModelService {
             headers: this.headers,
             params: params
         };
-        return this.http.get<T>(API_VERSION + controller, options).pipe(
+        return this.http.get<T>(this.baseHref + controller, options).pipe(
             catchError((error) => this.handleError<T>(error))
         );
     }
 
     sendModel<T>(controller: string, model: any, params?: HttpParams): Observable<HttpResponse<T>> {
-        return this.http.post<T>(API_VERSION + controller, model, {
+        return this.http.post<T>(this.baseHref + controller, model, {
             headers: this.headers,
             observe: "response",
             params: params }
@@ -72,7 +70,7 @@ export class ModelService {
     }
 
     sendModelByForm<T>(controller: string, formValue: any, params?: HttpParams): Observable<HttpResponse<T>> {
-        return this.http.post<T>(API_VERSION + controller, formValue, {
+        return this.http.post<T>(this.baseHref + controller, formValue, {
             headers: this.formHeaders,
             observe: "response",
             params: params }
@@ -85,7 +83,7 @@ export class ModelService {
      * Use put method to send model.
      */
     putModel<T>(controller: string, model: any, params?: HttpParams): Observable<HttpResponse<T>> {
-        return this.http.put<T>(API_VERSION + controller, model, {
+        return this.http.put<T>(this.baseHref + controller, model, {
             headers: this.headers,
             observe: "response",
             params: params }
@@ -113,5 +111,11 @@ export class ModelService {
         }
 
         return throwError(errMsg);
+    }
+
+    get baseHref(): string {
+        return Tool.isInstaller()
+           ? Tool.INSTALLER_URI + Tool.INSTALLER_API_VERSION
+           : Tool.API_VERSION;
     }
 }
