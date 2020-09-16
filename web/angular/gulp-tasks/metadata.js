@@ -43,6 +43,7 @@ const generateMetadata = function() {
       }
 
       generateSearchMetadata(file);
+
       return callback();
    }
 
@@ -59,8 +60,14 @@ const generateMetadata = function() {
    return through({objectMode: true}, generateFileMetadata, endStream);
 };
 
-gulp.task("buildSearchDoc", function(cb) {
+gulp.task("metadata", function() {
    return gulp.src("src/app/**/*.component.ts")
       .pipe(generateMetadata())
       .pipe(gulp.dest("../../runner/build/resources/main/config"));
 });
+
+gulp.task("metadata:watch", gulp.series([ "metadata" ], function() {
+   return gulp.watch([
+         "src/app/**/*.component.ts"],
+      gulp.series(["metadata"]))
+}));
