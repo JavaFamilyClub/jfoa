@@ -22,7 +22,7 @@
     "report-coverage": "codecov --token=1eb18219-afec-47c9-8f90-1210b4ec4d07",
     "installer:compile": "npm run build:ng:prod -- --outputPath=./build/client --crossOrigin=anonymous --baseHref=./ && npm run build:resources",
     "installer:packaging": "electron-packager ./build/client jfoa-client --platform=darwin --arch=x64 --icon=./src/favicon.ico --app-version=0.0.1 --asar --overwrite --out=./build/package",
-    "build:installer": "npm run package:compile && npm run package:packaging"
+    "build:installer": "npm run installer:compile && npm run installer:packaging"
   },
   "private": true,
   "dependencies": {

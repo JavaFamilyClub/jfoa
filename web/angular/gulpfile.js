@@ -1,3 +1,5 @@
+/* tslint:disable */
+
 const gulp = require("gulp");
 const HubRegistry = require("gulp-hub");
 
