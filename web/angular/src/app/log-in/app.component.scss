@@ -1,0 +1,59 @@
+.login-root {
+   left: 0;
+   bottom: 0;
+   right: 0;
+   overflow: auto;
+}
+
+.card {
+   margin: 16px auto;
+   width: 600px;
+   max-width: 90%;
+}
+
+.loginBanner {
+   border: none;
+}
+
+div.alert {
+   margin: 2px auto;
+   width: 600px;
+   max-width: 90%;
+}
+
+div.loading-indicator {
+   display: none;
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.33);
+   z-index: 9999;
+}
+
+div.loading-indicator.loading {
+   display: table;
+}
+
+div.loading-indicator > div {
+   display: table-cell;
+   text-align: center;
+   vertical-align: middle;
+}
+
+div.loading-indicator > div > i.fa {
+   color: rgb(62, 120, 179);
+}
+
+.custom-logo {
+   height: 50px;
+   vertical-align: middle;
+}
+
+.alert-error-message {
+   color: #F56C6C;
+}
+
+.create-account-span {
+   position: absolute;
+   right: 35px;
+}

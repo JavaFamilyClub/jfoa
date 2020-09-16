@@ -68,6 +68,10 @@ export class PortalToolBarComponent {
          });
    }
 
+   get isInstaller(): boolean {
+      return Tool.isInstaller();
+   }
+
    get baseHref(): string {
       return Tool.isInstaller() ? Tool.INSTALLER_URI : "";
    }

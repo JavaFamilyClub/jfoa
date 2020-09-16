@@ -14,28 +14,22 @@
 
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { LoginAppComponent } from "./app.component";
 
 const routes: Routes = [
    {
       path: "",
       children: [
          {
-            path: "portal",
-            loadChildren: () => import("./portal/portal-app.module").then(m => m.PortalAppModule)
-         },
-         {
-            path: "em",
-            loadChildren: () => import("./em/em-app.module").then(m => m.EmAppModule)
-         },
-         {
             path: "login",
-            loadChildren: () => import("./log-in/login-app.module").then(m => m.LoginAppModule)
+            component: LoginAppComponent
          },
          {
             path: "**",
-            redirectTo: "portal"
+            redirectTo: "login"
          }
-      ]}
+      ]
+   }
 ];
 
 @NgModule({
@@ -46,5 +40,5 @@ const routes: Routes = [
        RouterModule
    ]
 })
-export class AppRoutingModule {
+export class LoginAppRoutingModule {
 }

@@ -44,9 +44,18 @@
             (click)="openChangePasswordDialog()">Change Password</button>
           <mat-divider></mat-divider>
           <a *ngIf="principal?.authenticated" mat-menu-item [routerLink]="'/em'">Enterprise Management</a>
-          <a *ngIf="!principal?.authenticated" mat-menu-item [href]="baseHref + '/login'">Sign In</a>
-          <a *ngIf="!principal?.authenticated" mat-menu-item [href]="baseHref + '/signup'">Sign Up</a>
-          <a *ngIf="principal?.authenticated" mat-menu-item [href]="baseHref + '/logout'">Sign Out</a>
+
+          <ng-container *ngIf="!isInstaller">
+            <a *ngIf="!principal?.authenticated" mat-menu-item [href]="'/login'">Sign In</a>
+            <a *ngIf="!principal?.authenticated" mat-menu-item [href]="'/signup'">Sign Up</a>
+            <a *ngIf="principal?.authenticated" mat-menu-item [href]="'/logout'">Sign Out</a>
+          </ng-container>
+
+          <ng-container *ngIf="isInstaller">
+            <a *ngIf="!principal?.authenticated" mat-menu-item [routerLink]="'/login'">Sign In</a>
+            <a *ngIf="!principal?.authenticated" mat-menu-item [routerLink]="'/signup'">Sign Up</a>
+            <a *ngIf="principal?.authenticated" mat-menu-item [routerLink]="'/logout'">Sign Out</a>
+          </ng-container>
         </ng-template>
       </mat-menu>
 

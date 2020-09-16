@@ -1,0 +1,36 @@
+
+<div class="container-fluid login-root">
+  <form>
+    <div class="card">
+      <div class="card-header">
+        Sign In
+      </div>
+      <div class="card-body">
+
+        <div id="userNameGroup" class="form-group">
+          <label class="required-field" for="userName">Account</label>
+          <input type="text" class="form-control form-control-danger" id="userName"
+                 [(ngModel)]="model.userName"
+                 name="userName" autofocus/>
+          <div id="userNameError" class="form-control-feedback" style="display: none;">
+            Please enter your user name.
+          </div>
+        </div>
+        <div id="passwordGroup" class="form-group">
+          <label class="required-field" for="password">Password</label>
+          <input type="password" class="form-control form-control-danger"
+                 id="password" name="password" [(ngModel)]="model.password"/>
+          <div id="passwordError" class="form-control-feedback" style="display: none;">
+            Please enter your password.
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" id="loginButton" class="btn btn-primary btn-block"
+          (click)="login()">
+          Sign In
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
