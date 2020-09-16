@@ -12,38 +12,38 @@
  * person.
  */
 
-import { RuleFailure, Rules, RuleWalker } from "tslint";
-import { SourceFile, ImportDeclaration } from "typescript";
+import * as TSLint from "tslint";
+import * as ts from 'typescript';
 
-export class Rule extends Rules.AbstractRule {
+export class Rule extends TSLint.Rules.AbstractRule {
    public static FAILURE_MSG: string = "cross-app dependency forbidden";
    public static PROHIBITED_DEPENDENCIES: {[name: string]: string[]} = {
       "common/": [],
       "widget/": []
    };
 
-   public apply(sourceFile: SourceFile): RuleFailure[] {
-      return this.applyWithWalker(new NoCrossDependenciesWalker(sourceFile, this.getOptions()));
-   }
-}
+   public apply(sourceFile: ts.SourceFile): TSLint.RuleFailure[] {
+      return this.applyWithFunction(sourceFile, (ctx) => {
+         ts.forEachChild(ctx.sourceFile, recur);
 
-class NoCrossDependenciesWalker extends RuleWalker {
-   public visitImportDeclaration(node: ImportDeclaration) {
-      // let sourceFile: ts.SourceFile = <ts.SourceFile> node.parent;
-      // let importFrom: string = <string> node.moduleSpecifier["text"];
-      //
-      // for(let prefix in Rule.PROHIBITED_DEPENDENCIES) {
-      //    if(sourceFile.fileName.indexOf(prefix) === 0) {
-      //       for(let prohibited of Rule.PROHIBITED_DEPENDENCIES[prefix]) {
-      //          if(importFrom.indexOf(prohibited) >= 0) {
-      //             this.addFailure(this.createFailure(node.getStart(), node.getWidth(), Rule.FAILURE_MSG));
-      //          }
-      //       }
-      //
-      //       break;
-      //    }
-      // }
+         function recur(node: ts.Node): void {
+            // let sourceFile: ts.SourceFile = <ts.SourceFile> node.parent;
+            // let importFrom: string = <string> node.moduleSpecifier["text"];
+            //
+            // for(let prefix in Rule.PROHIBITED_DEPENDENCIES) {
+            //    if(sourceFile.fileName.indexOf(prefix) === 0) {
+            //       for(let prohibited of Rule.PROHIBITED_DEPENDENCIES[prefix]) {
+            //          if(importFrom.indexOf(prohibited) >= 0) {
+            //             this.addFailure(this.createFailure(node.getStart(), node.getWidth(), Rule.FAILURE_MSG));
+            //          }
+            //       }
+            //
+            //       break;
+            //    }
+            // }
 
-      super.visitImportDeclaration(node);
+            ts.forEachChild(node, recur);
+         }
+      });
    }
 }
