@@ -51,7 +51,7 @@ task compile(dependsOn: npmInstall) {
    dependsOn compileDevelopment, compileProduction
 }
 
-task buildPackage(type: NpmTask, dependsOn: npmInstall) {
+task buildInstaller(type: NpmTask, dependsOn: npmInstall) {
    group 'installer'
    description 'Build client package'
    args = ['run', 'build:installer']
