@@ -13,11 +13,12 @@
     "build:resources": "gulp",
     "lint": "tsc -p rules/tsconfig.json && npm run ng -- lint",
     "generate-index-files": "node ./generate-index-files.js",
-    "test": "JEST_JUNIT_OUTPUT=./build/test-results/junit.xml npm run ng -- test jfoa-web --ci --runInBand --reporters=default --reporters=jest-junit",
-    "test:watch": "JEST_JUNIT_OUTPUT=./build/test-results/junit.xml npm run ng -- test jfoa-web --ci --runInBand --reporters=default --reporters=jest-junit --watch",
+    "test": "npm run ng -- test jfoa-web --ci --runInBand --reporters=default --reporters=jest-junit",
+    "test:watch": "npm run ng -- test jfoa-web --ci --runInBand --reporters=default --reporters=jest-junit --watch",
     "report-coverage": "codecov --token=1eb18219-afec-47c9-8f90-1210b4ec4d07",
-    "package:compile": "npm run build:ng:prod -- --outputPath=./build/client --crossOrigin=anonymous --baseHref=./ && npm run build:resources",
-    "package": "npm run package:compile && electron-packager ./build/client jfoa-web --platform=darwin --arch=x64 --icon=./src/favicon.ico --app-version=0.0.1 --asar --overwrite --out=./dist",
+    "installer:compile": "npm run build:ng:prod -- --outputPath=./build/client --crossOrigin=anonymous --baseHref=./ && npm run build:resources",
+    "installer:packaging": "electron-packager ./build/client jfoa-client --platform=darwin --arch=x64 --icon=./src/favicon.ico --app-version=0.0.1 --asar --overwrite --out=./build/package",
+    "build:installer": "npm run package:compile && npm run package:packaging"
   },
   "private": true,
   "dependencies": {

@@ -94,7 +94,12 @@
           "options": {
             "reporters": [
               "default",
-              "jest-junit"
+              [
+                "jest-junit", {
+                  "outputDirectory": "./build/test-results",
+                  "outputName": "jfoa-jest-junit-report.xml"
+              }
+              ]
             ]
           }
         },

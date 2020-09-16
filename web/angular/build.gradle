@@ -51,6 +51,12 @@ task compile(dependsOn: npmInstall) {
    dependsOn compileDevelopment, compileProduction
 }
 
+task buildPackage(type: NpmTask, dependsOn: npmInstall) {
+   group 'installer'
+   description 'Build client package'
+   args = ['run', 'build:installer']
+}
+
 task lint(type: NpmTask, dependsOn: npmInstall) {
    group 'verification'
    description = 'Runs the linter on the TypeScript source code'
