@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -12,23 +12,23 @@
  * person.
  */
 
-import * as ts from "typescript";
-import * as Lint from "tslint";
+import { RuleFailure, Rules, RuleWalker } from "tslint";
+import { SourceFile, ImportDeclaration } from "typescript";
 
-export class Rule extends Lint.Rules.AbstractRule {
+export class Rule extends Rules.AbstractRule {
    public static FAILURE_MSG: string = "cross-app dependency forbidden";
    public static PROHIBITED_DEPENDENCIES: {[name: string]: string[]} = {
       "common/": [],
       "widget/": []
    };
 
-   public apply(sourceFile: ts.SourceFile): Lint.RuleFailure[] {
+   public apply(sourceFile: SourceFile): RuleFailure[] {
       return this.applyWithWalker(new NoCrossDependenciesWalker(sourceFile, this.getOptions()));
    }
 }
 
-class NoCrossDependenciesWalker extends Lint.RuleWalker {
-   public visitImportDeclaration(node: ts.ImportDeclaration) {
+class NoCrossDependenciesWalker extends RuleWalker {
+   public visitImportDeclaration(node: ImportDeclaration) {
       // let sourceFile: ts.SourceFile = <ts.SourceFile> node.parent;
       // let importFrom: string = <string> node.moduleSpecifier["text"];
       //
