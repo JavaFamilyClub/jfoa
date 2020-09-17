@@ -28,16 +28,15 @@ function createWindow() {
       minWidth: 600,
       minHeight: 500,
       webPreferences: {
-         nodeIntegration: true
+         nodeIntegration: false
       }
    });
 
    // 加载index.html文件
-   win.loadFile("index.html"); // 这个路径可以根据你实际的项目目录结构进行修正
+   win.loadFile("index.html", {}).then(); // 这个路径可以根据你实际的项目目录结构进行修正
 
    // 打开开发者工具
-   // win.webContents.openDevTools()
-   // logger.info("esraeder main start at ", new Date());
+   // win.webContents.openDevTools();
 
    // 当 window 被关闭，这个事件会被触发。
    win.on("closed", () => {
@@ -58,7 +57,7 @@ app.on("window-all-closed", () => {
    // 在 macOS 上，除非用户用 Cmd + Q 确定地退出，
    // 否则绝大部分应用及其菜单栏会保持激活。
    if (process.platform !== "darwin") {
-      app.quit()
+      app.quit();
    }
 });
 

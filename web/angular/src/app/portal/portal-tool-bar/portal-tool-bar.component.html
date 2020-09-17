@@ -38,7 +38,6 @@
       <mat-menu #accountMatMenu="matMenu">
         <ng-template matMenuContent>
           <button mat-menu-item (click)="editProfile($event)"
-                  [disabled]="!principal?.authenticated"
             >Profile ({{principal.userName}})</button>
           <button *ngIf="principal?.authenticated" mat-menu-item
             (click)="openChangePasswordDialog()">Change Password</button>

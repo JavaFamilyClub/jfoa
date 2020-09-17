@@ -19,7 +19,12 @@ export class InstallerClientUrlConstants {
    /**
     * Base href
     */
-   public static readonly BASE_HREF = Tool.INSTALLER_URI + Tool.INSTALLER_API_VERSION;
+   public static readonly BASE_HREF = Tool.INSTALLER_URI + Tool.BASE_API_VERSION;
+
+   /**
+    * Client Base href
+    */
+   public static readonly CLIENT_BASE_HREF = Tool.INSTALLER_URI + Tool.INSTALLER_API_VERSION;
 
    /**
     * sign in

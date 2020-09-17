@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ClientModelService } from "../widget/services/client-model.service";
 import { ModelService } from "../widget/services/model.service";
 import { WidgetModule } from "../widget/widget.module";
 import { LoginAppComponent } from "./app.component";
@@ -37,8 +38,10 @@ import { LoginAppRoutingModule } from "./login-app-routing.module";
       LoginAppRoutingModule
    ],
    providers: [
-      ModelService
+      ModelService,
+      ClientModelService
    ],
    bootstrap: [ LoginAppComponent ]
 })
-export class LoginAppModule { }
+export class LoginAppModule {
+}

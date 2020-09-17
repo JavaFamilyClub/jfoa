@@ -23,7 +23,7 @@ import { FormValidators } from "../../common/util/form-validators";
 import { BaseSubscription } from "../../widget/base/BaseSubscription";
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
-import { PrincipalService } from "../../widget/services/principal-service";
+import { PrincipalService } from "../../common/services/principal-service";
 import { ChangePasswordDialogModel } from "../model/dialog/change-password-dialog-model";
 
 @Component({

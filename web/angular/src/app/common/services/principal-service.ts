@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -12,28 +12,27 @@
  * person.
  */
 
-import { Injectable, OnInit } from "@angular/core";
-import { BaseSubscription } from "../base/BaseSubscription";
-import { JfPrincipal } from "../model/jf-principal";
-import { ModelService } from "./model.service";
+import { Injectable } from "@angular/core";
+import { JfPrincipal } from "../../widget/model/jf-principal";
+import { ModelService } from "../../widget/services/model.service";
 
 const GET_PRINCIPAL_URI = "/public/principal";
 
-@Injectable()
-export class PrincipalService extends BaseSubscription {
+@Injectable({
+   providedIn: "any"
+})
+export class PrincipalService {
    principal: JfPrincipal;
 
    constructor(private modelService: ModelService) {
-      super();
-
       this.refresh();
    }
 
    refresh(): void {
-      this.subscriptions.add(this.modelService.getModel<JfPrincipal>(
+      this.modelService.getModel<JfPrincipal>(
          GET_PRINCIPAL_URI).subscribe((principal) =>
       {
          this.principal = principal;
-      }));
+      });
    }
 }

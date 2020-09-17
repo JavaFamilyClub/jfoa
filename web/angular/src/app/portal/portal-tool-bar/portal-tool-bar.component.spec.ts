@@ -25,7 +25,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { observable, of } from "rxjs";
 import { ModelService } from "../../widget/services/model.service";
-import { PrincipalService } from "../../widget/services/principal-service";
+import { PrincipalService } from "../../common/services/principal-service";
 import { PortalToolBarComponent } from "./portal-tool-bar.component";
 
 describe("PortalToolBarComponent", () => {

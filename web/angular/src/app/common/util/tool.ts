@@ -22,7 +22,8 @@ declare var require: any;
  */
 export namespace Tool {
 
-    export const INSTALLER_URI = "https://javafamily.club/";
+    // export const INSTALLER_URI = "https://javafamily.club/";
+    export const INSTALLER_URI = "http://localhost/";
     export const INSTALLER_API_VERSION = "client/api/1.0";
     export const BASE_API_VERSION = "api/1.0";
     export const API_VERSION = "../" + BASE_API_VERSION;

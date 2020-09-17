@@ -7,4 +7,4 @@ const hub = new HubRegistry(["gulp-tasks/*.js"]);
 gulp.registry(hub);
 
 gulp.task("default", gulp.parallel([ "metadata" ]));
-gulp.task("watch", gulp.parallel([ "metadata" ]));
+gulp.task("watch", gulp.parallel([ "metadata:watch" ]));

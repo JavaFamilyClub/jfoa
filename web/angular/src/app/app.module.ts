@@ -14,9 +14,8 @@
 
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { MatButtonModule } from "@angular/material/button";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from "@angular/material/dialog";
+import { MAT_DIALOG_DEFAULT_OPTIONS } from "@angular/material/dialog";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from "./app.component";

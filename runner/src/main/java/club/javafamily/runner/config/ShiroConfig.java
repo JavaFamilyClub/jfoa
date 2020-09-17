@@ -33,6 +33,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
+import static club.javafamily.runner.util.SecurityUtil.CLIENT_API_VERSION;
 
 @Configuration
 public class ShiroConfig {
@@ -119,6 +120,7 @@ public class ShiroConfig {
       // login
       filterChainMap.put("/login", "anon");
       filterChainMap.put(API_VERSION + "/login", "anon");
+      filterChainMap.put(CLIENT_API_VERSION + "/login", "anon");
 
       // sign up
       filterChainMap.put("/signup", "anon");

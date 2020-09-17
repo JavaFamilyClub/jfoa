@@ -16,8 +16,8 @@ import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { InstallerClientUrlConstants } from "../common/constants/url/installer-client-url-constants";
-import { ModelService } from "../widget/services/model.service";
-import { PrincipalService } from "../widget/services/principal-service";
+import { ClientModelService } from "../widget/services/client-model.service";
+import { PrincipalService } from "../common/services/principal-service";
 
 export interface UserInfo {
    userName: string;
@@ -35,7 +35,7 @@ export class LoginAppComponent implements OnInit {
       password: ""
    };
 
-   constructor(private modelService: ModelService,
+   constructor(private clientModelService: ClientModelService,
                private principalService: PrincipalService,
                private router: Router)
    {
@@ -50,14 +50,16 @@ export class LoginAppComponent implements OnInit {
          .set("userName", this.model.userName)
          .set("password", this.model.password);
 
-      this.modelService.sendModel<string>(InstallerClientUrlConstants.LOGIN_URI, params)
+      this.clientModelService.sendModelByForm<string>(InstallerClientUrlConstants.LOGIN_URI, params)
          .subscribe((res) =>
       {
          console.log("login response:", res);
 
-         if(!!!res?.body) {
+         if(!!!res.body) {
             this.principalService.refresh();
-            this.router.navigateByUrl("/portal");
+            this.router.navigateByUrl("/portal").then(() => {
+               this.principalService.refresh();
+            });
          }
       }, (error) => {
          console.log("error:", error);

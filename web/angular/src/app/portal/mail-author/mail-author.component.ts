@@ -17,7 +17,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Tool } from "../../common/util/tool";
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
-import { PrincipalService } from "../../widget/services/principal-service";
+import { PrincipalService } from "../../common/services/principal-service";
 import { MailAuthorModel } from "./mail-author-model";
 
 const MAIL_AUTHOR_URI = "/mail-author";

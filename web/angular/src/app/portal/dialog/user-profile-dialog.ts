@@ -16,7 +16,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Gender } from "../../common/enum/gender";
 import { ModelService } from "../../widget/services/model.service";
-import { PrincipalService } from "../../widget/services/principal-service";
+import { PrincipalService } from "../../common/services/principal-service";
 import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-model";
 
 const USER_PROFILE_URI = "/user/profile";
