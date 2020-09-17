@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "node --max-old-space-size=4096 ./node_modules/@angular/cli/bin/ng",
     "start": "npm run ng -- serve",
-    "build": "npm run build:ng  && npm run build:resources",
+    "build": "npm run build:ng && npm run build:resources",
     "build:prod": "npm run build:ng:prod && npm run build:resources",
     "build:ng": "npm run build:ng:app",
     "build:ng:app": "npm run ng -- build --vendor-chunk --optimization",

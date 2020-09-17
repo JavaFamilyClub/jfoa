@@ -13,13 +13,13 @@
  */
 
 import { Injectable } from "@angular/core";
-import { JfPrincipal } from "../../widget/model/jf-principal";
-import { ModelService } from "../../widget/services/model.service";
+import { JfPrincipal } from "../model/jf-principal";
+import { ModelService } from "./model.service";
 
 const GET_PRINCIPAL_URI = "/public/principal";
 
 @Injectable({
-   providedIn: "any"
+   providedIn: "root"
 })
 export class PrincipalService {
    principal: JfPrincipal;

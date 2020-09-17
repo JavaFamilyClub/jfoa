@@ -26,7 +26,6 @@ import { HelpUrlService } from "./help-link/help-url.service";
 import { MODULE_COMPONENTS } from "./index.components";
 import { MODULE_DIRECTIVES } from "./index.directives";
 import { MODULE_PIPES } from "./index.pipes";
-import { ModelService } from "./services/model.service";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DomService } from "./dom-service/dom.service";
 import { DropdownStackService } from "./fixed-dropdown/dropdown-stack.service";
@@ -74,7 +73,6 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
    providers: [
       FixedDropdownService,
       DropdownStackService,
-      ModelService,
       SlideOutService,
       TooltipService,
       DebounceService,

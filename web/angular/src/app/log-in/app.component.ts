@@ -17,7 +17,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { InstallerClientUrlConstants } from "../common/constants/url/installer-client-url-constants";
 import { ClientModelService } from "../widget/services/client-model.service";
-import { PrincipalService } from "../common/services/principal-service";
+import { PrincipalService } from "../widget/services/principal-service";
 
 export interface UserInfo {
    userName: string;

@@ -22,7 +22,7 @@ import { UserProfileDialog } from "../../portal/dialog/user-profile-dialog";
 import { UserProfileDialogModel } from "../../portal/model/dialog/user-profile-dialog-model";
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
-import { PrincipalService } from "../../common/services/principal-service";
+import { PrincipalService } from "../../widget/services/principal-service";
 import { NotifyAllDialog } from "../dialog/notify-all-dialog";
 import { EmTab, EmTitleBarService } from "../service/em-title-bar.service";
 

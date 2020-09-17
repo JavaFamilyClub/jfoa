@@ -19,7 +19,7 @@ import { GuiTool } from "../../common/util/gui-tool";
 import { Tool } from "../../common/util/tool";
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
-import { PrincipalService } from "../../common/services/principal-service";
+import { PrincipalService } from "../../widget/services/principal-service";
 import { ChangePasswordDialog } from "../dialog/change-password-dialog";
 import { UserProfileDialog } from "../dialog/user-profile-dialog";
 import { UserProfileDialogModel } from "../model/dialog/user-profile-dialog-model";

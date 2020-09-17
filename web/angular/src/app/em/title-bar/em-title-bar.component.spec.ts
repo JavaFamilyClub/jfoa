@@ -23,7 +23,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterTestingModule } from "@angular/router/testing";
 import { ModelService } from "../../widget/services/model.service";
-import { PrincipalService } from "../../common/services/principal-service";
+import { PrincipalService } from "../../widget/services/principal-service";
 import { EmTab, EmTitleBarService } from "../service/em-title-bar.service";
 import { EmTitleBarComponent } from "./em-title-bar.component";
 
