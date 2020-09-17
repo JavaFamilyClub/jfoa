@@ -12,33 +12,17 @@
  * person.
  */
 
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { LoginAppComponent } from "./app.component";
+import { Tool } from "../../util/tool";
 
-const routes: Routes = [
-   {
-      path: "",
-      children: [
-         {
-            path: "login",
-            component: LoginAppComponent
-         },
-         {
-            path: "**",
-            redirectTo: "login"
-         }
-      ]
-   }
-];
+export class InstallerClientUrlConstants {
 
-@NgModule({
-   imports: [
-       RouterModule.forChild(routes)
-   ],
-   exports: [
-       RouterModule
-   ]
-})
-export class LoginAppRoutingModule {
+   /**
+    * Base href
+    */
+   public static readonly BASE_HREF = Tool.INSTALLER_URI + Tool.INSTALLER_API_VERSION;
+
+   /**
+    * sign in
+    */
+   public static readonly LOGIN_URI = "/login";
 }

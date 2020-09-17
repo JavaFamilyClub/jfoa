@@ -12,13 +12,16 @@
  * person.
  */
 
+import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { Tool } from "../common/util/tool";
+import { Router } from "@angular/router";
+import { InstallerClientUrlConstants } from "../common/constants/url/installer-client-url-constants";
 import { ModelService } from "../widget/services/model.service";
+import { PrincipalService } from "../widget/services/principal-service";
 
 export interface UserInfo {
-   userName: string,
-   password: string
+   userName: string;
+   password: string;
 }
 
 @Component({
@@ -32,22 +35,32 @@ export class LoginAppComponent implements OnInit {
       password: ""
    };
 
-   constructor(private modelService: ModelService) {
+   constructor(private modelService: ModelService,
+               private principalService: PrincipalService,
+               private router: Router)
+   {
    }
 
    ngOnInit(): void {
       document.body.className += " app-loaded";
    }
 
-   get loginUrl(): string {
-      return Tool.INSTALLER_URI + Tool.API_VERSION + "/login";
-   }
-
    login(): void {
-      this.modelService.sendModel(this.loginUrl, this.model).subscribe((res) => {
-         console.log(res);
+      const params = new HttpParams()
+         .set("userName", this.model.userName)
+         .set("password", this.model.password);
+
+      this.modelService.sendModel<string>(InstallerClientUrlConstants.LOGIN_URI, params)
+         .subscribe((res) =>
+      {
+         console.log("login response:", res);
+
+         if(!!!res?.body) {
+            this.principalService.refresh();
+            this.router.navigateByUrl("/portal");
+         }
       }, (error) => {
-         console.log(error);
+         console.log("error:", error);
       });
    }
 }

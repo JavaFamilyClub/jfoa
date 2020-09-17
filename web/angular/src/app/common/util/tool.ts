@@ -23,8 +23,9 @@ declare var require: any;
 export namespace Tool {
 
     export const INSTALLER_URI = "https://javafamily.club/";
-    export const INSTALLER_API_VERSION = "api/1.0";
-    export const API_VERSION = "../" + INSTALLER_API_VERSION;
+    export const INSTALLER_API_VERSION = "client/api/1.0";
+    export const BASE_API_VERSION = "api/1.0";
+    export const API_VERSION = "../" + BASE_API_VERSION;
 
     export const isEquals: (obj0, obj1) => boolean = require("lodash/isEqual");
     export const clone: <T>(v: T) => T = require("lodash/cloneDeep");

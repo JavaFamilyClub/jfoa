@@ -20,9 +20,13 @@
     "test": "npm run ng -- test jfoa-web --ci --runInBand --reporters=default --reporters=jest-junit",
     "test:watch": "npm run ng -- test jfoa-web --ci --runInBand --reporters=default --reporters=jest-junit --watch",
     "report-coverage": "codecov --token=1eb18219-afec-47c9-8f90-1210b4ec4d07",
-    "installer:compile": "npm run build:ng:prod -- --outputPath=./build/client --crossOrigin=anonymous --baseHref=./ && npm run build:resources",
-    "installer:packaging": "electron-packager ./build/client jfoa-client --platform=darwin --arch=x64 --icon=./src/favicon.ico --app-version=0.0.1 --asar --overwrite --out=./build/package",
-    "build:installer": "npm run installer:compile && npm run installer:packaging"
+    "installer:compile:app": "npm run build:ng:prod -- --outputPath=./build/client --crossOrigin=anonymous --baseHref=./",
+    "installer:compile:app:watch": "npm run installer:compile:app -- --watch",
+    "installer:compile": "npm run installer:compile:app && npm run build:resources",
+    "installer:packagingOsx": "electron-packager ./build/client jfoa-client --platform=darwin --arch=x64 --app-version=0.0.1 --asar --overwrite --out=./build/package",
+    "installer:packagingWin64": "electron-packager ./build/client jfoa-client --platform=win32 --arch=x64 --app-version=0.0.1 --asar --overwrite --out=./build/package",
+    "installer:packaging": "electron-packager ./build/client jfoa-client --all --app-version=0.0.1 --asar --overwrite --out=./build/package",
+    "build:installer": "npm run installer:compile && npm run installer:packagingWin64"
   },
   "private": true,
   "dependencies": {

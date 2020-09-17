@@ -15,10 +15,10 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { HttpClientModule } from "@angular/common/http";
-import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ModelService } from "../widget/services/model.service";
 import { WidgetModule } from "../widget/widget.module";
 import { LoginAppComponent } from "./app.component";
 import { LoginAppRoutingModule } from "./login-app-routing.module";
@@ -33,11 +33,12 @@ import { LoginAppRoutingModule } from "./login-app-routing.module";
       FormsModule,
       ReactiveFormsModule,
       HttpClientModule,
-      NgbModalModule,
+      NgbModule,
       LoginAppRoutingModule
    ],
    providers: [
+      ModelService
    ],
-  bootstrap: [ LoginAppComponent ]
+   bootstrap: [ LoginAppComponent ]
 })
 export class LoginAppModule { }

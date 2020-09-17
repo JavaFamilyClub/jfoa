@@ -23,6 +23,7 @@ import { Injectable } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { InstallerClientUrlConstants } from "../../common/constants/url/installer-client-url-constants";
 import { ComponentTool } from "../../common/util/component-tool";
 import { Tool } from "../../common/util/tool";
 
@@ -69,8 +70,8 @@ export class ModelService {
         );
     }
 
-    sendModelByForm<T>(controller: string, formValue: any, params?: HttpParams): Observable<HttpResponse<T>> {
-        return this.http.post<T>(this.baseHref + controller, formValue, {
+    sendModelByForm<T>(controller: string, formValue: HttpParams, params?: HttpParams): Observable<HttpResponse<T>> {
+        return this.http.post<T>(this.baseHref + controller, formValue.toString(), {
             headers: this.formHeaders,
             observe: "response",
             params: params }
@@ -115,7 +116,7 @@ export class ModelService {
 
     get baseHref(): string {
         return Tool.isInstaller()
-           ? Tool.INSTALLER_URI + Tool.INSTALLER_API_VERSION
+           ? InstallerClientUrlConstants.BASE_HREF
            : Tool.API_VERSION;
     }
 }

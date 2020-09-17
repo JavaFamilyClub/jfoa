@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 public final class SecurityUtil {
    // api
    public static final String API_VERSION = "/api/1.0";
+   public static final String CLIENT_API_VERSION = "/client/api/1.0";
 
    public static final String Author_Email = "javafamily.club@outlook.com";
 
