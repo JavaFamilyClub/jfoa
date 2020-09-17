@@ -6,6 +6,7 @@
 /out-tsc
 /build
 **/package-lock.json
+junit.xml
 
 # dependencies
 /node_modules

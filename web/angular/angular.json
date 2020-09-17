@@ -93,12 +93,16 @@
           "builder": "@angular-builders/jest:run",
           "options": {
             "reporters": [
-              "default",
+              [
+                "default", {
+                    "outputDirectory": "./build/test-results/"
+                }
+              ],
               [
                 "jest-junit", {
-                  "outputDirectory": "./build/test-results/",
-                  "outputName": "jfoa-jest-junit-report.xml"
-              }
+                    "outputDirectory": "./build/test-results/",
+                    "JEST_JUNIT_OUTPUT": "./build/test-results/junit.xml"
+                }
               ]
             ]
           }
