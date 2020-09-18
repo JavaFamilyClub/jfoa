@@ -8,7 +8,7 @@
 
   <div class="btn-group" role="group" aria-label="Portal Tab Btn">
     <a mat-button mat-icon-button aria-label="Home" title="Home"
-            class="tile-bar-icon-size bg-primary" href="..">
+            class="tile-bar-icon-size bg-primary" [href]="isInstaller ? 'index.html' : '..'">
       <mat-icon class="jfoa" fontIcon="icon-home"></mat-icon>
     </a>
   </div>

@@ -8,7 +8,7 @@
   </div>
 
   <div class="btn-group" role="group" aria-label="EM Title Bar Left Buttons">
-    <a href="..">
+    <a [href]="isInstaller ? 'index.html' : '..'">
       <button type="button" class="btn btn-default tile-bar-icon-size title-bar-btn bg-primary">
         <i class="icon-home"></i>
         <span class="sr-only">Home</span>

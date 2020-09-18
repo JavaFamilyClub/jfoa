@@ -18,6 +18,7 @@ import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ComponentTool } from "../../common/util/component-tool";
 import { GuiTool } from "../../common/util/gui-tool";
+import { Tool } from "../../common/util/tool";
 import { UserProfileDialog } from "../../portal/dialog/user-profile-dialog";
 import { UserProfileDialogModel } from "../../portal/model/dialog/user-profile-dialog-model";
 import { JfPrincipal } from "../../widget/model/jf-principal";
@@ -88,5 +89,9 @@ export class EmTitleBarComponent {
       this.dialog.open(NotifyAllDialog, {
          minWidth: "30%"
       });
+   }
+
+   get isInstaller(): boolean {
+      return Tool.isInstaller();
    }
 }
