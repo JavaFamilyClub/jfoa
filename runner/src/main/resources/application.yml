@@ -1,3 +1,7 @@
+jfoa:
+   amqp:
+      override: false
+
 jasypt:
    encryptor:
       password: "javafamily.club"

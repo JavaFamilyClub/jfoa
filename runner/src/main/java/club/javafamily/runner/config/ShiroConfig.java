@@ -129,6 +129,7 @@ public class ShiroConfig {
 
       // public api
       filterChainMap.put(API_VERSION + "/public/**", "anon");
+      filterChainMap.put(CLIENT_API_VERSION + "/public/**", "anon");
 
       // error page
       filterChainMap.put("/error/**", "anon");

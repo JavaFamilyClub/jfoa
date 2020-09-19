@@ -222,7 +222,7 @@ export namespace ComponentTool {
       modalService: NgbModal,
       title: string,
       message: string,
-      buttonOptions: {[key: string]: string} = {"ok": "_#(js:OK)", "cancel": "_#(js:Cancel)"},
+      buttonOptions: {[key: string]: string} = {"ok": "OK", "cancel": "Cancel"},
       modalOptions: NgbModalOptions = {backdrop: "static" }): Promise<any>
    {
       return showMessageDialog(modalService, title, message,

@@ -19,15 +19,15 @@ public enum ExceptionEnum {
    /**
     * Login Exceptions.
     */
-   SECURITY_UNKNOWN_ACCOUNT("00001", "账户不存在!"),
-   SECURITY_INCORRECT_CREDENTIALS("00002", "密码不正确!"),
-   SECURITY_LOCKED_ACCOUNT("00003", "账户被锁定!"),
-   SECURITY_EXCESSIVE_ATTEMPTS("00004", "尝试次数太多, 请稍后重试!"),
-   SECURITY_AUTHENTICATION("00005", "登录失败, 请稍后再试!"),
+   SECURITY_UNKNOWN_ACCOUNT("0x001", "账户不存在!"),
+   SECURITY_INCORRECT_CREDENTIALS("0x002", "密码不正确!"),
+   SECURITY_LOCKED_ACCOUNT("0x003", "账户被锁定!"),
+   SECURITY_EXCESSIVE_ATTEMPTS("0x004", "尝试次数太多, 请稍后重试!"),
+   SECURITY_AUTHENTICATION("0x005", "登录失败, 请稍后再试!"),
 
-   MESSAGE_EXCEPTION("00201", null),
+   MESSAGE_EXCEPTION("0x201", null),
 
-   EXCEPTION("00500", "Server Error");
+   EXCEPTION("0x500", "Server Error");
 
    /**
     * 错误代码

@@ -12,27 +12,24 @@
  * person.
  */
 
-import { Tool } from "../../util/tool";
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { SignupAppComponent } from "./app.component";
 
-export class InstallerClientUrlConstants {
+const routes: Routes = [
+   {
+      path: "",
+      component: SignupAppComponent
+   }
+];
 
-   /**
-    * Base href
-    */
-   public static readonly BASE_HREF = Tool.INSTALLER_URI + Tool.BASE_API_VERSION;
-
-   /**
-    * Client Base href
-    */
-   public static readonly CLIENT_BASE_HREF = Tool.INSTALLER_URI + Tool.INSTALLER_API_VERSION;
-
-   /**
-    * sign in
-    */
-   public static readonly LOGIN_URI = "/login";
-
-   /**
-    * sign up
-    */
-   public static readonly SIGN_UP_URI = "/public/signup";
+@NgModule({
+   imports: [
+       RouterModule.forChild(routes)
+   ],
+   exports: [
+       RouterModule
+   ]
+})
+export class SignupAppRoutingModule {
 }

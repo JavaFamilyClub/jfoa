@@ -74,8 +74,8 @@ public class SecurityApiController {
     currentUser.logout();
   }
 
-  @PostMapping("/signup")
-  public void signup(@Valid @ModelAttribute EmailCustomerVO customerVO,
+  @PostMapping("/public/signup")
+  public void signup(@Valid @RequestBody EmailCustomerVO customerVO,
                      HttpServletRequest request)
   {
     String account = customerVO.getAccount();

@@ -32,6 +32,10 @@ const routes: Routes = [
             loadChildren: () => import("./log-in/login-app.module").then(m => m.LoginAppModule)
          },
          {
+            path: "signup",
+            loadChildren: () => import("./sign-up/signup-app.module").then(m => m.SignupAppModule)
+         },
+         {
             path: "**",
             redirectTo: "portal"
          }

@@ -1,0 +1,52 @@
+<mat-toolbar>
+  <div role="group" aria-label="JavaFamily Btn">
+    <div class="jfoa-icon-size">
+      <img class="jfoa-icon-size txt-light"
+           [src]="isInstaller ? './jfoa-icon.ico' : '../jfoa-icon.ico'"/>
+      <span class="sr-only">JavaFamily</span>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group" aria-label="Portal Tab Btn">
+    <a mat-button mat-icon-button aria-label="Home" title="Home"
+       class="tile-bar-icon-size bg-primary"
+       [href]="isInstaller ? 'index.html' : '..'">
+      <mat-icon class="jfoa" fontIcon="icon-home"></mat-icon>
+    </a>
+  </div>
+</mat-toolbar>
+
+<div class="container-fluid login-root">
+  <form [formGroup]="form">
+    <div class="card">
+      <div class="card-header">
+        Sign up
+      </div>
+      <div class="card-body">
+
+        <div id="emailGroup" class="form-group">
+          <label class="required-field" for="register-email">Email</label>
+          <input type="text" class="form-control form-control-danger"
+                 id="register-email"
+                 [class.is-invalid]="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)"
+                 formControlName="email"
+                 name="email" autofocus required/>
+          <span class="invalid-feedback" *ngIf="!!form.controls['email'].getError('required')">
+            Email is required.
+          </span>
+
+          <span class="invalid-feedback" *ngIf="!!form.controls['email'].getError('emailSpecialCharacters')">
+            Email format error.
+          </span>
+        </div>
+
+      </div>
+      <div class="card-footer">
+        <button type="submit" id="loginButton" class="btn btn-primary btn-block"
+          (click)="signup()" [disabled]="form.invalid">
+          Sign up
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
