@@ -18,7 +18,7 @@
 </mat-toolbar>
 
 <div class="container-fluid login-root">
-  <form>
+  <form [formGroup]="form">
     <div class="card">
       <div class="card-header">
         Sign In
@@ -28,23 +28,30 @@
         <div id="userNameGroup" class="form-group">
           <label class="required-field" for="userName">Account</label>
           <input type="text" class="form-control form-control-danger" id="userName"
-                 [(ngModel)]="model.userName"
+                 formControlName="userName"
+                 [class.is-invalid]="form.controls['userName'].invalid && (form.controls['userName'].dirty || form.controls['userName'].touched)"
                  name="userName" autofocus required/>
-          <div id="userNameError" class="form-control-feedback" style="display: none;">
-            Please enter your user name.
-          </div>
+          <span class="invalid-feedback"
+                *ngIf="!!form.controls['userName'].getError('required')">
+            Username is required.
+          </span>
         </div>
         <div id="passwordGroup" class="form-group">
           <label class="required-field" for="password">Password</label>
           <input type="password" class="form-control form-control-danger"
-                 id="password" name="password" [(ngModel)]="model.password" required/>
-          <div id="passwordError" class="form-control-feedback" style="display: none;">
-            Please enter your password.
-          </div>
+                 id="password" name="password"
+                 formControlName="password"
+                 [class.is-invalid]="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)"
+                 required/>
+          <span class="invalid-feedback"
+                *ngIf="!!form.controls['password'].getError('required')">
+            Password is required.
+          </span>
         </div>
 
         <div id="rememberMeGroup" class="form-group">
           <input type="checkbox" id="rememberMe" name="rememberMe"
+                 [ngModelOptions]="{standalone: true}"
                  [(ngModel)]="model.rememberMe"/>
           <span class="required-field" for="rememberMe">Remember Me</span>
 
@@ -54,7 +61,7 @@
       </div>
       <div class="card-footer">
         <button type="submit" id="loginButton" class="btn btn-primary btn-block"
-          (click)="login()">
+          (click)="login()" [disabled]="form.invalid">
           Sign In
         </button>
       </div>

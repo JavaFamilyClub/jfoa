@@ -14,6 +14,7 @@
 
 import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { InstallerClientUrlConstants } from "../common/constants/url/installer-client-url-constants";
@@ -37,16 +38,35 @@ export class LoginAppComponent implements OnInit {
       userName: "",
       password: ""
    };
+   form: FormGroup;
 
    constructor(private clientModelService: ClientModelService,
                private principalService: PrincipalService,
                private snackBar: MatSnackBar,
+               private fb: FormBuilder,
                private router: Router)
    {
    }
 
    ngOnInit(): void {
       document.body.className += " app-loaded";
+
+      this.form = this.fb.group({
+         userName: this.fb.control(this.model.userName, [
+            Validators.required
+         ]),
+         password: this.fb.control(this.model.password, [
+            Validators.required
+         ])
+      });
+
+      this.form.get("userName").valueChanges.subscribe((value) => {
+         this.model.userName = value;
+      });
+
+      this.form.get("password").valueChanges.subscribe((value) => {
+         this.model.password = value;
+      });
    }
 
    login(): void {
