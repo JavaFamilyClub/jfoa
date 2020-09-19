@@ -22,7 +22,7 @@
     "installer:packagingOsx": "electron-packager ./build/client jfoa-client --platform=darwin --arch=x64 --app-version=0.0.1 --asar --overwrite --out=./build/installer",
     "installer:packagingWin64": "electron-packager ./build/client jfoa-client --platform=win32 --arch=x64 --app-version=0.0.1 --asar --overwrite --out=./build/installer",
     "installer:packaging": "electron-packager ./build/client jfoa-client --all --app-version=0.0.1 --asar --overwrite --out=./build/installer",
-    "build:installer": "npm run installer:compile && npm run installer:packaging"
+    "build:installer": "npm run installer:compile && npm run installer:packagingOsx"
   },
   "private": true,
   "dependencies": {
