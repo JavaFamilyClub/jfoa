@@ -2,7 +2,8 @@
 
   <div role="group" aria-label="JavaFamily Btn">
     <div class="jfoa-icon-size">
-      <img class="jfoa-icon-size txt-light" src="../jfoa-icon.ico"/>
+      <img class="jfoa-icon-size txt-light"
+           [src]="isInstaller ? './jfoa-icon.ico' : '../jfoa-icon.ico'"/>
       <span class="sr-only">JavaFamily</span>
     </div>
   </div>
