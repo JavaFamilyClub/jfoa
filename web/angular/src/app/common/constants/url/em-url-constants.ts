@@ -13,10 +13,6 @@
  */
 
 export class EmUrlConstants {
-   /**
-    * log out.
-    */
-   public static readonly LOGOUT_URL = "../logout";
 
    /**
     * Audit Export

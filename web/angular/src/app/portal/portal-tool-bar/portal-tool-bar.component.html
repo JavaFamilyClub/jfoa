@@ -38,6 +38,7 @@
       <mat-menu #accountMatMenu="matMenu">
         <ng-template matMenuContent>
           <button mat-menu-item (click)="editProfile($event)"
+                  [disabled]="!principal?.authenticated"
             >Profile ({{principal.userName}})</button>
           <button *ngIf="principal?.authenticated" mat-menu-item
             (click)="openChangePasswordDialog()">Change Password</button>
@@ -51,9 +52,9 @@
           </ng-container>
 
           <ng-container *ngIf="isInstaller">
-            <a *ngIf="!principal?.authenticated" mat-menu-item [routerLink]="'/login'">Sign In</a>
-            <a *ngIf="!principal?.authenticated" mat-menu-item [routerLink]="'/signup'">Sign Up</a>
-            <a *ngIf="principal?.authenticated" mat-menu-item [routerLink]="'/logout'">Sign Out</a>
+            <a *ngIf="!principal?.authenticated" mat-menu-item routerLink="/login">Sign In</a>
+            <a *ngIf="!principal?.authenticated" mat-menu-item routerLink="/signup">Sign Up</a>
+            <button *ngIf="principal?.authenticated" mat-menu-item (click)="logout()">Sign Out</button>
           </ng-container>
         </ng-template>
       </mat-menu>

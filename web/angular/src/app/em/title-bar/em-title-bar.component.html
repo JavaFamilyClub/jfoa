@@ -56,7 +56,14 @@
                   [disabled]="!principal?.authenticated"
           >Profile ({{principal.userName}})</button>
           <mat-divider></mat-divider>
-          <a *ngIf="principal?.authenticated" mat-menu-item href="/logout">Sign Out</a>
+          <ng-container *ngIf="!isInstaller">
+            <a *ngIf="principal?.authenticated" mat-menu-item href="/logout">Sign Out</a>
+          </ng-container>
+
+          <ng-container *ngIf="isInstaller">
+            <button *ngIf="principal?.authenticated" mat-menu-item (click)="logout()">Sign Out</button>
+          </ng-container>
+
         </ng-template>
       </mat-menu>
 

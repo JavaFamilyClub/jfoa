@@ -13,10 +13,10 @@
  */
 
 import { Injectable } from "@angular/core";
+import { CustomerUrlConstants } from "../../common/constants/url/customer-url-constants";
 import { JfPrincipal } from "../model/jf-principal";
+import { ClientModelService } from "./client-model.service";
 import { ModelService } from "./model.service";
-
-const GET_PRINCIPAL_URI = "/public/principal";
 
 @Injectable({
    providedIn: "root"
@@ -24,15 +24,37 @@ const GET_PRINCIPAL_URI = "/public/principal";
 export class PrincipalService {
    principal: JfPrincipal;
 
-   constructor(private modelService: ModelService) {
+   constructor(private modelService: ModelService,
+               private clientService: ClientModelService)
+   {
       this.refresh();
    }
 
-   refresh(): void {
-      this.modelService.getModel<JfPrincipal>(
-         GET_PRINCIPAL_URI).subscribe((principal) =>
-      {
+   refresh(): Promise<void> {
+      let promise = Promise.resolve(null);
+
+      promise = promise.then(() => this.modelService.getModel<JfPrincipal>(
+         CustomerUrlConstants.PRINCIPAL_URI).toPromise());
+
+      promise = promise.then((principal) => {
          this.principal = principal;
+         return Promise.resolve();
       });
+
+      return promise;
+
+      // this.modelService.getModel<JfPrincipal>(CustomerUrlConstants.PRINCIPAL_URI
+      // ).subscribe((principal) => {
+      //    this.principal = principal;
+      // });
+   }
+
+   logout(): Promise<void> {
+      let promise = this.clientService.getModel<void>(CustomerUrlConstants.LOGOUT_URL)
+         .toPromise();
+
+      promise = promise.then(() => this.refresh());
+
+      return promise;
    }
 }

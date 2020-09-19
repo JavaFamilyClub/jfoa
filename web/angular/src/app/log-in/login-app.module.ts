@@ -17,6 +17,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { HttpClientModule } from "@angular/common/http";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ClientModelService } from "../widget/services/client-model.service";
 import { ModelService } from "../widget/services/model.service";
@@ -35,7 +36,8 @@ import { LoginAppRoutingModule } from "./login-app-routing.module";
       ReactiveFormsModule,
       HttpClientModule,
       NgbModule,
-      LoginAppRoutingModule
+      LoginAppRoutingModule,
+      MatSnackBarModule
    ],
    providers: [
       ModelService,

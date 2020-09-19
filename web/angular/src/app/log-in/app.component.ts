@@ -14,6 +14,7 @@
 
 import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { InstallerClientUrlConstants } from "../common/constants/url/installer-client-url-constants";
 import { ClientModelService } from "../widget/services/client-model.service";
@@ -37,6 +38,7 @@ export class LoginAppComponent implements OnInit {
 
    constructor(private clientModelService: ClientModelService,
                private principalService: PrincipalService,
+               private snackBar: MatSnackBar,
                private router: Router)
    {
    }
@@ -50,16 +52,17 @@ export class LoginAppComponent implements OnInit {
          .set("userName", this.model.userName)
          .set("password", this.model.password);
 
-      this.clientModelService.sendModelByForm<string>(InstallerClientUrlConstants.LOGIN_URI, params)
+      this.clientModelService.sendModelByForm<any>(InstallerClientUrlConstants.LOGIN_URI, params)
          .subscribe((res) =>
       {
-         console.log("login response:", res);
-
          if(!!!res.body) {
             this.principalService.refresh();
             this.router.navigateByUrl("/portal").then(() => {
                this.principalService.refresh();
             });
+         }
+         else {
+            this.snackBar.open(res.body.message);
          }
       }, (error) => {
          console.log("error:", error);

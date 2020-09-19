@@ -23,4 +23,14 @@ export class CustomerUrlConstants {
     * Change Password Url.
     */
    public static readonly PASSWORD_CHANGE = "/customer/password";
+
+   /**
+    * log out.
+    */
+   public static readonly LOGOUT_URL = "/logout";
+
+   /**
+    * Principal.
+    */
+   public static readonly PRINCIPAL_URI = "/public/principal";
 }

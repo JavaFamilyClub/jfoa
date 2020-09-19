@@ -27,7 +27,9 @@ import { InstallerClientUrlConstants } from "../../common/constants/url/installe
 import { ComponentTool } from "../../common/util/component-tool";
 import { Tool } from "../../common/util/tool";
 
-@Injectable()
+@Injectable({
+    providedIn: "root"
+})
 export class ClientModelService {
     private readonly headers: HttpHeaders;
     private formHeaders: HttpHeaders;

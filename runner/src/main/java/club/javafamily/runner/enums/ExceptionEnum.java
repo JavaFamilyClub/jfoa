@@ -23,7 +23,11 @@ public enum ExceptionEnum {
    SECURITY_INCORRECT_CREDENTIALS("00002", "密码不正确!"),
    SECURITY_LOCKED_ACCOUNT("00003", "账户被锁定!"),
    SECURITY_EXCESSIVE_ATTEMPTS("00004", "尝试次数太多, 请稍后重试!"),
-   SECURITY_AUTHENTICATION("00005", "登录失败, 请稍后再试!");
+   SECURITY_AUTHENTICATION("00005", "登录失败, 请稍后再试!"),
+
+   MESSAGE_EXCEPTION("00201", null),
+
+   EXCEPTION("00500", "Server Error");
 
    /**
     * 错误代码

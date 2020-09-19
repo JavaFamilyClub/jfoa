@@ -77,7 +77,7 @@ export class PortalToolBarComponent {
       return Tool.isInstaller();
    }
 
-   get baseHref(): string {
-      return Tool.isInstaller() ? Tool.INSTALLER_URI : "";
+   logout(): void {
+      this.principalService.logout();
    }
 }

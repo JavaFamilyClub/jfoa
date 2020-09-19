@@ -94,4 +94,10 @@ export class EmTitleBarComponent {
    get isInstaller(): boolean {
       return Tool.isInstaller();
    }
+
+   logout(): void {
+      this.principalService.logout().then(() => {
+         this.router.navigateByUrl("/portal").then();
+      });
+   }
 }

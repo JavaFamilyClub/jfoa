@@ -62,8 +62,8 @@ public class ResponseResult<T> implements Serializable {
     * @param data data
     */
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public static <T> ResponseResult build(String code, String message, T data) {
-      ResponseResult result = new ResponseResult();
+   public static <T> ResponseResult<T> build(String code, String message, T data) {
+      ResponseResult<T> result = new ResponseResult();
       result.setCode(code);
       result.setMessage(message);
       result.setData(data);
@@ -72,7 +72,7 @@ public class ResponseResult<T> implements Serializable {
    }
 
    @SuppressWarnings("rawtypes")
-   public static ResponseResult build(String code, String message) {
-      return build(code, message, null);
+   public static ResponseResult<String> build(String code, String message) {
+      return build(code, message, "");
    }
 }

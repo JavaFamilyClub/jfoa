@@ -16,6 +16,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { MAT_DIALOG_DEFAULT_OPTIONS } from "@angular/material/dialog";
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from "./app.component";
@@ -54,6 +55,12 @@ export const httpInterceptorProviders = [
          provide: MAT_DIALOG_DEFAULT_OPTIONS,
          useValue: {
             minWidth: "30%"
+         }
+      },
+      {
+         provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+         useValue: {
+            duration: 2500
          }
       }
    ],
