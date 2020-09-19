@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="!!principal">
+<mat-toolbar>
   <div role="group" aria-label="JavaFamily Btn">
     <div class="jfoa-icon-size">
       <img class="jfoa-icon-size txt-light"
@@ -14,7 +14,9 @@
     </a>
   </div>
 
-  <div class="btn-group title-bar-align-right" role="group" aria-label="Portal Manager Btn Group">
+  <div class="btn-group title-bar-align-right"
+       role="group" aria-label="Portal Manager Btn Group"
+       *ngIf="!!principal">
     <div class="d-inline-block">
       <button mat-icon-button *ngIf="principal?.authenticated"
               routerLink="./mailAuthor"
@@ -39,23 +41,23 @@
       <mat-menu #accountMatMenu="matMenu">
         <ng-template matMenuContent>
           <button mat-menu-item (click)="editProfile($event)"
-                  [disabled]="!principal?.authenticated"
+                  [disabled]="!principal.authenticated"
             >Profile ({{principal.userName}})</button>
-          <button *ngIf="principal?.authenticated" mat-menu-item
+          <button *ngIf="principal.authenticated" mat-menu-item
             (click)="openChangePasswordDialog()">Change Password</button>
           <mat-divider></mat-divider>
           <a *ngIf="principal?.authenticated" mat-menu-item [routerLink]="'/em'">Enterprise Management</a>
 
           <ng-container *ngIf="!isInstaller">
-            <a *ngIf="!principal?.authenticated" mat-menu-item [href]="'/login'">Sign In</a>
-            <a *ngIf="!principal?.authenticated" mat-menu-item [href]="'/signup'">Sign Up</a>
-            <a *ngIf="principal?.authenticated" mat-menu-item [href]="'/logout'">Sign Out</a>
+            <a *ngIf="!principal.authenticated" mat-menu-item [href]="'/login'">Sign In</a>
+            <a *ngIf="!principal.authenticated" mat-menu-item [href]="'/signup'">Sign Up</a>
+            <a *ngIf="principal.authenticated" mat-menu-item [href]="'/logout'">Sign Out</a>
           </ng-container>
 
           <ng-container *ngIf="isInstaller">
-            <a *ngIf="!principal?.authenticated" mat-menu-item routerLink="/login">Sign In</a>
-            <a *ngIf="!principal?.authenticated" mat-menu-item routerLink="/signup">Sign Up</a>
-            <button *ngIf="principal?.authenticated" mat-menu-item (click)="logout()">Sign Out</button>
+            <a *ngIf="!principal.authenticated" mat-menu-item routerLink="/login">Sign In</a>
+            <a *ngIf="!principal.authenticated" mat-menu-item routerLink="/signup">Sign Up</a>
+            <button *ngIf="principal.authenticated" mat-menu-item (click)="logout()">Sign Out</button>
           </ng-container>
         </ng-template>
       </mat-menu>

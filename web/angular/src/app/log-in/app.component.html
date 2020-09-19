@@ -1,4 +1,22 @@
 <router-outlet></router-outlet>
+
+<mat-toolbar>
+  <div role="group" aria-label="JavaFamily Btn">
+    <div class="jfoa-icon-size">
+      <img class="jfoa-icon-size txt-light"
+           [src]="isInstaller ? './jfoa-icon.ico' : '../jfoa-icon.ico'"/>
+      <span class="sr-only">JavaFamily</span>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group" aria-label="Portal Tab Btn">
+    <a mat-button mat-icon-button aria-label="Home" title="Home"
+       class="tile-bar-icon-size bg-primary" [href]="isInstaller ? 'index.html' : '..'">
+      <mat-icon class="jfoa" fontIcon="icon-home"></mat-icon>
+    </a>
+  </div>
+</mat-toolbar>
+
 <div class="container-fluid login-root">
   <form>
     <div class="card">
@@ -11,7 +29,7 @@
           <label class="required-field" for="userName">Account</label>
           <input type="text" class="form-control form-control-danger" id="userName"
                  [(ngModel)]="model.userName"
-                 name="userName" autofocus/>
+                 name="userName" autofocus required/>
           <div id="userNameError" class="form-control-feedback" style="display: none;">
             Please enter your user name.
           </div>
@@ -19,10 +37,19 @@
         <div id="passwordGroup" class="form-group">
           <label class="required-field" for="password">Password</label>
           <input type="password" class="form-control form-control-danger"
-                 id="password" name="password" [(ngModel)]="model.password"/>
+                 id="password" name="password" [(ngModel)]="model.password" required/>
           <div id="passwordError" class="form-control-feedback" style="display: none;">
             Please enter your password.
           </div>
+        </div>
+
+        <div id="rememberMeGroup" class="form-group">
+          <input type="checkbox" id="rememberMe" name="rememberMe"
+                 [(ngModel)]="model.rememberMe"/>
+          <span class="required-field" for="rememberMe">Remember Me</span>
+
+          <span class="create-account-span">New to JavaFamily?&nbsp;&nbsp;
+              <a routerLink="/signup">Create an account.</a></span>
         </div>
       </div>
       <div class="card-footer">

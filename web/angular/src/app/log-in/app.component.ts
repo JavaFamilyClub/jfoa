@@ -17,12 +17,14 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { InstallerClientUrlConstants } from "../common/constants/url/installer-client-url-constants";
+import { Tool } from "../common/util/tool";
 import { ClientModelService } from "../widget/services/client-model.service";
 import { PrincipalService } from "../widget/services/principal-service";
 
 export interface UserInfo {
    userName: string;
    password: string;
+   rememberMe?: boolean;
 }
 
 @Component({
@@ -48,9 +50,13 @@ export class LoginAppComponent implements OnInit {
    }
 
    login(): void {
-      const params = new HttpParams()
+      let params = new HttpParams()
          .set("userName", this.model.userName)
          .set("password", this.model.password);
+
+      if(this.model.rememberMe) {
+         params = params.set("rememberMe", "true");
+      }
 
       this.clientModelService.sendModelByForm<any>(InstallerClientUrlConstants.LOGIN_URI, params)
          .subscribe((res) =>
@@ -67,5 +73,9 @@ export class LoginAppComponent implements OnInit {
       }, (error) => {
          console.log("error:", error);
       });
+   }
+
+   get isInstaller(): boolean {
+      return Tool.isInstaller();
    }
 }

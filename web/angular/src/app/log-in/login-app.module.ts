@@ -17,7 +17,10 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { HttpClientModule } from "@angular/common/http";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ClientModelService } from "../widget/services/client-model.service";
 import { ModelService } from "../widget/services/model.service";
@@ -37,7 +40,10 @@ import { LoginAppRoutingModule } from "./login-app-routing.module";
       HttpClientModule,
       NgbModule,
       LoginAppRoutingModule,
-      MatSnackBarModule
+      MatSnackBarModule,
+      MatIconModule,
+      MatToolbarModule,
+      MatButtonModule
    ],
    providers: [
       ModelService,
