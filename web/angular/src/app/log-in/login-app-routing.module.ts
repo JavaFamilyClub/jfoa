@@ -19,16 +19,7 @@ import { LoginAppComponent } from "./app.component";
 const routes: Routes = [
    {
       path: "",
-      children: [
-         {
-            path: "login",
-            component: LoginAppComponent
-         },
-         {
-            path: "**",
-            redirectTo: "login"
-         }
-      ]
+      component: LoginAppComponent
    }
 ];
 

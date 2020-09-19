@@ -13,13 +13,14 @@
  */
 
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { InstallerClientUrlConstants } from "../common/constants/url/installer-client-url-constants";
 import { ComponentTool } from "../common/util/component-tool";
 import { FormValidators } from "../common/util/form-validators";
+import { GuiTool } from "../common/util/gui-tool";
 import { Tool } from "../common/util/tool";
 import { ClientModelService } from "../widget/services/client-model.service";
 import { PrincipalService } from "../widget/services/principal-service";
@@ -83,5 +84,9 @@ export class SignupAppComponent implements OnInit {
                }
          });
       });
+   }
+
+   isInvalid(control: AbstractControl): boolean {
+      return GuiTool.formInvalid(control);
    }
 }

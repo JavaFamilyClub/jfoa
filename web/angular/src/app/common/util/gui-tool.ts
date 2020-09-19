@@ -13,6 +13,7 @@
  */
 
 import { NgZone } from "@angular/core";
+import { AbstractControl, FormControl } from "@angular/forms";
 import { Observable, of as observableOf, Subject } from "rxjs";
 import { HttpParams } from "@angular/common/http";
 import { DomService } from "../../widget/dom-service/dom.service";
@@ -814,5 +815,8 @@ export namespace GuiTool {
       return element.getClientRects().length !== 0;
    }
 
-   let _agile: Observable<boolean>;
+   export function formInvalid(control: AbstractControl): boolean {
+      return control.invalid && (control.dirty || control.touched);
+   }
+
 }

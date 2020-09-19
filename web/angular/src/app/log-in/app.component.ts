@@ -14,10 +14,11 @@
 
 import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { InstallerClientUrlConstants } from "../common/constants/url/installer-client-url-constants";
+import { GuiTool } from "../common/util/gui-tool";
 import { Tool } from "../common/util/tool";
 import { ClientModelService } from "../widget/services/client-model.service";
 import { PrincipalService } from "../widget/services/principal-service";
@@ -97,5 +98,9 @@ export class LoginAppComponent implements OnInit {
 
    get isInstaller(): boolean {
       return Tool.isInstaller();
+   }
+
+   isInvalid(control: AbstractControl): boolean {
+      return GuiTool.formInvalid(control);
    }
 }

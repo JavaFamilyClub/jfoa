@@ -28,7 +28,7 @@
           <label class="required-field" for="register-email">Email</label>
           <input type="text" class="form-control form-control-danger"
                  id="register-email"
-                 [class.is-invalid]="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)"
+                 [class.is-invalid]="isInvalid(form.controls['email'])"
                  formControlName="email"
                  name="email" autofocus required/>
           <span class="invalid-feedback" *ngIf="!!form.controls['email'].getError('required')">
