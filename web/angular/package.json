@@ -7,7 +7,7 @@
     "build": "npm run build:ng && npm run build:resources",
     "build:prod": "npm run build:ng:prod && npm run build:resources",
     "build:ng": "npm run build:ng:app",
-    "build:ng:app": "npm run ng -- build --vendor-chunk --optimization",
+    "build:ng:app": "npm run ng -- build",
     "build:ng:prod": "npm run build:ng:app -- --prod --aot",
     "build:watch": "npm run build:ng:app -- --watch",
     "build:resources": "gulp",

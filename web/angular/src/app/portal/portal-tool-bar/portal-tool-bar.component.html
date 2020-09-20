@@ -18,6 +18,12 @@
        role="group" aria-label="Portal Manager Btn Group"
        *ngIf="!!principal">
     <div class="d-inline-block">
+
+      <button mat-button [matMenuTriggerFor]="supportMatMenu"
+        aria-label="Support" title="Support"
+        class="title-bar-btn">Support
+      </button>
+
       <button mat-icon-button *ngIf="principal?.authenticated"
               routerLink="./mailAuthor"
               aria-label="Mail Author" title="Mail Author"
@@ -37,6 +43,23 @@
               class="tile-bar-icon-size title-bar-btn">
         <mat-icon class="jfoa" fontIcon="icon-account"></mat-icon>
       </button>
+
+      <mat-menu #supportMatMenu="matMenu">
+        <ng-template matMenuContent>
+
+          <button mat-menu-item (click)="help()">Document</button>
+
+          <mat-divider></mat-divider>
+
+          <button mat-menu-item routerLink="/portal/clientDownload" class="client-download-btn">
+            Client Download
+            <mat-chip-list class="lmargin-5">
+              <mat-chip color="primary" class="bg-primary text-white"
+                        selectable="false">Beta-0.0.1</mat-chip>
+            </mat-chip-list>
+          </button>
+        </ng-template>
+      </mat-menu>
 
       <mat-menu #accountMatMenu="matMenu">
         <ng-template matMenuContent>

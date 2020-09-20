@@ -30,6 +30,10 @@ const appRoutes: Routes = [
              path: "mailAuthor",
              loadChildren: () => import("./mail-author/mail-author-app.module").then(m => m.MailAuthorAppModule)
           },
+         {
+            path: "clientDownload",
+            loadChildren: () => import("./client-download/client-download-app.module").then(m => m.ClientDownloadAppModule)
+         },
           {
               path: "**",
               redirectTo: "welcome"
