@@ -5,13 +5,16 @@
 }
 
 .em-monitor-left-sidenav {
-  min-width: 20%;
+  min-width: 15%;
+}
+
+.mat-drawer-inner-container {
+  width: 100%;
+  padding: 15px;
 }
 
 .em-monitor-right-sidenav {
-  display: flex;
   height: 100%;
-  align-items: center;
+  width: 100%;
   overflow-y: hidden;
-  justify-content: center;
 }

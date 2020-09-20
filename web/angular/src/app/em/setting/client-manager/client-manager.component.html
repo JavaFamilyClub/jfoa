@@ -1,0 +1,69 @@
+<div class="client-manager-container">
+  <div class="w-100">
+    <mat-tab-group mat-align-tabs="center" class="w-100">
+      <mat-tab label="Clients">
+        <mat-card>
+          <mat-card-content>
+
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button mat-button>Upload</button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-tab>
+
+      <mat-tab label="Client Upload">
+        <mat-card>
+          <mat-card-content>
+            <form class="client-upload-content" [formGroup]="form">
+              <mat-form-field class="w-75">
+                <mat-label>Platform</mat-label>
+
+                <mat-select [value]="model.platform" formControlName="platform">
+                  <mat-option *ngFor="let p of platforms"
+                              [value]="p.value">{{p.label}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="w-75">
+                <mat-label>Please input client version</mat-label>
+                <input matInput placeholder="Client Version"
+                       [value]="model.version"
+                       formControlName="version">
+              </mat-form-field>
+
+              <mat-form-field class="w-75">
+                <mat-label>Click browser icon to choose file</mat-label>
+                <input matInput placeholder="Installer Name"
+                       [ngModelOptions]="{standalone: true}"
+                       [disabled]="!!!model.fileData"
+                       [(ngModel)]="model.fileName">
+                <mat-icon matSuffix class="icon-export_import"
+                  (click)="browser()"></mat-icon>
+              </mat-form-field>
+
+            </form>
+          </mat-card-content>
+
+          <mat-card-actions class="client-upload-footer">
+            <div class="client-upload-footer-btns w-75">
+              <input #fileChooser type="file" name="installerFile"
+                     class="file-input" accept=".zip,.jar"
+                     (change)="onFileChange($event)" hidden>
+              <button mat-button (click)="upload()"
+                      [disabled]="form.invalid || !!!model.fileData"
+              >Upload</button>
+              <button mat-button (click)="reset()">Reset</button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+<div class="page-loading" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+

@@ -11,9 +11,8 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-export type NotificationType = "success" | "info" | "warning" | "danger";
 
-export interface Notification {
-   message: string;
-   type: NotificationType;
+export interface FileData {
+   name: string;
+   content: string;
 }

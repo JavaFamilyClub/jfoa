@@ -11,9 +11,16 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-export type NotificationType = "success" | "info" | "warning" | "danger";
 
-export interface Notification {
-   message: string;
-   type: NotificationType;
+package club.javafamily.runner.dao;
+
+import club.javafamily.runner.domain.Installer;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class InstallerDao extends BaseDao<Installer, Integer>  {
+   @Override
+   protected Class<Installer> getClazz() {
+      return Installer.class;
+   }
 }

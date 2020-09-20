@@ -3,8 +3,9 @@ package club.javafamily.runner.util;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.ResourceUtils;
 
-import java.io.File;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
@@ -266,6 +267,43 @@ public class Tool {
          if(file.mkdirs()) {
             LOG.info("Auto create cache dir: " + file.getAbsolutePath());
          }
+      }
+
+      return file;
+   }
+
+   public static String getClasspath() throws FileNotFoundException {
+      return ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath();
+   }
+
+   public static File getUploadFile(String dir,
+                                    String fileName)
+      throws IOException
+   {
+      return getUploadFile(dir, fileName, true);
+   }
+
+   public static File getUploadFile(String dir,
+                                    String fileName,
+                                    boolean override)
+      throws IOException
+   {
+      String classpath = Tool.getClasspath();
+      String path = classpath + dir + File.separator + fileName;
+
+      File file = new File(path);
+
+      if(file.exists() && override) {
+         file.delete();
+         LOG.info("Override installer package: {}", path);
+      }
+
+      if(!file.exists()) {
+         if(file.getParentFile() != null && !file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+         }
+
+         file.createNewFile();
       }
 
       return file;

@@ -14,12 +14,33 @@
 
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { ClientManagerComponent } from "./client-manager/client-manager.component";
+import { SearchResultResolver } from "../search-result/search-result-resolver.service";
+import { SearchResultComponent } from "../search-result/search-result.component";
 import { EmSettingComponent } from "./em-setting.component";
 
 const appRoutes: Routes = [
    {
       path: "",
       component: EmSettingComponent,
+      children: [
+         {
+            path: "client-manager",
+            component: ClientManagerComponent
+         },
+         {
+            path: "search",
+            component: SearchResultComponent,
+            resolve: {
+               searchResults: SearchResultResolver
+            },
+            runGuardsAndResolvers: "paramsOrQueryParamsChange",
+         },
+         {
+            path: "**",
+            redirectTo: "client-manager"
+         }
+      ]
    }
 ];
 

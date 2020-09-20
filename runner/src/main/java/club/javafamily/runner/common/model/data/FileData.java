@@ -11,9 +11,30 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-export type NotificationType = "success" | "info" | "warning" | "danger";
 
-export interface Notification {
-   message: string;
-   type: NotificationType;
+package club.javafamily.runner.common.model.data;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class FileData {
+
+   private String name;
+   private String content;
+
+   public String getName() {
+      return name;
+   }
+
+   public void setName(String name) {
+      this.name = name;
+   }
+
+   public String getContent() {
+      return content;
+   }
+
+   public void setContent(String content) {
+      this.content = content;
+   }
 }

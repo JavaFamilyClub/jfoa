@@ -9,7 +9,8 @@ public enum ResourceEnum {
   Audit(65, "Audit"),
   Customer(66, "Customer"),
   MailAuthor(67, "MailAuthor"),
-  Password(68, "Passoword")
+  Password(68, "Passoword"),
+  Upload_Installer(69, "Upload Installer")
   ;
 
   private int type;

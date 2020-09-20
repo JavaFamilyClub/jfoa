@@ -11,9 +11,30 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-export type NotificationType = "success" | "info" | "warning" | "danger";
 
-export interface Notification {
-   message: string;
-   type: NotificationType;
+package club.javafamily.runner.enums;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
+public enum Platform {
+   Mac("Mac", 0),
+   Linux("Linux", 1),
+   Win_x64("Win_x64", 2);
+
+   Platform(String label, int value) {
+      this.label = label;
+      this.value = value;
+   }
+
+   public String getLabel() {
+      return label;
+   }
+
+   public int getValue() {
+      return value;
+   }
+
+   private String label;
+   private int value;
 }

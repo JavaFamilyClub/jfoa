@@ -11,9 +11,18 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-export type NotificationType = "success" | "info" | "warning" | "danger";
 
-export interface Notification {
-   message: string;
-   type: NotificationType;
+package club.javafamily.runner.service;
+
+import club.javafamily.runner.domain.Installer;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+public interface InstallerService {
+
+   void save(Installer installer);
+
+   List<Installer> getAll();
+
 }

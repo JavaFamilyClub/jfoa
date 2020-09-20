@@ -13,7 +13,9 @@
  */
 
 import { AbstractControl } from "@angular/forms";
+import { Observable, Subject, of as observableOf } from "rxjs";
 import { isNumber as isNumeric } from "util";
+import { FileData } from "../data/file-data";
 
 declare var require: any;
 
@@ -207,6 +209,60 @@ export namespace Tool {
      */
     export function isNumber(obj: any) {
         return (+obj + "" === obj || isNumeric(obj)) && !isNaN(+obj);
+    }
+
+    export function readFileData(event: any): Observable<FileData[]> {
+        if(!event || !event.target || !event.target.files || !event.target.files.length) {
+            return observableOf([]);
+        }
+
+        const subject = new Subject<FileData[]>();
+        const files = [];
+        let count = 0;
+
+        for(let i = 0; i < event.target.files.length; i++) {
+            const file = event.target.files[i];
+            const data = {
+                name: file.name,
+                content: ""
+            };
+            files.push(data);
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            reader.onload = () => {
+                let result = <string> reader.result;
+
+                if(!!result) {
+                    if(result === "data:") {
+                        // empty file
+                        data.content = "";
+                    }
+                    else  if(result.startsWith("data:")) {
+                        const index = result.indexOf(";base64,");
+
+                        if(index < 0) {
+                            data.content = "";
+                        }
+                        else {
+                            data.content = result.substring(index + 8); // add length of ';base64,'
+                        }
+                    }
+                    else {
+                        data.content = result;
+                    }
+                }
+
+                count += 1;
+
+                if(count == event.target.files.length) {
+                    subject.next(files);
+                    subject.complete();
+                }
+            };
+        }
+
+        return subject.asObservable();
     }
 
     export function isInstaller(): boolean {

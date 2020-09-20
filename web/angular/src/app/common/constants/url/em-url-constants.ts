@@ -28,4 +28,9 @@ export class EmUrlConstants {
     * Search Action
     */
    public static readonly SEARCH = "/public/tool/search";
+
+   /**
+    * Upload Installer
+    */
+   public static readonly UPLOAD_INSTALLER = "/client/upload"
 }

@@ -1,0 +1,65 @@
+/*
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
+ *
+ * The software and information contained herein are copyrighted and
+ * proprietary to JavaFamily Technology Corp. This software is furnished
+ * pursuant to a written license agreement and may be used, copied,
+ * transmitted, and stored only in accordance with the terms of such
+ * license and with the inclusion of the above copyright notice. Please
+ * refer to the file "COPYRIGHT" for further copyright and licensing
+ * information. This software and information or any other copies
+ * thereof may not be provided or otherwise made available to any other
+ * person.
+ */
+
+package club.javafamily.runner.web.em.installer;
+
+import club.javafamily.runner.domain.Installer;
+import club.javafamily.runner.service.InstallerService;
+import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.util.Tool;
+import club.javafamily.runner.web.em.model.ClientUploadModel;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.*;
+import java.util.Base64;
+
+@RestController
+@RequestMapping(SecurityUtil.API_VERSION)
+public class InstallerController {
+
+   @Autowired
+   public InstallerController(InstallerService installerService) {
+      this.installerService = installerService;
+   }
+
+   /**
+    * TODO: require upload permission.
+    */
+   @RequiresAuthentication
+   @PostMapping("/client/upload")
+   public void uploadClient(@RequestBody ClientUploadModel model) throws Exception {
+      String prefix = model.getPlatform().getLabel()
+         + File.separator +  model.getVersion();
+      File file = Tool.getUploadFile(prefix, model.getFileName());
+
+      try(OutputStream output = new FileOutputStream(file)) {
+         ByteArrayInputStream input = new ByteArrayInputStream(
+            Base64.getDecoder().decode(model.getFileData().getContent()));
+         FileCopyUtils.copy(input, output);
+      }
+
+      Installer installer = new Installer();
+
+      installer.setPlatform(model.getPlatform());
+      installer.setVersion(model.getVersion());
+      installer.setFileName(model.getFileName());
+
+      installerService.save(installer);
+   }
+
+   private final InstallerService installerService;
+}
