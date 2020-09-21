@@ -68,3 +68,12 @@
 .file-input {
   visibility: hidden !important;
 }
+
+%selected-item-colors {
+  background-color: $selected-item-bg-color;
+  color: $selected-item-color;
+}
+
+.selected {
+  @extend %selected-item-colors
+}

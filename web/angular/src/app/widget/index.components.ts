@@ -23,6 +23,7 @@ import { Type } from "@angular/core";
 import { MatMessageDialog } from "./dialog/mat-message-dialog";
 import { ExportDialog } from "./export-dialog/export-dialog";
 import { ActionsContextmenuComponent } from "./fixed-dropdown/actions-contextmenu.component";
+import { MatTableView } from "./mat-table-view/mat-table-view.component";
 import { ModalHeaderComponent } from "./modal-header/modal-header.component";
 import { ApplyButtonComponent } from "./slide-out/apply-button.component";
 import { DropdownView } from "./dropdown-view/dropdown-view.component";
@@ -48,6 +49,7 @@ export const MODULE_COMPONENTS: Type<any>[] = [
    FixedDropdownContextmenuComponent,
    MessageDialog,
    MatMessageDialog,
+   MatTableView,
    ModalHeaderComponent,
    NotificationsComponent,
    RepositoryTreeComponent,

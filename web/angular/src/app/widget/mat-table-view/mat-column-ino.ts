@@ -12,11 +12,7 @@
  * person.
  */
 
-import { Platform } from "../../../../common/enum/platform";
-
-export interface InstallerModel {
-   platform: Platform;
-   version: string;
-   fileName: string;
-   id?: number;
+export interface MatColumnIno {
+   label: string,
+   name: string
 }

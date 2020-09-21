@@ -22,9 +22,15 @@ import { CommonsKVModel } from "../../../common/data/commons-kv-model";
 import { FileData } from "../../../common/data/file-data";
 import { Platform } from "../../../common/enum/platform";
 import { Tool } from "../../../common/util/tool";
+import { MatColumnIno } from "../../../widget/mat-table-view/mat-column-ino";
 import { ModelService } from "../../../widget/services/model.service";
 import { ClientUploadModel } from "./model/client-upload.model";
 import { InstallerModel } from "./model/installer.model";
+
+export enum ClientTabs {
+  Manager,
+  Upload
+}
 
 @Searchable({
   title: "Client Manager",
@@ -42,9 +48,12 @@ export class ClientManagerComponent implements OnInit {
   model: ClientUploadModel;
 
   @ViewChild("fileChooser") fileChooser: ElementRef<HTMLInputElement>;
+  installers: Observable<InstallerModel[]>;
+  selectedItems: InstallerModel[] = [];
 
   form: FormGroup;
   loading: boolean;
+  tabIndex: number;
 
   platforms: CommonsKVModel<string, Platform>[] = Tool.platforms;
 
@@ -56,6 +65,12 @@ export class ClientManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this.reset();
+    this.refresh();
+  }
+
+  private refresh(): void {
+    this.installers = this.modelService
+       .getModel<InstallerModel[]>(EmUrlConstants.INSTALLERS);
   }
 
   private initForm(): void {
@@ -85,8 +100,25 @@ export class ClientManagerComponent implements OnInit {
     this.initForm();
   }
 
-  installers(): Observable<InstallerModel[]> {
-    return this.modelService.getModel<InstallerModel[]>(EmUrlConstants.INSTALLERS);
+  get cols(): MatColumnIno[] {
+    return [
+      {
+        label: "ID",
+        name: "id"
+      },
+      {
+        label: "Platform",
+        name: "platform"
+      },
+      {
+        label: "Version",
+        name: "version"
+      },
+      {
+        label: "File Name",
+        name: "fileName"
+      }
+    ];
   }
 
   browser(): void {
@@ -130,5 +162,24 @@ export class ClientManagerComponent implements OnInit {
          this.model.fileData = null;
          this.snackBar.open("Installer upload success.");
        });
+  }
+
+  onChangeTab(index: number): void {
+    this.tabIndex = index;
+
+    if(index == ClientTabs.Manager.valueOf()) {
+      this.refresh();
+    }
+  }
+
+  selectItem(item: InstallerModel): void {
+    // TODO multi select
+    this.selectedItems = [ item ];
+  }
+
+  deleteSelected(): void {
+    if(this.selectedItems?.length < 1) {
+      return;
+    }
   }
 }

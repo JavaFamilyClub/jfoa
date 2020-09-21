@@ -25,6 +25,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTabsModule } from "@angular/material/tabs";
+import { WidgetModule } from "../../widget/widget.module";
 import { ClientManagerComponent } from "./client-manager/client-manager.component";
 import { EmSettingRoutingModule } from "./em-setting-routing.module";
 import { EmSettingComponent } from "./em-setting.component";
@@ -48,7 +49,8 @@ import { EmSettingComponent } from "./em-setting.component";
       MatTabsModule,
       MatCardModule,
       MatSelectModule,
-      MatProgressSpinnerModule
+      MatProgressSpinnerModule,
+      WidgetModule
    ],
    entryComponents: [
    ],

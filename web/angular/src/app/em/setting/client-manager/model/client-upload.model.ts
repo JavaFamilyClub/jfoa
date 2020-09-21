@@ -13,7 +13,6 @@
  */
 
 import { FileData } from "../../../../common/data/file-data";
-import { Platform } from "../../../../common/enum/platform";
 import { InstallerModel } from "./installer.model";
 
 export interface ClientUploadModel {

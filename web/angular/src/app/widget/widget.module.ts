@@ -19,7 +19,10 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSelectModule } from "@angular/material/select";
+import { MatSortModule } from "@angular/material/sort";
+import { MatTableModule } from "@angular/material/table";
 import { MatMessageDialog } from "./dialog/mat-message-dialog";
 import { ExportDialog } from "./export-dialog/export-dialog";
 import { HelpUrlService } from "./help-link/help-url.service";
@@ -49,7 +52,10 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
       MatDialogModule,
       MatFormFieldModule,
       MatInputModule,
-      MatButtonModule
+      MatButtonModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatSortModule
    ],
    declarations: [
       ...MODULE_COMPONENTS,

@@ -29,6 +29,10 @@ $secondary: $jfoa-orange-light;
 
 $input-btn-focus-color: $primary;
 
+// selected
+$selected-item-bg-color: $jfoa-blue;
+$selected-item-color: $jfoa-text-dark;
+
 $roboto-font-path: '../../../node_modules/roboto-fontface/fonts';
 @import '~roboto-fontface/css/roboto/sass/roboto-fontface.scss';
 @import '~bootstrap/scss/bootstrap';

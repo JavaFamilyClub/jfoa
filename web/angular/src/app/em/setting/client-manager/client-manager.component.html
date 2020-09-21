@@ -1,14 +1,19 @@
 <div class="client-manager-container">
   <div class="w-100">
-    <mat-tab-group mat-align-tabs="center" class="w-100">
+    <mat-tab-group mat-align-tabs="center" class="w-100"
+                   [selectedIndex]="tabIndex"
+                   (selectedIndexChange)="onChangeTab($event)">
       <mat-tab label="Clients">
         <mat-card>
           <mat-card-content>
-
+            <mat-table-view [data]="installers | async" [cols]="cols"
+                            [selectedItems]="selectedItems"
+                            (onRowSelected)="selectItem($event)">
+            </mat-table-view>
           </mat-card-content>
 
           <mat-card-actions>
-            <button mat-button>Upload</button>
+            <button mat-button (click)="deleteSelected()">Delete</button>
           </mat-card-actions>
         </mat-card>
       </mat-tab>
