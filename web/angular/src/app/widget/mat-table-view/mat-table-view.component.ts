@@ -69,7 +69,6 @@ export class MatTableView <T> implements OnInit {
    }
 
    selectRow(row: T): void {
-      console.log("selectRow:", row);
       this.onRowSelected.emit(row);
    }
 

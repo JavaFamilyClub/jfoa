@@ -13,6 +13,6 @@
  */
 
 export interface MatColumnIno {
-   label: string,
-   name: string
+   label: string;
+   name: string;
 }
