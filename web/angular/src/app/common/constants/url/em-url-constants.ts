@@ -32,5 +32,11 @@ export class EmUrlConstants {
    /**
     * Upload Installer
     */
-   public static readonly UPLOAD_INSTALLER = "/client/upload"
+   public static readonly UPLOAD_INSTALLER = "/client/upload";
+
+   /**
+    * Getting installers
+    */
+   public static readonly INSTALLERS = "/clients";
+
 }

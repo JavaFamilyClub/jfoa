@@ -12,11 +12,16 @@
  * person.
  */
 
-import { FileData } from "../../../../common/data/file-data";
-import { Platform } from "../../../../common/enum/platform";
-import { InstallerModel } from "./installer.model";
+import { CommonsKVModel } from "./commons-kv-model";
 
-export interface ClientUploadModel {
-   installer: InstallerModel;
-   fileData?: FileData;
+export class MapModel<T, V> {
+   map: CommonsKVModel<T, V>[];
+
+   get(key: T): V {
+      return this.getEntry(key)?.value;
+   }
+
+   getEntry(key: T): CommonsKVModel<T, V> {
+      return this.map.find((kv) => kv.key === key);
+   }
 }

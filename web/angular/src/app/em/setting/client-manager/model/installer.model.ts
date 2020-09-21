@@ -12,11 +12,10 @@
  * person.
  */
 
-import { FileData } from "../../../../common/data/file-data";
 import { Platform } from "../../../../common/enum/platform";
-import { InstallerModel } from "./installer.model";
 
-export interface ClientUploadModel {
-   installer: InstallerModel;
-   fileData?: FileData;
+export interface InstallerModel {
+   platform: Platform;
+   version: string;
+   fileName: string;
 }

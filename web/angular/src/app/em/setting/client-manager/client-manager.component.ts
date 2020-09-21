@@ -15,13 +15,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Observable } from "rxjs";
 import { Searchable } from "../../../common/annotation/searchable";
 import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
+import { CommonsKVModel } from "../../../common/data/commons-kv-model";
 import { FileData } from "../../../common/data/file-data";
 import { Platform } from "../../../common/enum/platform";
 import { Tool } from "../../../common/util/tool";
 import { ModelService } from "../../../widget/services/model.service";
 import { ClientUploadModel } from "./model/client-upload.model";
+import { InstallerModel } from "./model/installer.model";
 
 @Searchable({
   title: "Client Manager",
@@ -43,20 +46,7 @@ export class ClientManagerComponent implements OnInit {
   form: FormGroup;
   loading: boolean;
 
-  platforms: {label: string, value: Platform}[] = [
-    {
-      label: "Mac",
-      value: Platform.Mac
-    },
-    {
-      label: "Linux",
-      value: Platform.Linux
-    },
-    {
-      label: "Win_x64",
-      value: Platform.Win_x64
-    }
-  ];
+  platforms: CommonsKVModel<string, Platform>[] = Tool.platforms;
 
   constructor(private fb: FormBuilder,
               private snackBar: MatSnackBar,
@@ -70,26 +60,33 @@ export class ClientManagerComponent implements OnInit {
 
   private initForm(): void {
     this.form = this.fb.group({
-      platform: this.fb.control(this.model.platform, [Validators.required]),
-      version: this.fb.control(this.model.version, [Validators.required])
+      platform: this.fb.control(this.model.installer.platform, [Validators.required]),
+      version: this.fb.control(this.model.installer.version, [Validators.required])
     });
 
     this.form.get("platform").valueChanges.subscribe((value) => {
-      this.model.platform = value;
+      this.model.installer.platform = value;
     });
 
     this.form.get("version").valueChanges.subscribe((value) => {
-      this.model.version = value;
+      this.model.installer.version = value;
     });
   }
 
   reset(): void {
     this.model = {
-      platform: Platform.Mac,
-      version: ""
+      installer: {
+        platform: Platform.Mac,
+        version: "",
+        fileName: ""
+      }
     };
 
     this.initForm();
+  }
+
+  installers(): Observable<InstallerModel[]> {
+    return this.modelService.getModel<InstallerModel[]>(EmUrlConstants.INSTALLERS);
   }
 
   browser(): void {
@@ -110,7 +107,7 @@ export class ClientManagerComponent implements OnInit {
         return;
       }
 
-      this.model.fileName = this.model.fileName || value.name;
+      this.model.installer.fileName = this.model.installer.fileName || value.name;
       this.model.fileData = value;
 
       this.fileChooser.nativeElement.value = null;
@@ -118,7 +115,9 @@ export class ClientManagerComponent implements OnInit {
   }
 
   upload(): void {
-    if(!!!this.model.fileData || !!!this.model.fileName || !!!this.model.version) {
+    if(!!!this.model.fileData || !!!this.model.installer.fileName
+       || !!!this.model.installer.version)
+    {
       this.snackBar.open("File info and data missing.");
       return;
     }

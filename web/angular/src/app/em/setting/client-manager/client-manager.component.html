@@ -20,16 +20,16 @@
               <mat-form-field class="w-75">
                 <mat-label>Platform</mat-label>
 
-                <mat-select [value]="model.platform" formControlName="platform">
+                <mat-select [value]="model.installer.platform" formControlName="platform">
                   <mat-option *ngFor="let p of platforms"
-                              [value]="p.value">{{p.label}}</mat-option>
+                              [value]="p.value">{{p.key}}</mat-option>
                 </mat-select>
               </mat-form-field>
 
               <mat-form-field class="w-75">
                 <mat-label>Please input client version</mat-label>
                 <input matInput placeholder="Client Version"
-                       [value]="model.version"
+                       [value]="model.installer.version"
                        formControlName="version">
               </mat-form-field>
 
@@ -38,7 +38,7 @@
                 <input matInput placeholder="Installer Name"
                        [ngModelOptions]="{standalone: true}"
                        [disabled]="!!!model.fileData"
-                       [(ngModel)]="model.fileName">
+                       [(ngModel)]="model.installer.fileName">
                 <mat-icon matSuffix class="icon-export_import"
                   (click)="browser()"></mat-icon>
               </mat-form-field>
@@ -49,7 +49,7 @@
           <mat-card-actions class="client-upload-footer">
             <div class="client-upload-footer-btns w-75">
               <input #fileChooser type="file" name="installerFile"
-                     class="file-input" accept=".zip,.jar"
+                     class="file-input" accept=".zip,.rar,.tar,.gz"
                      (change)="onFileChange($event)" hidden>
               <button mat-button (click)="upload()"
                       [disabled]="form.invalid || !!!model.fileData"

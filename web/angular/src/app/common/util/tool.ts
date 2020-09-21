@@ -15,7 +15,9 @@
 import { AbstractControl } from "@angular/forms";
 import { Observable, Subject, of as observableOf } from "rxjs";
 import { isNumber as isNumeric } from "util";
+import { CommonsKVModel } from "../data/commons-kv-model";
 import { FileData } from "../data/file-data";
+import { Platform } from "../enum/platform";
 
 declare var require: any;
 
@@ -40,6 +42,21 @@ export namespace Tool {
     // correct typing of first parameter - varargs isn"t possible in typescript
     export const intersectionWith: <T>(obj: T[], vals: T[], comparator: (v1: T, v2: T) => boolean) => T[] = require("lodash/intersectionWith");
     export const uniq: <T>(arr: T[]) => T[] = require("lodash/uniq");
+
+    export const platforms: CommonsKVModel<string, Platform>[] = [
+        {
+            key: "Mac",
+            value: Platform.Mac
+        },
+        {
+            key: "Linux",
+            value: Platform.Linux
+        },
+        {
+            key: "Win_x64",
+            value: Platform.Win_x64
+        }
+    ];
 
     /**
      * Encode a single non-ascii character to unicode enclosed in "[]"

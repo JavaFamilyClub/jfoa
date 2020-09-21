@@ -59,4 +59,14 @@ public class Installer implements Serializable {
    public void setFileName(String fileName) {
       this.fileName = fileName;
    }
+
+   @Override
+   public String toString() {
+      return "Installer{" +
+         "id=" + id +
+         ", platform=" + platform +
+         ", version='" + version + '\'' +
+         ", fileName='" + fileName + '\'' +
+         '}';
+   }
 }

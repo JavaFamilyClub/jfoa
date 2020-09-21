@@ -1,5 +1,7 @@
 package club.javafamily.runner.util;
 
+import club.javafamily.runner.domain.Installer;
+import club.javafamily.runner.web.em.model.ClientUploadModel;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -276,20 +278,25 @@ public class Tool {
       return ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath();
    }
 
-   public static File getUploadFile(String dir,
-                                    String fileName)
-      throws IOException
-   {
-      return getUploadFile(dir, fileName, true);
+   public static String getUploadFilePath(Installer installer) {
+      String prefix = installer.getPlatform().getLabel()
+         + File.separator +  installer.getVersion();
+
+      return prefix + File.separator + installer.getFileName();
    }
 
-   public static File getUploadFile(String dir,
-                                    String fileName,
+   public static File getUploadFile(String path)
+      throws IOException
+   {
+      return getUploadFile(path, true);
+   }
+
+   public static File getUploadFile(String path,
                                     boolean override)
       throws IOException
    {
       String classpath = Tool.getClasspath();
-      String path = classpath + dir + File.separator + fileName;
+      path = classpath + path;
 
       File file = new File(path);
 

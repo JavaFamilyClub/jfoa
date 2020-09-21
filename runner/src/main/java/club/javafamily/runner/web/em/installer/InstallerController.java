@@ -14,18 +14,22 @@
 
 package club.javafamily.runner.web.em.installer;
 
+import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.domain.Installer;
 import club.javafamily.runner.service.InstallerService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.util.Tool;
 import club.javafamily.runner.web.em.model.ClientUploadModel;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.util.Base64;
+import java.util.List;
 
 @RestController
 @RequestMapping(SecurityUtil.API_VERSION)
@@ -42,24 +46,35 @@ public class InstallerController {
    @RequiresAuthentication
    @PostMapping("/client/upload")
    public void uploadClient(@RequestBody ClientUploadModel model) throws Exception {
-      String prefix = model.getPlatform().getLabel()
-         + File.separator +  model.getVersion();
-      File file = Tool.getUploadFile(prefix, model.getFileName());
+      Installer installer = model.getInstaller();
+      String path = Tool.getUploadFilePath(installer);
+      File file = Tool.getUploadFile(path);
 
       try(OutputStream output = new FileOutputStream(file)) {
          ByteArrayInputStream input = new ByteArrayInputStream(
             Base64.getDecoder().decode(model.getFileData().getContent()));
          FileCopyUtils.copy(input, output);
       }
+      catch(Exception e) {
+         if(LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Installer upload failed.", e);
+         }
 
-      Installer installer = new Installer();
-
-      installer.setPlatform(model.getPlatform());
-      installer.setVersion(model.getVersion());
-      installer.setFileName(model.getFileName());
+         throw new MessageException("Installer upload failed.");
+      }
 
       installerService.save(installer);
    }
 
+   @RequiresAuthentication
+   @GetMapping("/clients")
+   public List<Installer> getClients() {
+      List<Installer> list = installerService.getAll();
+
+      return list;
+   }
+
    private final InstallerService installerService;
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(InstallerController.class);
 }

@@ -15,39 +15,22 @@
 package club.javafamily.runner.web.em.model;
 
 import club.javafamily.runner.common.model.data.FileData;
+import club.javafamily.runner.domain.Installer;
 import club.javafamily.runner.enums.Platform;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ClientUploadModel {
 
-   private Platform platform;
-   private String version;
-   private String fileName;
+   private Installer installer;
    private FileData fileData;
 
-   public Platform getPlatform() {
-      return platform;
+   public Installer getInstaller() {
+      return installer;
    }
 
-   public void setPlatform(Platform platform) {
-      this.platform = platform;
-   }
-
-   public String getVersion() {
-      return version;
-   }
-
-   public void setVersion(String version) {
-      this.version = version;
-   }
-
-   public String getFileName() {
-      return fileName;
-   }
-
-   public void setFileName(String fileName) {
-      this.fileName = fileName;
+   public void setInstaller(Installer installer) {
+      this.installer = installer;
    }
 
    public FileData getFileData() {
