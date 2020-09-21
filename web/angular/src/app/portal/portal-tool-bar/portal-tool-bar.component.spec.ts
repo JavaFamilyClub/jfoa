@@ -15,6 +15,7 @@
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { TestBed, async } from "@angular/core/testing";
 import { MatButtonModule } from "@angular/material/button";
+import { MatChipsModule } from "@angular/material/chips";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
@@ -58,7 +59,8 @@ describe("PortalToolBarComponent", () => {
             MatButtonModule,
             MatIconModule,
             MatMenuModule,
-            MatDividerModule
+            MatDividerModule,
+            MatChipsModule
          ],
          declarations: [
             PortalToolBarComponent
