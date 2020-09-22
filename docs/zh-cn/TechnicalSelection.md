@@ -28,4 +28,5 @@
 - docsify(文档工具)
 - swagger, swagger-ui(API 工具)
 - jasypt(SpringBoot配置文件加密工具)
+- Electron(客户端打包工具)
 

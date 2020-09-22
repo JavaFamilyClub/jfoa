@@ -45,3 +45,20 @@ gradlew[.bat] cleanAll bootJar -Pbuildenv=prod
 ```shell script
 java -jar javafamily-oa-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
 ```
+
+#### Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/jfoa#backer)]
+
+<a href="https://opencollective.com/jfoa#backer" target="_blank"><img src="https://opencollective.com/jfoa/backer.svg?width=890"></a>
+
+#### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/jfoa#sponsor)]
+
+<a href="https://opencollective.com/jfoa/sponsor/0/website" target="_blank"><img src="https://opencollective.com/jfoa/sponsor/0/avatar.svg"></a>
+
+#### Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/JavaFamilyClub/jfoa/graphs/contributors"><img src="https://opencollective.com/jfoa/contributors.svg?width=890" /></a>

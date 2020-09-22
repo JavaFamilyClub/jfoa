@@ -28,4 +28,5 @@
 - docsify
 - swagger, swagger-ui
 - jasypt
+- Electron
 
