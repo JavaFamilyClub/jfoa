@@ -13,7 +13,7 @@
  */
 
 import { AbstractControl } from "@angular/forms";
-import { Observable, Subject, of as observableOf } from "rxjs";
+import { Observable, of as observableOf, Subject } from "rxjs";
 import { isNumber as isNumeric } from "util";
 import { CommonsKVModel } from "../data/commons-kv-model";
 import { FileData } from "../data/file-data";
@@ -286,5 +286,27 @@ export namespace Tool {
         let base: HTMLBaseElement = <HTMLBaseElement> window.document.querySelector("base");
 
         return base.href.startsWith("file://");
+    }
+
+    export function isMac(): boolean {
+        const platform =  navigator.platform;
+
+        return platform == "Mac68K" || platform == "MacPPC"
+           || platform == "Macintosh" || platform == "MacIntel";
+    }
+
+    export function isLinux(): boolean {
+        return (navigator.platform.indexOf("Linux") > -1);
+    }
+
+    export function userPlatform(): Platform {
+        if(Tool.isMac()) {
+            return Platform.Mac;
+        }
+        else if(Tool.isLinux()) {
+            return Platform.Linux;
+        }
+
+        return Platform.Win_x64;
     }
 }

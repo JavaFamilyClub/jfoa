@@ -1,0 +1,22 @@
+.client-download-container {
+   width: 100%;
+   height: 100%;
+}
+
+.client-download-header {
+}
+
+.client-download-header-bg {
+   width: 100%;
+   height: 300px;
+   background-size: 100% 300px;
+   opacity: 0.2;
+   border-radius: 40px;
+}
+
+.client-download-icon {
+   opacity: 1.0 !important;
+   position: absolute;
+   top: 30px;
+   left: calc(50% - 48px);
+}

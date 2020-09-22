@@ -12,19 +12,18 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
-import { Platform } from "../../common/enum/platform";
-import { Tool } from "../../common/util/tool";
+package club.javafamily.runner.web.portal.controller;
 
-@Component({
-  selector: "app-client-download",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
-})
-export class ClientDownloadAppComponent implements OnInit {
-   platform: Platform = Tool.userPlatform();
+import club.javafamily.runner.util.SecurityUtil;
+import org.springframework.web.bind.annotation.*;
 
-   ngOnInit(): void {
+@RestController
+@RequestMapping(SecurityUtil.API_VERSION)
+public class ClientDownloadController {
+
+   @GetMapping("/installer/download")
+   public void download() {
+      
    }
 
 }

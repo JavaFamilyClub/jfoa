@@ -65,6 +65,23 @@
   z-index: $loading-z-index;
 }
 
+.bg-logo {
+  background-image: url("../assets/favicon.ico");
+  background-repeat: no-repeat;
+}
+
+.logo-size {
+  width: 96px;
+  height: 96px;
+}
+
+.circle-logo-style {
+  @extend .logo-size;
+  border-radius: 50%;
+  overflow: hidden;
+  background: black;
+}
+
 .file-input {
   visibility: hidden !important;
 }
