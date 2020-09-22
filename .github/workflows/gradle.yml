@@ -40,8 +40,8 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
 
-    - name: Build Installer
-      run: ./gradlew buildInstaller
+#    - name: Build Installer
+#      run: ./gradlew buildInstaller
 
     - name: Clean Env
       run: ./gradlew cleanAll
