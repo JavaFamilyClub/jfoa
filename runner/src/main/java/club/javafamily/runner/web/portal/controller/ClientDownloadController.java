@@ -23,7 +23,7 @@ public class ClientDownloadController {
 
    @GetMapping("/installer/download")
    public void download() {
-      
+
    }
 
 }
