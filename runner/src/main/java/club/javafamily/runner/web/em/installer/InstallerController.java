@@ -47,8 +47,7 @@ public class InstallerController {
    @PostMapping("/client/upload")
    public void uploadClient(@RequestBody ClientUploadModel model) throws Exception {
       Installer installer = model.getInstaller();
-      String path = Tool.getUploadFilePath(installer);
-      File file = Tool.getUploadFile(path);
+      File file = Tool.getInstallerFile(installer);
 
       try(OutputStream output = new FileOutputStream(file)) {
          ByteArrayInputStream input = new ByteArrayInputStream(

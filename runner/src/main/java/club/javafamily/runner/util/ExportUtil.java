@@ -1,6 +1,8 @@
 package club.javafamily.runner.util;
 
 import club.javafamily.runner.annotation.Exportable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -58,14 +60,22 @@ public final class ExportUtil {
 
    public static void writeDownloadHeader(HttpServletResponse response,
                                           String fileName)
-      throws UnsupportedEncodingException
    {
-      String type = MIME_TYPES.getContentType(fileName);
+      String mimeType = MIME_TYPES.getContentType(fileName);
+
+      if (mimeType == null) {
+         // set to binary type if MIME mapping not found
+         mimeType = "application/octet-stream";
+         LOGGER.warn("Can't find mime type for {} download", fileName);
+      }
+
       response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-      response.setContentType(type);
+      response.setContentType(mimeType);
       String downloadFileName = new String(
          fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
       response.setHeader("Content-Disposition",
          "attachment;fileName=" + downloadFileName);
    }
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(ExportUtil.class);
 }

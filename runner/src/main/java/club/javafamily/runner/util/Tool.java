@@ -1,7 +1,6 @@
 package club.javafamily.runner.util;
 
 import club.javafamily.runner.domain.Installer;
-import club.javafamily.runner.web.em.model.ClientUploadModel;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -274,38 +273,60 @@ public class Tool {
       return file;
    }
 
-   public static String getClasspath() throws FileNotFoundException {
-      return ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath();
+   public static String getClasspath() {
+      try {
+         return ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath();
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      }
+
+      return "./";
    }
 
-   public static String getUploadFilePath(Installer installer) {
+   public static String getInstallerUploadPath(Installer installer) {
       String prefix = installer.getPlatform().getLabel()
          + File.separator +  installer.getVersion();
 
       return prefix + File.separator + installer.getFileName();
    }
 
-   public static File getUploadFile(String path)
-      throws IOException
-   {
-      return getUploadFile(path, true);
+   public static String getInstallerPath(Installer installer) {
+      assert installer != null;
+
+      String classpath = Tool.getClasspath();
+      String rPath = getInstallerUploadPath(installer);
+
+      return classpath + rPath;
    }
 
-   public static File getUploadFile(String path,
-                                    boolean override)
+   public static File getInstallerFile(Installer installer)
       throws IOException
    {
-      String classpath = Tool.getClasspath();
-      path = classpath + path;
+      return getInstallerFile(installer, true, true);
+   }
+
+   public static File readInstallerFile(Installer installer)
+      throws IOException
+   {
+      return getInstallerFile(installer, false, false);
+   }
+
+   public static File getInstallerFile(Installer installer,
+                                       boolean override,
+                                       boolean create)
+      throws IOException
+   {
+      String path = Tool.getInstallerPath(installer);
 
       File file = new File(path);
 
-      if(file.exists() && override) {
+      if(override && file.exists()) {
          file.delete();
+         file.createNewFile();
          LOG.info("Override installer package: {}", path);
       }
 
-      if(!file.exists()) {
+      if(create && !file.exists()) {
          if(file.getParentFile() != null && !file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
          }

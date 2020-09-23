@@ -27,10 +27,12 @@ import { ModelService } from "../../widget/services/model.service";
 import { WidgetModule } from "../../widget/widget.module";
 import { ClientDownloadAppComponent } from "./app.component";
 import { ClientDownloadAppRoutingModule } from "./client-download-app-routing.module";
+import { ClientPlatformViewComponent } from "./client-platform-view/client-platform-view.component";
 
 @NgModule({
    declarations: [
-      ClientDownloadAppComponent
+      ClientDownloadAppComponent,
+      ClientPlatformViewComponent
    ],
    imports: [
       CommonModule,
