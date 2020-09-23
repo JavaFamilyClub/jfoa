@@ -37,4 +37,15 @@ public enum Platform {
 
    private String label;
    private int value;
+
+   public static Platform parse(int platform) {
+      switch(platform) {
+         case 0:
+            return Platform.Mac;
+         case 1:
+            return Platform.Linux;
+         default:
+            return Platform.Win_x64;
+      }
+   }
 }

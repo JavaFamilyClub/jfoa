@@ -15,6 +15,7 @@
 import { AbstractControl } from "@angular/forms";
 import { Observable, of as observableOf, Subject } from "rxjs";
 import { isNumber as isNumeric } from "util";
+import { InstallerClientUrlConstants } from "../constants/url/installer-client-url-constants";
 import { CommonsKVModel } from "../data/commons-kv-model";
 import { FileData } from "../data/file-data";
 import { Platform } from "../enum/platform";
@@ -28,9 +29,12 @@ export namespace Tool {
 
     export const INSTALLER_URI = "https://javafamily.club/";
     // export const INSTALLER_URI = "http://localhost/"; // dev
-    export const INSTALLER_API_VERSION = "client/api/1.0";
+    export const INSTALLER_CLIENT_API_VERSION = "client/api/1.0";
     export const BASE_API_VERSION = "api/1.0";
+    export const INSTALLER_API_VERSION = INSTALLER_URI + BASE_API_VERSION;
     export const API_VERSION = "../" + BASE_API_VERSION;
+
+    export const DOC_URL = "https://javafamilyclub.github.io/jfoa";
 
     export const isEquals: (obj0, obj1) => boolean = require("lodash/isEqual");
     export const clone: <T>(v: T) => T = require("lodash/cloneDeep");
@@ -308,5 +312,9 @@ export namespace Tool {
         }
 
         return Platform.Win_x64;
+    }
+
+    export function requestPrefix(): string {
+        return Tool.isInstaller() ? INSTALLER_API_VERSION : API_VERSION;
     }
 }

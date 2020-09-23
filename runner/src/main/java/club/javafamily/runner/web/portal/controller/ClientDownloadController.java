@@ -16,8 +16,8 @@ package club.javafamily.runner.web.portal.controller;
 
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.domain.Installer;
+import club.javafamily.runner.enums.Platform;
 import club.javafamily.runner.util.*;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,18 +30,21 @@ import java.io.FileInputStream;
 @RequestMapping(SecurityUtil.API_VERSION)
 public class ClientDownloadController {
 
-   @PostMapping("/installer/download")
-   public void download(@RequestBody Installer installer,
+   @GetMapping("/public/installer/download")
+   public void download(@RequestParam("platform") int platform,
+                        @RequestParam("version") String version,
+                        @RequestParam("fileName") String fileName,
                         HttpServletResponse response)
       throws Exception
    {
+      Installer installer = new Installer(
+         Platform.parse(platform), version, fileName);
       File downloadFile = Tool.readInstallerFile(installer);
 
       if(!downloadFile.exists()) {
          throw new MessageException("File is not exist!");
       }
 
-      String fileName = installer.getFileName();
       ExportUtil.writeDownloadHeader(response, fileName);
 
       ServletOutputStream out = response.getOutputStream();

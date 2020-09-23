@@ -44,7 +44,7 @@ export class PortalToolBarComponent {
    }
 
    help(): void {
-      GuiTool.openBrowserTab("https://javafamilyclub.github.io/jfoa");
+      GuiTool.openBrowserTab(Tool.DOC_URL);
    }
 
    editProfile(event: MouseEvent): void {

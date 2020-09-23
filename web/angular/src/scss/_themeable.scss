@@ -70,6 +70,11 @@
   background-repeat: no-repeat;
 }
 
+.client-download-logo-bg {
+  background-image: url("../assets/img/client-download-bg.jpg");
+  background-repeat: no-repeat;
+}
+
 .logo-size {
   width: 96px;
   height: 96px;
@@ -93,4 +98,39 @@
 
 .selected {
   @extend %selected-item-colors
+}
+
+// font
+.f3{
+  font-size:18px !important
+}
+
+@media (min-width: 768px){
+  .f3{
+    font-size:20px !important
+  }
+}
+
+.btn-outline-white {
+  padding: .9em 1.25em;
+  color: #fff;
+  background: transparent;
+  border-color: rgba(255,255,255,0.5);
+  border-radius: .3em;
+}
+
+.btn-outline-black {
+  padding: .9em 1.25em;
+  color: black;
+  background: transparent;
+  border-color: rgba(0, 0, 0, 0.5);
+  border-radius: .3em;
+}
+
+.list-style-none {
+  list-style: none !important;
+}
+
+.flex-justify-center {
+  justify-content: center !important;
 }

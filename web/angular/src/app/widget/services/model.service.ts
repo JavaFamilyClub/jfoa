@@ -117,8 +117,6 @@ export class ModelService {
     }
 
     get baseHref(): string {
-        return Tool.isInstaller()
-           ? InstallerClientUrlConstants.BASE_HREF
-           : Tool.API_VERSION;
+        return Tool.requestPrefix();
     }
 }

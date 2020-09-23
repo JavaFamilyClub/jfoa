@@ -28,6 +28,15 @@ public class Installer implements Serializable {
    private String version;
    private String fileName;
 
+   public Installer() {
+   }
+
+   public Installer(Platform platform, String version, String fileName) {
+      this.platform = platform;
+      this.version = version;
+      this.fileName = fileName;
+   }
+
    public Integer getId() {
       return id;
    }

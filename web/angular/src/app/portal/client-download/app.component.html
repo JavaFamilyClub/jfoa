@@ -1,25 +1,66 @@
-<div class="client-download-container">
+<div class="client-download-container text-center">
   <div class="client-download-header">
-    <div class="bg-logo client-download-header-bg">
-    </div>
-
     <div class="client-download-header-content">
-      <div class="client-download-icon text-center">
-        <div>
-          <img src="assets/jfoa-icon.svg" alt="JavaFamily" class="circle-logo-style" />
+      <div class="client-download-icon text-center pt-4">
+        <div class="pb-3">
+          <img src="assets/jfoa-icon.svg" alt="JavaFamily"
+               class="circle-logo-style" />
         </div>
 
-        <ul class="nav">
-          <li>Windows</li>
-          <li>Mac OSX</li>
-          <li>Linux</li>
+        <ul class="nav d-flex list-style-none flex-justify-center">
+          <li class="d-inline-block m-2 client-platform-link-item"
+            [class.selected]="platform == Platform.Win_x64">
+            <a (click)="selectPlatform(Platform.Win_x64)">Windows</a>
+          </li>
+          <li class="d-inline-block m-2 client-platform-link-item"
+              [class.selected]="platform == Platform.Mac">
+            <a (click)="selectPlatform(Platform.Mac)">Mac OS X</a>
+          </li>
+          <li class="d-inline-block m-2 client-platform-link-item"
+              [class.selected]="platform == Platform.Linux">
+            <a (click)="selectPlatform(Platform.Linux)">Linux</a>
+          </li>
         </ul>
+
       </div>
     </div>
 
   </div>
 
-  <div class="client-download-body">
+  <div class="client-download-body text-center">
+    <h1 class="pb-3">
+      JavaFamily OA Client
+    </h1>
+
+    <p class="pb-4">
+      Focus on JavaFamily OA System, reduce unnecessary network traffic, faster and more stable.
+    </p>
+
+    <button class="mx-1 f3 my-3 btn btn-large btn-jfoa-download"
+      (click)="download()">
+      {{downloadLabel}}
+    </button>
+
+    <div class="d-block width-fit mx-auto mb-6 client-download-screenshot">
+      <img src="assets/img/demo-index.png" alt="Screenshot of jfoa index"
+           class="app-screenshot">
+
+      <img src="assets/img/demo-login.png" alt="Screenshot of jfoa login"
+           class="app-screenshot">
+
+      <img src="assets/img/demo-em-client.png" alt="Screenshot of jfoa client"
+           class="app-screenshot">
+
+      <img src="assets/img/demo-em-audit.png" alt="Screenshot of jfoa audit"
+           class="app-screenshot">
+    </div>
+
+    <div class="pt-5 pb-5">
+      <a class="btn btn-outline-black mb-6"
+         [href]="docUrl">
+        See what's been built
+      </a>
+    </div>
 
   </div>
 </div>
