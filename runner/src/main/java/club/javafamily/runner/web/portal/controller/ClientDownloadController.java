@@ -18,6 +18,7 @@ import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.domain.Installer;
 import club.javafamily.runner.enums.Platform;
 import club.javafamily.runner.util.*;
+import io.swagger.annotations.*;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,14 +27,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 
+@Api("Download Installer Api")
 @RestController
 @RequestMapping(SecurityUtil.API_VERSION)
 public class ClientDownloadController {
 
+   @ApiOperation(value = "Client Download", httpMethod = "GET")
    @GetMapping("/public/installer/download")
-   public void download(@RequestParam("platform") int platform,
-                        @RequestParam("version") String version,
-                        @RequestParam("fileName") String fileName,
+   public void download(@ApiParam(value = "platform", example = "1") @RequestParam("platform") int platform,
+                        @ApiParam(value = "version", example = "0.0.1") @RequestParam("version") String version,
+                        @ApiParam(value = "client file name", example = "jfoa-client-darwin-x64.zip") @RequestParam("fileName") String fileName,
                         HttpServletResponse response)
       throws Exception
    {

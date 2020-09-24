@@ -20,6 +20,7 @@
             "showCircularDependencies": false,
             "assets": [
               "src/favicon.ico",
+              "src/favicon.icns",
               "src/jfoa-icon.ico",
               "src/assets",
               "src/assets/icons/fonts",

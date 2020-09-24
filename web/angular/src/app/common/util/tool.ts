@@ -35,6 +35,7 @@ export namespace Tool {
     export const API_VERSION = "../" + BASE_API_VERSION;
 
     export const DOC_URL = "https://javafamilyclub.github.io/jfoa";
+    export const DEV_DOC_URL = "https://javafamily.club/swagger-ui.html";
 
     export const isEquals: (obj0, obj1) => boolean = require("lodash/isEqual");
     export const clone: <T>(v: T) => T = require("lodash/cloneDeep");

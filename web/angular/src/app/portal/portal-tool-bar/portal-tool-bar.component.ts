@@ -47,6 +47,10 @@ export class PortalToolBarComponent {
       GuiTool.openBrowserTab(Tool.DOC_URL);
    }
 
+   devDoc(): void {
+      GuiTool.openBrowserTab(Tool.DEV_DOC_URL);
+   }
+
    editProfile(event: MouseEvent): void {
       if(!this.principal?.authenticated) {
          this.principalService.refresh();
