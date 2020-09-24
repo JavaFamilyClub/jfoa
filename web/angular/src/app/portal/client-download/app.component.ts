@@ -19,6 +19,7 @@ import { InstallerClientUrlConstants } from "../../common/constants/url/installe
 import { Platform } from "../../common/enum/platform";
 import { GuiTool } from "../../common/util/gui-tool";
 import { Tool } from "../../common/util/tool";
+import { DownloadService } from "../../download/download.service";
 
 @Component({
   selector: "app-client-download",
@@ -31,7 +32,9 @@ export class ClientDownloadAppComponent implements OnInit {
 
    docUrl = Tool.DOC_URL;
 
-   constructor(private snackBar: MatSnackBar) {
+   constructor(private snackBar: MatSnackBar,
+               private downloadService: DownloadService)
+   {
    }
 
    ngOnInit(): void {
@@ -54,17 +57,18 @@ export class ClientDownloadAppComponent implements OnInit {
          .set("version", "0.0.1")
          .set("fileName", "jfoa-client-darwin-x64.zip");
 
-      GuiTool.openBrowserTab(Tool.requestPrefix() + InstallerClientUrlConstants.CLIENT_DOWNLOAD, params);
+      const url = Tool.requestPrefix() + InstallerClientUrlConstants.CLIENT_DOWNLOAD;
+      this.downloadService.download(GuiTool.appendParams(url, params));
    }
 
    get downloadLabel(): string {
       switch(this.platform) {
          case Platform.Mac:
-            return "Download for macOS";
+            return "Download for Mac OS X";
          case Platform.Linux:
             return "Download for Linux";
          default:
-            return "Download for Windows x64"
+            return "Download for Windows x64";
       }
    }
 

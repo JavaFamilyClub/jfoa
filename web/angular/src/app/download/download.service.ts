@@ -27,7 +27,7 @@ export class DownloadService implements OnDestroy {
       this._url.complete();
    }
 
-   download(url: string) {
+   download(url: string): void {
       this._url.next(url);
    }
 }

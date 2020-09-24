@@ -22,6 +22,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { DownloadModule } from "../../download/download.module";
 import { ClientModelService } from "../../widget/services/client-model.service";
 import { ModelService } from "../../widget/services/model.service";
 import { WidgetModule } from "../../widget/widget.module";
@@ -36,6 +37,7 @@ import { ClientPlatformViewComponent } from "./client-platform-view/client-platf
    ],
    imports: [
       CommonModule,
+      DownloadModule,
       WidgetModule,
       FormsModule,
       ReactiveFormsModule,
