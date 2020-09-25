@@ -6,4 +6,5 @@
 last 2 versions
 Firefox ESR
 not dead
-not IE > 9
+not ie <= 11
+not IE_Mob <= 11
