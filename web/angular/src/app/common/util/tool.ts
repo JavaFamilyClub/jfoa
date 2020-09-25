@@ -15,6 +15,7 @@
 import { AbstractControl } from "@angular/forms";
 import { Observable, of as observableOf, Subject } from "rxjs";
 import { isNumber as isNumeric } from "util";
+import { environment } from "../../../environments/environment";
 import { InstallerClientUrlConstants } from "../constants/url/installer-client-url-constants";
 import { CommonsKVModel } from "../data/commons-kv-model";
 import { FileData } from "../data/file-data";
@@ -288,9 +289,11 @@ export namespace Tool {
     }
 
     export function isInstaller(): boolean {
-        let base: HTMLBaseElement = <HTMLBaseElement> window.document.querySelector("base");
+        // let base: HTMLBaseElement = <HTMLBaseElement> window.document.querySelector("base");
+        //
+        // return base.href.startsWith("file://");
 
-        return base.href.startsWith("file://");
+        return environment.installer;
     }
 
     export function isMac(): boolean {

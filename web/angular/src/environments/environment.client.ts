@@ -12,7 +12,10 @@
  * person.
  */
 
+/**
+ * Installer must is prod mode.
+ */
 export const environment = {
   production: true,
-  installer: false
+  installer: true
 };
