@@ -1,4 +1,4 @@
-# Technical Selection
+# 技术栈
 
 ## 1 `Server`
 - SpringBoot 2+(后台基础框架)

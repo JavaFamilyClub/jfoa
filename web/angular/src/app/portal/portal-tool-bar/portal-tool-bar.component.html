@@ -20,19 +20,20 @@
     <div class="d-inline-block">
 
       <button mat-button [matMenuTriggerFor]="supportMatMenu"
-        aria-label="Support" title="Support"
-        class="title-bar-btn">Support
-      </button>
+        aria-label="Support" [title]="'Support' | translate"
+        class="title-bar-btn">{{'Support' | translate}}</button>
 
       <button mat-icon-button *ngIf="principal?.authenticated"
               routerLink="./mailAuthor"
-              aria-label="Mail Author" title="Mail Author"
+              [title]="'Mail Author' | translate"
+              aria-label="Mail Author"
               class="tile-bar-icon-size title-bar-btn"
               [disabled]="!!!principal?.email">
         <mat-icon class="jfoa" fontIcon="icon-mail-write"></mat-icon>
       </button>
 
       <button mat-button mat-icon-button aria-label="Help" title="Help"
+              [title]="'Help' | translate"
               class="tile-bar-icon-size"
               (click)="help()">
         <mat-icon class="jfoa" fontIcon="icon-help"></mat-icon>

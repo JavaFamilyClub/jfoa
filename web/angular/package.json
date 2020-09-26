@@ -41,6 +41,8 @@
     "@angular/router": "^10.0.5",
     "@mdi/font": "^4.7.95",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
     "angular-froala-wysiwyg": "^3.2.1",
     "bootstrap": "^4.5.0",
     "bootstrap-float-label": "4.0.2",

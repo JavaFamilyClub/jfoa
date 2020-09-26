@@ -304,7 +304,7 @@ export namespace Tool {
     }
 
     export function isLinux(): boolean {
-        return (navigator.platform.indexOf("Linux") > -1);
+        return navigator.platform.indexOf("Linux") > -1;
     }
 
     export function userPlatform(): Platform {

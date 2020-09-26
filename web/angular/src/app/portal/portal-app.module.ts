@@ -26,6 +26,7 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateModule } from "@ngx-translate/core";
 import { PortalAppComponent } from "./app.component";
 import { WidgetModule } from "../widget/widget.module";
 import { ChangePasswordDialog } from "./dialog/change-password-dialog";
@@ -53,7 +54,8 @@ import { PortalAppRoutingModule } from "./app-routing.module";
       MatRadioModule,
       MatFormFieldModule,
       MatInputModule,
-      MatChipsModule
+      MatChipsModule,
+      TranslateModule
    ],
    bootstrap: [PortalAppComponent],
    entryComponents: [

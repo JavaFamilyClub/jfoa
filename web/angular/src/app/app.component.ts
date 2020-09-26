@@ -14,8 +14,10 @@
 
 import { Component, NgZone, OnDestroy, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateService } from "@ngx-translate/core";
 import { NotifyAllClientService } from "./common/client/notify-all-client.service";
 import { ComponentTool } from "./common/util/component-tool";
+import { LocalStorage } from "./common/util/local-storage.util";
 import { BaseSubscription } from "./widget/base/BaseSubscription";
 
 @Component({
@@ -28,9 +30,17 @@ export class AppComponent extends BaseSubscription implements OnInit, OnDestroy 
 
    constructor(private zone: NgZone,
                private modalService: NgbModal,
+               private translateService: TranslateService,
                private notifyService: NotifyAllClientService)
    {
       super();
+
+      const lang = this.translateService.getBrowserLang();
+      const userLang = LocalStorage.getItem(LocalStorage.USER_DEFINE_LANG);
+
+      if(!!lang && !!!userLang) {
+         this.translateService.use(lang);
+      }
 
       this.subscriptions.add(notifyService.getMessageChannel().onReceiveMessage().subscribe((message: string) => {
          if(this.notification == message || !!!message) {

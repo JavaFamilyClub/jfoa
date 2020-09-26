@@ -18,10 +18,12 @@ import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { MAT_DIALOG_DEFAULT_OPTIONS } from "@angular/material/dialog";
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from "@angular/common/http";
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 import { CsrfInterceptor } from "./common/services/csrf-interceptor";
 import { HttpDebounceInterceptor } from "./common/services/http-debounce-interceptor";
@@ -34,6 +36,11 @@ export const httpInterceptorProviders = [
    {provide: HTTP_INTERCEPTORS, useClass: CsrfInterceptor, multi: true}
 ];
 
+// AoT requires an exported function for factories
+export function createTranslateLoader(http: HttpClient): TranslateLoader {
+   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
+
 @NgModule({
    declarations: [
       AppComponent
@@ -43,7 +50,15 @@ export const httpInterceptorProviders = [
       BrowserAnimationsModule,
       HttpClientModule,
       NgbModalModule,
-      AppRoutingModule
+      AppRoutingModule,
+      TranslateModule.forRoot({
+         loader: {
+            provide: TranslateLoader,
+            useFactory: (createTranslateLoader),
+            deps: [ HttpClient ]
+         },
+         defaultLanguage: "en"
+      })
    ],
    providers: [
       httpInterceptorProviders,
