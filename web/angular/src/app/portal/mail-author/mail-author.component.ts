@@ -14,6 +14,7 @@
 
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { TranslateService } from "@ngx-translate/core";
 import { Tool } from "../../common/util/tool";
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
@@ -33,7 +34,7 @@ export class MailAuthorComponent {
 
    options = {
       language: "zh_cn",
-      placeholderText: "Write your email content.",
+      placeholderText: this.translateService.instant("portal.email.placeholder.content"),
       height: "280",
       toolbarButtonsXS: ["undo", "redo", "|", "bold", "italic", "underline", "|", "fontSize", "align", "color"],
       pasteAllowedStyleProps: ["font-size", "color"],
@@ -55,6 +56,7 @@ export class MailAuthorComponent {
 
    constructor(private snackBar: MatSnackBar,
                private modelService: ModelService,
+               private translateService: TranslateService,
                private principalService: PrincipalService)
    {
       this.reset();
@@ -72,13 +74,17 @@ export class MailAuthorComponent {
    }
 
    send(): void {
+      const closeLabel = this.translateService.instant("Close");
+
       if(!!!this.model.subject) {
-         this.snackBar.open("Email Subject must not empty!", "Close");
+         this.snackBar.open(this.translateService.instant("portal.email.warn.subjectNotNull"),
+            closeLabel);
          return;
       }
 
       if(!!!this.model.content) {
-         this.snackBar.open("Email Content must not empty!", "Close");
+         this.snackBar.open(this.translateService.instant("portal.email.warn.contentNotNull"),
+            closeLabel);
          return;
       }
 
@@ -93,11 +99,13 @@ export class MailAuthorComponent {
 
       this.modelService.sendModel(MAIL_AUTHOR_URI, model).subscribe(() => {
          this.loading = false;
-         this.snackBar.open("Email Send success!", "Close");
+         this.snackBar.open(
+            this.translateService.instant("portal.email.prompt.sendSuccess"), closeLabel);
          this.reset();
       }, () => {
          this.loading = false;
-         this.snackBar.open("Email Send failed, Please try again later!", "Close");
+         this.snackBar.open(
+            this.translateService.instant("portal.email.prompt.sendFailed"), closeLabel);
       });
    }
 

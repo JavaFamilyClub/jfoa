@@ -1,19 +1,21 @@
 <div class="mail-author-container">
 
   <mat-form-field class="mail-subject">
-    <input matInput placeholder="Subject"
-           [(ngModel)]="model.subject">
+    <input matInput [(ngModel)]="model.subject"
+           [placeholder]="'portal.email.placeholder.subject' | translate">
   </mat-form-field>
 
   <mat-form-field class="mail-content froala-page-size" floatLabel="always">
     <textarea matInput #froalaContainer
               [(ngModel)]="model.content"
               placeholder="Write Email Content"
+              [placeholder]="'portal.email.placeholder.content' | translate"
               [froalaEditor]="options"></textarea>
   </mat-form-field>
 
   <div class="mail-author-footer">
-    <button mat-icon-button class="btn-primary" (click)="send()" title="Send">
+    <button mat-icon-button class="btn-primary" (click)="send()"
+            [title]="'portal.email.send' | translate">
       <mat-icon aria-label="Send" class="icon-mail-send"></mat-icon>
     </button>
   </div>

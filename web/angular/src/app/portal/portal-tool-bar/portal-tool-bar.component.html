@@ -8,8 +8,10 @@
   </div>
 
   <div class="btn-group" role="group" aria-label="Portal Tab Btn">
-    <a mat-button mat-icon-button aria-label="Home" title="Home"
-            class="tile-bar-icon-size bg-primary" [href]="isInstaller ? 'index.html' : '..'">
+    <a mat-button mat-icon-button aria-label="Home"
+       [title]="'Home' | translate"
+       class="tile-bar-icon-size bg-primary"
+       [href]="isInstaller ? 'index.html' : '..'">
       <mat-icon class="jfoa" fontIcon="icon-home"></mat-icon>
     </a>
   </div>
@@ -40,7 +42,7 @@
       </button>
 
       <button mat-icon-button [matMenuTriggerFor]="accountMatMenu"
-              aria-label="Account" title="Account"
+              aria-label="Account" [title]="'Account' | translate"
               class="tile-bar-icon-size title-bar-btn">
         <mat-icon class="jfoa" fontIcon="icon-account"></mat-icon>
       </button>
@@ -48,13 +50,13 @@
       <mat-menu #supportMatMenu="matMenu">
         <ng-template matMenuContent>
 
-          <button mat-menu-item (click)="help()">Document</button>
-          <button mat-menu-item (click)="devDoc()">Dev Document</button>
+          <button mat-menu-item (click)="help()">{{'Document' | translate}}</button>
+          <button mat-menu-item (click)="devDoc()">{{'Api Document'}}</button>
 
           <mat-divider></mat-divider>
 
           <button mat-menu-item routerLink="/portal/clientDownload" class="client-download-btn">
-            Client Download
+            {{'portal.installer.download' | translate}}
             <mat-chip-list class="lmargin-5">
               <mat-chip color="primary" class="bg-primary text-white"
                         selectable="false">Beta-0.0.1</mat-chip>
@@ -67,22 +69,30 @@
         <ng-template matMenuContent>
           <button mat-menu-item (click)="editProfile($event)"
                   [disabled]="!principal.authenticated"
-            >Profile ({{principal.userName}})</button>
+            >{{'user.profile.Profile' | translate}} ({{principal.userName}})</button>
           <button *ngIf="principal.authenticated" mat-menu-item
-            (click)="openChangePasswordDialog()">Change Password</button>
+            (click)="openChangePasswordDialog()"
+            >{{'user.pwd.change' | translate}}</button>
           <mat-divider></mat-divider>
-          <a *ngIf="principal?.authenticated" mat-menu-item [routerLink]="'/em'">Enterprise Management</a>
+          <a *ngIf="principal?.authenticated" mat-menu-item routerLink="/em"
+            >{{'security.link.em' | translate}}</a>
 
           <ng-container *ngIf="!isInstaller">
-            <a *ngIf="!principal.authenticated" mat-menu-item [href]="'/login'">Sign In</a>
-            <a mat-menu-item [href]="'/signup'">Sign Up</a>
-            <a *ngIf="principal.authenticated" mat-menu-item [href]="'/logout'">Sign Out</a>
+            <a *ngIf="!principal.authenticated" mat-menu-item
+               href="/login">{{'security.link.sign-in' | translate}}</a>
+            <a mat-menu-item href="/signup"
+              >{{'security.link.sign-up' | translate}}</a>
+            <a *ngIf="principal.authenticated" mat-menu-item
+               href="/logout">{{'security.link.sign-out' | translate}}</a>
           </ng-container>
 
           <ng-container *ngIf="isInstaller">
-            <a *ngIf="!principal.authenticated" mat-menu-item routerLink="/login">Sign In</a>
-            <a mat-menu-item routerLink="/signup">Sign Up</a>
-            <button *ngIf="principal.authenticated" mat-menu-item (click)="logout()">Sign Out</button>
+            <a *ngIf="!principal.authenticated" mat-menu-item
+               routerLink="/login">{{'security.link.sign-in' | translate}}</a>
+            <a mat-menu-item routerLink="/signup"
+              >{{'security.link.sign-up' | translate}}</a>
+            <button *ngIf="principal.authenticated" mat-menu-item (click)="logout()"
+              >{{'security.link.sign-out' | translate}}</button>
           </ng-container>
         </ng-template>
       </mat-menu>

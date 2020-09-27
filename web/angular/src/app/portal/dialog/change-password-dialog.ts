@@ -17,6 +17,7 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Valida
 import { ErrorStateMatcher } from "@angular/material/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateService } from "@ngx-translate/core";
 import { CustomerUrlConstants } from "../../common/constants/url/customer-url-constants";
 import { ComponentTool } from "../../common/util/component-tool";
 import { FormValidators } from "../../common/util/form-validators";
@@ -45,6 +46,7 @@ export class ChangePasswordDialog extends BaseSubscription implements OnInit {
                private modalService: NgbModal,
                private modelService: ModelService,
                private principalService: PrincipalService,
+               private translateService: TranslateService,
                private defaultErrorMatcher: ErrorStateMatcher)
    {
       super();
@@ -106,13 +108,15 @@ export class ChangePasswordDialog extends BaseSubscription implements OnInit {
          if(response.body) {
             this.modelService.putModel(CustomerUrlConstants.PASSWORD_CHANGE,
                this.model).subscribe(() => {
-                  this.snackBar.open("Password changed successfully.");
+                  this.snackBar.open(this.translateService.instant(
+                     "user.pwd.prompt.changeSuccess"));
                   this.onCommit.emit();
             });
          }
          else {
             ComponentTool.showMessageDialog(
-               this.modalService, "Error", "The old password is error.")
+               this.modalService, this.translateService.instant("Error"),
+                  this.translateService.instant("user.pwd.warn.oldError"))
                .then(() => {});
          }
       });

@@ -1,32 +1,35 @@
 <div class="modal-header">
-  <h3 class="modal-title">Profile Settings</h3>
+  <h3 class="modal-title">{{'user.profile.setting' | translate}}</h3>
 </div>
 <div class="modal-body">
   <form [formGroup]="form" class="profile-settings-container">
     <mat-form-field>
-      <mat-label>User Name:</mat-label>
-      <input matInput placeholder="Please input a valid username."
+      <mat-label>{{'user.profile.name' | translate}}:</mat-label>
+      <input matInput [placeholder]="'user.profile.ph.name' | translate"
              formControlName="name">
       <mat-error *ngIf="form.get('name').hasError('required')">
-        Name is required.
+        {{'user.profile.warn.nameRequired' | translate}}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Email:</mat-label>
-      <input matInput placeholder="Please input a valid email."
+      <mat-label>{{'portal.email.Email' | translate}}:</mat-label>
+      <input matInput [placeholder]="'portal.email.placeholder.email' | translate"
              formControlName="email">
       <mat-error *ngIf="form.get('email').hasError('email')">
-        Email format error.
+        {{'portal.email.warn.formatError' | translate}}
       </mat-error>
     </mat-form-field>
 
     <div>
-      <label>Gender:</label>
+      <label>{{'user.profile.Gender' | translate}}:</label>
       <mat-radio-group formControlName="gender">
-        <mat-radio-button [value]="Gender.Male">Male</mat-radio-button>
-        <mat-radio-button [value]="Gender.Female">Female</mat-radio-button>
-        <mat-radio-button [value]="Gender.Unknown">Unknown</mat-radio-button>
+        <mat-radio-button [value]="Gender.Male"
+          >{{'user.profile.Male' | translate}}</mat-radio-button>
+        <mat-radio-button [value]="Gender.Female"
+          >{{"user.profile.Female" | translate}}</mat-radio-button>
+        <mat-radio-button [value]="Gender.Unknown"
+          >{{"Unknown" | translate}}</mat-radio-button>
       </mat-radio-group>
     </div>
   </form>
@@ -35,6 +38,7 @@
 <div class="modal-footer">
   <button class="btn btn-primary"
           [disabled]="form.invalid"
-          (click)="ok()">OK</button>
-  <button class="btn btn-default" (click)="onCancel.emit()">Cancel</button>
+          (click)="ok()">{{"OK" | translate}}</button>
+  <button class="btn btn-default" (click)="onCancel.emit()"
+    >{{"Cancel" | translate}}</button>
 </div>

@@ -82,6 +82,6 @@ export class PortalToolBarComponent {
    }
 
    logout(): void {
-      this.principalService.logout();
+      this.principalService.logout().then();
    }
 }

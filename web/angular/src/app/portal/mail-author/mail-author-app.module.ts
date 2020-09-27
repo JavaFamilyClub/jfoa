@@ -22,6 +22,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateModule } from "@ngx-translate/core";
 import { FroalaEditorModule, FroalaViewModule } from "angular-froala-wysiwyg";
 import { WidgetModule } from "../../widget/widget.module";
 import { AppRoutingModule } from "./app-routing.module";
@@ -45,7 +46,8 @@ import { MailAuthorComponent } from "./mail-author.component";
       MatIconModule,
       MatProgressSpinnerModule,
       FroalaEditorModule,
-      FroalaViewModule
+      FroalaViewModule,
+      TranslateModule
    ],
    bootstrap: [MailAuthorComponent],
    entryComponents: [

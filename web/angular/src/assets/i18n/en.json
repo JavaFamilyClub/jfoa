@@ -1,3 +1,86 @@
 {
-   "Support": "Support"
+   "Support": "Support",
+   "Home": "Home",
+   "Close": "Close",
+   "ok": "ok",
+   "OK": "OK",
+   "Ok": "Ok",
+   "Error": "Error",
+   "Cancel": "Cancel",
+   "CANCEL": "CANCEL",
+   "Account": "Account",
+   "Document": "Document",
+   "Unknown": "Unknown",
+   "Api Document": "Api Document",
+   "user": {
+      "profile": {
+         "Profile": "Profile",
+         "Gender": "Gender",
+         "Male": "Male",
+         "Female": "Female",
+         "setting": "Profile Settings",
+         "name": "User Name",
+         "ph": {
+            "name": "Please input a valid username."
+         },
+         "warn": {
+            "nameRequired": "Name is required."
+         }
+      },
+      "pwd": {
+         "change": "Change Password",
+         "oldPwd": "Old Password",
+         "newPwd": "New Password",
+         "warn": {
+            "oldRequired": "Old Password is required.",
+            "required": "Password is required.",
+            "formatError": "The password must be a combination of Numbers and letters.",
+            "confirmRequired": "Confirm Password is required.",
+            "notMatch": "The passwords do not match.",
+            "oldError": "The old password is error."
+         },
+         "placeholder": {
+            "oldPwd": "Input your old password",
+            "newPwd": "Input your new password",
+            "confirmPwd": "Input your confirm password"
+         },
+         "label": {
+            "confirmPwd": "Confirm New Password"
+         },
+         "prompt": {
+            "changeSuccess": "Password changed successfully."
+         }
+      }
+   },
+   "portal": {
+      "installer": {
+         "download": "Client Download"
+      },
+      "email": {
+         "Email": "Email",
+         "placeholder": {
+            "subject": "Subject",
+            "content": "Write Email Content",
+            "email": "Please input a valid email."
+         },
+         "send": "Send",
+         "warn": {
+            "subjectNotNull": "Email Subject must not empty!",
+            "contentNotNull": "Email Content must not empty!",
+            "formatError": "Email format error."
+         },
+         "prompt": {
+            "sendSuccess": "Email Send success!",
+            "sendFailed": "Email Send failed, Please try again later!"
+         }
+      }
+   },
+   "security": {
+      "link": {
+         "em": "Enterprise Management",
+         "sign-in": "Sign In",
+         "sign-up": "Sign Up",
+         "sign-out": "Sign Out"
+      }
+   }
 }

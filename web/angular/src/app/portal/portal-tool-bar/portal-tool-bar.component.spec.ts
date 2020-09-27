@@ -24,6 +24,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { observable, of } from "rxjs";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
@@ -35,6 +36,7 @@ describe("PortalToolBarComponent", () => {
    let modelService: any;
    let http: any;
    let modalService: any;
+   let translate: any;
 
    beforeEach(async(() => {
       modelService = {
@@ -51,6 +53,12 @@ describe("PortalToolBarComponent", () => {
          get: jest.fn(() => of({}))
       };
 
+      translate = {
+         get: jest.fn(() => of({})),
+         getBrowserLang: jest.fn(() => of("en")),
+         use: jest.fn(() => of({}))
+      };
+
       TestBed.configureTestingModule({
          imports: [
             BrowserModule,
@@ -60,7 +68,8 @@ describe("PortalToolBarComponent", () => {
             MatIconModule,
             MatMenuModule,
             MatDividerModule,
-            MatChipsModule
+            MatChipsModule,
+            TranslateModule
          ],
          declarations: [
             PortalToolBarComponent
@@ -81,6 +90,10 @@ describe("PortalToolBarComponent", () => {
             {
                provide: ModelService,
                useValue: modelService
+            },
+            {
+               provide: TranslateService,
+               useValue: translate
             },
             PrincipalService
          ]

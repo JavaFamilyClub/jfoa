@@ -22,6 +22,8 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterTestingModule } from "@angular/router/testing";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { of } from "rxjs";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
 import { EmTab, EmTitleBarService } from "../service/em-title-bar.service";
@@ -32,12 +34,20 @@ describe("EmTitleBarComponent", () => {
    let modelService: any;
    let emTitleBarService: any;
    let principalService: any;
+   let translate: any;
 
    beforeEach(async(() => {
       principalService = { refresh: jest.fn() };
       modelService = { getModel: jest.fn() };
       emTitleBarService = { changeTab: jest.fn() };
       emTitleBarService.currentTab = EmTab.MONITOR;
+
+      translate = {
+         get: jest.fn(() => of({})),
+         getBrowserLang: jest.fn(() => of("en")),
+         use: jest.fn(() => of({}))
+      };
+
 
       TestBed.configureTestingModule({
          imports: [
@@ -48,7 +58,8 @@ describe("EmTitleBarComponent", () => {
             MatMenuModule,
             MatDividerModule,
             MatDialogModule,
-            MatIconModule
+            MatIconModule,
+            TranslateModule
          ],
          declarations: [
             EmTitleBarComponent
@@ -65,6 +76,10 @@ describe("EmTitleBarComponent", () => {
             {
                provide: PrincipalService,
                useValue: principalService
+            },
+            {
+               provide: TranslateService,
+               useValue: translate
             }
          ]
       }).compileComponents();
