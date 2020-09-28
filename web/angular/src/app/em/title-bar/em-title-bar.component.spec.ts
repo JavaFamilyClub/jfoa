@@ -38,7 +38,7 @@ describe("EmTitleBarComponent", () => {
 
    beforeEach(async(() => {
       principalService = { refresh: jest.fn() };
-      modelService = { getModel: jest.fn() };
+      modelService = { getModel: jest.fn(() => of(null)) };
       emTitleBarService = { changeTab: jest.fn() };
       emTitleBarService.currentTab = EmTab.MONITOR;
 
