@@ -19,23 +19,23 @@
   <form [formGroup]="form">
     <div class="card">
       <div class="card-header">
-        Sign In
+        {{'security.link.sign-in' | translate}}
       </div>
       <div class="card-body">
 
         <div id="userNameGroup" class="form-group">
-          <label class="required-field" for="userName">Account</label>
+          <label class="required-field" for="userName">{{'Account' | translate}}</label>
           <input type="text" class="form-control form-control-danger" id="userName"
                  formControlName="userName"
                  [class.is-invalid]="isInvalid(form.controls['userName'])"
                  name="userName" autofocus required/>
           <span class="invalid-feedback"
                 *ngIf="!!form.controls['userName'].getError('required')">
-            Username is required.
+            {{'user.profile.warn.accountRequired' | translate}}
           </span>
         </div>
         <div id="passwordGroup" class="form-group">
-          <label class="required-field" for="password">Password</label>
+          <label class="required-field" for="password">{{'Password' | translate}}</label>
           <input type="password" class="form-control form-control-danger"
                  id="password" name="password"
                  formControlName="password"
@@ -43,7 +43,7 @@
                  required/>
           <span class="invalid-feedback"
                 *ngIf="!!form.controls['password'].getError('required')">
-            Password is required.
+            {{'user.pwd.warn.required' | translate}}
           </span>
         </div>
 
@@ -51,16 +51,16 @@
           <input type="checkbox" id="rememberMe" name="rememberMe"
                  [ngModelOptions]="{standalone: true}"
                  [(ngModel)]="model.rememberMe"/>
-          <span class="required-field" for="rememberMe">Remember Me</span>
+          <span class="required-field" for="rememberMe">{{'user.prompt.remMe' | translate}}</span>
 
-          <span class="create-account-span">New to JavaFamily?&nbsp;&nbsp;
-              <a routerLink="/signup">Create an account.</a></span>
+          <span class="create-account-span">{{'user.prompt.joinUs' | translate}}&nbsp;&nbsp;
+              <a routerLink="/signup">{{'user.prompt.createAccount' | translate}}</a></span>
         </div>
       </div>
       <div class="card-footer">
         <button type="submit" id="loginButton" class="btn btn-primary btn-block"
           (click)="login()" [disabled]="form.invalid">
-          Sign In
+          {{'security.link.sign-in' | translate}}
         </button>
       </div>
     </div>

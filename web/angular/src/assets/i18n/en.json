@@ -24,8 +24,16 @@
             "name": "Please input a valid username."
          },
          "warn": {
-            "nameRequired": "Name is required."
+            "nameRequired": "Name is required.",
+            "accountRequired": "Account is required."
          }
+      },
+      "prompt": {
+         "remMe": "Remember Me",
+         "joinUs": "New to JavaFamily?",
+         "createAccount": "Create an account.",
+         "signUpSuccessTitle": "Registration Success",
+         "signUpSuccessInfo": "You will receive an email containing your account information, please click the activation link in the email within ten minutes to activate your account.\n\n Go to login page?"
       },
       "pwd": {
          "change": "Change Password",
@@ -54,7 +62,10 @@
    },
    "portal": {
       "installer": {
-         "download": "Client Download"
+         "download": "Client Download",
+         "desc": "Focus on JavaFamily OA System, reduce unnecessary network traffic, faster and more stable.",
+         "whatsBuild": "See what's been built",
+         "unSupportError": "The platform client is under urgent development, currently only supports Mac OS X client download, please continue to pay attention to JavaFamily."
       },
       "email": {
          "Email": "Email",
@@ -67,7 +78,8 @@
          "warn": {
             "subjectNotNull": "Email Subject must not empty!",
             "contentNotNull": "Email Content must not empty!",
-            "formatError": "Email format error."
+            "formatError": "Email format error.",
+            "required": "Email is required"
          },
          "prompt": {
             "sendSuccess": "Email Send success!",

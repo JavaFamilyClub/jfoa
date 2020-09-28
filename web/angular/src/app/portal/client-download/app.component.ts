@@ -15,6 +15,7 @@
 import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { TranslateService } from "@ngx-translate/core";
 import { InstallerClientUrlConstants } from "../../common/constants/url/installer-client-url-constants";
 import { Platform } from "../../common/enum/platform";
 import { GuiTool } from "../../common/util/gui-tool";
@@ -33,6 +34,7 @@ export class ClientDownloadAppComponent implements OnInit {
    docUrl = Tool.DOC_URL;
 
    constructor(private snackBar: MatSnackBar,
+               private translate: TranslateService,
                private downloadService: DownloadService)
    {
    }
@@ -46,9 +48,7 @@ export class ClientDownloadAppComponent implements OnInit {
 
    download(): void {
       if(this.platform != Platform.Mac) {
-         this.snackBar.open("The platform client is under urgent development, " +
-            "currently only supports Mac OS X client download, please continue" +
-            " to pay attention to JavaFamily.");
+         this.snackBar.open(this.translate.instant("portal.installer.unSupportError"));
          return;
       }
 

@@ -17,6 +17,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateService } from "@ngx-translate/core";
 import { InstallerClientUrlConstants } from "../common/constants/url/installer-client-url-constants";
 import { ComponentTool } from "../common/util/component-tool";
 import { FormValidators } from "../common/util/form-validators";
@@ -40,8 +41,9 @@ export class SignupAppComponent implements OnInit {
 
    constructor(private clientModelService: ClientModelService,
                private principalService: PrincipalService,
-               private snackBar: MatSnackBar,
+               private translate: TranslateService,
                private modalService: NgbModal,
+               private snackBar: MatSnackBar,
                private fb: FormBuilder,
                private router: Router)
    {
@@ -74,10 +76,9 @@ export class SignupAppComponent implements OnInit {
             return;
          }
 
-         ComponentTool.showConfirmDialog(this.modalService, "Registration Success",
-            "You will receive an email containing your account information, " +
-            "please click the activation link in the email within ten minutes to " +
-            "activate your account.\n\n Go to login page?")
+         ComponentTool.showConfirmDialog(this.modalService,
+            this.translate.instant("user.prompt.signUpSuccessTitle"),
+            this.translate.instant("user.prompt.signUpSuccessInfo"))
             .then((result) => {
                if(result == "ok") {
                   this.router.navigateByUrl("/login").then();

@@ -24,6 +24,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateModule } from "@ngx-translate/core";
 import { ClientModelService } from "../widget/services/client-model.service";
 import { ModelService } from "../widget/services/model.service";
 import { WidgetModule } from "../widget/widget.module";
@@ -45,7 +46,8 @@ import { SignupAppRoutingModule } from "./signup-app-routing.module";
       MatSnackBarModule,
       MatIconModule,
       MatToolbarModule,
-      MatButtonModule
+      MatButtonModule,
+      TranslateModule
    ],
    providers: [
       ModelService,

@@ -8,7 +8,7 @@
   </div>
 
   <div class="btn-group" role="group" aria-label="Portal Tab Btn">
-    <a mat-button mat-icon-button aria-label="Home" title="Home"
+    <a mat-button mat-icon-button aria-label="Home" [title]="'Home' | translate"
        class="tile-bar-icon-size bg-primary"
        [href]="isInstaller ? 'index.html' : '..'">
       <mat-icon class="jfoa" fontIcon="icon-home"></mat-icon>
@@ -20,23 +20,24 @@
   <form [formGroup]="form">
     <div class="card">
       <div class="card-header">
-        Sign up
+        {{'security.link.sign-up' | translate}}
       </div>
       <div class="card-body">
 
         <div id="emailGroup" class="form-group">
-          <label class="required-field" for="register-email">Email</label>
+          <label class="required-field" for="register-email"
+            >{{'portal.email.Email' | translate}}</label>
           <input type="text" class="form-control form-control-danger"
                  id="register-email"
                  [class.is-invalid]="isInvalid(form.controls['email'])"
                  formControlName="email"
                  name="email" autofocus required/>
           <span class="invalid-feedback" *ngIf="!!form.controls['email'].getError('required')">
-            Email is required.
+            {{'portal.email.warn.required' | translate}}
           </span>
 
           <span class="invalid-feedback" *ngIf="!!form.controls['email'].getError('emailSpecialCharacters')">
-            Email format error.
+            {{'portal.email.warn.formatError' | translate}}
           </span>
         </div>
 
@@ -44,7 +45,7 @@
       <div class="card-footer">
         <button type="submit" id="loginButton" class="btn btn-primary btn-block"
           (click)="signup()" [disabled]="form.invalid">
-          Sign up
+          {{'security.link.sign-up' | translate}}
         </button>
       </div>
     </div>
