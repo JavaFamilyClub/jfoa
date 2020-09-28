@@ -5,12 +5,23 @@
    "ok": "ok",
    "OK": "OK",
    "Ok": "Ok",
+   "numberSymbol": "No.",
    "Error": "Error",
    "Cancel": "Cancel",
    "CANCEL": "CANCEL",
    "Account": "Account",
    "Document": "Document",
    "Unknown": "Unknown",
+   "Resource": "Resource",
+   "Action": "Action",
+   "User": "User",
+   "Date": "Date",
+   "Search": "Search",
+   "searchEmptyError": "Search key words is empty!",
+   "Search Result": "Search Result",
+   "Message": "Message",
+   "to": "to",
+   "Notification": "Notification",
    "Api Document": "Api Document",
    "user": {
       "profile": {
@@ -85,6 +96,17 @@
             "sendSuccess": "Email Send success!",
             "sendFailed": "Email Send failed, Please try again later!"
          }
+      }
+   },
+   "em": {
+      "writeNotify": "Write Notification",
+      "audit": {
+         "Audit": "Audit",
+         "fromDate": "From Date",
+         "endDate": "End Date",
+         "showDetail": "Show Detail",
+         "errorDetail": "Error Detail",
+         "endBeforeStartError": "The end date must after start date."
       }
    },
    "security": {

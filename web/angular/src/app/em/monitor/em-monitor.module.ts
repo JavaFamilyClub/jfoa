@@ -27,6 +27,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
+import { TranslateModule } from "@ngx-translate/core";
 import { SearchResultModule } from "../search-result/search-result.module";
 import { AuditViewComponent } from "./audit/audit-view.component";
 import { EmMonitorRoutingModule } from "./em-monitor-routing.module";
@@ -54,7 +55,8 @@ import { EmMonitorComponent } from "./em-monitor.component";
       MatSortModule,
       MatPaginatorModule,
       MatDatepickerModule,
-      MatMomentDateModule
+      MatMomentDateModule,
+      TranslateModule
    ],
    entryComponents: [
    ],

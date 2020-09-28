@@ -2,13 +2,14 @@
 
   <div class="audit-view-header">
     <div class="audit-view-title row">
-      <h2>Audit</h2>
+      <h2 translate>Audit</h2>
     </div>
 
     <div class="audit-view-actions row">
       <div class="audit-filter-start col2">
         <mat-form-field>
-          <input matInput [matDatepicker]="startPicker" placeholder="From Date"
+          <input matInput [matDatepicker]="startPicker"
+                 placeholder="{{'em.audit.fromDate' | translate}}"
                  [value]="filter.startDate" (click)="startPicker.open()"
                  (dateChange)="filterChanged($event)" readonly>
 
@@ -23,13 +24,12 @@
         </mat-form-field>
       </div>
 
-      <div class="audit-filter-to">
-        to
-      </div>
+      <div class="audit-filter-to" translate>to</div>
 
       <div class="audit-filter-end col2">
         <mat-form-field>
-          <input matInput [matDatepicker]="endPicker" placeholder="End Date"
+          <input matInput [matDatepicker]="endPicker"
+                 placeholder="{{'em.audit.endDate' | translate}}"
                  [value]="filter.endDate" [min]="filter.startDate"
                  (click)="endPicker.open()"
                  (dateChange)="filterChanged($event, true)" readonly>
@@ -59,36 +59,36 @@
     <table mat-table [dataSource]="dataSource" matSort
            class="mat-elevation-z8">
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'numberSymbol' | translate}}</th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
 
       <ng-container matColumnDef="resource">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Resource </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Resource' | translate}} </th>
         <td mat-cell *matCellDef="let element"> {{element.resource}} </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Action' | translate}} </th>
         <td mat-cell *matCellDef="let element"> {{element.action}} </td>
       </ng-container>
 
       <ng-container matColumnDef="customer">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'User' | translate}} </th>
         <td mat-cell *matCellDef="let element"> {{element.customer}} </td>
       </ng-container>
 
       <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Date' | translate}} </th>
         <td mat-cell *matCellDef="let element"> {{element.date}} </td>
       </ng-container>
 
       <ng-container matColumnDef="message">
-        <th mat-header-cell *matHeaderCellDef> Message </th>
+        <th mat-header-cell *matHeaderCellDef> {{'Message' | translate}} </th>
         <td mat-cell *matCellDef="let element">
           <button mat-button *ngIf="!!element.message"
                   [color]="'warn'"
-            (click)="showMessage(element.message)">Show Detail</button>
+            (click)="showMessage(element.message)">{{'em.audit.showDetail' | translate}}</button>
         </td>
       </ng-container>
 

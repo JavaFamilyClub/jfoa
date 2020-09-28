@@ -24,6 +24,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateModule } from "@ngx-translate/core";
 import { DownloadModule } from "../download/download.module";
 import { ModelService } from "../widget/services/model.service";
 import { WidgetModule } from "../widget/widget.module";
@@ -57,7 +58,8 @@ import { EmSettingModule } from "./setting/em-setting.module";
       DownloadModule,
       MatDialogModule,
       MatFormFieldModule,
-      MatInputModule
+      MatInputModule,
+      TranslateModule
    ],
    bootstrap: [
       EMAppComponent

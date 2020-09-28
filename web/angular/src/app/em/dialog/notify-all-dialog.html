@@ -1,13 +1,13 @@
-<h1 mat-dialog-title>Notification</h1>
+<h1 mat-dialog-title translate>Notification</h1>
 <div mat-dialog-content>
   <mat-form-field>
     <textarea matInput cdkFocusInitial [rows]="5" #notificationCtrl="ngModel"
               [(ngModel)]="notification"
-              placeholder="Write Notification" required></textarea>
+              [placeholder]="'em.writeNotify' | translate" required></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions align="end">
-  <button mat-button (click)="close()">Cancel</button>
+  <button mat-button (click)="close()" translate>Cancel</button>
   <button mat-button (click)="send()"
-          [disabled]="notificationCtrl.invalid">Ok</button>
+          [disabled]="notificationCtrl.invalid" translate>Ok</button>
 </div>

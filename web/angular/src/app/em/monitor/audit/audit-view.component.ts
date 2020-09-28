@@ -18,6 +18,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateService } from "@ngx-translate/core";
 import { Moment } from "moment";
 import { Searchable } from "../../../common/annotation/searchable";
 import { DateRangeFilter } from "../../../common/filter/date-range-filter";
@@ -52,6 +53,7 @@ export class AuditViewComponent implements OnInit {
 
   constructor(private modelService: ModelService,
               private snackBar: MatSnackBar,
+              private translate: TranslateService,
               private modalService: NgbModal)
   {
     this.resetFilter();
@@ -77,7 +79,7 @@ export class AuditViewComponent implements OnInit {
   }
 
   showMessage(msg: string): void {
-    ComponentTool.showMessageDialog(this.modalService, "Error Detail", msg)
+    ComponentTool.showMessageDialog(this.modalService, this.translate.instant("errorDetail"), msg)
        .then(() => {});
   }
 
@@ -89,7 +91,7 @@ export class AuditViewComponent implements OnInit {
 
       if(end) {
         if(!!this.filter.startDate && value.isBefore(this.filter.startDate)) {
-          this.snackBar.open("The end date must after start date.");
+          this.snackBar.open(this.translate.instant("em.audit.endBeforeStartError"));
           return;
         }
 
