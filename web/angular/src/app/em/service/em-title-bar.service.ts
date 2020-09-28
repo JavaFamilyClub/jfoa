@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -14,6 +14,7 @@
 
 import { Injectable, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { Subject } from "rxjs";
 
 @Injectable()
@@ -21,7 +22,7 @@ export class EmTitleBarService implements OnDestroy {
    private tab: EmTab = EmTab.MONITOR;
    changeTabSubject = new Subject<EmTab>();
 
-   constructor(router: Router) {
+   constructor(private router: Router, private translate: TranslateService) {
       if(router.url.startsWith("/em/setting"))  {
          this.tab = EmTab.SETTING;
       }
@@ -40,8 +41,8 @@ export class EmTitleBarService implements OnDestroy {
 
    get tabDesc(): string {
       return this.tab == EmTab.MONITOR
-         ? "Monitoring"
-         : "Setting";
+         ? this.translate.instant("em.Monitoring")
+         : this.translate.instant("em.Setting");
    }
 
    changeTab(tab: EmTab): void {

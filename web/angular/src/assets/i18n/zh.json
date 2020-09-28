@@ -1,3 +1,146 @@
 {
-   "Support": "支持"
+   "Support": "支持",
+   "Home": "主页",
+   "ID": "编号",
+   "Close": "关闭",
+   "ok": "确定",
+   "OK": "确定",
+   "Ok": "确定",
+   "Help": "帮助",
+   "numberSymbol": "编号",
+   "Version": "版本",
+   "Error": "错误",
+   "Cancel": "取消",
+   "CANCEL": "取消",
+   "Account": "账户",
+   "Document": "文档",
+   "Unknown": "未知",
+   "Resource": "资源",
+   "Action": "行为",
+   "User": "用户",
+   "Date": "日期",
+   "Search": "搜索",
+   "Delete": "删除",
+   "Notify": "通知",
+   "Platform": "平台",
+   "searchEmptyError": "搜索项不能为空!",
+   "Search Result": "搜索结果",
+   "Message": "消息",
+   "Upload": "上传",
+   "File Name": "文件名",
+   "Reset": "重置",
+   "to": "到",
+   "Notification": "通告",
+   "Api Document": "接口文档",
+   "user": {
+      "profile": {
+         "Profile": "个人资料",
+         "Gender": "性别",
+         "Male": "男",
+         "Female": "女",
+         "setting": "个人资料设置",
+         "name": "用户名",
+         "ph": {
+            "name": "请输入一个合法的用户名."
+         },
+         "warn": {
+            "nameRequired": "用户名是必填项.",
+            "accountRequired": "账户是必填项."
+         }
+      },
+      "prompt": {
+         "remMe": "记住我",
+         "joinUs": "加入 JavaFamily?",
+         "createAccount": "创建一个账户.",
+         "signUpSuccessTitle": "注册成功",
+         "signUpSuccessInfo": "您将收到一封包含您帐户信息的电子邮件，请在十分钟内点击电子邮件中的激活链接激活您的帐户.\n\n 前往登录页面?"
+      },
+      "pwd": {
+         "change": "修改密码",
+         "oldPwd": "旧密码",
+         "newPwd": "新密码",
+         "warn": {
+            "oldRequired": "旧密码为必填项.",
+            "required": "密码是必填项.",
+            "formatError": "密码必须是数字和字母的组合.",
+            "confirmRequired": "确认密码是必填项.",
+            "notMatch": "密码不匹配.",
+            "oldError": "旧密码不正确."
+         },
+         "placeholder": {
+            "oldPwd": "请输入您的旧密码",
+            "newPwd": "请输入您的新密码",
+            "confirmPwd": "请再次输入您的新密码"
+         },
+         "label": {
+            "confirmPwd": "确认密码"
+         },
+         "prompt": {
+            "changeSuccess": "密码修改成功."
+         }
+      }
+   },
+   "portal": {
+      "installer": {
+         "download": "客户端下载",
+         "desc": "专注于 JavaFamily OA 系统，减少不必要的网络流量，更快更稳定.",
+         "whatsBuild": "看看已经建好了什么?",
+         "unSupportError": "该平台客户端正在紧急开发中，目前只支持Mac OS X客户端下载，请继续关注JavaFamily."
+      },
+      "email": {
+         "Email": "邮箱",
+         "placeholder": {
+            "subject": "主题",
+            "content": "书写邮件内容",
+            "email": "请输入一个合法的邮箱."
+         },
+         "send": "发送",
+         "warn": {
+            "subjectNotNull": "邮箱主题不能为空!",
+            "contentNotNull": "邮件内容不能为空!",
+            "formatError": "邮箱格式不对.",
+            "required": "邮箱是必填项"
+         },
+         "prompt": {
+            "sendSuccess": "邮件发送成功!",
+            "sendFailed": "邮件发送失败, 请稍后再试!"
+         }
+      },
+      "toolbar": {
+         "mailAuthor": "发送邮件给博主"
+      }
+   },
+   "em": {
+      "Monitor": "监控器",
+      "Monitoring": "监控",
+      "Setting": "设置",
+      "writeNotify": "书写通告",
+      "audit": {
+         "Audit": "记录",
+         "fromDate": "开始日期",
+         "endDate": "终止日期",
+         "showDetail": "显示详情",
+         "errorDetail": "错误详情",
+         "endBeforeStartError": "终止日期必须在开始日期之后."
+      },
+      "client": {
+         "ph": {
+            "version": "请输入客户端版本",
+            "browser": "点击浏览图标去选择文件",
+            "name": "安装包名称"
+         },
+         "manager": "安装包管理",
+         "Clients": "已上传客户端",
+         "clientUpload": "客户端上传",
+         "clientVersion": "客户端版本"
+      }
+   },
+   "security": {
+      "link": {
+         "em": "企业管理",
+         "sign-in": "登录",
+         "sign-up": "注册",
+         "sign-out": "注销"
+      }
+   }
 }

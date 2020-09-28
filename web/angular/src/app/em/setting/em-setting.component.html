@@ -1,11 +1,11 @@
 <mat-drawer-container class="em-monitor-container" autosize>
-  <mat-drawer #drawer mode="side" opened class="em-monitor-left-sidenav"
+  <mat-drawer #splitePane mode="side" opened class="em-monitor-left-sidenav"
               disableClose>
     <div class="mat-drawer-inner-container">
       <mat-form-field>
-        <input matInput type="search" placeholder="Search"
+        <input matInput type="search" [placeholder]="'Search' | translate"
                [(ngModel)]="searchText" (keyup.enter)="search()"/>
-        <button mat-button matSuffix mat-icon-button aria-label="_#(Search)"
+        <button mat-button matSuffix mat-icon-button aria-label="Search"
                 (click)="search()">
           <mat-icon class="icon-search"></mat-icon>
         </button>
@@ -13,7 +13,7 @@
 
       <mat-nav-list>
         <mat-list-item>
-          <a matLine routerLink="client-manager">Client Manager</a>
+          <a matLine routerLink="client-manager" translate>em.client.manager</a>
         </mat-list-item>
       </mat-nav-list>
 

@@ -27,7 +27,7 @@
 
       <button mat-icon-button *ngIf="principal?.authenticated"
               routerLink="./mailAuthor"
-              [title]="'Mail Author' | translate"
+              [title]="'portal.toolbar.mailAuthor' | translate"
               aria-label="Mail Author"
               class="tile-bar-icon-size title-bar-btn"
               [disabled]="!!!principal?.email">
@@ -51,7 +51,7 @@
         <ng-template matMenuContent>
 
           <button mat-menu-item (click)="help()">{{'Document' | translate}}</button>
-          <button mat-menu-item (click)="devDoc()">{{'Api Document'}}</button>
+          <button mat-menu-item (click)="devDoc()">{{'Api Document' | translate}}</button>
 
           <mat-divider></mat-divider>
 

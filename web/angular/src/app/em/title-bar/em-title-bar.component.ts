@@ -61,7 +61,7 @@ export class EmTitleBarComponent {
          tabURL = "em/setting";
       }
 
-      this.router.navigateByUrl(tabURL);
+      this.router.navigateByUrl(tabURL).then();
    }
 
    get principal(): JfPrincipal {

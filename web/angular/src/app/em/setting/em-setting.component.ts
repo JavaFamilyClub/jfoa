@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -12,10 +12,11 @@
  * person.
  */
 
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { MatDrawer } from "@angular/material/sidenav";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { Searchable } from "../../common/annotation/searchable";
 import { BaseSubscription } from "../../widget/base/BaseSubscription";
 import { SideNavService } from "../service/side-nav.service";
@@ -32,12 +33,13 @@ import { SideNavService } from "../service/side-nav.service";
    templateUrl: "em-setting.component.html",
    styleUrls: ["em-setting.component.scss"]
 })
-export class EmSettingComponent extends BaseSubscription implements OnInit {
-   @ViewChild("drawer", { static: true }) sidenav: MatDrawer;
+export class EmSettingComponent extends BaseSubscription implements OnInit, OnDestroy {
+   @ViewChild("splitePane", { static: true }) splitePane: MatDrawer;
    searchText: string;
 
    constructor(private router: Router,
                private snackBar: MatSnackBar,
+               private translate: TranslateService,
                private sidenavService: SideNavService)
    {
       super();
@@ -45,13 +47,13 @@ export class EmSettingComponent extends BaseSubscription implements OnInit {
 
    ngOnInit(): void {
       this.subscriptions.add(this.sidenavService.onSidenavToggle.subscribe(() => {
-         this.sidenav.toggle();
+         this.splitePane.toggle();
       }));
    }
 
    search(): void {
       if(!!!this.searchText) {
-         this.snackBar.open("Search key words is empty!");
+         this.snackBar.open(this.translate.instant("searchEmptyError"));
          return;
       }
 

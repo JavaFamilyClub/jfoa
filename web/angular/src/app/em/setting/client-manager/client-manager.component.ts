@@ -15,6 +15,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 import { Searchable } from "../../../common/annotation/searchable";
 import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
@@ -36,7 +37,7 @@ export enum ClientTabs {
   title: "Client Manager",
   route: "/em/setting/client-manager",
   keywords: [
-    "client manager"
+    "client manager", "client upload"
   ]
 })
 @Component({
@@ -59,7 +60,8 @@ export class ClientManagerComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private snackBar: MatSnackBar,
-              private modelService: ModelService)
+              private modelService: ModelService,
+              private translate: TranslateService)
   {
   }
 
@@ -103,19 +105,19 @@ export class ClientManagerComponent implements OnInit {
   get cols(): MatColumnIno[] {
     return [
       {
-        label: "ID",
+        label: this.translate.instant("ID"),
         name: "id"
       },
       {
-        label: "Platform",
+        label: this.translate.instant("Platform"),
         name: "platform"
       },
       {
-        label: "Version",
+        label: this.translate.instant("Version"),
         name: "version"
       },
       {
-        label: "File Name",
+        label: this.translate.instant("File Name"),
         name: "fileName"
       }
     ];

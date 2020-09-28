@@ -3,7 +3,7 @@
     <mat-tab-group mat-align-tabs="center" class="w-100"
                    [selectedIndex]="tabIndex"
                    (selectedIndexChange)="onChangeTab($event)">
-      <mat-tab label="Clients">
+      <mat-tab [label]="'em.client.Clients' | translate">
         <mat-card>
           <mat-card-content>
             <mat-table-view [data]="installers | async" [cols]="cols"
@@ -13,17 +13,17 @@
           </mat-card-content>
 
           <mat-card-actions>
-            <button mat-button (click)="deleteSelected()">Delete</button>
+            <button mat-button (click)="deleteSelected()">{{'Delete' | translate}}</button>
           </mat-card-actions>
         </mat-card>
       </mat-tab>
 
-      <mat-tab label="Client Upload">
+      <mat-tab [label]="'em.client.clientUpload' | translate">
         <mat-card>
           <mat-card-content>
             <form class="client-upload-content" [formGroup]="form">
               <mat-form-field class="w-75">
-                <mat-label>Platform</mat-label>
+                <mat-label translate>Platform</mat-label>
 
                 <mat-select [value]="model.installer.platform" formControlName="platform">
                   <mat-option *ngFor="let p of platforms"
@@ -32,15 +32,15 @@
               </mat-form-field>
 
               <mat-form-field class="w-75">
-                <mat-label>Please input client version</mat-label>
-                <input matInput placeholder="Client Version"
+                <mat-label translate>em.client.ph.version</mat-label>
+                <input matInput [placeholder]="'em.client.clientVersion' | translate"
                        [value]="model.installer.version"
                        formControlName="version">
               </mat-form-field>
 
               <mat-form-field class="w-75">
-                <mat-label>Click browser icon to choose file</mat-label>
-                <input matInput placeholder="Installer Name"
+                <mat-label translate>em.client.ph.browser</mat-label>
+                <input matInput placeholder="{{'em.client.ph.name' | translate}}"
                        [ngModelOptions]="{standalone: true}"
                        [disabled]="!!!model.fileData"
                        [(ngModel)]="model.installer.fileName">
@@ -58,8 +58,8 @@
                      (change)="onFileChange($event)" hidden>
               <button mat-button (click)="upload()"
                       [disabled]="form.invalid || !!!model.fileData"
-              >Upload</button>
-              <button mat-button (click)="reset()">Reset</button>
+              >{{"Upload" | translate}}</button>
+              <button mat-button (click)="reset()">{{"Reset" | translate}}</button>
             </div>
           </mat-card-actions>
         </mat-card>

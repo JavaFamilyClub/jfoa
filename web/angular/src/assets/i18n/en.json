@@ -1,11 +1,14 @@
 {
    "Support": "Support",
    "Home": "Home",
+   "ID": "ID",
    "Close": "Close",
    "ok": "ok",
    "OK": "OK",
    "Ok": "Ok",
+   "Help": "Help",
    "numberSymbol": "No.",
+   "Version": "Version",
    "Error": "Error",
    "Cancel": "Cancel",
    "CANCEL": "CANCEL",
@@ -17,9 +20,15 @@
    "User": "User",
    "Date": "Date",
    "Search": "Search",
+   "Delete": "Delete",
+   "Notify": "Notify",
+   "Platform": "Platform",
    "searchEmptyError": "Search key words is empty!",
    "Search Result": "Search Result",
    "Message": "Message",
+   "Upload": "Upload",
+   "File Name": "File Name",
+   "Reset": "Reset",
    "to": "to",
    "Notification": "Notification",
    "Api Document": "Api Document",
@@ -96,9 +105,15 @@
             "sendSuccess": "Email Send success!",
             "sendFailed": "Email Send failed, Please try again later!"
          }
+      },
+      "toolbar": {
+         "mailAuthor": "Mail Author"
       }
    },
    "em": {
+      "Monitor": "Monitor",
+      "Monitoring": "Monitoring",
+      "Setting": "Setting",
       "writeNotify": "Write Notification",
       "audit": {
          "Audit": "Audit",
@@ -107,6 +122,17 @@
          "showDetail": "Show Detail",
          "errorDetail": "Error Detail",
          "endBeforeStartError": "The end date must after start date."
+      },
+      "client": {
+         "ph": {
+            "version": "Please input client version",
+            "browser": "Click browser icon to choose file",
+            "name": "Installer Name"
+         },
+         "manager": "Installer Manager",
+         "Clients": "Clients",
+         "clientUpload": "Client Upload",
+         "clientVersion": "Client Version"
       }
    },
    "security": {
