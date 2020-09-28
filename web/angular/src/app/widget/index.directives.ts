@@ -26,7 +26,6 @@ import { ContextmenuDropdownAnchorDirective } from "./fixed-dropdown/contextmenu
 import { DefaultFocusDirective } from "./directive/default-focus.directive";
 import { EnterClickDirective } from "./directive/enter-click.directive";
 import { EnterSubmitDirective } from "./directive/enter-submit.directive";
-import { ExpandStringDirective } from "./expand-string/expand-string.directive";
 import { FixedDropdownDirective } from "./directive/fixed-dropdown.directive";
 import { InputTrimDirective } from "./directive/input-trim.directive";
 import { OutOfZoneDirective } from "./directive/out-of-zone.directive";
@@ -45,7 +44,6 @@ export const MODULE_DIRECTIVES: Type<any>[] = [
    DefaultFocusDirective,
    EnterClickDirective,
    EnterSubmitDirective,
-   ExpandStringDirective,
    FixedDropdownDirective,
    HelpLinkDirective,
    InputTrimDirective,
