@@ -48,7 +48,6 @@ describe("EmTitleBarComponent", () => {
          use: jest.fn(() => of({}))
       };
 
-
       TestBed.configureTestingModule({
          imports: [
             BrowserModule,
