@@ -8,7 +8,7 @@
 
    <rule>
       <from>^/app/(?!.*\.+.+).*$</from>
-      <to type="redirect">/app/index.html</to>
+      <to type="passthrough">/app/index.html</to>
    </rule>
 
 </urlrewrite>
