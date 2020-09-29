@@ -12,18 +12,18 @@
  * person.
  */
 
-import { NgModule } from "@angular/core";
-import { TestBed, async } from "@angular/core/testing";
+import { TestBed, waitForAsync } from "@angular/core/testing";
 import { MatButtonModule } from "@angular/material/button";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
+import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { of } from "rxjs";
+import { of, Subject } from "rxjs";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
 import { EmTab, EmTitleBarService } from "../service/em-title-bar.service";
@@ -31,12 +31,13 @@ import { EmTitleBarComponent } from "./em-title-bar.component";
 
 describe("EmTitleBarComponent", () => {
 
+   let router: any;
    let modelService: any;
    let emTitleBarService: any;
    let principalService: any;
    let translate: any;
 
-   beforeEach(async(() => {
+   beforeEach(waitForAsync(() => {
       principalService = { refresh: jest.fn() };
       modelService = { getModel: jest.fn(() => of(null)) };
       emTitleBarService = { changeTab: jest.fn() };
@@ -45,7 +46,16 @@ describe("EmTitleBarComponent", () => {
       translate = {
          get: jest.fn(() => of({})),
          getBrowserLang: jest.fn(() => of("en")),
+         onLangChange: new Subject(),
+         onTranslationChange: new Subject(),
+         onDefaultLangChange: new Subject(),
+         getTranslation: jest.fn(),
+         instant: jest.fn(() => ""),
          use: jest.fn(() => of({}))
+      };
+
+      router = {
+         navigateByUrl: jest.fn()
       };
 
       TestBed.configureTestingModule({
@@ -79,12 +89,16 @@ describe("EmTitleBarComponent", () => {
             {
                provide: TranslateService,
                useValue: translate
+            },
+            {
+               provide: Router,
+               useValue: router
             }
          ]
       }).compileComponents();
    }));
 
-   it("should create the app", async(() => {
+   it("should create the app", waitForAsync(() => {
       const fixture = TestBed.createComponent(EmTitleBarComponent);
       const app = fixture.debugElement.componentInstance;
       expect(app).toBeTruthy();
