@@ -10,24 +10,27 @@
 
   <div class="btn-group" role="group" aria-label="EM Title Bar Left Buttons">
     <a [href]="isInstaller ? 'index.html' : '..'">
-      <button type="button" class="btn btn-default tile-bar-icon-size title-bar-btn bg-primary">
+      <button type="button" class="btn btn-default tile-bar-icon-size title-bar-btn bg-primary"
+        title="{{'Home' | translate}}">
         <i class="icon-home"></i>
-        <span class="sr-only" translate>Home</span>
+        <span class="sr-only">{{'Home' | translate}}</span>
       </button>
     </a>
 
     <button type="button" class="lmargin-15 btn btn-default tile-bar-icon-size title-bar-btn"
             (click)="changeTab(MONITOR_PAGE)"
+            title="{{'em.Monitor' | translate}}"
             [class.btn-icon-selected]="currentTab == MONITOR_PAGE">
       <i class="icon-monitor"></i>
-      <span class="sr-only" translate>em.Monitor</span>
+      <span class="sr-only">{{'em.Monitor' | translate}}</span>
     </button>
 
     <button type="button" class="btn btn-default tile-bar-icon-size title-bar-btn"
             (click)="changeTab(SETTING_PAGE)"
+            title="{{'em.Setting' | translate}}"
             [class.btn-icon-selected]="currentTab == SETTING_PAGE">
       <i class="icon-setting"></i>
-      <span class="sr-only" translate>em.Setting</span>
+      <span class="sr-only">{{'em.Setting' | translate}}</span>
     </button>
   </div>
 
