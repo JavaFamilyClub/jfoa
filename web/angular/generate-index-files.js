@@ -10,7 +10,7 @@ const yaml = require("js-yaml");
    const generateIndexFile = function(directory, configFile, baseName, typeName) {
       const outFilePath = path.join(directory, baseName + "." + typeName + ".ts");
       let outFileContent = `/*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
  * proprietary to JavaFamily Technology Corp. This software is furnished

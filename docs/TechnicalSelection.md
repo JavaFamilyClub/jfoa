@@ -2,6 +2,8 @@
 
 ## 1 `Server`
 - SpringBoot 2+
+- Lucene
+- POI
 - Java Mail
 - AMQP(Rabbit MQ)
 - MySql, H2
@@ -11,7 +13,9 @@
 - Shiro
 - Hibernate
 - WebSocket
-- Lucene
+- Thymeleaf
+- Junit5
+- Urlrewritefilter(Under consideration)
 
 ## 2 `Web`
 - Angular 10+
@@ -21,6 +25,7 @@
 - Angular-Material
 - SockJS, StompJS(for WebSocket)
 - Froala Editor
+- Ngx-translate
 
 ## 3 `Tools`
 - Gradle

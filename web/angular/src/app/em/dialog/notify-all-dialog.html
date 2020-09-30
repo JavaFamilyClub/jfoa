@@ -7,7 +7,7 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions align="end">
-  <button mat-button (click)="close()" translate>Cancel</button>
+  <button mat-button (click)="close()">{{'Cancel' | translate}}</button>
   <button mat-button (click)="send()"
-          [disabled]="notificationCtrl.invalid" translate>Ok</button>
+          [disabled]="notificationCtrl.invalid" translate>{{'Ok' | translate}}</button>
 </div>

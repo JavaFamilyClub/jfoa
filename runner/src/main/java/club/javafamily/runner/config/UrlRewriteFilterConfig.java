@@ -24,6 +24,9 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import java.io.IOException;
 
+/**
+ * TODO This filter should be managed by Shiro or config to execute after shiro filter.
+ */
 @Configuration
 public class UrlRewriteFilterConfig extends UrlRewriteFilter {
 

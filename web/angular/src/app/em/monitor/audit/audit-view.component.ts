@@ -79,8 +79,10 @@ export class AuditViewComponent implements OnInit {
   }
 
   showMessage(msg: string): void {
+    // TODO translate buttonOptions
     ComponentTool.showMessageDialog(this.modalService,
-       this.translate.instant("em.audit.errorDetail"), msg).then(() => {});
+       this.translate.instant("em.audit.errorDetail"), msg,
+       {"ok": this.translate.instant("OK")}).then(() => {});
   }
 
   filterChanged(event: any, end = false): void {

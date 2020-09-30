@@ -2,6 +2,8 @@
 
 ## 1 `Server`
 - SpringBoot 2+(后台基础框架)
+- Lucene(站内搜索)
+- POI(Excel 导出)
 - Java Mail(邮件服务)
 - AMQP(Rabbit MQ)(异步, 解耦与削峰)
 - MySql(生产环境数据库), H2(开发与测试环境数据库)
@@ -11,7 +13,9 @@
 - Shiro(认证与授权)
 - Hibernate(Dao)
 - WebSocket(服务端推送)
-- Lucene(站内搜索)
+- Thymeleaf(服务端页面以及邮件模板)
+- Junit5(Junit 测试框架)
+- Urlrewritefilter(URL重写过滤器, 正在考量)
 
 ## 2 `Web`
 - Angular 10+(前端基础框架)
@@ -21,6 +25,7 @@
 - Angular-Material(基础样式库)
 - SockJS, StompJS(WebSocket 支持)
 - Froala Editor(富文本编辑器)
+- Ngx-translate(国际化)
 
 ## 3 `Tools`
 - Gradle(项目构建工具)

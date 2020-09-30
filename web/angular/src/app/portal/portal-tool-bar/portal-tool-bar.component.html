@@ -73,9 +73,13 @@
           <button *ngIf="principal.authenticated" mat-menu-item
             (click)="openChangePasswordDialog()"
             >{{'user.pwd.change' | translate}}</button>
+
           <mat-divider></mat-divider>
+
           <a *ngIf="principal?.authenticated" mat-menu-item routerLink="/em"
             >{{'security.link.em' | translate}}</a>
+
+          <mat-divider></mat-divider>
 
           <ng-container *ngIf="!isInstaller">
             <a *ngIf="!principal.authenticated" mat-menu-item
