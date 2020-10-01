@@ -14,36 +14,32 @@
 
 package club.javafamily.runner.config;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-import org.tuckey.web.filters.urlrewrite.Conf;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.*;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import java.io.IOException;
-
-/**
- * TODO This filter should be managed by Shiro or config to execute after shiro filter.
- */
 @Configuration
-public class UrlRewriteFilterConfig extends UrlRewriteFilter {
+public class UrlRewriteFilterConfig {
 
-   private static final String URL_REWRITE = "classpath:/urlrewrite.xml";
+   public static final String URL_REWRITE = "classpath:urlrewrite.xml";
 
-   //Inject the Resource from the given location
-   @Value(URL_REWRITE)
-   private Resource resource;
+   /**
+    * reset filter order, must execute after shiro filter.
+    * @see ShiroConfig reset filter order
+    */
+   @Bean()
+   @Order(2)
+   public FilterRegistrationBean<UrlRewriteFilter> urlRewriteFilter() {
+      MainUrlRewriteFilter mainUrlRewriteFilter = new MainUrlRewriteFilter();
 
-   //Override the loadUrlRewriter method, and write your own implementation
-   protected void loadUrlRewriter(FilterConfig filterConfig) throws ServletException {
-      try {
-         //Create a UrlRewrite Conf object with the injected resource
-         Conf conf = new Conf(filterConfig.getServletContext(), resource.getInputStream(), resource.getFilename(), "@@traceability@@");
-         checkConf(conf);
-      } catch (IOException ex) {
-         throw new ServletException("Unable to load URL rewrite configuration file from " + URL_REWRITE, ex);
-      }
+      FilterRegistrationBean<UrlRewriteFilter> filterRegistration
+         = new FilterRegistrationBean<>(mainUrlRewriteFilter);
+
+      filterRegistration.setOrder(Ordered.LOWEST_PRECEDENCE);
+
+      return filterRegistration;
    }
+
 }

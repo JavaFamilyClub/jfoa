@@ -35,12 +35,22 @@ import java.util.Map;
 import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
 import static club.javafamily.runner.util.SecurityUtil.CLIENT_API_VERSION;
 
+/**
+ * Shiro filter should execute before urlRewriteFilter.
+ * implement by {{@link #shiroFilter}} using {{@link OrderedShiroFilterFactoryBean}}.
+ *
+ * Filter Order:
+ *    ShiroFilter: 1
+ *    urlRewriteFilter: 2
+ *
+ * {{@link UrlRewriteFilterConfig#urlRewriteFilter()}}
+ */
 @Configuration
 public class ShiroConfig {
 
    @Bean("lifecycleBeanPostProcessor")
    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-      return new LifecycleBeanPostProcessor();
+      return new LifecycleBeanPostProcessor(0);
    }
 
    @Bean
@@ -76,7 +86,7 @@ public class ShiroConfig {
    @Bean
    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
       ShiroFilterFactoryBean shiroFilterFactoryBean
-         = new ShiroFilterFactoryBean();
+         = new OrderedShiroFilterFactoryBean();
       shiroFilterFactoryBean.setSecurityManager(securityManager);
 
       // 设置默认登录的 URL，身份认证失败会访问该 URL
