@@ -37,5 +37,5 @@ export class CustomerUrlConstants {
    /**
     * ping
     */
-   public static readonly PING = "/public/ping"
+   public static readonly PING = "/public/ping";
 }
