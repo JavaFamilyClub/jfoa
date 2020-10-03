@@ -14,7 +14,9 @@
 
 package club.javafamily.runner.config;
 
-import org.springframework.util.ResourceUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
 import org.tuckey.web.filters.urlrewrite.Conf;
 import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 
@@ -29,20 +31,27 @@ import java.io.*;
  */
 public class MainUrlRewriteFilter extends UrlRewriteFilter {
 
+   private Resource resource;
+
+   public MainUrlRewriteFilter(Resource resource) {
+      this.resource = resource;
+   }
+
    // Override the loadUrlRewriter method, and write your own implementation
    protected void loadUrlRewriter(FilterConfig filterConfig) throws ServletException {
 
       try {
-         File config = ResourceUtils.getFile(UrlRewriteFilterConfig.URL_REWRITE);
+         LOGGER.info("UrlRewrite config file location is: {}", resource.getURI());
 
          //Create a UrlRewrite Conf object with the injected resource
-         Conf conf = new Conf(filterConfig.getServletContext(), new FileInputStream(config),
-            config.getName(), "@@JavaFamily@@");
+         Conf conf = new Conf(filterConfig.getServletContext(), resource.getInputStream(),
+            resource.getFilename(), "@@JavaFamily@@");
          checkConf(conf);
       } catch (IOException ex) {
          throw new ServletException("Unable to load URL rewrite configuration file from "
-            + UrlRewriteFilterConfig.URL_REWRITE, ex);
+            + resource, ex);
       }
    }
 
+   private static final Logger LOGGER = LoggerFactory.getLogger(MainUrlRewriteFilter.class);
 }

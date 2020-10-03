@@ -14,16 +14,20 @@
 
 package club.javafamily.runner.config;
 
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.*;
-import org.springframework.core.Ordered;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.Resource;
 import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 
 @Configuration
 public class UrlRewriteFilterConfig {
 
-   public static final String URL_REWRITE = "classpath:urlrewrite.xml";
+   private static final String URL_REWRITE = "classpath:/urlrewrite.xml";
+
+   @Value(URL_REWRITE)
+   private Resource resource;
 
    /**
     * reset filter order, must execute after shiro filter.
@@ -31,15 +35,8 @@ public class UrlRewriteFilterConfig {
     */
    @Bean()
    @Order(2)
-   public FilterRegistrationBean<UrlRewriteFilter> urlRewriteFilter() {
-      MainUrlRewriteFilter mainUrlRewriteFilter = new MainUrlRewriteFilter();
-
-      FilterRegistrationBean<UrlRewriteFilter> filterRegistration
-         = new FilterRegistrationBean<>(mainUrlRewriteFilter);
-
-      filterRegistration.setOrder(Ordered.LOWEST_PRECEDENCE);
-
-      return filterRegistration;
+   public UrlRewriteFilter urlRewriteFilter() {
+      return new MainUrlRewriteFilter(resource);
    }
 
 }
