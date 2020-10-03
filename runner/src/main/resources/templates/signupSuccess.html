@@ -10,11 +10,12 @@
 </head>
 
 <body>
-  <h1>Registration Success!
+  <h1 th:text="#{user.prompt.signUpSuccessTitle}">Registration Success!</h1>
+  <h2 th:text="#{user.prompt.signUpSuccessInfo}">
     You will receive an email containing your account information,
     please click the activation link in the email within ten minutes
     to activate your account.
-  </h1>
+  </h2>
 
   <h3>Go to <a th:href="${loginLink}">login page</a>.</h3>
 </body>

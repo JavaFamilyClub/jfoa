@@ -33,6 +33,8 @@ spring:
       host: javafamily.club
       port: 6379
       database: 0
+   messages:
+      basename: i18n.messages
 
 ds:
    # Hibernate config

@@ -20,11 +20,15 @@ import java.text.MessageFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * i18n support.
+ * default lang is <tt>en-us</tt>
+ */
 public final class I18nUtil {
-
    private static final Map<String, ResourceBundle> bundles = new ConcurrentHashMap<>();
 
-   private static Locale locale = Locale.getDefault();
+   public static final Locale DEFAULT_LOCALE = Locale.US;
+   private static Locale locale = DEFAULT_LOCALE;
 
    private I18nUtil() {
    }

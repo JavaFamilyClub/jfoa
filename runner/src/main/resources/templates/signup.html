@@ -14,17 +14,17 @@
 <div class="container-fluid login-root">
   <form action="#" th:action="@{/api/1.0/signup}" th:object="${customer}"  method="post">
     <div class="card">
-      <div class="card-header">
+      <div class="card-header" th:text="#{security.link.sign-up}">
         Sign Up
       </div>
       <div class="card-body">
 
         <div id="emialGroup" class="form-group">
-          <label class="required-field" for="email">Email</label>
+          <label class="required-field" for="email" th:text="#{portal.email.Email}">Email</label>
           <input type="text" class="form-control form-control-danger" id="email"
                  name="email" th:field="*{email}" autofocus
                  th:value="${result != null ? result.data : ''}"/>
-          <div id="emialError" class="form-control-feedback" style="display: none;">
+          <div id="emialError" class="form-control-feedback" style="display: none;" th:text="#{portal.email.placeholder.email}">
             Please enter your user email.
           </div>
         </div>
@@ -34,7 +34,9 @@
         </div>
       </div>
       <div class="card-footer">
-        <button type="submit" id="loginButton" class="btn btn-primary btn-block">
+        <button type="submit" id="loginButton"
+                class="btn btn-primary btn-block"
+                th:text="#{security.link.sign-up}">
           Sign Up
         </button>
       </div>

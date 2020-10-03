@@ -15,33 +15,33 @@
     <form action="/api/1.0/login" method="post">
       <div class="card">
         <div class="card-header">
-          Sign In
+          [[#{security.link.sign-in}]]
         </div>
         <div class="card-body">
 
           <div id="userNameGroup" class="form-group">
-            <label class="required-field" for="userName">Account</label>
+            <label class="required-field" for="userName">[[#{Account}]]</label>
             <input type="text" class="form-control form-control-danger" id="userName"
-                   name="userName" autofocus
+                   name="userName" autofocus required
                    th:value="${result != null ? result.data : ''}"/>
             <div id="userNameError" class="form-control-feedback" style="display: none;">
-              Please enter your user name.
+              [[#{user.profile.ph.account}]]
             </div>
           </div>
           <div id="passwordGroup" class="form-group">
-            <label class="required-field" for="password">Password</label>
-            <input type="password" class="form-control form-control-danger" id="password" name="password" />
+            <label class="required-field" for="password">[[#{Password}]]</label>
+            <input type="password" class="form-control form-control-danger" id="password" name="password" required/>
             <div id="passwordError" class="form-control-feedback" style="display: none;">
-              Please enter your password.
+              [[#{user.pwd.placeholder.pwd}]]
             </div>
           </div>
           <div id="rememberMeGroup" class="form-group">
             <input type="checkbox" id="rememberMe" name="rememberMe" />
-            <span class="required-field" for="rememberMe">Remember Me</span>
+            <span class="required-field" for="rememberMe">[[#{user.prompt.remMe}]]</span>
 
-            <span class="create-account-span">New to JavaFamily?&nbsp;&nbsp;
+            <span class="create-account-span">[[#{user.prompt.joinUs}]]&nbsp;&nbsp;
               <a href="/signup"
-                 th:href="@{/signup}">Create an account.</a></span>
+                 th:href="@{/signup}">[[#{user.prompt.createAccount}]]</a></span>
           </div>
 
           <div th:if="${result ne null}" class="alert-error-message">
@@ -50,7 +50,7 @@
         </div>
         <div class="card-footer">
           <button type="submit" id="loginButton" class="btn btn-primary btn-block">
-            Sign In
+            [[#{security.link.sign-in}]]
           </button>
         </div>
       </div>

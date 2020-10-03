@@ -105,11 +105,9 @@ export class ModelService {
         }
 
         let errMsg = (!!error && !!error.message) ? error.message :
-            res.status == 403 ? "_#(js:server.error.connectionForbidden)" :
-                error && !(error === "" || error instanceof ProgressEvent) ? error :
-                    res.status ? `${res.status} - ${res.statusText}` : "_#(js:server.error.connectionLost)";
+            !!res.status ? `${res.status} - ${res.statusText}` : "Server Error";
 
-        if(!error || !this.errorHandler || !this.errorHandler(error)) {
+        if(!!errMsg && (!error || !this.errorHandler || !this.errorHandler(error))) {
             ComponentTool.showMessageDialog(this.modalService, "Error", errMsg).then(() => {});
         }
 

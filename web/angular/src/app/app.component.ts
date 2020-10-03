@@ -12,13 +12,17 @@
  * person.
  */
 
+import { HttpParams } from "@angular/common/http";
 import { Component, NgZone, OnDestroy, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
+import { LangChangeEvent } from "@ngx-translate/core/lib/translate.service";
 import { NotifyAllClientService } from "./common/client/notify-all-client.service";
+import { CustomerUrlConstants } from "./common/constants/url/customer-url-constants";
 import { ComponentTool } from "./common/util/component-tool";
 import { LocalStorage } from "./common/util/local-storage.util";
 import { BaseSubscription } from "./widget/base/BaseSubscription";
+import { ModelService } from "./widget/services/model.service";
 
 @Component({
   selector: "app-root",
@@ -30,15 +34,25 @@ export class AppComponent extends BaseSubscription implements OnInit, OnDestroy 
 
    constructor(private zone: NgZone,
                private modalService: NgbModal,
+               private modelService: ModelService,
                private translateService: TranslateService,
                private notifyService: NotifyAllClientService)
    {
       super();
 
+      this.subscriptions.add(this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+         const params = new HttpParams()
+            .set("jfLang", event.lang);
+         this.modelService.getModel(CustomerUrlConstants.PING, params).subscribe();
+      }));
+
       const lang = this.translateService.getBrowserLang();
       const userLang = LocalStorage.getItem(LocalStorage.USER_DEFINE_LANG);
 
-      if(!!lang && !!!userLang) {
+      if(!!userLang) {
+         this.translateService.use(userLang);
+      }
+      else if(!!lang && lang != this.translateService.getDefaultLang()) {
          this.translateService.use(lang);
       }
 

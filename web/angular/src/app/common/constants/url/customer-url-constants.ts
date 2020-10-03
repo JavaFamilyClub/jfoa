@@ -33,4 +33,9 @@ export class CustomerUrlConstants {
     * Principal.
     */
    public static readonly PRINCIPAL_URI = "/public/principal";
+
+   /**
+    * ping
+    */
+   public static readonly PING = "/public/ping"
 }

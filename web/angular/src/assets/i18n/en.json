@@ -30,6 +30,7 @@
    "File Name": "File Name",
    "Reset": "Reset",
    "to": "to",
+   "Password": "Password",
    "Notification": "Notification",
    "Api Document": "Api Document",
    "user": {
@@ -41,7 +42,8 @@
          "setting": "Profile Settings",
          "name": "User Name",
          "ph": {
-            "name": "Please input a valid username."
+            "name": "Please enter your user name",
+            "account": "Please enter your account"
          },
          "warn": {
             "nameRequired": "Name is required.",
@@ -68,6 +70,7 @@
             "oldError": "The old password is error."
          },
          "placeholder": {
+            "pwd": "Please enter your password",
             "oldPwd": "Input your old password",
             "newPwd": "Input your new password",
             "confirmPwd": "Input your confirm password"

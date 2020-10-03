@@ -30,6 +30,7 @@
    "File Name": "文件名",
    "Reset": "重置",
    "to": "到",
+   "Password": "密码",
    "Notification": "通告",
    "Api Document": "接口文档",
    "user": {
@@ -41,7 +42,8 @@
          "setting": "个人资料设置",
          "name": "用户名",
          "ph": {
-            "name": "请输入一个合法的用户名."
+            "name": "请输入您的用户名",
+            "account": "请输入您的账户"
          },
          "warn": {
             "nameRequired": "用户名是必填项.",
@@ -68,6 +70,7 @@
             "oldError": "旧密码不正确."
          },
          "placeholder": {
+            "pwd": "请输入您的密码",
             "oldPwd": "请输入您的旧密码",
             "newPwd": "请输入您的新密码",
             "confirmPwd": "请再次输入您的新密码"

@@ -44,6 +44,11 @@ public class UserController {
       return principal;
    }
 
+   @GetMapping("/public/ping")
+   public String ping() {
+      return "{\"result\":\"pong\"}";
+   }
+
    @Autowired
    public UserController(CustomerService customerService) {
       this.customerService = customerService;
