@@ -125,7 +125,6 @@ public class SecurityController {
     RegisterUserInfo info = redisClient.get(key);
     boolean verify = false;
 
-    LOGGER.debug("Getting registered user info is: {}", info);
     StringBuilder redirectLink = SecurityUtil.getBaseUrl(request);
 
     if(info != null) {
@@ -136,7 +135,6 @@ public class SecurityController {
         user.setActive(true);
         customerService.insertCustomer(user);
         redisClient.delete(key);
-        LOGGER.debug("Registered user: {}", user);
         verify = true;
         redirectLink.append("/login");
       }
