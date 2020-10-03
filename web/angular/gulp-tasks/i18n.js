@@ -2,8 +2,6 @@ const gulp = require("gulp");
 const through2 = require("through2");
 const File = require("vinyl");
 const filter = require("gulp-filter");
-const utf8Convert = require("gulp-utf8-convert");
-const rename = require("gulp-rename");
 
 const CharSet_UTF_8 = "utf-8";
 
@@ -42,9 +40,8 @@ const generateI18ns = function() {
       });
    }
 
-   function encode(str) {
-      str = toUnicode(str.replace(/\n/g, "\\n"));
-      return str;
+   function encodeValue(str) {
+      return toUnicode(str.replace(/\n/g, "\\n"));
    }
 
    function encodeKey(str) {
@@ -62,7 +59,7 @@ const generateI18ns = function() {
       content = "";
 
       i18nMap.forEach((v, k) => {
-         content += (encodeKey(k) + "=" + encode(v) + "\n");
+         content += (encodeKey(k) + "=" + encodeValue(v) + "\n");
       });
 
       // file.contents = Buffer.from(content, "ascii");
@@ -76,12 +73,12 @@ const generateI18ns = function() {
 
       if(!!content) {
          this.push(new File({
-            path: "messages.txt",
+            path: "messages.properties",
             contents: Buffer.from(content, CharSet_UTF_8)
          }));
 
          this.push(new File({
-            path: "messages_en_US.txt",
+            path: "messages_en_US.properties",
             contents: Buffer.from(content, CharSet_UTF_8)
          }));
       }
@@ -90,7 +87,7 @@ const generateI18ns = function() {
 
       if(!!content) {
          this.push(new File({
-            path: "messages_zh_CN.txt",
+            path: "messages_zh_CN.properties",
             contents: Buffer.from(content, CharSet_UTF_8)
          }));
       }
@@ -102,19 +99,11 @@ const generateI18ns = function() {
 };
 
 gulp.task("i18n", function() {
-   const fileFilter = filter('**/*.txt', {restore: true});
+   const fileFilter = filter('**/*.properties', {restore: true});
 
    return gulp.src("src/assets/i18n/*.json")
       .pipe(generateI18ns())
-      .pipe(utf8Convert())
       .pipe(fileFilter)
-      .pipe(rename(function(path) {
-         return {
-            dirname: path.dirname,
-            basename: path.basename,
-            extname: ".properties"
-         };
-      }))
       .pipe(gulp.dest("../../runner/build/resources/main/i18n"));
 });
 

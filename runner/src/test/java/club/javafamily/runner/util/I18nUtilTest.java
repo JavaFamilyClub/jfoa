@@ -14,13 +14,17 @@
 
 package club.javafamily.runner.util;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+
+import java.util.Locale;
 
 public class I18nUtilTest {
 
    @Test
    public void testGet() {
-      String home = I18nUtil.getString("Home");
-      System.out.println(home);
+      String home = I18nUtil.getString("Home", Locale.SIMPLIFIED_CHINESE);
+
+      Assert.assertEquals("I18n Encoding error.", "主页", home);
    }
 }
