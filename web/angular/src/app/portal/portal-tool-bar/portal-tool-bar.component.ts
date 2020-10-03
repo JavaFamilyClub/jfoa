@@ -13,9 +13,13 @@
  */
 
 import { Component } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateService } from "@ngx-translate/core";
+import { JfoaEnvConstants } from "../../common/constants/jfoa-env-constants";
 import { ComponentTool } from "../../common/util/component-tool";
 import { GuiTool } from "../../common/util/gui-tool";
+import { LocalStorage } from "../../common/util/local-storage.util";
 import { Tool } from "../../common/util/tool";
 import { JfPrincipal } from "../../widget/model/jf-principal";
 import { ModelService } from "../../widget/services/model.service";
@@ -34,13 +38,39 @@ const USER_PROFILE_UTI = "/user/profile";
 export class PortalToolBarComponent {
 
    constructor(private modalService: NgbModal,
+               private router: Router,
                private modelService: ModelService,
+               private translate: TranslateService,
                private principalService: PrincipalService)
    {
    }
 
    get principal(): JfPrincipal {
       return this.principalService.principal;
+   }
+
+   get lang(): string {
+      const lang = this.translate.getBrowserLang();
+      const userLang = LocalStorage.getItem(LocalStorage.USER_DEFINE_LANG);
+
+      return userLang || lang || this.translate.getDefaultLang();
+   }
+
+   get isEN(): boolean {
+      return this.lang === JfoaEnvConstants.LANG_EN;
+   }
+
+   get isZH(): boolean {
+      return this.lang === JfoaEnvConstants.LANG_ZH;
+   }
+
+   changeLanguage(): void {
+      let lang = this.isEN ? JfoaEnvConstants.LANG_ZH
+         : JfoaEnvConstants.LANG_EN;
+
+      this.principalService.changeLocale(lang).then(() => {
+         location.reload();
+      });
    }
 
    help(): void {

@@ -14,7 +14,9 @@
 
 import { HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { JfoaEnvConstants } from "../../common/constants/jfoa-env-constants";
 import { CustomerUrlConstants } from "../../common/constants/url/customer-url-constants";
+import { LocalStorage } from "../../common/util/local-storage.util";
 import { JfPrincipal } from "../model/jf-principal";
 import { ClientModelService } from "./client-model.service";
 import { ModelService } from "./model.service";
@@ -28,7 +30,7 @@ export class PrincipalService {
    constructor(private modelService: ModelService,
                private clientService: ClientModelService)
    {
-      this.refresh();
+      this.refresh().then();
    }
 
    refresh(): Promise<void> {
@@ -59,9 +61,18 @@ export class PrincipalService {
       return promise;
    }
 
-   changeLocale(lang: string): void {
+   changeLocale(lang: string): Promise<void> {
+      const jfLang = lang === JfoaEnvConstants.LANG_EN ? "en_US" : "zh_CN";
+
       const params = new HttpParams()
-         .set("jfLang", lang);
-      this.modelService.getModel(CustomerUrlConstants.PING, params).subscribe();
+         .set("jfLang", jfLang);
+
+      let promise = this.modelService.getModel<void>(CustomerUrlConstants.PING, params).toPromise();
+
+      promise = promise.then(() => {
+         LocalStorage.setItem(LocalStorage.USER_DEFINE_LANG, lang);
+      });
+
+      return promise;
    }
 }

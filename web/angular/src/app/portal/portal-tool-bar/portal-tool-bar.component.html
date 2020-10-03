@@ -37,8 +37,9 @@
       <button mat-button mat-icon-button aria-label="Language"
               [title]="'Language' | translate"
               class="tile-bar-icon-size"
-              (click)="help()">
-        <mat-icon class="icon-en2zh"></mat-icon>
+              (click)="changeLanguage()">
+        <mat-icon [class.icon-en2zh]="isZH"
+          [class.icon-zh2en]="isEN"></mat-icon>
       </button>
 
       <button mat-button mat-icon-button aria-label="Help"

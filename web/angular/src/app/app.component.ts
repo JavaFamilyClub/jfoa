@@ -42,7 +42,7 @@ export class AppComponent extends BaseSubscription implements OnInit, OnDestroy 
       super();
 
       this.subscriptions.add(this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-         this.principalService.changeLocale(event.lang);
+         this.principalService.changeLocale(event.lang).then();
       }));
 
       const lang = this.translateService.getBrowserLang();

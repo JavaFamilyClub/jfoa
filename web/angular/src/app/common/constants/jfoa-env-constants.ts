@@ -12,30 +12,17 @@
  * person.
  */
 
-export class CustomerUrlConstants {
+export class JfoaEnvConstants {
 
    /**
-    * Check Change Password Valid Url.
+    * en
     */
-   public static readonly PASSWORD_VERIFY = "/customer/password/verify";
+   public static readonly LANG_EN = "en";
 
    /**
-    * Change Password Url.
+    * zh
     */
-   public static readonly PASSWORD_CHANGE = "/customer/password";
+   public static readonly LANG_ZH = "zh";
 
-   /**
-    * Log out.
-    */
-   public static readonly LOGOUT_URL = "/logout";
 
-   /**
-    * Principal.
-    */
-   public static readonly PRINCIPAL_URI = "/public/principal";
-
-   /**
-    * Ping
-    */
-   public static readonly PING = "/public/ping";
 }
