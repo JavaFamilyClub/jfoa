@@ -12,6 +12,7 @@
  * person.
  */
 
+import { HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CustomerUrlConstants } from "../../common/constants/url/customer-url-constants";
 import { JfPrincipal } from "../model/jf-principal";
@@ -56,5 +57,11 @@ export class PrincipalService {
       promise = promise.then(() => this.refresh());
 
       return promise;
+   }
+
+   changeLocale(lang: string): void {
+      const params = new HttpParams()
+         .set("jfLang", lang);
+      this.modelService.getModel(CustomerUrlConstants.PING, params).subscribe();
    }
 }

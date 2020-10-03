@@ -4,21 +4,24 @@ $icon-account: "\e900";
 $icon-alarm: "\e901";
 $icon-clear_circle: "\e902";
 $icon-edit: "\e903";
-$icon-export_import: "\e904";
-$icon-export: "\e905";
-$icon-help: "\e906";
-$icon-home: "\e907";
-$icon-logout: "\e908";
-$icon-mail-send: "\e909";
-$icon-mail-write: "\e90b";
-$icon-menu-off: "\e90c";
-$icon-menu-on: "\e90d";
-$icon-monitor: "\e90e";
-$icon-notify: "\e90f";
-$icon-refresh: "\e910";
-$icon-search: "\e911";
-$icon-setting: "\e912";
-$icon-volume_up: "\e913";
+$icon-en2zh: "\e904";
+$icon-export_import: "\e905";
+$icon-export: "\e906";
+$icon-file-select: "\e907";
+$icon-help: "\e908";
+$icon-home: "\e909";
+$icon-logout: "\e90b";
+$icon-mail-send: "\e90c";
+$icon-mail-write: "\e90e";
+$icon-menu-off: "\e90f";
+$icon-menu-on: "\e910";
+$icon-monitor: "\e911";
+$icon-notify: "\e912";
+$icon-refresh: "\e913";
+$icon-search: "\e914";
+$icon-setting: "\e915";
+$icon-volume_up: "\e916";
+$icon-zh2en: "\e917";
 
 $jfoa-base-map: (
    icon-account: $icon-account,
@@ -39,5 +42,7 @@ $jfoa-base-map: (
    icon-refresh: $icon-refresh,
    icon-search: $icon-search,
    icon-setting: $icon-setting,
-   icon-volume_up: $icon-volume_up
+   icon-volume_up: $icon-volume_up,
+   icon-en2zh: $icon-en2zh,
+   icon-zh2en: $icon-zh2en
 );

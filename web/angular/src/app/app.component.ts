@@ -23,6 +23,7 @@ import { ComponentTool } from "./common/util/component-tool";
 import { LocalStorage } from "./common/util/local-storage.util";
 import { BaseSubscription } from "./widget/base/BaseSubscription";
 import { ModelService } from "./widget/services/model.service";
+import { PrincipalService } from "./widget/services/principal-service";
 
 @Component({
   selector: "app-root",
@@ -34,16 +35,14 @@ export class AppComponent extends BaseSubscription implements OnInit, OnDestroy 
 
    constructor(private zone: NgZone,
                private modalService: NgbModal,
-               private modelService: ModelService,
+               private principalService: PrincipalService,
                private translateService: TranslateService,
                private notifyService: NotifyAllClientService)
    {
       super();
 
       this.subscriptions.add(this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-         const params = new HttpParams()
-            .set("jfLang", event.lang);
-         this.modelService.getModel(CustomerUrlConstants.PING, params).subscribe();
+         this.principalService.changeLocale(event.lang);
       }));
 
       const lang = this.translateService.getBrowserLang();

@@ -34,7 +34,14 @@
         <mat-icon class="jfoa" fontIcon="icon-mail-write"></mat-icon>
       </button>
 
-      <button mat-button mat-icon-button aria-label="Help" title="Help"
+      <button mat-button mat-icon-button aria-label="Language"
+              [title]="'Language' | translate"
+              class="tile-bar-icon-size"
+              (click)="help()">
+        <mat-icon class="icon-en2zh"></mat-icon>
+      </button>
+
+      <button mat-button mat-icon-button aria-label="Help"
               [title]="'Help' | translate"
               class="tile-bar-icon-size"
               (click)="help()">
