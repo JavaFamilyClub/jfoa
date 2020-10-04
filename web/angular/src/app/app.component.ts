@@ -12,17 +12,14 @@
  * person.
  */
 
-import { HttpParams } from "@angular/common/http";
 import { Component, NgZone, OnDestroy, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
 import { LangChangeEvent } from "@ngx-translate/core/lib/translate.service";
 import { NotifyAllClientService } from "./common/client/notify-all-client.service";
-import { CustomerUrlConstants } from "./common/constants/url/customer-url-constants";
 import { ComponentTool } from "./common/util/component-tool";
 import { LocalStorage } from "./common/util/local-storage.util";
 import { BaseSubscription } from "./widget/base/BaseSubscription";
-import { ModelService } from "./widget/services/model.service";
 import { PrincipalService } from "./widget/services/principal-service";
 
 @Component({
@@ -64,7 +61,9 @@ export class AppComponent extends BaseSubscription implements OnInit, OnDestroy 
 
          if(!!this.notification) {
             this.zone.runTask(() => {
-               ComponentTool.showMessageDialog(this.modalService, "Notification", this.notification)
+               ComponentTool.showMessageDialog(this.modalService,
+                  this.translateService.instant("Notification"),
+                  this.notification, {"ok": this.translateService.instant("OK")})
                   .then(() =>
                   {
                      this.notification = null;

@@ -7,6 +7,7 @@
    "OK": "OK",
    "Ok": "Ok",
    "Help": "Help",
+   "Language": "Language",
    "numberSymbol": "No.",
    "Version": "Version",
    "Error": "Error",
@@ -53,7 +54,7 @@
       "prompt": {
          "remMe": "Remember Me",
          "joinUs": "New to JavaFamily?",
-         "createAccount": "Create an account.",
+         "createAccount": "Create an account",
          "signUpSuccessTitle": "Registration Success",
          "signUpSuccessInfo": "You will receive an email containing your account information, please click the activation link in the email within ten minutes to activate your account.\n\n Go to login page?"
       },

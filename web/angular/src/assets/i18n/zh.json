@@ -7,6 +7,7 @@
    "OK": "确定",
    "Ok": "确定",
    "Help": "帮助",
+   "Language": "语言",
    "numberSymbol": "编号",
    "Version": "版本",
    "Error": "错误",
@@ -53,7 +54,7 @@
       "prompt": {
          "remMe": "记住我",
          "joinUs": "加入 JavaFamily?",
-         "createAccount": "创建一个账户.",
+         "createAccount": "创建一个账户",
          "signUpSuccessTitle": "注册成功",
          "signUpSuccessInfo": "您将收到一封包含您帐户信息的电子邮件，请在十分钟内点击电子邮件中的激活链接激活您的帐户.\n\n 前往登录页面?"
       },
