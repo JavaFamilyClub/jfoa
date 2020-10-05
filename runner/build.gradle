@@ -92,7 +92,7 @@ dependencies {
    implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
 
    // urlrewritefilter
-   implementation "org.tuckey:urlrewritefilter:4.0.4"
+   implementation "org.tuckey:urlrewritefilter:${urlRewriteFilterversion}"
 
    // webjars
    implementation "org.webjars:jquery:${jqueryVersion}"
