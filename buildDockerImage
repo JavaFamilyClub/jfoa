@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+./gradlew clean bootJar -Pbuildenv=prod
+
+docker build -f ./Dockerfile -t jfoa ./runner/build/libs/
