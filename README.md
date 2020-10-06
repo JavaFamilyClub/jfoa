@@ -2,6 +2,7 @@
 
 [![Build Status: https://travis-ci.org/JavaFamilyClub/jfoa.svg?branch=master](https://travis-ci.org/JavaFamilyClub/jfoa.svg?branch=master)](https://travis-ci.org/github/JavaFamilyClub/jfoa)
 [![Windows-latest Build](https://github.com/JavaFamilyClub/jfoa/workflows/Windows-latest%20Build/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3A%22Windows-latest+Build%22)
+[![DockerImage Build](https://github.com/JavaFamilyClub/jfoa/workflows/DockerImage%20Build/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3A%22DockerImage+Build%22)
 [![Join the chat at: https://gitter.im/javafamilychat/jfoa](https://badges.gitter.im/javafamilychat/jfoa.svg)](https://gitter.im/javafamilychat/jfoa?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ### 1. Build Project
