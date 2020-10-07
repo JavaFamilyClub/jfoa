@@ -10,7 +10,7 @@ MAINTAINER JavaFamily <javafamily.club@outlook.com>
 VOLUME /tmp
 
 # add jar to container and renaming to app.jar
-ADD runner/build/libs/javafamily-oa-*.jar app.jar
+ADD ./javafamily-oa-*.jar app.jar
 # env
 ENV JAVA_OPTS="-Xms800m -Xmx800m"
 # run command
