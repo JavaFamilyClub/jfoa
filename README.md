@@ -35,16 +35,36 @@ Or
 gradlew[.bat] web:watch -Pbuildenv=prod # watch product mode
 ```
 
-#### 2.3 Build Release Jar
+#### 2.3 Release
+##### 2.3.1 Build Release Jar
 
 ```shell script
 gradlew[.bat] cleanAll bootJar -Pbuildenv=prod
 ```
 
-#### 2.4 Run Release Jar
+##### 2.3.2 Run Release Jar
 
 ```shell script
 java -jar javafamily-oa-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+```
+
+#### 2.4 Docker
+##### 2.4.1 Build Docker Image
+
+```shell script
+./buildDockerImage
+```
+
+##### 2.4.2 Run Docker Container
+
+```shell script
+docker run -d -p80:80 -p443:443 --name jfoa jfoa:latest
+```
+
+##### 2.4.3 See the logs
+
+```shell script
+docker logs containerId
 ```
 
 #### Backers
