@@ -12,6 +12,6 @@ VOLUME /tmp
 # add jar to container and renaming to app.jar
 ADD ./javafamily-oa-*.jar app.jar
 # env
-ENV JAVA_OPTS="-Xms800m -Xmx800m"
+ENV JAVA_OPTS "-Xms800m -Xmx800m"
 # run command
-ENTRYPOINT ["nohup", "java", "$JAVA_OPTS", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar", "--spring.profiles.active=prod", "&"]
+ENTRYPOINT java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /app.jar --spring.profiles.active=prod

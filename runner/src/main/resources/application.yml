@@ -68,7 +68,7 @@ server:
 
 # SSL
    ssl:
-      key-store: runner/build/resources/main/config/ssl/javafamily.club.pfx
+      key-store: classpath:/config/ssl/javafamily.club.pfx
       key-store-password: jj5qDzz4
       key-store-type: PKCS12
 
