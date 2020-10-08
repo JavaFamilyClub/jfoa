@@ -15,7 +15,7 @@
 - WebSocket
 - Thymeleaf
 - Junit5
-- Urlrewritefilter(Under consideration)
+- Urlrewritefilter
 
 ## 2 `Web`
 - Angular 10+
@@ -34,4 +34,5 @@
 - swagger, swagger-ui
 - jasypt
 - Electron
+- Docker
 

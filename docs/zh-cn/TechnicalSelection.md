@@ -15,7 +15,7 @@
 - WebSocket(服务端推送)
 - Thymeleaf(服务端页面以及邮件模板)
 - Junit5(Junit 测试框架)
-- Urlrewritefilter(URL重写过滤器, 正在考量)
+- Urlrewritefilter(URL重写过滤器)
 
 ## 2 `Web`
 - Angular 10+(前端基础框架)
@@ -34,4 +34,5 @@
 - swagger, swagger-ui(API 工具)
 - jasypt(SpringBoot配置文件加密工具)
 - Electron(客户端打包工具)
+- Docker(容器化)
 
