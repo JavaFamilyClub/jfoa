@@ -58,7 +58,7 @@ java -jar javafamily-oa-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
 ##### 2.4.2 Run Docker Container
 
 ```shell script
-docker run -d -p80:80 -p443:443 --name jfoa jfoa:latest
+docker run -d -p80:80 -p443:443 --name jfoa javafamily/jfoa:latest
 ```
 
 ##### 2.4.3 See the logs

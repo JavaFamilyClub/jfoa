@@ -134,3 +134,17 @@
 .flex-justify-center {
   justify-content: center !important;
 }
+
+.jf-code-style {
+  text-align: left;
+  //background-color: #2b2b2b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & code {
+    //color: $jfoa-orange;
+    white-space: pre-line;
+    word-break: break-all;
+  }
+}

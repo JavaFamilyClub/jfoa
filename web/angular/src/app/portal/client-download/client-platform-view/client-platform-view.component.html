@@ -1,1 +1,20 @@
-<p>client-platform-view works!</p>
+<div class="platform-view-container">
+
+  <ng-container *ngIf="platform != Platform.Docker">
+    <button class="mx-1 f3 my-3 btn btn-large btn-jfoa-download"
+            (click)="download()">{{downloadLabel}}</button>
+  </ng-container>
+
+  <ng-container *ngIf="platform == Platform.Docker">
+
+    <div class="jf-code-style">
+      <code>
+        docker pull javafamily/jfoa
+
+        docker run -d -p80:80 -p443:443 --name jfoa javafamily/jfoa:latest
+      </code>
+    </div>
+
+  </ng-container>
+
+</div>

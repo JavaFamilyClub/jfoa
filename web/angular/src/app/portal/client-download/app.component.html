@@ -36,8 +36,8 @@
       {{'portal.installer.desc' | translate}}
     </p>
 
-    <button class="mx-1 f3 my-3 btn btn-large btn-jfoa-download"
-      (click)="download()">{{downloadLabel}}</button>
+    <c-client-platform-view [platform]="platform">
+    </c-client-platform-view>
 
     <div class="d-block width-fit mx-auto mb-6 client-download-screenshot">
       <img src="assets/img/demo-index.png" alt="Screenshot of jfoa index"

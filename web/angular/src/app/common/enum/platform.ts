@@ -15,5 +15,6 @@
 export enum Platform {
    Mac,
    Linux,
-   Win_x64
+   Win_x64,
+   Docker
 }
