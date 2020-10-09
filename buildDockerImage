@@ -2,4 +2,4 @@
 
 ./gradlew clean bootJar -Pbuildenv=prod
 
-docker build -f ./Dockerfile -t jfoa ./runner/build/libs/
+docker build -f ./Dockerfile -t javafamily/jfoa ./runner/build/libs/
