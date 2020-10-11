@@ -7,5 +7,6 @@
 - Customization
    - [Configuration](configuration.md)
    
-- Exceptions
+- FAQ
+   - [Localization](localization.md)
    - [UnexpectedRollbackException](transactionrolledback.md)
