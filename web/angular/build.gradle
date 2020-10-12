@@ -101,7 +101,7 @@ task watch(type: NpmTask, dependsOn: npmInstall) {
    args = ['run', 'build:watch']
 }
 
-task jar(type: Jar, dependsOn: compile) {
+task jar(type: Jar, dependsOn: compileProduction) {
    group 'build'
    description = 'Assembles the JAR file containing the compiled resources'
    archiveFileName = "jfoa-web-${project.version}.jar"
@@ -109,6 +109,19 @@ task jar(type: Jar, dependsOn: compile) {
 
    from('dist/prod') {
       include '**/*'
+   }
+}
+
+task zipInstaller() {
+   group 'build'
+   description = 'Assembles the installer'
+
+   file("${buildDir}/installer").eachDir { sub ->
+      dependsOn tasks.create("zip$sub.name", Zip) {
+         from sub
+         archiveFileName = sub.name + '.zip'
+         destinationDirectory = file("${buildDir}/libs")
+      }
    }
 }
 
@@ -120,6 +133,10 @@ publishing {
          afterEvaluate {
             artifact jar
          }
+      }
+
+      installer(MavenPublication) {
+
       }
    }
 
