@@ -120,15 +120,13 @@ task zipInstaller() {
       file("${buildDir}/installer").exists()
    }
 
-   doFirst {
-      file("${buildDir}/installer").mkdirs()
-   }
-
-   file("${buildDir}/installer").eachDir { sub ->
-      dependsOn tasks.create("zip$sub.name", Zip) {
-         from sub
-         archiveFileName = sub.name + '.zip'
-         destinationDirectory = file("${buildDir}/libs")
+   if(file("${buildDir}/installer").exists()) {
+      file("${buildDir}/installer").eachDir { sub ->
+         dependsOn tasks.create("zip$sub.name", Zip) {
+            from sub
+            archiveFileName = sub.name + '.zip'
+            destinationDirectory = file("${buildDir}/libs")
+         }
       }
    }
 }

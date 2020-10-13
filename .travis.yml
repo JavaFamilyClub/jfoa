@@ -23,7 +23,7 @@ install: skip
 # build
 script:
    - ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
-   - ./gradlew buildInstaller
+   - ./gradlew clean buildInstaller zipInstaller
 #   - ./gradlew jacocoTestReport
 #   - ./gradlew codeCoverageReport
 
