@@ -116,6 +116,14 @@ task zipInstaller() {
    group 'build'
    description = 'Assembles the installer'
 
+   onlyIf {
+      file("${buildDir}/installer").exists()
+   }
+
+   doFirst {
+      file("${buildDir}/installer").mkdirs()
+   }
+
    file("${buildDir}/installer").eachDir { sub ->
       dependsOn tasks.create("zip$sub.name", Zip) {
          from sub
@@ -133,10 +141,6 @@ publishing {
          afterEvaluate {
             artifact jar
          }
-      }
-
-      installer(MavenPublication) {
-
       }
    }
 
