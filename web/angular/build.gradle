@@ -125,7 +125,7 @@ task zipInstaller() {
          dependsOn tasks.create("zip$sub.name", Zip) {
             from sub
             archiveFileName = sub.name + '.zip'
-            destinationDirectory = file("${buildDir}/libs")
+            destinationDirectory = file("${buildDir}/installerArchives")
          }
       }
    }
@@ -133,11 +133,21 @@ task zipInstaller() {
 
 publishing {
    publications {
-      maven(MavenPublication) {
+      jfoaWeb(MavenPublication) {
          artifactId = 'jfoa-web'
 
          afterEvaluate {
             artifact jar
+         }
+      }
+
+      if(file("${buildDir}/installerArchives").exists()) {
+         file("${buildDir}/installerArchives").eachFile { sub ->
+            publishing.publications.create("-jfoa-installer-$sub.name", MavenPublication) {
+               artifact sub
+               groupId "${project.group}.installer"
+               artifactId sub.name
+            }
          }
       }
    }
