@@ -146,6 +146,16 @@ task zipInstaller() {
    }
 }
 
+def getFileName(name) {
+   def index = name.lastIndexOf(".")
+
+   if(index >= 0) {
+      return name.substring(0, index)
+   }
+
+   return name
+}
+
 publishing {
    publications {
       jfoaWeb(MavenPublication) {
@@ -161,7 +171,7 @@ publishing {
             publishing.publications.create("-jfoa-installer-$sub.name", MavenPublication) {
                artifact sub
                groupId "${project.group}.installer"
-               artifactId sub.name
+               artifactId getFileName(sub.name)
             }
          }
       }
