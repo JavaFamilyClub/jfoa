@@ -36,10 +36,16 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
+      run: ./gradlew cleanAll build clean -Pbuildenv=prod --no-daemon --console plain
 
-#    - name: Build Installer
-#      run: ./gradlew buildInstaller
+    - name: Build Installer
+      run: ./gradlew buildInstaller
+
+    - name: Zip Installer
+        run: ./gradlew zipInstaller
+
+    - name: Publish Installer
+      run: ./gradlew publish
 
     - name: Clean Env
       run: ./gradlew cleanAll

@@ -22,9 +22,13 @@
     "installer:compile:app:watch": "npm run installer:compile:app -- --watch",
     "installer:compile": "concurrently -r \"npm run build:resources\" \"npm run installer:compile:app\"",
     "installer:packagingOsx": "electron-packager ./build/client jfoa-client --platform=darwin --arch=x64 --icon=build/client/favicon.icns --app-version=0.0.1 --asar --overwrite --out=./build/installer",
+    "installer:packagingLinux": "electron-packager ./build/client jfoa-client --platform=linux --arch=x64 --app-version=0.0.1 --asar --overwrite --out=./build/installer",
+    "installer:packagingLikeLinux": "npm run installer:packagingOsx && npm run installer:packagingLinux",
     "installer:packagingWin64": "electron-packager ./build/client jfoa-client --platform=win32 --arch=x64 --app-version=0.0.1 --asar --overwrite --out=./build/installer",
     "installer:packaging": "electron-packager ./build/client jfoa-client --all --app-version=0.0.1 --asar --overwrite --out=./build/installer",
-    "build:installer": "npm run installer:compile && npm run installer:packagingOsx"
+    "build:installer": "npm run installer:compile && npm run installer:packagingOsx",
+    "build:installer:likeLinux": "npm run installer:compile && npm run installer:packagingLikeLinux",
+    "build:installer:windows": "npm run installer:compile && npm run installer:packagingWin64"
   },
   "private": true,
   "dependencies": {

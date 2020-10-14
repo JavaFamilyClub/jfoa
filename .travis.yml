@@ -25,6 +25,7 @@ script:
    - ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
    - ./gradlew clean buildInstaller
    - ./gradlew zipInstaller
+   - ./gradlew publish
 #   - ./gradlew jacocoTestReport
 #   - ./gradlew codeCoverageReport
 

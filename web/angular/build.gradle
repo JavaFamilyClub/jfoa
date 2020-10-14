@@ -51,10 +51,25 @@ task compile(dependsOn: npmInstall) {
    dependsOn compileDevelopment, compileProduction
 }
 
-task buildInstaller(type: NpmTask, dependsOn: npmInstall) {
+task buildLikeLinuxInstaller(type: NpmTask, dependsOn: npmInstall) {
+   onlyIf { !isWin }
+   group 'installer'
+   description 'Build like linux client package'
+   args = ['run', 'build:installer:likeLinux']
+}
+
+task buildWindowsInstaller(type: NpmTask, dependsOn: npmInstall) {
+   onlyIf { isWin }
+   group 'installer'
+   description 'Build windows client package'
+   args = ['run', 'build:installer:windows']
+}
+
+task buildInstaller(dependsOn: npmInstall) {
    group 'installer'
    description 'Build client package'
-   args = ['run', 'build:installer']
+
+   dependsOn buildLikeLinuxInstaller, buildWindowsInstaller
 }
 
 task lint(type: NpmTask, dependsOn: npmInstall) {
