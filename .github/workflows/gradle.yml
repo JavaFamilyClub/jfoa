@@ -42,7 +42,7 @@ jobs:
       run: ./gradlew buildInstaller
 
     - name: Zip Installer
-        run: ./gradlew zipInstaller
+      run: ./gradlew zipInstaller
 
     - name: Publish Installer
       run: ./gradlew publish
