@@ -8,6 +8,7 @@
    "Ok": "确定",
    "Help": "帮助",
    "Language": "语言",
+   "Deprecated": "已过时",
    "numberSymbol": "编号",
    "Version": "版本",
    "Error": "错误",
@@ -131,12 +132,13 @@
          "ph": {
             "version": "请输入客户端版本",
             "browser": "点击浏览图标去选择文件",
-            "name": "安装包名称"
+            "link": "安装包链接"
          },
          "manager": "安装包管理",
          "Clients": "已上传客户端",
          "clientUpload": "客户端上传",
-         "clientVersion": "客户端版本"
+         "clientVersion": "客户端版本",
+         "downloadLink": "下载链接"
       }
    },
    "security": {

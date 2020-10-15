@@ -12,7 +12,7 @@
  * person.
  */
 
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslateService } from "@ngx-translate/core";
@@ -46,9 +46,8 @@ export enum ClientTabs {
   styleUrls: ["./client-manager.component.scss"]
 })
 export class ClientManagerComponent implements OnInit {
-  model: ClientUploadModel;
+  installer: InstallerModel;
 
-  @ViewChild("fileChooser") fileChooser: ElementRef<HTMLInputElement>;
   installers: Observable<InstallerModel[]>;
   selectedItems: InstallerModel[] = [];
 
@@ -58,16 +57,18 @@ export class ClientManagerComponent implements OnInit {
 
   platforms: CommonsKVModel<string, Platform>[] = Tool.platforms;
 
-  constructor(private fb: FormBuilder,
+  constructor(private zone: NgZone,
+              private fb: FormBuilder,
               private snackBar: MatSnackBar,
               private modelService: ModelService,
-              private translate: TranslateService)
+              private translate: TranslateService,
+              private changeDetectorRef: ChangeDetectorRef)
   {
   }
 
   ngOnInit(): void {
-    this.reset();
     this.refresh();
+    this.reset();
   }
 
   private refresh(): void {
@@ -77,26 +78,29 @@ export class ClientManagerComponent implements OnInit {
 
   private initForm(): void {
     this.form = this.fb.group({
-      platform: this.fb.control(this.model.installer.platform, [Validators.required]),
-      version: this.fb.control(this.model.installer.version, [Validators.required])
+      platform: this.fb.control(this.installer.platform, [Validators.required]),
+      version: this.fb.control(this.installer.version, [Validators.required]),
+      link: this.fb.control(this.installer.link, [Validators.required])
     });
 
     this.form.get("platform").valueChanges.subscribe((value) => {
-      this.model.installer.platform = value;
+      this.installer.platform = value;
     });
 
     this.form.get("version").valueChanges.subscribe((value) => {
-      this.model.installer.version = value;
+      this.installer.version = value;
+    });
+
+    this.form.get("link").valueChanges.subscribe((value) => {
+      this.installer.link = value;
     });
   }
 
   reset(): void {
-    this.model = {
-      installer: {
-        platform: Platform.Mac,
-        version: "",
-        fileName: ""
-      }
+    this.installer = {
+      platform: Platform.Mac,
+      version: "latest",
+      link: ""
     };
 
     this.initForm();
@@ -117,52 +121,28 @@ export class ClientManagerComponent implements OnInit {
         name: "version"
       },
       {
-        label: this.translate.instant("File Name"),
-        name: "fileName"
+        label: this.translate.instant("em.client.downloadLink"),
+        name: "link"
       }
     ];
   }
 
-  browser(): void {
-    if(!!this.fileChooser?.nativeElement) {
-      this.fileChooser?.nativeElement.click();
-    }
-  }
-
-  onFileChange(event: any): void {
-    Tool.readFileData(event).subscribe(files => {
-      if(files.length < 1 && !!!this.fileChooser.nativeElement.value) {
-        return;
-      }
-
-      const value: FileData = files?.[0];
-
-      if(!!!value) {
-        return;
-      }
-
-      this.model.installer.fileName = this.model.installer.fileName || value.name;
-      this.model.fileData = value;
-
-      this.fileChooser.nativeElement.value = null;
-    });
-  }
-
   upload(): void {
-    if(!!!this.model.fileData || !!!this.model.installer.fileName
-       || !!!this.model.installer.version)
-    {
+    if(!!!this.installer?.link || !!!this.installer.version) {
       this.snackBar.open("File info and data missing.");
       return;
     }
 
     this.loading = true;
 
-    this.modelService.sendModel(EmUrlConstants.UPLOAD_INSTALLER, this.model)
+    this.modelService.sendModel(EmUrlConstants.UPLOAD_INSTALLER, this.installer)
        .subscribe(() => {
          this.loading = false;
-         this.model.fileData = null;
          this.snackBar.open("Installer upload success.");
+
+         this.zone.run(() => {
+           this.onChangeTab(ClientTabs.Manager);
+         });
        });
   }
 
@@ -171,6 +151,7 @@ export class ClientManagerComponent implements OnInit {
 
     if(index == ClientTabs.Manager.valueOf()) {
       this.refresh();
+      this.changeDetectorRef.detectChanges();
     }
   }
 

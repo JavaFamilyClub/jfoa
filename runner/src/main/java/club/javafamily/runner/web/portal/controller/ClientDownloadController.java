@@ -32,6 +32,7 @@ import java.io.FileInputStream;
 @RequestMapping(SecurityUtil.API_VERSION)
 public class ClientDownloadController {
 
+   @Deprecated
    @ApiOperation(value = "Client Download", httpMethod = "GET")
    @GetMapping("/public/installer/download")
    public void download(@ApiParam(value = "platform", example = "1") @RequestParam("platform") int platform,

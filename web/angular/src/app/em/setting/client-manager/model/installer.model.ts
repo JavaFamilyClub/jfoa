@@ -17,6 +17,7 @@ import { Platform } from "../../../../common/enum/platform";
 export interface InstallerModel {
    platform: Platform;
    version: string;
-   fileName: string;
+   link: string;
+   uploadDate?: Date;
    id?: number;
 }

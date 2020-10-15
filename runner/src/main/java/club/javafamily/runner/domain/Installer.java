@@ -15,26 +15,32 @@
 package club.javafamily.runner.domain;
 
 import club.javafamily.runner.enums.Platform;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Entity(name = "t_installer")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Installer implements Serializable {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer id;
    private Platform platform;
    private String version;
-   private String fileName;
+   private String link;
+   private Date uploadDate;
 
    public Installer() {
+      uploadDate = new Date(System.currentTimeMillis());
    }
 
-   public Installer(Platform platform, String version, String fileName) {
+   public Installer(Platform platform, String version, String link) {
+      this();
       this.platform = platform;
       this.version = version;
-      this.fileName = fileName;
+      this.link = link;
    }
 
    public Integer getId() {
@@ -61,12 +67,20 @@ public class Installer implements Serializable {
       this.version = version;
    }
 
-   public String getFileName() {
-      return fileName;
+   public String getLink() {
+      return link;
    }
 
-   public void setFileName(String fileName) {
-      this.fileName = fileName;
+   public void setLink(String link) {
+      this.link = link;
+   }
+
+   public Date getUploadDate() {
+      return uploadDate;
+   }
+
+   public void setUploadDate(Date uploadDate) {
+      this.uploadDate = uploadDate;
    }
 
    @Override
@@ -75,7 +89,8 @@ public class Installer implements Serializable {
          "id=" + id +
          ", platform=" + platform +
          ", version='" + version + '\'' +
-         ", fileName='" + fileName + '\'' +
+         ", link='" + link + '\'' +
+         ", uploadDate='" + uploadDate + '\'' +
          '}';
    }
 }

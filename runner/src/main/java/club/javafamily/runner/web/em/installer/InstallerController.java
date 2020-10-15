@@ -14,21 +14,15 @@
 
 package club.javafamily.runner.web.em.installer;
 
-import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.domain.Installer;
 import club.javafamily.runner.service.InstallerService;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.util.Tool;
-import club.javafamily.runner.web.em.model.ClientUploadModel;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.*;
-import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -40,29 +34,39 @@ public class InstallerController {
       this.installerService = installerService;
    }
 
+//   /**
+//    * TODO: require upload permission.
+//    */
+//   @Deprecated
+//   @RequiresAuthentication
+//   @PostMapping("/client/upload")
+//   public void uploadClient(@RequestBody ClientUploadModel model) throws Exception {
+//      Installer installer = model.getInstaller();
+//      File file = Tool.getInstallerFile(installer);
+//
+//      try(OutputStream output = new FileOutputStream(file)) {
+//         ByteArrayInputStream input = new ByteArrayInputStream(
+//            Base64.getDecoder().decode(model.getFileData().getContent()));
+//         FileCopyUtils.copy(input, output);
+//      }
+//      catch(Exception e) {
+//         if(LOGGER.isDebugEnabled()) {
+//            LOGGER.debug("Installer upload failed.", e);
+//         }
+//
+//         throw new MessageException("Installer upload failed.");
+//      }
+//
+//      installerService.save(installer);
+//   }
+
    /**
     * TODO: require upload permission.
     */
    @RequiresAuthentication
    @PostMapping("/client/upload")
-   public void uploadClient(@RequestBody ClientUploadModel model) throws Exception {
-      Installer installer = model.getInstaller();
-      File file = Tool.getInstallerFile(installer);
-
-      try(OutputStream output = new FileOutputStream(file)) {
-         ByteArrayInputStream input = new ByteArrayInputStream(
-            Base64.getDecoder().decode(model.getFileData().getContent()));
-         FileCopyUtils.copy(input, output);
-      }
-      catch(Exception e) {
-         if(LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Installer upload failed.", e);
-         }
-
-         throw new MessageException("Installer upload failed.");
-      }
-
-      installerService.save(installer);
+   public void uploadClient(@RequestBody Installer installer) throws Exception {
+      this.installerService.save(installer);
    }
 
    @RequiresAuthentication

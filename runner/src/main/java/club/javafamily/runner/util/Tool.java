@@ -287,7 +287,7 @@ public class Tool {
       String prefix = installer.getPlatform().getLabel()
          + File.separator +  installer.getVersion();
 
-      return prefix + File.separator + installer.getFileName();
+      return prefix + File.separator + installer.getLink();
    }
 
    public static String getInstallerPath(Installer installer) {

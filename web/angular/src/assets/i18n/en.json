@@ -8,6 +8,7 @@
    "Ok": "Ok",
    "Help": "Help",
    "Language": "Language",
+   "Deprecated": "Deprecated",
    "numberSymbol": "No.",
    "Version": "Version",
    "Error": "Error",
@@ -131,12 +132,13 @@
          "ph": {
             "version": "Please input client version",
             "browser": "Click browser icon to choose file",
-            "name": "Installer Name"
+            "link": "Installer Link"
          },
          "manager": "Installer Manager",
          "Clients": "Clients",
          "clientUpload": "Client Upload",
-         "clientVersion": "Client Version"
+         "clientVersion": "Client Version",
+         "downloadLink": "Download Link"
       }
    },
    "security": {

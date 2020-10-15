@@ -27,7 +27,7 @@ cache: false
 before_install:
 # For permission denied in travis-ci
    - chmod +x gradlew
-   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update          ; fi
+#   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update          ; fi
 
 #services:
 # For karma test to start browser.
