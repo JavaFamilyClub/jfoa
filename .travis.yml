@@ -3,7 +3,6 @@ sudo: false
 
 os:
    - linux
-   - osx
 
 # macOS images up to xcode9.3 can only switch up to Java 8, and images xcode9.4 and later
 #   can switch to Java 10 (if pre-installed) and later. In practical terms, if your Mac build
