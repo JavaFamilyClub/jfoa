@@ -52,6 +52,7 @@ task compile(dependsOn: npmInstall) {
 }
 
 task buildLikeLinuxInstaller(type: NpmTask, dependsOn: npmInstall) {
+   // Both Mac and Linux can pack Linux installer.
    onlyIf { !isWin }
    group 'installer'
    description 'Build like linux client package'
@@ -65,11 +66,18 @@ task buildWindowsInstaller(type: NpmTask, dependsOn: npmInstall) {
    args = ['run', 'build:installer:windows']
 }
 
+task buildMacInstaller(type: NpmTask, dependsOn: npmInstall) {
+   onlyIf { isMac }
+   group 'installer'
+   description 'Build mac client package'
+   args = ['run', 'build:installer']
+}
+
 task buildInstaller(dependsOn: npmInstall) {
    group 'installer'
    description 'Build client package'
 
-   dependsOn buildLikeLinuxInstaller, buildWindowsInstaller
+   dependsOn buildLikeLinuxInstaller, buildWindowsInstaller, buildMacInstaller
 }
 
 task lint(type: NpmTask, dependsOn: npmInstall) {

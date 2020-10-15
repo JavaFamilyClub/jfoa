@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-./gradlew clean bootJar -Pbuildenv=prod
+./gradlew clean bootJar -x test -Pbuildenv=prod --no-daemon --console plain
 
 docker build -f ./Dockerfile -t javafamily/jfoa ./runner/build/libs/

@@ -45,6 +45,7 @@ allprojects {
          webModule = project.hasProperty('webModule') ? project.property('webModule') : 'web:angular'
          productionBuild = project.hasProperty('buildenv') && project.property('buildenv') == 'prod'
          isWin = Os.isFamily(Os.FAMILY_WINDOWS)
+         isMac = Os.isFamily(Os.FAMILY_MAC)
       }
    }
 

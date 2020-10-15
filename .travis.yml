@@ -1,3 +1,7 @@
+os:
+   - linux
+   - osx
+
 language: java
 sudo: false
 
@@ -23,7 +27,7 @@ install: skip
 # build
 script:
    - ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
-   - ./gradlew clean buildInstaller -Pbuildenv=prod --no-daemon --console plain
+   - ./gradlew clean buildInstaller -x test -Pbuildenv=prod --no-daemon --console plain
    - ./gradlew zipInstaller -Pbuildenv=prod --no-daemon --console plain
    - travis_wait 15 ./gradlew publish -Pbuildenv=prod --no-daemon --console plain
 #   - ./gradlew jacocoTestReport
