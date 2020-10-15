@@ -23,9 +23,9 @@ install: skip
 # build
 script:
    - ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
-   - ./gradlew clean buildInstaller
-   - ./gradlew zipInstaller
-   - ./gradlew publish
+   - ./gradlew clean buildInstaller -Pbuildenv=prod --no-daemon --console plain
+   - ./gradlew zipInstaller -Pbuildenv=prod --no-daemon --console plain
+   - travis_wait 15 ./gradlew publish -Pbuildenv=prod --no-daemon --console plain
 #   - ./gradlew jacocoTestReport
 #   - ./gradlew codeCoverageReport
 
