@@ -1,10 +1,6 @@
 language: java
 sudo: false
 
-os:
-   - linux
-   - osx
-
 # macOS images up to xcode9.3 can only switch up to Java 8, and images xcode9.4 and later
 #   can switch to Java 10 (if pre-installed) and later. In practical terms, if your Mac build
 #   requires Java 8 and below, use xcode9.3 (or below); if your build requires Java 10 and later,
@@ -13,6 +9,7 @@ osx_image: xcode9.3
 
 jobs:
    include:
+      - os: linux
       - os: osx
         osx_image: xcode9.3
         jdk: oraclejdk8
@@ -44,7 +41,7 @@ script:
    - ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
    - ./gradlew clean buildInstaller -x test -Pbuildenv=prod --no-daemon --console plain
    - ./gradlew zipInstaller -Pbuildenv=prod --no-daemon --console plain
-   - travis_wait 15 ./gradlew publish -Pbuildenv=prod --no-daemon --console plain
+   - travis_wait 30 ./gradlew publish -Pbuildenv=prod --no-daemon --console plain
 #   - ./gradlew jacocoTestReport
 #   - ./gradlew codeCoverageReport
 

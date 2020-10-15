@@ -3,9 +3,10 @@
 [![Build Status](https://travis-ci.org/JavaFamilyClub/jfoa.svg?branch=master)](https://travis-ci.org/github/JavaFamilyClub/jfoa "Build on linux and mac os")
 [![Win64 Build Status](https://github.com/JavaFamilyClub/jfoa/workflows/Windows-latest%20Build/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3A%22Windows-latest+Build%22 "Build on latest windows")
 [![DockerImage Build Status](https://github.com/JavaFamilyClub/jfoa/workflows/DockerImage%20Build/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3A%22DockerImage+Build%22)
-![HitCount](http://hits.dwyl.com/JavaFamilyClub/jfoa.svg)
+[![HitCount](http://hits.dwyl.com/JavaFamilyClub/jfoa.svg)](http://hits.dwyl.com/JavaFamilyClub/jfoa)
 [![Percentage of opend issues](http://isitmaintained.com/badge/open/JavaFamilyClub/jfoa.svg)](https://github.com/JavaFamilyClub/jfoa/issues "Percentage of issues still open")
 ![GitHub release](https://img.shields.io/github/release-pre/JavaFamilyClub/jfoa)
+![GitHub repo size](https://img.shields.io/github/repo-size/JavaFamilyClub/jfoa)
 ![GitHub License](https://img.shields.io/github/license/JavaFamilyClub/jfoa)
 [![Join the chat](https://badges.gitter.im/javafamilychat/jfoa.svg)](https://gitter.im/javafamilychat/jfoa?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
