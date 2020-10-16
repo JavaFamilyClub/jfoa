@@ -41,15 +41,16 @@ public class DruidConfiguration {
 
     // 1. Config servlet of Druid
     @Bean
-    public ServletRegistrationBean statViewServlet() {
-        ServletRegistrationBean bean = new ServletRegistrationBean(
+    public ServletRegistrationBean<StatViewServlet> statViewServlet() {
+        ServletRegistrationBean<StatViewServlet> bean = new ServletRegistrationBean<>(
            new StatViewServlet(), "/druid/*");
 
         Map<String, String> initParams = new HashMap<>(10);
         initParams.put("loginUsername", "jfoa");
         initParams.put("loginPassword", "jfoa");
-        initParams.put("deny", "localhost"); // will pop up parse ip error.
-        initParams.put("allow", "127.0.0.1");
+//        initParams.put("deny", "localhost"); // will pop up parse ip error.
+        initParams.put("allow", "localhost, 127.0.0.1");
+        initParams.put("resetEnable", "false");
 
         bean.setInitParameters(initParams);
 
@@ -60,13 +61,13 @@ public class DruidConfiguration {
     @Bean
     public FilterRegistrationBean<WebStatFilter> statViewFilter() {
         FilterRegistrationBean<WebStatFilter> bean =
-           new FilterRegistrationBean(new WebStatFilter());
-        bean.setUrlPatterns(Arrays.asList("/*"));
+           new FilterRegistrationBean<>(new WebStatFilter());
+        bean.setUrlPatterns(Collections.singletonList("/*"));
 
-        Map<String, String> initParams = new HashMap<>(10);
+        Map<String, String> initParams = new HashMap<>(5);
 
         // Don't intercept static resource.
-        initParams.put("exclusions", "*.js, *.css, *.html, /druid/*");
+        initParams.put("exclusions", "*.js, *.css, *.html, *,svg, *.gif, *.jpg, *.png, /druid/*");
 
         bean.setInitParameters(initParams);
 
