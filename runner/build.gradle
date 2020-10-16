@@ -19,8 +19,10 @@ sourceCompatibility = '1.8'
 
 configurations {
    all {
-      exclude group: 'commons-logging'
-      exclude group: 'log4j'
+      exclude {
+         group: 'commons-logging'
+         group: 'log4j'
+      }
    }
 
    api
@@ -164,9 +166,10 @@ task server() {
          main = 'club.javafamily.runner.RunnerApplication'
          jvmArgs = [
             "-Dspring.profiles.active=${envMode}",
+            "-Djava.io.tmpdir=$buildDir/server-temp",
             '-Djava.rmi.server.hostname=127.0.0.1',
             debugCmd]
-         args = ['--stop-port', '8082', '--stop-key', 'stop']
+         args = []
       }
    }
 }

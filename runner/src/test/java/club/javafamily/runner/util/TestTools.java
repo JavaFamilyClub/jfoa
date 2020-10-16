@@ -16,8 +16,13 @@ package club.javafamily.runner.util;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.security.Security;
+import java.util.Set;
 
 @SpringBootTest
 public class TestTools {
@@ -26,9 +31,21 @@ public class TestTools {
    private StringEncryptor encryption;
 
    @Test
+   public void algorithms() {
+      Set<String> messageDigest = Security.getAlgorithms("Cipher");
+
+      for(String digest : messageDigest) {
+         LOGGER.info("MessageDigest: {}", digest);
+         System.out.println("MessageDigest: " + digest);
+      }
+   }
+
+   @Test
    public void generatorEnvPassword() {
       String password = "";
 
       System.out.println(encryption.encrypt(password));
    }
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(TestTools.class);
 }
