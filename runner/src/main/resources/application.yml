@@ -146,7 +146,8 @@ ds:
 
 logging:
    level:
-      club.javafamily.*: info
+      root: info
+      club.javafamily: info
 
 ---
 
@@ -182,7 +183,7 @@ ds:
       username: jfoa
       password: jfoa
 
-debug: true
 logging:
    level:
-      club.javafamily.*: debug
+      root: debug
+      club.javafamily: debug
