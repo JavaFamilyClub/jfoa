@@ -16,8 +16,10 @@ package club.javafamily.runner.common.service;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ResourceUtils;
 
 import javax.mail.MessagingException;
@@ -26,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
 @Disabled("Tested success.")
 public class EmailServiceTests {
@@ -56,7 +59,6 @@ public class EmailServiceTests {
 
    /**
     * 测试发送带附件的邮件
-    * @throws FileNotFoundException
     */
    @Test
    public void sendAttachmentMessage() throws Exception {
@@ -67,7 +69,6 @@ public class EmailServiceTests {
 
    /**
     * 测试发送带附件的邮件
-    * @throws FileNotFoundException
     */
    @Test
    public void sendPicMessage() throws Exception {
