@@ -5,7 +5,6 @@ sudo: false
 #   can switch to Java 10 (if pre-installed) and later. In practical terms, if your Mac build
 #   requires Java 8 and below, use xcode9.3 (or below); if your build requires Java 10 and later,
 #   use xcode9.4 (or later).
-osx_image: xcode9.3
 
 jobs:
    include:
@@ -38,10 +37,11 @@ install: skip
 
 # build
 script:
-   - ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console plain
-   - ./gradlew clean buildInstaller -x test -Pbuildenv=prod --no-daemon --console plain
-   - ./gradlew zipInstaller -Pbuildenv=prod --no-daemon --console plain
-   - travis_wait 30 ./gradlew publish -Pbuildenv=prod --no-daemon --console plain
+   - ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console=plain
+   - ./gradlew clean buildInstaller -x test -Pbuildenv=prod
+   - ./gradlew zipInstaller -Pbuildenv=prod --no-daemon --console=plain
+   - travis_wait 30 ./gradlew publish -Pbuildenv=prod
+
 #   - ./gradlew jacocoTestReport
 #   - ./gradlew codeCoverageReport
 

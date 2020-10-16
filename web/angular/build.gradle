@@ -166,13 +166,13 @@ def getFileName(name) {
 
 publishing {
    publications {
-      jfoaWeb(MavenPublication) {
-         artifactId = 'jfoa-web'
-
-         afterEvaluate {
-            artifact jar
-         }
-      }
+//      jfoaWeb(MavenPublication) {
+//         artifactId = 'jfoa-web'
+//
+//         afterEvaluate {
+//            artifact jar
+//         }
+//      }
 
       if(file("${buildDir}/installerArchives").exists()) {
          file("${buildDir}/installerArchives").eachFile { sub ->
