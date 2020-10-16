@@ -20,8 +20,8 @@ sourceCompatibility = '1.8'
 configurations {
    all {
       exclude {
-         group: 'commons-logging'
-         group: 'log4j'
+         group 'commons-logging'
+         group 'log4j'
       }
    }
 
