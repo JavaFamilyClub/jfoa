@@ -18,6 +18,7 @@ import club.javafamily.runner.annotation.Audit;
 import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.dao.InstallerDao;
 import club.javafamily.runner.domain.Installer;
+import club.javafamily.runner.enums.Platform;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.InstallerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,11 @@ public class InstallerServiceImpl implements InstallerService {
    @Override
    public List<Installer> getAll() {
       return this.installerDao.getAll();
+   }
+
+   @Transactional(readOnly = true)
+   public Installer getInstaller(Platform platform, String version) {
+      return this.installerDao.getInstaller(platform, version);
    }
 
    private final InstallerDao installerDao;

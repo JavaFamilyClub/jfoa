@@ -6,7 +6,7 @@
       <mat-tab [label]="'em.client.Clients' | translate">
         <mat-card>
           <mat-card-content>
-            <mat-table-view [data]="installers | async" [cols]="cols"
+            <mat-table-view [data]="installers" [cols]="cols"
                             [selectedItems]="selectedItems"
                             (onRowSelected)="selectItem($event)">
             </mat-table-view>

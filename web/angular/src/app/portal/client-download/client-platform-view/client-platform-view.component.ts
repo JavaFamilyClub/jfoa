@@ -29,6 +29,7 @@ import { DownloadService } from "../../../download/download.service";
 })
 export class ClientPlatformViewComponent implements OnInit {
   @Input() platform: Platform = Platform.Docker;
+  version: string = "latest";
   Platform = Platform;
 
   constructor(private snackBar: MatSnackBar,
@@ -48,8 +49,7 @@ export class ClientPlatformViewComponent implements OnInit {
 
     let params = new HttpParams()
        .set("platform", this.platform + "")
-       .set("version", "0.0.1")
-       .set("fileName", "jfoa-client-darwin-x64.zip");
+       .set("version", this.version);
 
     const url = Tool.requestPrefix() + InstallerClientUrlConstants.CLIENT_DOWNLOAD;
     this.downloadService.download(GuiTool.appendParams(url, params));

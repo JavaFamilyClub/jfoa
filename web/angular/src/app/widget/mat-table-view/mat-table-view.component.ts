@@ -27,6 +27,7 @@ import { MatColumnIno } from "./mat-column-ino";
 export class MatTableView <T> implements OnInit {
    @Input() selectedItems: T[] = [];
    @Input() set data(dataSource: T[]) {
+      console.log("=======dataSource============", dataSource);
       this._dataSource = new MatTableDataSource(dataSource);
 
       if(dataSource?.length > 0) {

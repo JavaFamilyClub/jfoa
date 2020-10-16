@@ -48,7 +48,7 @@ export enum ClientTabs {
 export class ClientManagerComponent implements OnInit {
   installer: InstallerModel;
 
-  installers: Observable<InstallerModel[]>;
+  installers: InstallerModel[];
   selectedItems: InstallerModel[] = [];
 
   form: FormGroup;
@@ -72,8 +72,11 @@ export class ClientManagerComponent implements OnInit {
   }
 
   private refresh(): void {
-    this.installers = this.modelService
-       .getModel<InstallerModel[]>(EmUrlConstants.INSTALLERS);
+    this.modelService.getModel<InstallerModel[]>(
+       EmUrlConstants.INSTALLERS).subscribe(data =>
+    {
+      this.installers = data;
+    });
   }
 
   private initForm(): void {
@@ -138,20 +141,19 @@ export class ClientManagerComponent implements OnInit {
     this.modelService.sendModel(EmUrlConstants.UPLOAD_INSTALLER, this.installer)
        .subscribe(() => {
          this.loading = false;
+         this.reset();
+         this.changeDetectorRef.detectChanges();
+         this.onChangeTab(ClientTabs.Manager.valueOf());
          this.snackBar.open("Installer upload success.");
-
-         this.zone.run(() => {
-           this.onChangeTab(ClientTabs.Manager);
-         });
        });
   }
 
   onChangeTab(index: number): void {
     this.tabIndex = index;
+    console.log("============index====", index);
 
     if(index == ClientTabs.Manager.valueOf()) {
       this.refresh();
-      this.changeDetectorRef.detectChanges();
     }
   }
 
