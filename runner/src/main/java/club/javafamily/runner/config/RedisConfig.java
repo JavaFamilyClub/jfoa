@@ -34,7 +34,7 @@ public class RedisConfig {
    public RedisTemplate<String, Serializable> redisTemplate(
       RedisConnectionFactory redisConnectionFactory)
    {
-      RedisTemplate<String, Serializable> template = new RedisTemplate();
+      RedisTemplate<String, Serializable> template = new RedisTemplate<>();
       template.setConnectionFactory(redisConnectionFactory);
 
       Jackson2JsonRedisSerializer<Serializable> jackson2JsonRedisSerializer
