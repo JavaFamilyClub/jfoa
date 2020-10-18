@@ -46,6 +46,6 @@ public class InstallerDao extends BaseDao<Installer, Integer>  {
 
       criteriaQuery.where(criteriaBuilder.and(conditions.toArray(new Predicate[0])));
 
-      return  session.createQuery(criteriaQuery).getSingleResult();
+      return  session.createQuery(criteriaQuery).uniqueResult();
    }
 }

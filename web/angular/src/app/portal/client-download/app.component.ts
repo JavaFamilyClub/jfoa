@@ -28,7 +28,6 @@ export class ClientDownloadAppComponent {
    docUrl = Tool.DOC_URL;
 
    selectPlatform(platform: Platform): void {
-      console.log("=====platform========", platform);
       this.platform = platform;
    }
 }

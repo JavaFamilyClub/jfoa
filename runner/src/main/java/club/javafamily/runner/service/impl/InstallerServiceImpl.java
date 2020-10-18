@@ -21,6 +21,8 @@ import club.javafamily.runner.domain.Installer;
 import club.javafamily.runner.enums.Platform;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.InstallerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,13 @@ public class InstallerServiceImpl implements InstallerService {
    @Transactional
    @Override
    public void save(@AuditObject("getPlatform().getLabel() + '.' +  getVersion() + '.' + getFileName()") Installer installer) {
+      Installer client = this.getInstaller(installer.getPlatform(), installer.getVersion());
+
+      if(client != null) {
+         this.installerDao.delete(client);
+         LOGGER.info("Installer is exist, will override: {}", installer.toString());
+      }
+
       this.installerDao.insert(installer);
    }
 
@@ -54,4 +63,5 @@ public class InstallerServiceImpl implements InstallerService {
    }
 
    private final InstallerDao installerDao;
+   private static final Logger LOGGER = LoggerFactory.getLogger(InstallerServiceImpl.class);
 }

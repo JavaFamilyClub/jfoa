@@ -19,8 +19,9 @@ import { TranslateService } from "@ngx-translate/core";
 import { InstallerClientUrlConstants } from "../../../common/constants/url/installer-client-url-constants";
 import { Platform } from "../../../common/enum/platform";
 import { GuiTool } from "../../../common/util/gui-tool";
-import { Tool } from "../../../common/util/tool";
 import { DownloadService } from "../../../download/download.service";
+import { InstallerModel } from "../../../em/setting/client-manager/model/installer.model";
+import { ModelService } from "../../../widget/services/model.service";
 
 @Component({
   selector: "c-client-platform-view",
@@ -33,6 +34,7 @@ export class ClientPlatformViewComponent implements OnInit {
   Platform = Platform;
 
   constructor(private snackBar: MatSnackBar,
+              private modelService: ModelService,
               private translate: TranslateService,
               private downloadService: DownloadService)
   {
@@ -51,8 +53,11 @@ export class ClientPlatformViewComponent implements OnInit {
        .set("platform", this.platform + "")
        .set("version", this.version);
 
-    const url = Tool.requestPrefix() + InstallerClientUrlConstants.CLIENT_DOWNLOAD;
-    this.downloadService.download(GuiTool.appendParams(url, params));
+    this.modelService.getModel<InstallerModel>(InstallerClientUrlConstants.CLIENT_DOWNLOAD, params)
+       .subscribe(installer =>
+    {
+      this.downloadService.download(installer.link);
+    });
   }
 
   get downloadLabel(): string {

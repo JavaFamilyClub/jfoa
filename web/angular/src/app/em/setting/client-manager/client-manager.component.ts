@@ -150,7 +150,6 @@ export class ClientManagerComponent implements OnInit {
 
   onChangeTab(index: number): void {
     this.tabIndex = index;
-    console.log("============index====", index);
 
     if(index == ClientTabs.Manager.valueOf()) {
       this.refresh();

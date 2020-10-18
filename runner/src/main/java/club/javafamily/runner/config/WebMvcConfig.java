@@ -52,7 +52,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
    @Bean
    public LocaleResolver localeResolver() {
       CookieLocaleResolver localeResolver = new CookieLocaleResolver();
-      localeResolver.setCookieName("jfLocaleCookie");
+      localeResolver.setCookieName(I18N_COOKIE_NAME);
+
+      LOGGER.info("I18n cookie name: {}", I18N_COOKIE_NAME);
+
       // default locale
       localeResolver.setDefaultLocale(I18nUtil.DEFAULT_LOCALE);
       localeResolver.setCookieMaxAge(3600); // cookie valid date
@@ -64,10 +67,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
    public LocaleChangeInterceptor localeChangeInterceptor() {
       LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
       // locale parameter name
-      lci.setParamName("jfLang");
+      lci.setParamName(I18N_PARAM_NAME);
+
+      LOGGER.info("I18n parameter name: {}", I18N_PARAM_NAME);
 
       return lci;
    }
+
+   private static final String I18N_COOKIE_NAME = "jfLocaleCookie";
+   private static final String I18N_PARAM_NAME = "jfLang";
 
    private static final Logger LOGGER = LoggerFactory.getLogger(WebMvcConfig.class);
 }

@@ -33,10 +33,10 @@ public class ClientDownloadController {
       this.installerService = installerService;
    }
 
-   @ApiOperation(value = "Get Client Download Link", httpMethod = "GET")
+   @ApiOperation(value = "Get Will Client Download Info", httpMethod = "GET")
    @GetMapping("/public/installer/download")
-   public String download(@ApiParam(value = "platform", example = "1") @RequestParam("platform") int platform,
-                          @ApiParam(value = "version", example = "latest") @RequestParam("version") String version)
+   public Installer download(@ApiParam(value = "platform", example = "1") @RequestParam("platform") int platform,
+                             @ApiParam(value = "version", example = "latest") @RequestParam("version") String version)
    {
       Installer installer = installerService.getInstaller(Platform.parse(platform), version);
 
@@ -44,7 +44,7 @@ public class ClientDownloadController {
          throw new MessageException("Installer is not exist!");
       }
 
-      return installer.getLink();
+      return installer;
    }
 
 

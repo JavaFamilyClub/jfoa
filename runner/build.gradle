@@ -153,6 +153,10 @@ task server() {
    group 'application'
    description 'run the application'
 
+   doFirst {
+      file("$buildDir/server-temp").mkdirs()
+   }
+
    doLast {
       javaexec {
          classpath sourceSets.main.runtimeClasspath
