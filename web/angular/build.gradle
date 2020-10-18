@@ -56,24 +56,30 @@ task buildLikeLinuxInstaller(type: NpmTask, dependsOn: npmInstall) {
    onlyIf { !isWin }
    group 'installer'
    description 'Build like linux client package'
-   args = ['run', 'build:installer:likeLinux']
+   args = ['run', 'installer:packagingLikeLinux']
 }
 
 task buildWindowsInstaller(type: NpmTask, dependsOn: npmInstall) {
    onlyIf { isWin }
    group 'installer'
    description 'Build windows client package'
-   args = ['run', 'build:installer:windows']
+   args = ['run', 'installer:packagingWin64']
 }
 
 task buildMacInstaller(type: NpmTask, dependsOn: npmInstall) {
    onlyIf { isMac }
    group 'installer'
    description 'Build mac client package'
-   args = ['run', 'build:installer']
+   args = ['run', 'installer:packagingOsx']
 }
 
-task buildInstaller(dependsOn: npmInstall) {
+task installerCompile(type: NpmTask, dependsOn: npmInstall) {
+   group 'installer'
+   description 'Compile for installer'
+   args = ['run', 'installer:compile']
+}
+
+task buildInstaller(dependsOn: installerCompile) {
    group 'installer'
    description 'Build client package'
 
