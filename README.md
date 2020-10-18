@@ -1,7 +1,8 @@
 # <a href="https://javafamilyclub.github.io/jfoa/"><img width="60px" align="center" src="https://s1.ax1x.com/2020/08/28/donrLD.png" alt="icon"/></a> [JavaFamily OA System](https://javafamilyclub.github.io/jfoa) 
 
-[![Build Status](https://travis-ci.org/JavaFamilyClub/jfoa.svg?branch=master)](https://travis-ci.org/github/JavaFamilyClub/jfoa "Build on linux and mac os")
-[![Win64 Build Status](https://github.com/JavaFamilyClub/jfoa/workflows/Windows-latest%20Build/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3A%22Windows-latest+Build%22 "Build on latest windows")
+[![Linux'Build Status](https://travis-ci.org/JavaFamilyClub/jfoa.svg?branch=master)](https://travis-ci.org/github/JavaFamilyClub/jfoa "Build on linux")
+[![Mac'Build Status](https://github.com/JavaFamilyClub/jfoa/workflows/Mac'Build/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3AMac%27Build)
+[![Win64'Build Status](https://github.com/JavaFamilyClub/jfoa/workflows/Windows-latest%20Build/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3A%22Windows-latest+Build%22 "Build on latest windows")
 [![DockerImage Build Status](https://github.com/JavaFamilyClub/jfoa/workflows/DockerImage%20Build/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3A%22DockerImage+Build%22)
 [![HitCount](http://hits.dwyl.com/JavaFamilyClub/jfoa.svg)](http://hits.dwyl.com/JavaFamilyClub/jfoa)
 [![Percentage of opend issues](http://isitmaintained.com/badge/open/JavaFamilyClub/jfoa.svg)](https://github.com/JavaFamilyClub/jfoa/issues "Percentage of issues still open")
