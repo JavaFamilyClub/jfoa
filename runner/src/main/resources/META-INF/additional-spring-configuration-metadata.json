@@ -1,0 +1,8 @@
+{
+   "properties": [
+      {
+         "name": "jfoa.amqp.override",
+         "type": "java.lang.Boolean",
+         "description": "Description for jfoa.amqp.override."
+   }
+] }

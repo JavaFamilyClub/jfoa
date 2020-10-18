@@ -9,4 +9,5 @@
    
 - FAQ
    - [Localization](localization.md)
+   - [WebSiteSearch](webSiteSearch.md)
    - [UnexpectedRollbackException](transactionrolledback.md)

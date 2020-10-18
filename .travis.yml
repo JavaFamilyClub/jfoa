@@ -1,19 +1,21 @@
 language: java
 sudo: false
 
+os: linux
+
 # macOS images up to xcode9.3 can only switch up to Java 8, and images xcode9.4 and later
 #   can switch to Java 10 (if pre-installed) and later. In practical terms, if your Mac build
 #   requires Java 8 and below, use xcode9.3 (or below); if your build requires Java 10 and later,
 #   use xcode9.4 (or later).
 
-jobs:
-   include:
-      - os: linux
-      - os: osx
-        osx_image: xcode9.3
-        jdk: oraclejdk8
-   allow_failures:
-      - os: osx
+#jobs:
+#   include:
+#      - os: linux
+#      - os: osx
+#        osx_image: xcode9.3
+#        jdk: oraclejdk8
+#   allow_failures:
+#      - os: osx
 
 jdk:
    - openjdk8
