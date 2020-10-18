@@ -39,8 +39,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping(SecurityUtil.API_VERSION)
@@ -78,6 +77,10 @@ public class SearchController {
       Directory directory = new MMapDirectory(Paths.get(searchLib.toURI()));
       IndexWriterConfig writerConfig = new IndexWriterConfig(getAnalyzer());
       Searchable[] entries = searchModel.getEntries();
+
+      if(ArrayUtils.isEmpty(entries)) {
+         return;
+      }
 
       try(IndexWriter writer = new IndexWriter(directory, writerConfig)) {
          for(Searchable searchable : entries) {

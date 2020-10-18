@@ -99,6 +99,8 @@ dependencies {
    implementation "org.webjars:bootstrap:${bootstrapVersion}"
 
    // test
+   testImplementation files('./libs/*')
+
    testImplementation('org.springframework.boot:spring-boot-starter-test') {
       exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
       exclude group: 'org.junit.platform', module: 'junit-platform-engine'

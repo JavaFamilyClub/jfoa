@@ -24,7 +24,6 @@ import org.springframework.util.ResourceUtils;
 
 import javax.mail.MessagingException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
