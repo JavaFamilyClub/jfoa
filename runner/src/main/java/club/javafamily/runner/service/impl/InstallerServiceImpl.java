@@ -40,7 +40,7 @@ public class InstallerServiceImpl implements InstallerService {
    @Audit(ResourceEnum.Upload_Installer)
    @Transactional
    @Override
-   public void save(@AuditObject("getPlatform().getLabel() + '.' +  getVersion() + '.' + getFileName()") Installer installer) {
+   public void save(@AuditObject("getPlatform().getLabel() + '.' + getVersion()") Installer installer) {
       Installer client = this.getInstaller(installer.getPlatform(), installer.getVersion());
 
       if(client != null) {

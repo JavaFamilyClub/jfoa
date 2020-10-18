@@ -138,7 +138,8 @@
          "Clients": "Clients",
          "clientUpload": "Client Upload",
          "clientVersion": "Client Version",
-         "downloadLink": "Download Link"
+         "downloadLink": "Download Link",
+         "uploadDate": "Upload Date"
       }
    },
    "security": {

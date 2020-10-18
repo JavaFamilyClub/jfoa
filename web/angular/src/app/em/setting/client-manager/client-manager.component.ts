@@ -126,6 +126,10 @@ export class ClientManagerComponent implements OnInit {
       {
         label: this.translate.instant("em.client.downloadLink"),
         name: "link"
+      },
+      {
+        label: this.translate.instant("em.client.uploadDate"),
+        name: "uploadDate"
       }
     ];
   }

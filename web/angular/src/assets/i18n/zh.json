@@ -138,7 +138,8 @@
          "Clients": "已上传客户端",
          "clientUpload": "客户端上传",
          "clientVersion": "客户端版本",
-         "downloadLink": "下载链接"
+         "downloadLink": "下载链接",
+         "uploadDate": "上传日期"
       }
    },
    "security": {
