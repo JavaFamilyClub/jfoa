@@ -1,5 +1,5 @@
 
-name: Windows-latest Build
+name: build
 
 on:
   push:
@@ -8,9 +8,9 @@ on:
     branches: [ master ]
 
 jobs:
-  build-win-latest:
+  build:
 
-    runs-on: windows-latest
+    runs-on: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
     - uses: actions/checkout@v2
