@@ -1,8 +1,33 @@
 {
+   "groups": [
+      {
+         "name": "jfoa.amqp",
+         "type": "club.javafamily.runner.config.RabbitMQConfigProperties",
+         "sourceType": "club.javafamily.runner.config.RabbitMQConfigProperties"
+      }
+   ],
    "properties": [
       {
          "name": "jfoa.amqp.override",
          "type": "java.lang.Boolean",
-         "description": "Description for jfoa.amqp.override."
-   }
-] }
+         "description": "Description for jfoa.amqp.override.",
+         "sourceType": "club.javafamily.runner.config.RabbitMQConfigProperties",
+         "defaultValue": false
+      }
+   ],
+   "hints": [
+      {
+         "name": "jfoa.amqp.override",
+         "values": [
+            {
+               "value": true,
+               "description": "enable override rabbitmq exchange/queue/binding of exist."
+            },
+            {
+               "value": false,
+               "description": "disable override rabbitmq exchange/queue/binding of exist."
+            }
+         ]
+      }
+   ]
+}

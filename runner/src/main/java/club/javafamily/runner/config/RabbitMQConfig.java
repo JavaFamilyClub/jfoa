@@ -21,7 +21,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
@@ -35,13 +34,14 @@ import static club.javafamily.runner.common.service.AmqpService.*;
 public class RabbitMQConfig {
 
    private final AmqpAdmin amqpAdmin;
-
-   @Value("${jfoa.amqp.override}")
-   private boolean override;
+   private final RabbitMQConfigProperties properties;
 
    @Autowired
-   public RabbitMQConfig(AmqpAdmin amqpAdmin) {
+   public RabbitMQConfig(AmqpAdmin amqpAdmin,
+                         RabbitMQConfigProperties properties)
+   {
       this.amqpAdmin = amqpAdmin;
+      this.properties = properties;
    }
 
    /**
@@ -49,7 +49,7 @@ public class RabbitMQConfig {
     */
    @PostConstruct
    private void init() {
-      if(override)  {
+      if(properties != null && properties.getOverride())  {
          amqpAdmin.deleteExchange(DIRECT_EXCHANGE);
          amqpAdmin.declareExchange(
             new DirectExchange(DIRECT_EXCHANGE, true, false));
