@@ -39,9 +39,9 @@ jobs:
       run: ./gradlew cleanAll build clean -Pbuildenv=prod --no-daemon --console=plain
 
     - name: Build Installer
-      run:
-        - ./gradlew clean installerCompile -x test -Pbuildenv=prod
-        - ./gradlew buildInstaller -x test -Pbuildenv=prod
+      run: |
+        ./gradlew clean installerCompile -x test -Pbuildenv=prod
+        ./gradlew buildInstaller -x test -Pbuildenv=prod
 
     - name: Zip Installer
       run: ./gradlew zipInstaller -Pbuildenv=prod --no-daemon --console=plain
