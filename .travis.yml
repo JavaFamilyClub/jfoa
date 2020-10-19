@@ -40,7 +40,8 @@ install: skip
 # build
 script:
    - ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console=plain
-   - ./gradlew clean buildInstaller -x test -Pbuildenv=prod
+   - ./gradlew clean installerCompile -x test -Pbuildenv=prod
+   - ./gradlew buildInstaller -x test -Pbuildenv=prod
    - ./gradlew zipInstaller -Pbuildenv=prod --no-daemon --console=plain
    - travis_wait 30 ./gradlew publish -Pbuildenv=prod
 

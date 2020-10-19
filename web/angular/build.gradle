@@ -79,7 +79,7 @@ task installerCompile(type: NpmTask, dependsOn: npmInstall) {
    args = ['run', 'installer:compile']
 }
 
-task buildInstaller(dependsOn: installerCompile) {
+task buildInstaller() {
    group 'installer'
    description 'Build client package'
 
@@ -136,7 +136,7 @@ task jar(type: Jar, dependsOn: compileProduction) {
    archiveFileName = "jfoa-web-${project.version}.jar"
    destinationDirectory = file("${buildDir}/libs")
 
-   from('dist/prod') {
+   from('../server/build/resources/main/static') {
       include '**/*'
    }
 }
