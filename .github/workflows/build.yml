@@ -10,7 +10,11 @@ on:
 jobs:
   build:
 
-    runs-on: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-18.04, macos-latest, windows-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -21,16 +25,17 @@ jobs:
         java-version: 1.8
 
     - name: Set up Ruby for Sass
+      if: ${{ runner.os == 'Windows' }}
       uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
       with:
         ruby-version: 2.6
 
     - name: ruby env
-      run: gem update
-    - name: install sass
-      run: gem install sass
-    - name: log ruby list
-      run: gem list
+      if: ${{ runner.os == 'Windows' }}
+      run: |
+        gem update
+        gem install sass
+        gem list
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
