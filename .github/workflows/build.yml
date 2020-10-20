@@ -43,16 +43,5 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew cleanAll build clean -Pbuildenv=prod --no-daemon --console=plain
 
-    - name: Build Installer
-      run: |
-        ./gradlew clean installerCompile -x test -Pbuildenv=prod
-        ./gradlew buildInstaller -x test -Pbuildenv=prod
-
-    - name: Zip Installer
-      run: ./gradlew zipInstaller -Pbuildenv=prod --no-daemon --console=plain
-
-    - name: Publish Installer
-      run: ./gradlew publish -Pbuildenv=prod
-
     - name: Clean Env
       run: ./gradlew cleanAll -Pbuildenv=prod --no-daemon --console=plain
