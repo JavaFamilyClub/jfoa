@@ -26,5 +26,10 @@ jobs:
     - name: Build Docker Image with Gradle
       run: ./buildDockerImage
 
+    - name: Push image to docker hub
+      run: |
+        docker login -u javafamily -p ${{ secrets.JF_DOCKER_HUB_PWD }}
+        docker push javafamily/jfoa:latest
+
     - name: Clean Env
       run: ./gradlew cleanAll

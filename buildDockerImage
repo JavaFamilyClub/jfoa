@@ -4,7 +4,3 @@
 
 # build docker image
 docker build -f ./Dockerfile -t javafamily/jfoa ./runner/build/libs/
-
-# publish to docker hub, login first
-docker login -u javafamily -p dreamLi0812!@#
-docker push javafamily/jfoa:latest
