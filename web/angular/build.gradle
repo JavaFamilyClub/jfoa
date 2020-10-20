@@ -195,7 +195,7 @@ publishing {
       maven {
          credentials {
             username 'admin'
-            password 'dreamLi0416!@#'
+            password System.getenv("JF_NEXUS_PWD")
          }
 
          def snapshotsUrl = 'http://javafamily.club:8081/repository/maven-snapshots/'

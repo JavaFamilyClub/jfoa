@@ -1,4 +1,7 @@
 
+# docker publish reference:
+# https://docs.github.com/en/free-pro-team@latest/actions/guides/publishing-docker-images
+
 name: docker
 
 on:
