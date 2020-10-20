@@ -4,7 +4,7 @@ jfoa:
 
 jasypt:
    encryptor:
-      password: "javafamily.club"
+      password: ${JF_JASYPT_ENCRYPTOR}
 
 spring:
 #   devtools:

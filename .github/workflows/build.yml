@@ -16,6 +16,9 @@ jobs:
       matrix:
         os: [ubuntu-18.04, macos-latest, windows-latest]
 
+    env:
+      JF_JASYPT_ENCRYPTOR: ${{ secrets.JF_JASYPT_ENCRYPTOR }}
+
     steps:
     - uses: actions/checkout@v2
 

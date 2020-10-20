@@ -12,6 +12,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      JF_JASYPT_ENCRYPTOR: ${{ secrets.JF_JASYPT_ENCRYPTOR }}
+
     steps:
     - uses: actions/checkout@v2
 
@@ -30,6 +33,7 @@ jobs:
       run: |
         docker login -u javafamily -p ${{ secrets.JF_DOCKER_HUB_PWD }}
         docker push javafamily/jfoa:latest
+        docker logout
 
     - name: Clean Env
       run: ./gradlew cleanAll
