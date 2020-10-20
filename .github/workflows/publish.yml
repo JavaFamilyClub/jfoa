@@ -1,4 +1,10 @@
 
+# publish artifact reference:
+# https://docs.github.com/en/free-pro-team@latest/actions/guides/storing-workflow-data-as-artifacts
+
+# Wildcard Pattern reference:
+# https://docs.oracle.com/cd/E19683-01/817-2176-10/dnwldcrd.html
+
 name: publish
 
 on:
@@ -50,6 +56,12 @@ jobs:
 
     - name: Publish Installer
       run: ./gradlew publish -Pbuildenv=prod
+
+    - name: Publish to github artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: jfoa-client-${{ runner.os }}
+        path: web/angular/build/installer/jfoa-client-*/
 
     - name: Clean Env
       run: ./gradlew cleanAll -Pbuildenv=prod --no-daemon --console=plain
