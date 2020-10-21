@@ -30,7 +30,6 @@ jobs:
 
     env:
       JF_NEXUS_PWD: ${{ secrets.JF_NEXUS_PWD }}
-      JF_CLIENT_VERSION: '0.0.1'
 
     steps:
     - uses: actions/checkout@v2
@@ -72,7 +71,7 @@ jobs:
     - name: Publish to github artifact
       uses: actions/upload-artifact@v2
       with:
-        name: jfoa-client-${{ JF_CLIENT_VERSION }}-${{ runner.os }}
+        name: jfoa-client-0.0.1-${{ runner.os }}
         path: web/angular/build/installerArchives/jfoa-client-*.zip
         if-no-files-found: error
 
