@@ -10,8 +10,12 @@ name: publish
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+      - '**.md'
   pull_request:
     branches: [ master ]
+    paths-ignore:
+      - '**.md'
 
 jobs:
   publish:
@@ -65,7 +69,7 @@ jobs:
       with:
         name: jfoa-client-${{ runner.os }}
         path: web/angular/build/installerArchives/jfoa-client-*.zip
-        if-no-files-found: warn
+        if-no-files-found: error
 
     # Download and Verify Artifact
     - name: Download Artifact
