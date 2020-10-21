@@ -68,12 +68,12 @@ jobs:
         if-no-files-found: warn
 
     # Download and Verify Artifact
-    -  name: Download Artifact
+    - name: Download Artifact
       uses: actions/download-artifact@v2
       with:
         name: jfoa-client-${{ runner.os }}
         path: web/angular/build/download/artifact
 
-    -  name: Display structure of downloaded files
-       run: ls -R
-       working-directory: web/angular/build/download/artifact
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: web/angular/build/download/artifact
