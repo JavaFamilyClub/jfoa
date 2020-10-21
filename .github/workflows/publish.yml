@@ -16,6 +16,8 @@ on:
     branches: [ master ]
     paths-ignore:
       - '**.md'
+  release:
+    types: [published,edited]
 
 jobs:
   publish:
@@ -61,8 +63,8 @@ jobs:
     - name: Zip Installer
       run: ./gradlew zipInstaller -Pbuildenv=prod --no-daemon --console=plain
 
-    - name: Publish Installer
-      run: ./gradlew publish -Pbuildenv=prod
+#    - name: Publish Installer
+#      run: ./gradlew publish -Pbuildenv=prod
 
     - name: Publish to github artifact
       uses: actions/upload-artifact@v2
