@@ -27,7 +27,6 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-18.04, macos-latest, windows-latest]
-        version: 0.0.1
 
     env:
       JF_NEXUS_PWD: ${{ secrets.JF_NEXUS_PWD }}
@@ -72,7 +71,7 @@ jobs:
     - name: Publish to github artifact
       uses: actions/upload-artifact@v2
       with:
-        name: jfoa-client-${{ matrix.version }}-${{ runner.os }}
+        name: jfoa-client-${{ github.ref }}-${{ runner.os }}
         path: web/angular/build/installerArchives/jfoa-client-*.zip
         if-no-files-found: error
 
