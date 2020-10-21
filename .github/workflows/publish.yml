@@ -65,4 +65,4 @@ jobs:
       with:
         name: jfoa-client-${{ runner.os }}
         path: web/angular/build/installerArchives/jfoa-client-*.zip
-	if-no-files-found: warn
+        if-no-files-found: warn
