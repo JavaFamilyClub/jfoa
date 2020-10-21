@@ -65,6 +65,4 @@ jobs:
       with:
         name: jfoa-client-${{ runner.os }}
         path: web/angular/build/installerArchives/jfoa-client-*.zip
-
-    - name: Clean Env
-      run: ./gradlew cleanAll -Pbuildenv=prod --no-daemon --console=plain
+	if-no-files-found: warn
