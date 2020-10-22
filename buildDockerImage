@@ -3,4 +3,7 @@
 ./gradlew clean bootJar -x test -Pbuildenv=prod --no-daemon --console plain
 
 # build docker image
-docker build -f ./Dockerfile -t javafamily/jfoa ./runner/build/libs/
+
+echo JF_JASYPT_ENCRYPTOR Token is: $JF_JASYPT_ENCRYPTOR
+
+docker build --build-arg JF_JASYPT_ENCRYPTOR=$JF_JASYPT_ENCRYPTOR -f ./Dockerfile -m 1g -t javafamily/jfoa ./runner/build/libs/

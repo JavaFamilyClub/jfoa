@@ -12,6 +12,9 @@ VOLUME /tmp
 # add jar to container and renaming to app.jar
 ADD ./javafamily-oa-*.jar app.jar
 # env
-ENV JAVA_OPTS "-Xms800m -Xmx800m"
+ARG JF_JASYPT_ENCRYPTOR
+ENV JF_JASYPT_ENCRYPTOR=$JF_JASYPT_ENCRYPTOR
+ENV JAVA_OPTS="-Xms800m -Xmx800m"
+
 # run command
 ENTRYPOINT java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /app.jar --spring.profiles.active=prod
