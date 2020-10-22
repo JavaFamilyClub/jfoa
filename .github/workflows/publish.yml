@@ -71,7 +71,7 @@ jobs:
     - name: Publish to github artifact
       uses: actions/upload-artifact@v2
       with:
-        name: jfoa-client-${{ github.ref }}-${{ runner.os }}
+        name: jfoa-client-0.0.1-${{ runner.os }}
         path: web/angular/build/installerArchives/jfoa-client-*.zip
         if-no-files-found: error
 
@@ -79,7 +79,7 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v2
       with:
-        name: jfoa-client-${{ runner.os }}
+        name: jfoa-client-0.0.1-${{ runner.os }}
         path: web/angular/build/download/artifact
 
     - name: Display structure of downloaded files
