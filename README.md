@@ -3,6 +3,7 @@
 [![build](https://github.com/JavaFamilyClub/jfoa/workflows/build/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3Abuild "Build Status")
 [![publish](https://github.com/JavaFamilyClub/jfoa/workflows/publish/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3Apublish "Publish Status")
 [![docker](https://github.com/JavaFamilyClub/jfoa/workflows/docker/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3Adocker "Docker Build Status")
+[![codecov](https://codecov.io/gh/JavaFamilyClub/jfoa/branch/master/graph/badge.svg)](https://codecov.io/gh/JavaFamilyClub/jfoa)
 [![HitCount](http://hits.dwyl.com/JavaFamilyClub/jfoa.svg)](http://hits.dwyl.com/JavaFamilyClub/jfoa)
 [![Percentage of opend issues](http://isitmaintained.com/badge/open/JavaFamilyClub/jfoa.svg)](https://github.com/JavaFamilyClub/jfoa/issues "Percentage of issues still open")
 ![GitHub release](https://img.shields.io/github/release-pre/JavaFamilyClub/jfoa)

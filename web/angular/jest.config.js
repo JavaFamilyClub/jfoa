@@ -4,5 +4,7 @@ module.exports = {
          tsConfigFile: './tsconfig.spec.json',
       }
    },
-   setupFiles: ["jest-canvas-mock", "<rootDir>/src/setupJest.ts"]
+   setupFiles: ["jest-canvas-mock", "<rootDir>/src/setupJest.ts"],
+   coverageDirectory: "<rootDir>/build/coverage/",
+   collectCoverage: true
 };

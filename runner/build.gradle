@@ -13,6 +13,7 @@ plugins {
    id 'org.springframework.boot' version '2.1.6.RELEASE'
    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
    id 'java'
+   id 'jacoco'
 }
 
 sourceCompatibility = '1.8'
@@ -175,6 +176,15 @@ task server() {
       }
    }
 }
+
+jacocoTestReport {
+   reports {
+      xml.enabled true
+      html.enabled false
+   }
+}
+
+check.dependsOn jacocoTestReport
 
 tasks.bootJar.configure {
    archivesBaseName = "javafamily-oa"
