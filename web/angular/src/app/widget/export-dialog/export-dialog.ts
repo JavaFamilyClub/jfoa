@@ -15,6 +15,7 @@
 import { HttpParams } from "@angular/common/http";
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ContextHelp } from "../../common/annotation/context-help";
 import { EmUrlConstants } from "../../common/constants/url/em-url-constants";
 import { ExportType } from "../../common/enum/export-type";
 import { ExportTool } from "../../common/util/export-tool";
@@ -67,8 +68,6 @@ export class ExportDialog implements OnInit {
        Tool.API_VERSION + EmUrlConstants.AUDIT_EXPORT, params);
 
     this.downloadService.download(url);
-
-    // window.open(url);
 
     this.onCommit.emit(this.model);
   }

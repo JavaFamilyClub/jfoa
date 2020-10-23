@@ -23,6 +23,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
+import { TranslateModule } from "@ngx-translate/core";
 import { MatMessageDialog } from "./dialog/mat-message-dialog";
 import { ExportDialog } from "./export-dialog/export-dialog";
 import { HelpUrlService } from "./help-link/help-url.service";
@@ -55,7 +56,8 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
       MatButtonModule,
       MatTableModule,
       MatPaginatorModule,
-      MatSortModule
+      MatSortModule,
+      TranslateModule
    ],
    declarations: [
       ...MODULE_COMPONENTS,

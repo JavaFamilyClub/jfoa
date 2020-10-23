@@ -15,6 +15,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, of as observableOf } from "rxjs";
 import { tap } from "rxjs/operators";
+import { CommonUrlConstants } from "../../common/constants/url/common-url-constants";
 import { ModelService } from "../services/model.service";
 
 @Injectable()
@@ -29,7 +30,7 @@ export class HelpUrlService {
          return observableOf(this._helpUrl);
       }
 
-      return this.modelService.getModel<string>("../api/help-url").pipe(
+      return this.modelService.getModel<string>(CommonUrlConstants.HELP_URL).pipe(
          tap((data) => this._helpUrl = data)
       );
    }

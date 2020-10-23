@@ -17,6 +17,7 @@ import { MatDrawer } from "@angular/material/sidenav";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
+import { ContextHelp } from "../../common/annotation/context-help";
 import { Searchable } from "../../common/annotation/searchable";
 import { BaseSubscription } from "../../widget/base/BaseSubscription";
 import { SideNavService } from "../service/side-nav.service";
@@ -27,6 +28,10 @@ import { SideNavService } from "../service/side-nav.service";
    keywords: [
       "monitor"
    ]
+})
+@ContextHelp({
+   route: "/em/monitor",
+   link: "EmMonitor"
 })
 @Component({
    selector: "em-monitor",

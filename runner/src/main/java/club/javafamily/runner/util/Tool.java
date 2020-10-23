@@ -18,6 +18,7 @@ public class Tool {
    public static final String PROJECT_MAIN = "JavaFamily";
    public static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
    public static final String DEFAULT_TIME_ZONE = "GMT+8";
+   public static final String USER_DOCUMENT_URI = "https://javafamilyclub.github.io/jfoa/#/";
 
    private static final String NOCLONE = new String("noclone");
    private static Map<String, Object> cloneFns = new ConcurrentHashMap<>();

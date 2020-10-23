@@ -13,6 +13,7 @@
  */
 
 import { AfterViewInit, Directive, ElementRef, HostListener, Input } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { HelpUrlService } from "./help-url.service";
 
 @Directive({
@@ -22,14 +23,17 @@ export class HelpLinkDirective implements AfterViewInit {
    @Input() helpLink: string;
    private _helpUrl: string;
 
-   constructor(private helpService: HelpUrlService, private element: ElementRef) {
+   constructor(private element: ElementRef,
+               private helpService: HelpUrlService,
+               private translate: TranslateService)
+   {
       this.helpService.getHelpUrl()
          .subscribe((url) => this._helpUrl = url);
    }
 
    ngAfterViewInit() {
       let elem = this.element.nativeElement;
-      elem.setAttribute("title", "_#(js:Help)");
+      elem.setAttribute("title", this.translate.instant("Help"));
       let classAttr = elem.getAttribute("class");
       elem.setAttribute("class", "help-question-mark-icon cursor-pointer " + classAttr);
    }
@@ -37,7 +41,7 @@ export class HelpLinkDirective implements AfterViewInit {
    @HostListener("click", [])
    showSubDocument() {
       if(!!this._helpUrl) {
-         window.open(this._helpUrl + "#cshid=" + this.helpLink);
+         window.open(this._helpUrl + this.helpLink);
       }
    }
 }

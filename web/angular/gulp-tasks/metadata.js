@@ -8,6 +8,7 @@ const CharSet_UTF_8 = "utf-8";
 
 const generateMetadata = function() {
    const searchEntries = [];
+   const helpLinkEntries = [];
 
    function generateSearchMetadata(file) {
       const content = file.contents.toString(CharSet_UTF_8);
@@ -16,17 +17,25 @@ const generateMetadata = function() {
 
       if(match != null) {
          const metadata = eval("(" + match[1] + ")");
-         const route = metadata.route.replace(/^_#\(js:/, "").replace(/\)$/, "");
-         const title = metadata.title.replace(/^_#\(js:/, "").replace(/\)$/, "");
-         const keywords = metadata.keywords.map(value => {
-            if(/^_#\(js:[^)]+\)$/.test(value)) {
-               return value.substring(0, value.length - 1).substring(3);
-            }
-
-            return value;
-         });
+         const route = metadata.route;
+         const title = metadata.title;
+         const keywords = metadata.keywords;
 
          searchEntries.push({route, title, keywords});
+      }
+   }
+
+   function generateHelpLinkMetadata(file) {
+      const content = file.contents.toString(CharSet_UTF_8);
+      const expr = /@ContextHelp\s*\(\s*({[^}]+})\s*\)/;
+      const match = expr.exec(content);
+
+      if(match != null) {
+         const metadata = eval("(" + match[1] + ")");
+         const route = metadata.route;
+         const link = metadata.link;
+
+         helpLinkEntries.push({route, link});
       }
    }
 
@@ -43,6 +52,7 @@ const generateMetadata = function() {
       }
 
       generateSearchMetadata(file);
+      generateHelpLinkMetadata(file);
 
       return callback();
    }
@@ -52,6 +62,11 @@ const generateMetadata = function() {
       this.push(new File({
          path: "admin/search-index.json",
          contents: Buffer.from(JSON.stringify({entries: searchEntries}), CharSet_UTF_8)
+      }));
+
+      this.push(new File({
+         path: "admin/help-links.json",
+         contents: Buffer.from(JSON.stringify({entries: helpLinkEntries}), CharSet_UTF_8)
       }));
 
       callback();
