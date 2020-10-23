@@ -4,7 +4,16 @@
            class="mat-elevation-z8">
       <ng-container *ngFor="let col of cols" [matColumnDef]="col.name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{col.label}} </th>
-        <td mat-cell *matCellDef="let element"> {{element[col.name]}} </td>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="!!col.btnElement">
+            <button mat-button (click)="col.btnElement.action(element)"
+              >{{col.btnElement.label}}</button>
+          </ng-container>
+
+          <ng-container *ngIf="!!!col.btnElement">
+            {{element[col.name]}}
+          </ng-container>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

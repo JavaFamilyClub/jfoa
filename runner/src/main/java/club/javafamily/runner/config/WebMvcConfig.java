@@ -25,6 +25,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
@@ -49,6 +50,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
       registry.addViewController("/login").setViewName("login");
       registry.addViewController("/signupSuccess").setViewName("signupSuccess");
       registry.addViewController("/verifyResult").setViewName("verifyResult");
+   }
+
+   @Override
+   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+      resolvers.add(new RemainingPathResolver());
    }
 
    @Override

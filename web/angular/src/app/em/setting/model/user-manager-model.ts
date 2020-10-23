@@ -12,41 +12,8 @@
  * person.
  */
 
-export class EmUrlConstants {
+import { CustomerModel } from "./customer-model";
 
-   /**
-    * Audit Export
-    */
-   public static readonly AUDIT_EXPORT = "/public/log/export";
-
-   /**
-    * Notify all
-    */
-   public static readonly NOTIFY_ALL = "/notification/all";
-
-   /**
-    * Search Action
-    */
-   public static readonly SEARCH = "/public/tool/search";
-
-   /**
-    * Upload Installer
-    */
-   public static readonly UPLOAD_INSTALLER = "/client/upload";
-
-   /**
-    * Getting installers
-    */
-   public static readonly INSTALLERS = "/clients";
-
-   /**
-    * Getting users
-    */
-   public static readonly USERS = "/users";
-
-   /**
-    * User api
-    */
-   public static readonly USER = "/user";
-
+export interface UserManagerModel {
+   users: CustomerModel[]
 }

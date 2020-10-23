@@ -11,12 +11,7 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-
-export interface MatColumnIno {
-   label: string;
+export interface Role {
+   id: number;
    name: string;
-   btnElement?: {
-      label: string;
-      action: (elem: any) => void;
-   };
 }

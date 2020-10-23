@@ -11,12 +11,14 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
+import { Gender } from "../../../common/enum/gender";
 
-export interface MatColumnIno {
-   label: string;
+export interface CustomerModel {
+   id: number;
+   account: string;
    name: string;
-   btnElement?: {
-      label: string;
-      action: (elem: any) => void;
-   };
+   email: string;
+   gender: Gender;
+   active: boolean;
+   registerDate: Date;
 }

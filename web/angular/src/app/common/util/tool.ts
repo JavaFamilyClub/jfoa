@@ -35,6 +35,8 @@ export namespace Tool {
     export const INSTALLER_API_VERSION = INSTALLER_URI + BASE_API_VERSION;
     export const API_VERSION = "../" + BASE_API_VERSION;
 
+    export const ADMIN = "admin";
+
     export const DOC_URL = "https://javafamilyclub.github.io/jfoa";
     export const DEV_DOC_URL = "https://javafamily.club/swagger-ui.html";
 

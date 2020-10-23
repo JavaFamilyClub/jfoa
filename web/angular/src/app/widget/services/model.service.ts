@@ -62,6 +62,16 @@ export class ModelService {
         );
     }
 
+    deleteModel<T>(controller: string, params?: HttpParams): Observable<T> {
+        const options = {
+            headers: this.headers,
+            params: params
+        };
+        return this.http.delete<T>(this.baseHref + controller, options).pipe(
+           catchError((error) => this.handleError<T>(error))
+        );
+    }
+
     sendModel<T>(controller: string, model: any, params?: HttpParams): Observable<HttpResponse<T>> {
         return this.http.post<T>(this.baseHref + controller, model, {
             headers: this.headers,

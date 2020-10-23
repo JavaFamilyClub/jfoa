@@ -11,6 +11,7 @@
    "Language": "语言",
    "Deprecated": "已过时",
    "numberSymbol": "编号",
+   "registeredDate": "注册时间",
    "Version": "版本",
    "Error": "错误",
    "Cancel": "取消",
@@ -84,6 +85,9 @@
          "prompt": {
             "changeSuccess": "密码修改成功."
          }
+      },
+      "status": {
+         "active": "激活状态"
       }
    },
    "portal": {
@@ -141,6 +145,9 @@
          "clientVersion": "客户端版本",
          "downloadLink": "下载链接",
          "uploadDate": "上传日期"
+      },
+      "user": {
+         "manager": "用户管理"
       }
    },
    "security": {
@@ -150,5 +157,8 @@
          "sign-up": "注册",
          "sign-out": "注销"
       }
+   },
+   "common": {
+      "noPermission": "您没有权限执行该操作"
    }
 }

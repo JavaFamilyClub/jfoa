@@ -11,6 +11,7 @@
    "Language": "Language",
    "Deprecated": "Deprecated",
    "numberSymbol": "No.",
+   "registeredDate": "Registered Date",
    "Version": "Version",
    "Error": "Error",
    "Cancel": "Cancel",
@@ -84,6 +85,9 @@
          "prompt": {
             "changeSuccess": "Password changed successfully."
          }
+      },
+      "status": {
+         "active": "Active Status"
       }
    },
    "portal": {
@@ -141,6 +145,9 @@
          "clientVersion": "Client Version",
          "downloadLink": "Download Link",
          "uploadDate": "Upload Date"
+      },
+      "user": {
+         "manager": "User Manager"
       }
    },
    "security": {
@@ -150,5 +157,8 @@
          "sign-up": "Sign Up",
          "sign-out": "Sign Out"
       }
+   },
+   "common": {
+      "noPermission": "You do not have permission to perform this operation"
    }
 }

@@ -12,41 +12,32 @@
  * person.
  */
 
-export class EmUrlConstants {
+package club.javafamily.runner.web.em.model;
 
-   /**
-    * Audit Export
-    */
-   public static readonly AUDIT_EXPORT = "/public/log/export";
+import club.javafamily.runner.domain.Customer;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
-   /**
-    * Notify all
-    */
-   public static readonly NOTIFY_ALL = "/notification/all";
+import java.util.List;
 
-   /**
-    * Search Action
-    */
-   public static readonly SEARCH = "/public/tool/search";
+@ApiModel("User Manager Model")
+public class UserManagerModel {
 
-   /**
-    * Upload Installer
-    */
-   public static readonly UPLOAD_INSTALLER = "/client/upload";
+   public UserManagerModel() {
+   }
 
-   /**
-    * Getting installers
-    */
-   public static readonly INSTALLERS = "/clients";
+   public UserManagerModel(List<Customer> users) {
+      this.users = users;
+   }
 
-   /**
-    * Getting users
-    */
-   public static readonly USERS = "/users";
+   public List<Customer> getUsers() {
+      return users;
+   }
 
-   /**
-    * User api
-    */
-   public static readonly USER = "/user";
+   public void setUsers(List<Customer> users) {
+      this.users = users;
+   }
 
+   @ApiModelProperty("User List")
+   private List<Customer> users;
 }

@@ -17,6 +17,7 @@ import { Injectable } from "@angular/core";
 import { JfoaEnvConstants } from "../../common/constants/jfoa-env-constants";
 import { CustomerUrlConstants } from "../../common/constants/url/customer-url-constants";
 import { LocalStorage } from "../../common/util/local-storage.util";
+import { Tool } from "../../common/util/tool";
 import { JfPrincipal } from "../model/jf-principal";
 import { ClientModelService } from "./client-model.service";
 import { ModelService } from "./model.service";
@@ -31,6 +32,14 @@ export class PrincipalService {
                private clientService: ClientModelService)
    {
       this.refresh().then();
+   }
+
+   isAdmin(): boolean {
+      return this.isAdminUser(this.principal?.account);
+   }
+
+   isAdminUser(userAccount): boolean {
+      return userAccount === Tool.ADMIN;
    }
 
    refresh(): Promise<void> {
