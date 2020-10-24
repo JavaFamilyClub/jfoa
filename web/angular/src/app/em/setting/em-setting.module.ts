@@ -30,13 +30,15 @@ import { WidgetModule } from "../../widget/widget.module";
 import { ClientManagerComponent } from "./client-manager/client-manager.component";
 import { EmSettingRoutingModule } from "./em-setting-routing.module";
 import { EmSettingComponent } from "./em-setting.component";
-import { UserManagerComponent } from './user-manager/user-manager.component';
+import { RoleManagerComponent } from "./role-manager/role-manager.component";
+import { UserManagerComponent } from "./user-manager/user-manager.component";
 
 @NgModule({
    declarations: [
       EmSettingComponent,
       ClientManagerComponent,
-      UserManagerComponent
+      UserManagerComponent,
+      RoleManagerComponent
    ],
    imports: [
       CommonModule,

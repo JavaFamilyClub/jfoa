@@ -12,9 +12,31 @@
  * person.
  */
 
+import { of } from "rxjs";
+
 /**
  * Namespace that provides utility methods that are useful in developing unit tests.
  */
 export namespace TestUtils {
+
+   export function createModelService(): any {
+      return {
+         deleteModel: jest.fn(),
+         getModel: jest.fn(() => of([]))
+      };
+   }
+
+   export function createPrincipalService(): any {
+      return {
+         isAdmin: jest.fn(() => of(false)),
+         isAdminUser: jest.fn(() => of(false))
+      };
+   }
+
+   export function createTranslateService(): any {
+      return {
+         instant: jest.fn()
+      };
+   }
 
 }

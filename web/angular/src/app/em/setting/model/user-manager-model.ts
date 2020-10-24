@@ -15,5 +15,5 @@
 import { CustomerModel } from "./customer-model";
 
 export interface UserManagerModel {
-   users: CustomerModel[]
+   users: CustomerModel[];
 }

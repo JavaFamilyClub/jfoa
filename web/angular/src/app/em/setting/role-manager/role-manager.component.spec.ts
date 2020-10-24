@@ -12,26 +12,25 @@
  * person.
  */
 
-import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
-import { MatPaginatorModule } from "@angular/material/paginator";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
-import { MatSortModule } from "@angular/material/sort";
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { TestUtils } from "../../../common/test/test-utils";
 import { ModelService } from "../../../widget/services/model.service";
 import { PrincipalService } from "../../../widget/services/principal-service";
+import { RoleManagerComponent } from "./role-manager.component";
 
-import { UserManagerComponent } from "./user-manager.component";
-
-describe("UserManagerComponent", () => {
-  let component: UserManagerComponent;
-  let fixture: ComponentFixture<UserManagerComponent>;
+describe("RoleManagerComponent", () => {
+  let component: RoleManagerComponent;
+  let fixture: ComponentFixture<RoleManagerComponent>;
   let modelService: any;
   let principalService: any;
   let translate: any;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async(() => {
     modelService = TestUtils.createModelService();
     principalService = TestUtils.createPrincipalService();
     translate = TestUtils.createTranslateService();
@@ -46,29 +45,29 @@ describe("UserManagerComponent", () => {
           provide: PrincipalService,
           useValue: principalService
         },
-        MatSnackBar,
+         MatSnackBar,
         {
           provide: TranslateService,
           useValue: translate
         }
       ],
       imports: [
-         MatPaginatorModule,
-         MatSortModule,
-         MatSnackBarModule
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        TranslateModule,
+        MatSidenavModule
       ],
       declarations: [
-         UserManagerComponent
-      ],
-      schemas: [
-        NO_ERRORS_SCHEMA
+         RoleManagerComponent
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserManagerComponent);
+    fixture = TestBed.createComponent(RoleManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

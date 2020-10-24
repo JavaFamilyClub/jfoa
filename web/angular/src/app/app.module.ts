@@ -79,6 +79,6 @@ export function createTranslateLoader(http: HttpClient): TranslateLoader {
          }
       }
    ],
-  bootstrap: [ AppComponent ]
+   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

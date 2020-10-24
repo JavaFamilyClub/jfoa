@@ -18,6 +18,7 @@ import { ClientManagerComponent } from "./client-manager/client-manager.componen
 import { SearchResultResolver } from "../search-result/search-result-resolver.service";
 import { SearchResultComponent } from "../search-result/search-result.component";
 import { EmSettingComponent } from "./em-setting.component";
+import { RoleManagerComponent } from "./role-manager/role-manager.component";
 import { UserManagerComponent } from "./user-manager/user-manager.component";
 
 const appRoutes: Routes = [
@@ -32,6 +33,10 @@ const appRoutes: Routes = [
          {
             path: "user-manager",
             component: UserManagerComponent
+         },
+         {
+            path: "role-manager",
+            component: RoleManagerComponent
          },
          {
             path: "search",

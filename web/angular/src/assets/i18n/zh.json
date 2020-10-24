@@ -148,6 +148,9 @@
       },
       "user": {
          "manager": "用户管理"
+      },
+      "role": {
+         "manager": "角色管理"
       }
    },
    "security": {

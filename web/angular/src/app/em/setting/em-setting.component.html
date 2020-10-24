@@ -1,5 +1,5 @@
-<mat-drawer-container class="em-monitor-container" autosize>
-  <mat-drawer #splitePane mode="side" opened class="em-monitor-left-sidenav"
+<mat-sidenav-container class="em-monitor-container" autosize>
+  <mat-sidenav #splitePane mode="side" opened class="em-monitor-left-sidenav"
               disableClose>
     <div class="mat-drawer-inner-container">
       <mat-form-field>
@@ -19,13 +19,17 @@
         <mat-list-item>
           <a matLine routerLink="user-manager" translate>em.user.manager</a>
         </mat-list-item>
+
+        <mat-list-item>
+          <a matLine routerLink="role-manager" translate>em.role.manager</a>
+        </mat-list-item>
       </mat-nav-list>
 
     </div>
-  </mat-drawer>
+  </mat-sidenav>
 
-  <div class="em-monitor-right-sidenav">
+  <mat-sidenav-content class="em-monitor-right-sidenav">
     <router-outlet></router-outlet>
-  </div>
+  </mat-sidenav-content>
 
-</mat-drawer-container>
+</mat-sidenav-container>

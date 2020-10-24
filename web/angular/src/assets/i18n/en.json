@@ -148,6 +148,9 @@
       },
       "user": {
          "manager": "User Manager"
+      },
+      "role": {
+         "manager": "Role Manager"
       }
    },
    "security": {
