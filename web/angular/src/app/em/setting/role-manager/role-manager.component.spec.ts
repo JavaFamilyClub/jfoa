@@ -12,11 +12,12 @@
  * person.
  */
 
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { TestUtils } from "../../../common/test/test-utils";
 import { ModelService } from "../../../widget/services/model.service";
@@ -30,7 +31,7 @@ describe("RoleManagerComponent", () => {
   let principalService: any;
   let translate: any;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     modelService = TestUtils.createModelService();
     principalService = TestUtils.createPrincipalService();
     translate = TestUtils.createTranslateService();
@@ -52,6 +53,7 @@ describe("RoleManagerComponent", () => {
         }
       ],
       imports: [
+        NoopAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
