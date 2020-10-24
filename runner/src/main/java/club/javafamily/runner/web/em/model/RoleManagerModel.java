@@ -11,10 +11,31 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-import { Permission } from "./permission";
 
-export interface Role {
-   id: number;
-   name: string;
-   permissions: Permission[];
+package club.javafamily.runner.web.em.model;
+
+import club.javafamily.runner.common.model.data.TreeNodeModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("Role Manager Model")
+public class RoleManagerModel {
+
+   public RoleManagerModel() {
+   }
+
+   public RoleManagerModel(TreeNodeModel root) {
+      this.root = root;
+   }
+
+   public TreeNodeModel getRoot() {
+      return root;
+   }
+
+   public void setRoot(TreeNodeModel root) {
+      this.root = root;
+   }
+
+   @ApiModelProperty("Role Tree Root")
+   private TreeNodeModel root;
 }

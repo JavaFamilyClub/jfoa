@@ -11,10 +11,23 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-import { Permission } from "./permission";
 
-export interface Role {
-   id: number;
-   name: string;
-   permissions: Permission[];
+package club.javafamily.runner.service;
+
+import club.javafamily.runner.domain.Role;
+
+import java.util.List;
+
+public interface RoleService {
+
+   List<Role> getRoles();
+
+   Role getRole(Integer id);
+
+   void deleteRole(Role role);
+
+   Integer addRole(Role role);
+
+   void updateRole(Role role);
+
 }

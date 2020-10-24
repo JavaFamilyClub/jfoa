@@ -11,10 +11,8 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-import { Permission } from "./permission";
-
-export interface Role {
+export interface Permission {
    id: number;
-   name: string;
-   permissions: Permission[];
+   resource: number;
+   operator: number;
 }

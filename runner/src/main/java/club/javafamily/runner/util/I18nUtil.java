@@ -47,8 +47,14 @@ public final class I18nUtil {
 
    public static String getString(String key, Object[] params, Locale locale) {
       ResourceBundle bundle = getBundle(locale);
-      String value = bundle.getString(key);
-//      value = new String(value.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+      String value;
+
+      try {
+         value = bundle.getString(key);
+      }
+      catch(MissingResourceException e) {
+         return key;
+      }
 
       if(ArrayUtils.isEmpty(params)) {
          return value;

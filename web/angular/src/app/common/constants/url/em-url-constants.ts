@@ -49,4 +49,14 @@ export class EmUrlConstants {
     */
    public static readonly USER = "/user";
 
+   /**
+    * Role
+    */
+   public static readonly ROLE = "/role";
+
+   /**
+    * Getting roles
+    */
+   public static readonly ROLES_TREE = "/roles/tree";
+
 }

@@ -12,6 +12,7 @@
  * person.
  */
 
+import { NestedTreeControl } from "@angular/cdk/tree";
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslateService } from "@ngx-translate/core";
@@ -22,6 +23,7 @@ import { MatColumnIno } from "../../../widget/mat-table-view/mat-column-ino";
 import { ModelService } from "../../../widget/services/model.service";
 import { PrincipalService } from "../../../widget/services/principal-service";
 import { CustomerModel } from "../model/customer-model";
+import { RoleManagerModel } from "../model/role-manager-model";
 import { UserManagerModel } from "../model/user-manager-model";
 
 
@@ -42,40 +44,10 @@ import { UserManagerModel } from "../model/user-manager-model";
   styleUrls: ["./role-manager.component.scss"]
 })
 export class RoleManagerComponent implements OnInit {
-  model: UserManagerModel;
-
-  displayCols: MatColumnIno[] = [
-    {
-      label: this.translate.instant("ID"),
-      name: "id"
-    },
-    {
-      label: this.translate.instant("Account"),
-      name: "account"
-    },
-    {
-      label: this.translate.instant("user.profile.name"),
-      name: "name"
-    },
-    {
-      label: this.translate.instant("portal.email.Email"),
-      name: "email"
-    },
-    {
-      label: this.translate.instant("user.profile.Gender"),
-      name: "gender"
-    },
-    {
-      label: this.translate.instant("user.status.active"),
-      name: "active"
-    },
-    {
-      label: this.translate.instant("registeredDate"),
-      name: "registerDate"
-    }
-  ];
+  model: RoleManagerModel;
 
   constructor(private snackBar: MatSnackBar,
+              private modelService: ModelService,
               private translate: TranslateService)
   {
   }
@@ -85,11 +57,11 @@ export class RoleManagerComponent implements OnInit {
   }
 
   private refresh(): void {
-    // this.modelService.getModel<UserManagerModel>(EmUrlConstants.USERS)
-    //   .subscribe(model =>
-    // {
-    //   this.model = model;
-    // });
+    this.modelService.getModel<RoleManagerModel>(EmUrlConstants.ROLES_TREE)
+      .subscribe(model =>
+    {
+      this.model = model;
+    });
   }
 
 }

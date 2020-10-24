@@ -33,7 +33,7 @@ import { UserManagerModel } from "../model/user-manager-model";
   title: "User Manager",
   route: "/em/setting/user-manager",
   keywords: [
-    "user manager"
+    "user", "user manager", "customer"
   ]
 })
 @Component({

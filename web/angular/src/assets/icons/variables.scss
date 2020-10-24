@@ -2,30 +2,38 @@ $jfoa-font-cache-buster: "53kz7tbqcku27x0eyz2xcxg4u4";
 
 $icon-account: "\e900";
 $icon-alarm: "\e901";
-$icon-clear_circle: "\e902";
-$icon-edit: "\e903";
-$icon-en2zh: "\e904";
-$icon-export_import: "\e905";
-$icon-export: "\e906";
-$icon-file-select: "\e907";
-$icon-help: "\e908";
-$icon-home: "\e909";
-$icon-logout: "\e90b";
-$icon-mail-send: "\e90c";
-$icon-mail-write: "\e90e";
-$icon-menu-off: "\e90f";
-$icon-menu-on: "\e910";
-$icon-monitor: "\e911";
-$icon-notify: "\e912";
-$icon-refresh: "\e913";
-$icon-search: "\e914";
-$icon-setting: "\e915";
-$icon-volume_up: "\e916";
-$icon-zh2en: "\e917";
+$icon-arrow-down: "\e902";
+$icon-arrow-left: "\e903";
+$icon-arrow-right: "\e904";
+$icon-arrow-up: "\e905";
+$icon-clear_circle: "\e906";
+$icon-edit: "\e907";
+$icon-en2zh: "\e908";
+$icon-export_import: "\e909";
+$icon-export: "\e90a";
+$icon-file-select: "\e90b";
+$icon-help: "\e90c";
+$icon-home: "\e90d";
+$icon-logout: "\e90f";
+$icon-mail-send: "\e910";
+$icon-mail-write: "\e912";
+$icon-menu-off: "\e913";
+$icon-menu-on: "\e914";
+$icon-monitor: "\e915";
+$icon-notify: "\e916";
+$icon-refresh: "\e917";
+$icon-search: "\e918";
+$icon-setting: "\e919";
+$icon-volume_up: "\e91a";
+$icon-zh2en: "\e91b";
 
 $jfoa-base-map: (
    icon-account: $icon-account,
    icon-alarm: $icon-alarm,
+   icon-arrow-down: $icon-arrow-down,
+   icon-arrow-left: $icon-arrow-left,
+   icon-arrow-right: $icon-arrow-right,
+   icon-arrow-up: $icon-arrow-up,
    icon-clear_circle: $icon-clear_circle,
    icon-edit: $icon-edit,
    icon-export_import: $icon-export_import,

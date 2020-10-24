@@ -18,11 +18,13 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
+import { MatTreeModule } from "@angular/material/tree";
 import { TranslateModule } from "@ngx-translate/core";
 import { MatMessageDialog } from "./dialog/mat-message-dialog";
 import { ExportDialog } from "./export-dialog/export-dialog";
@@ -42,6 +44,7 @@ import { TooltipComponent } from "./tooltip/tooltip.component";
 import { MessageDialog } from "./dialog/message-dialog.component";
 import { FixedDropdownContextmenuComponent } from "./fixed-dropdown/fixed-dropdown-contextmenu.component";
 import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.component";
+import { MatTreeViewComponent } from './tree/mat-tree-view/mat-tree-view.component';
 
 @NgModule({
    imports: [
@@ -57,12 +60,15 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
       MatTableModule,
       MatPaginatorModule,
       MatSortModule,
-      TranslateModule
+      TranslateModule,
+      MatTreeModule,
+      MatIconModule
    ],
    declarations: [
       ...MODULE_COMPONENTS,
       ...MODULE_PIPES,
-      ...MODULE_DIRECTIVES
+      ...MODULE_DIRECTIVES,
+      MatTreeViewComponent
    ],
    entryComponents: [
       FixedDropdownComponent,
@@ -76,7 +82,8 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
    exports: [
       ...MODULE_COMPONENTS,
       ...MODULE_PIPES,
-      ...MODULE_DIRECTIVES
+      ...MODULE_DIRECTIVES,
+      MatTreeViewComponent
    ],
    providers: [
       FixedDropdownService,

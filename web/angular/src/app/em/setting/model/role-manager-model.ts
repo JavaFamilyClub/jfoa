@@ -11,10 +11,9 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
-import { Permission } from "./permission";
 
-export interface Role {
-   id: number;
-   name: string;
-   permissions: Permission[];
+import { TreeNodeModel } from "../../../widget/tree/model/tree-node-model";
+
+export interface RoleManagerModel {
+   root: TreeNodeModel;
 }

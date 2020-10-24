@@ -1,7 +1,7 @@
-<mat-drawer-container class="role-manager-body">
+<mat-drawer-container class="role-manager-body" *ngIf="model">
   <mat-drawer class="role-manager-tree-container"
               mode="side" disableClose opened="true">
-    Tree
+    <mat-tree-view [data]=model.root></mat-tree-view>
   </mat-drawer>
 
   <mat-drawer-content class="role-manager-content-container">

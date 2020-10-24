@@ -12,4 +12,8 @@ create table Employee_Role (
 
 insert into Role(name) values('Administrator');
 
+insert into T_ROLE(NAME) values('Administrator');
+insert into T_ROLE(NAME) values('Everyone');
+
+
 insert into Employee_Role(Employee_id, roles_id) values(1, 1);

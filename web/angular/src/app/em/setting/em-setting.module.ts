@@ -25,6 +25,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatTreeModule } from "@angular/material/tree";
 import { TranslateModule } from "@ngx-translate/core";
 import { WidgetModule } from "../../widget/widget.module";
 import { ClientManagerComponent } from "./client-manager/client-manager.component";
@@ -56,7 +57,8 @@ import { UserManagerComponent } from "./user-manager/user-manager.component";
       MatSelectModule,
       MatProgressSpinnerModule,
       WidgetModule,
-      TranslateModule
+      TranslateModule,
+      MatTreeModule
    ],
    entryComponents: [
    ],
