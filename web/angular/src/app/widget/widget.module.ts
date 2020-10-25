@@ -45,7 +45,7 @@ import { MessageDialog } from "./dialog/message-dialog.component";
 import { FixedDropdownContextmenuComponent } from "./fixed-dropdown/fixed-dropdown-contextmenu.component";
 import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.component";
 import { MatTreeViewComponent } from "./tree/mat-tree-view/mat-tree-view.component";
-import { InputNameDialogComponent } from './dialog/input-name-dialog/input-name-dialog.component';
+import { InputNameDialogComponent } from "./dialog/input-name-dialog/input-name-dialog.component";
 
 @NgModule({
    imports: [
