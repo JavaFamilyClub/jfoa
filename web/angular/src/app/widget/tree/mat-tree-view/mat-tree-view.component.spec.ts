@@ -12,7 +12,14 @@
  * person.
  */
 
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatTreeModule } from "@angular/material/tree";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { TranslateModule } from "@ngx-translate/core";
 
 import { MatTreeViewComponent } from "./mat-tree-view.component";
 
@@ -22,7 +29,19 @@ describe("MatTreeViewComponent", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MatTreeViewComponent ]
+      declarations: [ MatTreeViewComponent ],
+      imports: [
+        NoopAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        TranslateModule,
+        MatTreeModule,
+        MatIconModule
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ]
     })
     .compileComponents();
   }));

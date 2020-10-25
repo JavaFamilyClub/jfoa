@@ -82,8 +82,7 @@ import { MatTreeViewComponent } from "./tree/mat-tree-view/mat-tree-view.compone
    exports: [
       ...MODULE_COMPONENTS,
       ...MODULE_PIPES,
-      ...MODULE_DIRECTIVES,
-      MatTreeViewComponent
+      ...MODULE_DIRECTIVES
    ],
    providers: [
       FixedDropdownService,

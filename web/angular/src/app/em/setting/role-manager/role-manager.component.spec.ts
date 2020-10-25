@@ -12,16 +12,20 @@
  * person.
  */
 
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatTreeModule } from "@angular/material/tree";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { TestUtils } from "../../../common/test/test-utils";
 import { ModelService } from "../../../widget/services/model.service";
 import { PrincipalService } from "../../../widget/services/principal-service";
+import { WidgetModule } from "../../../widget/widget.module";
 import { RoleManagerComponent } from "./role-manager.component";
 
 describe("RoleManagerComponent", () => {
@@ -59,10 +63,16 @@ describe("RoleManagerComponent", () => {
         MatButtonModule,
         MatSnackBarModule,
         TranslateModule,
-        MatSidenavModule
+        MatSidenavModule,
+        WidgetModule,
+        MatTreeModule,
+        MatIconModule
       ],
       declarations: [
          RoleManagerComponent
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA
       ]
     })
     .compileComponents();

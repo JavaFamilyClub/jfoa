@@ -32,6 +32,7 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
 import { FixedDropdownContextmenuComponent } from "./fixed-dropdown/fixed-dropdown-contextmenu.component";
 import { MessageDialog } from "./dialog/message-dialog.component";
 import { NotificationsComponent } from "./notification/notifications.component";
+import { MatTreeViewComponent } from "./tree/mat-tree-view/mat-tree-view.component";
 import { RepositoryTreeComponent } from "./tree/repository-tree.component";
 import { SlideOutBackdropComponent } from "./slide-out/slide-out-backdrop.component";
 import { SlideOutComponent } from "./slide-out/slide-out.component";
@@ -57,5 +58,6 @@ export const MODULE_COMPONENTS: Type<any>[] = [
    SlideOutComponent,
    SplitPaneComponent,
    TooltipComponent,
-   TreeNodeComponent
+   TreeNodeComponent,
+   MatTreeViewComponent
 ];
