@@ -44,7 +44,7 @@ import { TooltipComponent } from "./tooltip/tooltip.component";
 import { MessageDialog } from "./dialog/message-dialog.component";
 import { FixedDropdownContextmenuComponent } from "./fixed-dropdown/fixed-dropdown-contextmenu.component";
 import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.component";
-import { MatTreeViewComponent } from './tree/mat-tree-view/mat-tree-view.component';
+import { MatTreeViewComponent } from "./tree/mat-tree-view/mat-tree-view.component";
 
 @NgModule({
    imports: [
