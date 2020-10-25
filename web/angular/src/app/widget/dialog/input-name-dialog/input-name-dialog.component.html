@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>{{title}}</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <mat-label>{{title}}</mat-label>
+    <input matInput placeholder="{{'dialog.inputName.namePh' | translate}}"
+           [value]="name"
+           formControlName="name" defaultFocus>
+    <mat-hint *ngIf="!!hint">{{hint}}</mat-hint>
+
+    <ng-container *ngFor="let errorName of errorKeys">
+      <mat-error *ngIf="form.get('name').dirty && form.get('name').hasError(errorName)">
+        {{validatorErrors[errorName]}}
+      </mat-error>
+    </ng-container>
+
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="name"
+          [disabled]="form.invalid">OK</button>
+</mat-dialog-actions>

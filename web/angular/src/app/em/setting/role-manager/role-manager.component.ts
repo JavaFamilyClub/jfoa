@@ -12,19 +12,19 @@
  * person.
  */
 
-import { NestedTreeControl } from "@angular/cdk/tree";
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslateService } from "@ngx-translate/core";
 import { ContextHelp } from "../../../common/annotation/context-help";
 import { Searchable } from "../../../common/annotation/searchable";
 import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
-import { MatColumnIno } from "../../../widget/mat-table-view/mat-column-ino";
+import { Tool } from "../../../common/util/tool";
+import { InputNameDialogComponent } from "../../../widget/dialog/input-name-dialog/input-name-dialog.component";
 import { ModelService } from "../../../widget/services/model.service";
-import { PrincipalService } from "../../../widget/services/principal-service";
-import { CustomerModel } from "../model/customer-model";
+import { MatTreeSelectedInfo } from "../../../widget/tree/model/mat-tree-selected-info";
+import { TreeNodeModel } from "../../../widget/tree/model/tree-node-model";
 import { RoleManagerModel } from "../model/role-manager-model";
-import { UserManagerModel } from "../model/user-manager-model";
 
 
 @ContextHelp({
@@ -45,9 +45,11 @@ import { UserManagerModel } from "../model/user-manager-model";
 })
 export class RoleManagerComponent implements OnInit {
   model: RoleManagerModel;
+  selectedNodes: TreeNodeModel[];
 
   constructor(private snackBar: MatSnackBar,
               private modelService: ModelService,
+              private dialog: MatDialog,
               private translate: TranslateService)
   {
   }
@@ -61,6 +63,27 @@ export class RoleManagerComponent implements OnInit {
       .subscribe(model =>
     {
       this.model = model;
+    });
+  }
+
+  selectNode(info: MatTreeSelectedInfo): void {
+    info.event.stopPropagation();
+    info.event.preventDefault();
+
+    this.selectedNodes = info.nodes;
+  }
+
+  get selectEmpty(): boolean {
+    return Tool.isEmpty(this.selectedNodes);
+  }
+
+  addRole(): void {
+    this.dialog.open(InputNameDialogComponent).afterClosed().subscribe(name => {
+      if(name) {
+        this.modelService.sendModel(EmUrlConstants.ROLE + "/" + name, null).subscribe(result => {
+          this.refresh();
+        });
+      }
     });
   }
 

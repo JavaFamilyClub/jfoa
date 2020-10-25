@@ -14,14 +14,14 @@
 
 package club.javafamily.runner.web.em.role;
 
+import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.common.model.data.TreeNodeModel;
 import club.javafamily.runner.domain.Role;
 import club.javafamily.runner.service.RoleService;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.em.model.RoleManagerModel;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -74,10 +74,28 @@ public class RoleController {
       httpMethod = "DELETE"
    )
    @DeleteMapping("/role/{id}")
-   public void deleteRole(@PathVariable("id") Integer id) {
-      Role dUser = roleService.getRole(id);
+   public void deleteRole(@ApiParam(name = "role id", required = true, example = "2") @PathVariable("id") Integer id) {
+      Role dRole = roleService.getRole(id);
 
-      roleService.deleteRole(dUser);
+      roleService.deleteRole(dRole);
+   }
+
+   @RequiresUser
+   @ApiOperation(
+      value = "Add Role",
+      httpMethod = "POST"
+   )
+   @PostMapping("/role/{name}")
+   public Integer addRole(@ApiParam(name = "Role name", required = true, example = "roleName") @PathVariable("name") String roleName) {
+      Role existRole = roleService.getRoleByName(roleName);
+
+      if(existRole != null) {
+         throw new MessageException(I18nUtil.getString("em.role.existError", new Object[] {roleName}));
+      }
+
+      Role addRole = new Role(roleName);
+
+      return roleService.addRole(addRole);
    }
 
    private final RoleService roleService;

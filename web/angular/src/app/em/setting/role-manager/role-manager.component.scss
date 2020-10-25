@@ -26,16 +26,16 @@
             width: $tree-width;
          }
 
-         .tree-view {
+         .role-manager-tree-view {
             flex-grow: 1;
             flex-shrink: 1;
             height: calc(100% - 52px);
             overflow: auto;
          }
 
-         .buttons-view {
+         .role-manager-btns {
             display: flex;
-            justify-content: space-evenly;
+            justify-content: flex-start;
             margin-top: 10px;
             overflow: hidden;
          }

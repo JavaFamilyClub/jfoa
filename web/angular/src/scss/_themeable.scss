@@ -148,3 +148,14 @@
     word-break: break-all;
   }
 }
+
+// mat-tree-view
+.mat-tree-node-padding {
+  padding-left: 12px;
+}
+
+.mat-tree-view-tree {
+  .mat-tree-node.mat-active, ul.mat-active {
+    background: rgba(0, 0, 0, 0.12);
+  }
+}

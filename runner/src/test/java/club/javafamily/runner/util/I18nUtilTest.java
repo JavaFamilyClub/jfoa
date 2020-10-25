@@ -16,7 +16,10 @@ package club.javafamily.runner.util;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.text.MessageFormat;
 import java.util.Locale;
 
 public class I18nUtilTest {
@@ -26,5 +29,16 @@ public class I18nUtilTest {
       String home = I18nUtil.getString("Home", Locale.SIMPLIFIED_CHINESE);
 
       Assert.assertEquals("I18n Encoding error.", "主页", home);
+   }
+
+   @ParameterizedTest
+//   @ValueSource(strings = {"Hello, {value}!"})
+   @ValueSource(strings = {"Hello, {0}!"})
+   public void messageParamTest(String pattern) {
+      MessageFormat format = new MessageFormat(pattern);
+
+      Object[] params = new Object[] {"world"};
+
+      System.out.println(format.format(params));
    }
 }

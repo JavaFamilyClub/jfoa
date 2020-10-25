@@ -6,6 +6,7 @@
    "ok": "ok",
    "OK": "OK",
    "Ok": "Ok",
+   "Name": "Name",
    "Roles": "Roles",
    "Toggle": "Toggle",
    "Help": "Help",
@@ -152,7 +153,9 @@
          "manager": "User Manager"
       },
       "role": {
-         "manager": "Role Manager"
+         "name": "Role Name",
+         "manager": "Role Manager",
+         "existError": "Role {{0}} has exist"
       }
    },
    "security": {
@@ -165,5 +168,11 @@
    },
    "common": {
       "noPermission": "You do not have permission to perform this operation"
+   },
+   "dialog": {
+      "inputName": {
+         "namePh": "Please input name field",
+         "title": "Input Name"
+      }
    }
 }

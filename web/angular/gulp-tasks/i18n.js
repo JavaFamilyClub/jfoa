@@ -40,7 +40,19 @@ const generateI18ns = function() {
       });
    }
 
+   function i18nParamHandle(str) {
+      let regExpExecArray;
+
+      while(!!(regExpExecArray = /{{(\d+)}}/g.exec(str))) {
+         str = str.replace(regExpExecArray[0], "{" + regExpExecArray[1] + "}");
+      }
+
+      return str;
+   }
+
    function encodeValue(str) {
+      str = i18nParamHandle(str);
+
       return toUnicode(str.replace(/\n/g, "\\n"));
    }
 

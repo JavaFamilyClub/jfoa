@@ -11,25 +11,9 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
+import { TreeNodeModel } from "./tree-node-model";
 
-package club.javafamily.runner.service;
-
-import club.javafamily.runner.domain.Role;
-
-import java.util.List;
-
-public interface RoleService {
-
-   List<Role> getRoles();
-
-   Role getRole(Integer id);
-
-   Role getRoleByName(String name);
-
-   void deleteRole(Role role);
-
-   Integer addRole(Role role);
-
-   void updateRole(Role role);
-
+export interface MatTreeSelectedInfo {
+   event: MouseEvent;
+   nodes: TreeNodeModel[];
 }

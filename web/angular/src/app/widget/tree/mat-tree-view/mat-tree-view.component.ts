@@ -13,8 +13,9 @@
  */
 
 import { NestedTreeControl } from "@angular/cdk/tree";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { MatTreeSelectedInfo } from "../model/mat-tree-selected-info";
 import { TreeNodeModel } from "../model/tree-node-model";
 
 @Component({
@@ -24,6 +25,7 @@ import { TreeNodeModel } from "../model/tree-node-model";
 })
 export class MatTreeViewComponent implements OnInit {
   _data: TreeNodeModel;
+  @Input() selectedNodes: TreeNodeModel[];
   @Input() showRoot = true;
 
   @Input() set data(data: TreeNodeModel) {
@@ -31,6 +33,8 @@ export class MatTreeViewComponent implements OnInit {
 
     this.dataSource.data = this.showRoot ? [data] : data.children;
   }
+
+  @Output() onSelectNode = new EventEmitter<MatTreeSelectedInfo>();
 
   treeControl = new NestedTreeControl<TreeNodeModel>(node => node.children);
   dataSource = new MatTreeNestedDataSource<TreeNodeModel>();
@@ -42,5 +46,17 @@ export class MatTreeViewComponent implements OnInit {
   }
 
   hasChild = (_: number, node: TreeNodeModel) => !!node.children && node.children.length > 0;
+
+  selectNode(event: MouseEvent, node: TreeNodeModel): void {
+    // TODO multi select
+    this.onSelectNode.emit({
+      event,
+      nodes: [node]
+    });
+  }
+
+  isSelected(node: TreeNodeModel): boolean {
+    return this.selectedNodes?.some(n => n === node);
+  }
 
 }

@@ -21,6 +21,13 @@ public class Role implements Serializable {
   @ManyToMany(targetEntity = Permission.class, fetch = FetchType.EAGER)
   private Set<Permission> permissions;
 
+  public Role() {
+  }
+
+  public Role(String roleName) {
+    this.name = roleName;
+  }
+
   public Integer getId() {
     return id;
   }

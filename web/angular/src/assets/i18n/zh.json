@@ -6,6 +6,7 @@
    "ok": "确定",
    "OK": "确定",
    "Ok": "确定",
+   "Name": "名称",
    "Roles": "角色",
    "Toggle": "切换",
    "Help": "帮助",
@@ -152,7 +153,9 @@
          "manager": "用户管理"
       },
       "role": {
-         "manager": "角色管理"
+         "name": "角色名称",
+         "manager": "角色管理",
+         "existError": "角色 {{0}} 已经存在"
       }
    },
    "security": {
@@ -165,5 +168,11 @@
    },
    "common": {
       "noPermission": "您没有权限执行该操作"
+   },
+   "dialog": {
+      "inputName": {
+         "namePh": "请输入名称字段",
+         "title": "输入名称"
+      }
    }
 }
