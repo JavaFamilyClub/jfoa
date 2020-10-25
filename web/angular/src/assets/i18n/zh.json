@@ -7,6 +7,7 @@
    "OK": "确定",
    "Ok": "确定",
    "Name": "名称",
+   "Role": "角色",
    "Roles": "角色",
    "Toggle": "切换",
    "Help": "帮助",
@@ -19,6 +20,8 @@
    "Error": "错误",
    "Cancel": "取消",
    "CANCEL": "取消",
+   "Confirm": "确认",
+   "confirmWarn": "您确定要删除{{0}}?",
    "Account": "账户",
    "Document": "文档",
    "Unknown": "未知",
@@ -155,7 +158,8 @@
       "role": {
          "name": "角色名称",
          "manager": "角色管理",
-         "existError": "角色 {{0}} 已经存在"
+         "existError": "角色 {{0}} 已经存在",
+         "idRoleNotExist": "编号为 {{0}} 的角色不存在"
       }
    },
    "security": {

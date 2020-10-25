@@ -12,11 +12,11 @@
  * person.
  */
 
-import { NestedTreeControl } from "@angular/cdk/tree";
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { MatTreeSelectedInfo } from "../model/mat-tree-selected-info";
 import { TreeNodeModel } from "../model/tree-node-model";
+import { MainNestedTreeControl } from "./main-nested-tree-control";
 
 @Component({
   selector: "mat-tree-view",
@@ -25,7 +25,7 @@ import { TreeNodeModel } from "../model/tree-node-model";
 })
 export class MatTreeViewComponent implements OnInit {
   _data: TreeNodeModel;
-  @Input() selectedNodes: TreeNodeModel[];
+  _selectedNodes: TreeNodeModel[];
   @Input() showRoot = true;
 
   @Input() set data(data: TreeNodeModel) {
@@ -34,9 +34,21 @@ export class MatTreeViewComponent implements OnInit {
     this.dataSource.data = this.showRoot ? [data] : data.children;
   }
 
+  @Input() set selectedNodes(selectedNodes: TreeNodeModel[]) {
+    this._selectedNodes = selectedNodes;
+
+    selectedNodes?.forEach(node => {
+      this.treeControl.expand(node);
+    });
+  }
+
+  get selectedNodes(): TreeNodeModel[] {
+    return this._selectedNodes;
+  }
+
   @Output() onSelectNode = new EventEmitter<MatTreeSelectedInfo>();
 
-  treeControl = new NestedTreeControl<TreeNodeModel>(node => node.children);
+  treeControl = new MainNestedTreeControl(node => node.children);
   dataSource = new MatTreeNestedDataSource<TreeNodeModel>();
 
   constructor() {

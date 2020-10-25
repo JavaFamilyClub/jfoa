@@ -14,9 +14,12 @@
 
 package club.javafamily.runner.service.impl;
 
+import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.dao.RoleDao;
 import club.javafamily.runner.domain.Role;
 import club.javafamily.runner.service.RoleService;
+import club.javafamily.runner.util.I18nUtil;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +56,26 @@ public class RoleServiceImpl implements RoleService {
    @Override
    public void deleteRole(Role role) {
       roleDao.delete(role);
+   }
+
+   @Transactional
+   @Override
+   public void deleteRoles(Integer[] ids) {
+      if(ArrayUtils.isEmpty(ids)) {
+         return;
+      }
+
+      Role role;
+
+      for(Integer id : ids) {
+         role = roleDao.get(id);
+
+         if(role == null) {
+            throw new MessageException(I18nUtil.getString("em.role.idRoleNotExist", id));
+         }
+
+         roleDao.delete(role);
+      }
    }
 
    @Transactional

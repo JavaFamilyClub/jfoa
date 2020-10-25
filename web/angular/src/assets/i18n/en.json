@@ -7,6 +7,7 @@
    "OK": "OK",
    "Ok": "Ok",
    "Name": "Name",
+   "Role": "Role",
    "Roles": "Roles",
    "Toggle": "Toggle",
    "Help": "Help",
@@ -19,6 +20,8 @@
    "Error": "Error",
    "Cancel": "Cancel",
    "CANCEL": "CANCEL",
+   "Confirm": "Confirm",
+   "confirmWarn": "Do you want to delete {{0}}?",
    "Account": "Account",
    "Document": "Document",
    "Unknown": "Unknown",
@@ -155,7 +158,8 @@
       "role": {
          "name": "Role Name",
          "manager": "Role Manager",
-         "existError": "Role {{0}} has exist"
+         "existError": "Role {{0}} has exist",
+         "idRoleNotExist": "Role has not exist that id is {{0}}"
       }
    },
    "security": {

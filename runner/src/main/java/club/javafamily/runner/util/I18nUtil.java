@@ -37,7 +37,7 @@ public final class I18nUtil {
       return getString(key, null, locale);
    }
 
-   public static String getString(String key, Object[] params) {
+   public static String getString(String key, Object...params) {
       return getString(key, params, locale);
    }
 

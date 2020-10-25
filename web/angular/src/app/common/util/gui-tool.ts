@@ -632,11 +632,11 @@ export namespace GuiTool {
     * Find node form the tree by the path.
     * @param {string} path node path
     * @param {TreeNodeModel} node treeNode
-    * @returns {TreeNodeModel} If found, retunr the node, otherwise return null
+    * @returns {TreeNodeModel} If found, return the node, otherwise return null
     */
    export function getNodeByPath(path: string, node: TreeNodeModel): TreeNodeModel {
       if(path) {
-         return findNode(node, (n) => !!n.data && n.data.path === path);
+         return findNode(node, (n) => !!n.path && n.path === path);
       }
 
       return null;
@@ -660,6 +660,22 @@ export namespace GuiTool {
       }
 
       return null;
+   }
+
+   export function mergeExpandStatus(newRoot: TreeNodeModel,
+                                     oldRoot: TreeNodeModel): void
+   {
+      if(!!!newRoot || !!!oldRoot || newRoot.leaf) {
+         return;
+      }
+
+      const oldNode = GuiTool.getNodeByPath(newRoot.path, oldRoot);
+
+      if(!!oldNode?.expanded) {
+         newRoot.expanded = true;
+      }
+
+      newRoot.children?.forEach(n => GuiTool.mergeExpandStatus(n, oldRoot));
    }
 
    export function isTouch(event: any) {

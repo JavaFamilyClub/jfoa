@@ -56,6 +56,7 @@ public class RoleController {
       return TreeNodeModel.build()
          .setLabel(I18nUtil.getString("Roles"))
          .setTooltip(I18nUtil.getString("Roles"))
+         .setPath("/")
          .setChildren(roles.stream()
             .map(this::buildTreeNode)
             .collect(Collectors.toList()));
@@ -65,6 +66,8 @@ public class RoleController {
       return TreeNodeModel.build()
          .setLabel(role.getName())
          .setTooltip(role.getName())
+         .setPath("/" + role.getName())
+         .setLeaf(true)
          .setData(role);
    }
 
@@ -73,11 +76,9 @@ public class RoleController {
       value = "Delete Role",
       httpMethod = "DELETE"
    )
-   @DeleteMapping("/role/{id}")
-   public void deleteRole(@ApiParam(name = "role id", required = true, example = "2") @PathVariable("id") Integer id) {
-      Role dRole = roleService.getRole(id);
-
-      roleService.deleteRole(dRole);
+   @DeleteMapping("/role/{ids}")
+   public void deleteRole(@ApiParam(name = "role ids", required = true, example = "2,3") @PathVariable("ids") Integer[] ids) {
+      roleService.deleteRoles(ids);
    }
 
    @RequiresUser
@@ -90,7 +91,7 @@ public class RoleController {
       Role existRole = roleService.getRoleByName(roleName);
 
       if(existRole != null) {
-         throw new MessageException(I18nUtil.getString("em.role.existError", new Object[] {roleName}));
+         throw new MessageException(I18nUtil.getString("em.role.existError", roleName));
       }
 
       Role addRole = new Role(roleName);

@@ -52,7 +52,7 @@ export class EmUrlConstants {
    /**
     * Role
     */
-   public static readonly ROLE = "/role";
+   public static readonly ROLE = "/role/";
 
    /**
     * Getting roles

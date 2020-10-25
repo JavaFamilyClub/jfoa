@@ -8,7 +8,8 @@
 
     <div class="role-manager-btns">
       <button mat-button (click)="addRole()">Add Role</button>
-      <button mat-button [disabled]="selectEmpty">Delete Role</button>
+      <button mat-button [disabled]="selectEmpty"
+              (click)="deleteSelectedRole()">Delete Role</button>
     </div>
   </mat-drawer>
 

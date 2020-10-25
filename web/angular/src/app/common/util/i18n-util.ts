@@ -12,26 +12,12 @@
  * person.
  */
 
-package club.javafamily.runner.service;
+export namespace I18nUtil {
+   export function buildParams(params: any[]): Object {
+      let obj = {};
 
-import club.javafamily.runner.domain.Role;
+      params.forEach((value, i) => obj[i + ""] = value);
 
-import java.util.List;
-
-public interface RoleService {
-
-   List<Role> getRoles();
-
-   Role getRole(Integer id);
-
-   Role getRoleByName(String name);
-
-   void deleteRole(Role role);
-
-   void deleteRoles(Integer[] ids);
-
-   Integer addRole(Role role);
-
-   void updateRole(Role role);
-
+      return obj;
+   }
 }

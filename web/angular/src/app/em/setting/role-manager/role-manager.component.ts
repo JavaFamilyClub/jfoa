@@ -19,8 +19,12 @@ import { TranslateService } from "@ngx-translate/core";
 import { ContextHelp } from "../../../common/annotation/context-help";
 import { Searchable } from "../../../common/annotation/searchable";
 import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
+import { GuiTool } from "../../../common/util/gui-tool";
+import { I18nUtil } from "../../../common/util/i18n-util";
 import { Tool } from "../../../common/util/tool";
 import { InputNameDialogComponent } from "../../../widget/dialog/input-name-dialog/input-name-dialog.component";
+import { MatMessageDialog } from "../../../widget/dialog/mat-message-dialog";
+import { MatMsgModel } from "../../../widget/dialog/mat-msg-model";
 import { ModelService } from "../../../widget/services/model.service";
 import { MatTreeSelectedInfo } from "../../../widget/tree/model/mat-tree-selected-info";
 import { TreeNodeModel } from "../../../widget/tree/model/tree-node-model";
@@ -62,6 +66,7 @@ export class RoleManagerComponent implements OnInit {
     this.modelService.getModel<RoleManagerModel>(EmUrlConstants.ROLES_TREE)
       .subscribe(model =>
     {
+      GuiTool.mergeExpandStatus(model?.root, this.model?.root);
       this.model = model;
     });
   }
@@ -80,7 +85,30 @@ export class RoleManagerComponent implements OnInit {
   addRole(): void {
     this.dialog.open(InputNameDialogComponent).afterClosed().subscribe(name => {
       if(name) {
-        this.modelService.sendModel(EmUrlConstants.ROLE + "/" + name, null).subscribe(result => {
+        this.modelService.sendModel(EmUrlConstants.ROLE + name, null).subscribe(result => {
+          this.refresh();
+        });
+      }
+    });
+  }
+
+  deleteSelectedRole(): void {
+    this.dialog.open(MatMessageDialog, {
+      data: {
+        title: this.translate.instant("Confirm"),
+        message: this.translate.instant("confirmWarn", I18nUtil.buildParams([
+           this.translate.instant("Role")
+        ])),
+        confirm: true
+      } as MatMsgModel
+    }).afterClosed().subscribe(result => {
+      if(result) {
+        // this.selectedNodes.filter(n => !!n && !!n.data).forEach(n => {
+        //
+        // });
+        const ids = this.selectedNodes.map(n => n.data.id).join(",");
+
+        this.modelService.deleteModel(EmUrlConstants.ROLE + ids).subscribe(() => {
           this.refresh();
         });
       }
