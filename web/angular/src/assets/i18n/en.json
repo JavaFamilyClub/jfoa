@@ -6,9 +6,16 @@
    "ok": "ok",
    "OK": "OK",
    "Ok": "Ok",
+   "Type": "Type",
+   "Add": "Add",
+   "Apply": "Apply",
+   "Default": "Default",
+   "sysAdmin": "System Administrator",
+   "Description": "Description",
    "Name": "Name",
    "Role": "Role",
    "Roles": "Roles",
+   "Permission": "Permission",
    "Toggle": "Toggle",
    "Help": "Help",
    "Help Information": "Help Information",
@@ -159,7 +166,9 @@
          "name": "Role Name",
          "manager": "Role Manager",
          "existError": "Role {{0}} has exist",
-         "idRoleNotExist": "Role has not exist that id is {{0}}"
+         "idRoleNotExist": "Role has not exist that id is {{0}}",
+         "addRole": "Add Role",
+         "deleteRole": "Delete Role"
       }
    },
    "security": {

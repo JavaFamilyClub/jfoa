@@ -1,0 +1,72 @@
+<div class="role-edit-view-body" *ngIf="!!role">
+  <div class="role-edit-view-first-label role-edit-view-padding">
+    <h3 class="role-edit-role-label">
+      <p>{{'Role' | translate}}: {{role.name}}</p>
+    </h3>
+
+    <div class="role-edit-role-boxs">
+      <mat-checkbox class="mr-3" [(ngModel)]="role.defaultRole">{{'Default' | translate}}</mat-checkbox>
+      <mat-checkbox [(ngModel)]="role.administrator">{{'sysAdmin' | translate}}</mat-checkbox>
+    </div>
+  </div>
+
+  <div class="role-edit-content" *ngIf="!!form" [formGroup]="form">
+    <div class="role-edit-content-pane role-edit-view-padding">
+      <mat-form-field>
+        <mat-label>{{'Name' | translate}}</mat-label>
+        <input matInput placeholder="{{'Name' | translate}}"
+               formControlName="name" [value]="role.name">
+        <mat-error *ngIf="form.get('name').hasError('required')">
+          {{'user.profile.warn.nameRequired' | translate}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{'Description' | translate}}</mat-label>
+        <textarea matInput placeholder="{{'Description' | translate}}"
+                  [(ngModel)]="role.desc"
+                  [ngModelOptions]="{standalone: true}"></textarea>
+      </mat-form-field>
+
+      <mat-card>
+        <mat-card-title>{{'Permission' | translate}}</mat-card-title>
+
+        <mat-card-content>
+          <table class="mat-table">
+            <tr>
+              <th>
+                <mat-checkbox></mat-checkbox>
+              </th>
+              <th>{{'Type' | translate}}</th>
+              <th>{{'Name' | translate}}</th>
+            </tr>
+
+            <tr *ngFor="let per of role.permissions">
+              <td>
+                <mat-checkbox></mat-checkbox>
+              </td>
+              <td>
+
+              </td>
+              <td></td>
+            </tr>
+          </table>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button>{{'Add' | translate}}</button>
+          <button mat-button>{{'Delete' | translate}}</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+
+    <mat-card class="role-edit-content-actions">
+      <mat-card-content>
+        <button mat-button>{{'Apply' | translate}}</button>
+        <button mat-button>{{'Reset' | translate}}</button>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

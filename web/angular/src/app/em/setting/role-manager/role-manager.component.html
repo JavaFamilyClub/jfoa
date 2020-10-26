@@ -7,15 +7,17 @@
     </div>
 
     <div class="role-manager-btns">
-      <button mat-button (click)="addRole()">Add Role</button>
+      <button mat-button (click)="addRole()"
+        >{{'em.role.addRole' | translate}}</button>
       <button mat-button [disabled]="selectEmpty"
-              (click)="deleteSelectedRole()">Delete Role</button>
+        (click)="deleteSelectedRole()"
+        >{{'em.role.deleteRole' | translate}}</button>
     </div>
   </mat-drawer>
 
   <mat-drawer-content class="role-manager-content-container">
-    <ng-container *ngIf="selectEmpty">
-
+    <ng-container *ngIf="!selectEmpty">
+      <role-edit-view [roleId]="selectedNodes[0].data?.id"></role-edit-view>
     </ng-container>
   </mat-drawer-content>
 </mat-drawer-container>

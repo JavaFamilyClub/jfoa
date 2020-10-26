@@ -16,5 +16,8 @@ import { Permission } from "./permission";
 export interface Role {
    id: number;
    name: string;
+   desc: string;
    permissions: Permission[];
+   defaultRole: boolean;
+   administrator: boolean;
 }

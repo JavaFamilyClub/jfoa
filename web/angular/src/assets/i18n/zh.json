@@ -6,9 +6,16 @@
    "ok": "确定",
    "OK": "确定",
    "Ok": "确定",
+   "Type": "类型",
+   "Add": "添加",
+   "Apply": "应用",
+   "Default": "默认",
+   "sysAdmin": "系统管理员",
+   "Description": "描述",
    "Name": "名称",
    "Role": "角色",
    "Roles": "角色",
+   "Permission": "权限",
    "Toggle": "切换",
    "Help": "帮助",
    "Help Information": "帮助信息",
@@ -159,7 +166,9 @@
          "name": "角色名称",
          "manager": "角色管理",
          "existError": "角色 {{0}} 已经存在",
-         "idRoleNotExist": "编号为 {{0}} 的角色不存在"
+         "idRoleNotExist": "编号为 {{0}} 的角色不存在",
+         "addRole": "添加角色",
+         "deleteRole": "删除角色"
       }
    },
    "security": {

@@ -83,6 +83,17 @@ public class RoleController {
 
    @RequiresUser
    @ApiOperation(
+      value = "Get Role",
+      httpMethod = "GET",
+      response = Role.class
+   )
+   @GetMapping("/role/{id}")
+   public Role getRole(@ApiParam(name = "Role id", required = true, example = "3") @PathVariable("id") int id) {
+      return roleService.getRole(id);
+   }
+
+   @RequiresUser
+   @ApiOperation(
       value = "Add Role",
       httpMethod = "POST"
    )
