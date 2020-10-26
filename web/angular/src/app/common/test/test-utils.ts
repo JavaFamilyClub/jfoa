@@ -12,6 +12,7 @@
  * person.
  */
 
+import { EventEmitter } from "@angular/core";
 import { of } from "rxjs";
 
 /**
@@ -35,7 +36,11 @@ export namespace TestUtils {
 
    export function createTranslateService(): any {
       return {
-         instant: jest.fn()
+         instant: jest.fn(str => str),
+         get: jest.fn(str => of(str)),
+         onTranslationChange: new EventEmitter<any>(),
+         onLangChange: new EventEmitter<any>(),
+         onDefaultLangChange: new EventEmitter<any>(),
       };
    }
 
