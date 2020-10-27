@@ -35,7 +35,7 @@ import { EmSettingRoutingModule } from "./em-setting-routing.module";
 import { EmSettingComponent } from "./em-setting.component";
 import { RoleManagerComponent } from "./role-manager/role-manager.component";
 import { UserManagerComponent } from "./user-manager/user-manager.component";
-import { RoleEditViewComponent } from './role-manager/role-edit-view/role-edit-view.component';
+import { RoleEditViewComponent } from "./role-manager/role-edit-view/role-edit-view.component";
 
 @NgModule({
    declarations: [

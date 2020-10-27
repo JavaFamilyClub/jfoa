@@ -4,12 +4,28 @@
 [![publish](https://github.com/JavaFamilyClub/jfoa/workflows/publish/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3Apublish "Publish Status")
 [![docker](https://github.com/JavaFamilyClub/jfoa/workflows/docker/badge.svg)](https://github.com/JavaFamilyClub/jfoa/actions?query=workflow%3Adocker "Docker Build Status")
 [![codecov](https://codecov.io/gh/JavaFamilyClub/jfoa/branch/master/graph/badge.svg)](https://codecov.io/gh/JavaFamilyClub/jfoa)
-[![HitCount](http://hits.dwyl.com/JavaFamilyClub/jfoa.svg)](http://hits.dwyl.com/JavaFamilyClub/jfoa)
 [![Percentage of opend issues](http://isitmaintained.com/badge/open/JavaFamilyClub/jfoa.svg)](https://github.com/JavaFamilyClub/jfoa/issues "Percentage of issues still open")
 ![GitHub release](https://img.shields.io/github/release-pre/JavaFamilyClub/jfoa)
 ![GitHub repo size](https://img.shields.io/github/repo-size/JavaFamilyClub/jfoa)
 ![GitHub License](https://img.shields.io/github/license/JavaFamilyClub/jfoa)
 [![Join the chat](https://badges.gitter.im/javafamilychat/jfoa.svg)](https://gitter.im/javafamilychat/jfoa?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+### 0. Preface
+### 0.0 Environment
+
+> * JDK: open JDK 1.8
+> * Platform: Mac OS X, Linux, Windows
+
+### 0.1 Security
+
+>  `jfoa`'s amqp, email and other password information are all encrypted by `jasypt-spring-boot-starter`, so if you want to start the project after fork, please replace it(quote with `ENC(xxx)` in `./runner/src/main/resources/application.yml`) with your own service or contact me for the secret key.
+>  When starting the project, In one of two ways:
+>  * pass in the JVM startup parameter `-Djasypt.encryptor.password=xxx`. 
+>  * configure it to the environment variable `JF_JASYPT_ENCRYPTOR=xxx`
+
+### 0.2 Online Demo
+
+> Please visit [https://javafamily.club](https://javafamily.club) preview.
 
 ### 1. Build Project
 #### 1.1 Build Develop Environment
