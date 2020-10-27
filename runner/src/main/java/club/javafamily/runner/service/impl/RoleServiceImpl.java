@@ -14,23 +14,31 @@
 
 package club.javafamily.runner.service.impl;
 
+import club.javafamily.runner.annotation.Audit;
+import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.dao.RoleDao;
+import club.javafamily.runner.domain.Log;
 import club.javafamily.runner.domain.Role;
-import club.javafamily.runner.service.RoleService;
+import club.javafamily.runner.enums.ActionType;
+import club.javafamily.runner.enums.ResourceEnum;
+import club.javafamily.runner.service.*;
 import club.javafamily.runner.util.I18nUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
 
    @Autowired
-   public RoleServiceImpl(RoleDao roleDao) {
+   public RoleServiceImpl(CustomerService customerService, LogService logService, RoleDao roleDao) {
+      this.customerService = customerService;
+      this.logService = logService;
       this.roleDao = roleDao;
    }
 
@@ -52,9 +60,13 @@ public class RoleServiceImpl implements RoleService {
       return roleDao.getByName(name);
    }
 
+   @Audit(
+      value = ResourceEnum.Role,
+      actionType = ActionType.DELETE
+   )
    @Transactional
    @Override
-   public void deleteRole(Role role) {
+   public void deleteRole(@AuditObject("getName()") Role role) {
       roleDao.delete(role);
    }
 
@@ -75,19 +87,36 @@ public class RoleServiceImpl implements RoleService {
          }
 
          roleDao.delete(role);
+
+         Log log = new Log();
+         log.setResource(ResourceEnum.Role.getLabel() + ":" + role.getName());
+         log.setAction(ActionType.DELETE.getLabel());
+         log.setCustomer(customerService.getAuditUser());
+         log.setDate(new Date());
+         logService.insertLog(log);
       }
    }
 
+   @Audit(
+      value = ResourceEnum.Role
+   )
    @Transactional
    @Override
-   public Integer addRole(Role role) {
+   public Integer addRole(@AuditObject("getName()") Role role) {
       return roleDao.insert(role);
    }
 
+   @Audit(
+      value = ResourceEnum.Role,
+      actionType = ActionType.MODIFY
+   )
+   @Transactional
    @Override
-   public void updateRole(Role role) {
+   public void updateRole(@AuditObject("getName()") Role role) {
       roleDao.update(role);
    }
 
+   private final CustomerService customerService;
+   private final LogService logService;
    private final RoleDao roleDao;
 }

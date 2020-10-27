@@ -168,7 +168,9 @@
          "existError": "Role {{0}} has exist",
          "idRoleNotExist": "Role has not exist that id is {{0}}",
          "addRole": "Add Role",
-         "deleteRole": "Delete Role"
+         "deleteRole": "Delete Role",
+         "updateEmpty": "Update role and id must is not null",
+         "updateNotMatch": "Update role id is not match. id: {{0}}, role.id: {{1}}"
       }
    },
    "security": {

@@ -61,6 +61,20 @@ public class CustomerServiceImpl implements CustomerService {
       return customerDao.getUserByAccount(account);
    }
 
+   @Transactional(readOnly = true)
+   @Override
+   public String getAuditUser() {
+      try {
+         Customer principal = getCurrentCustomer();
+
+         return principal.getName() + "(" + principal.getAccount() + ")";
+      } catch (Exception ignore) {
+         LOGGER.debug("Get principal error!", ignore);
+      }
+
+      return SecurityUtil.Anonymous;
+   }
+
    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
    @Override
    public Customer getCurrentCustomer() {

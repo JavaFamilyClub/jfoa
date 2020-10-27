@@ -168,7 +168,9 @@
          "existError": "角色 {{0}} 已经存在",
          "idRoleNotExist": "编号为 {{0}} 的角色不存在",
          "addRole": "添加角色",
-         "deleteRole": "删除角色"
+         "deleteRole": "删除角色",
+         "updateEmpty": "要更新的角色和角色 ID 都不能为空",
+         "updateNotMatch": "要更新的角色 ID 不匹配. id: {{0}}, role.id: {{1}}"
       }
    },
    "security": {

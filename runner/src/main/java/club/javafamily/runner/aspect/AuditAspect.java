@@ -2,13 +2,11 @@ package club.javafamily.runner.aspect;
 
 import club.javafamily.runner.annotation.Audit;
 import club.javafamily.runner.annotation.AuditObject;
-import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.domain.Log;
 import club.javafamily.runner.enums.ActionType;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.service.LogService;
-import club.javafamily.runner.util.SecurityUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -113,15 +111,7 @@ public class AuditAspect {
   }
 
   private String getAuditUser() {
-    try {
-      Customer principal = customerService.getCurrentCustomer();
-
-      return principal.getName() + "(" + principal.getAccount() + ")";
-    } catch (Exception ignore) {
-      LOGGER.debug("Get principal error!", ignore);
-    }
-
-    return SecurityUtil.Anonymous;
+    return customerService.getAuditUser();
   }
 
   private final LogService logService;

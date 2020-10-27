@@ -63,8 +63,10 @@
 
     <mat-card class="role-edit-content-actions">
       <mat-card-content>
-        <button mat-button>{{'Apply' | translate}}</button>
-        <button mat-button>{{'Reset' | translate}}</button>
+        <button mat-button (click)="apply()"
+          [disabled]="applyDisabled">{{'Apply' | translate}}</button>
+        <button mat-button (click)="reset()"
+          [disabled]="applyDisabled">{{'Reset' | translate}}</button>
       </mat-card-content>
     </mat-card>
 

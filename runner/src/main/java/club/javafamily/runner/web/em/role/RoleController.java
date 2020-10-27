@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -90,6 +91,26 @@ public class RoleController {
    @GetMapping("/role/{id}")
    public Role getRole(@ApiParam(name = "Role id", required = true, example = "3") @PathVariable("id") int id) {
       return roleService.getRole(id);
+   }
+
+   @RequiresUser
+   @ApiOperation(
+      value = "Update Role",
+      httpMethod = "PUT"
+   )
+   @PutMapping("/role/{id}")
+   public void updateRole(@ApiParam(name = "Role id", required = true, example = "3") @PathVariable("id") int id,
+                          @RequestBody Role role)
+   {
+      if(role == null || role.getId() == null) {
+         throw new MessageException(I18nUtil.getString("em.role.updateEmpty"));
+      }
+
+      if(!Objects.equals(role.getId(), id)) {
+         throw new MessageException(I18nUtil.getString("em.role.updateNotMatch", id, role.getId()));
+      }
+
+      roleService.updateRole(role);
    }
 
    @RequiresUser

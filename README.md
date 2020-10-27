@@ -21,7 +21,7 @@
 >  `jfoa`'s amqp, email and other password information are all encrypted by `jasypt-spring-boot-starter`, so if you want to start the project after fork, please replace it(quote with `ENC(xxx)` in `./runner/src/main/resources/application.yml`) with your own service or contact me for the secret key.
 >  When starting the project, In one of two ways:
 >  * pass in the JVM startup parameter `-Djasypt.encryptor.password=xxx`. 
->  * configure it to the environment variable `JF_JASYPT_ENCRYPTOR=xxx`
+>  * configure it to the environment variable `export JF_JASYPT_ENCRYPTOR=xxx`
 
 ### 0.2 Online Demo
 

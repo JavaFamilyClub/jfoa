@@ -41,6 +41,8 @@ public interface CustomerService {
     */
    Customer getCurrentCustomer();
 
+   String getAuditUser();
+
    /**
     * get all Users
     *

@@ -20,8 +20,7 @@ import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.em.model.UserManagerModel;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +57,7 @@ public class UsersController {
       httpMethod = "DELETE"
    )
    @DeleteMapping("/user/{id}")
-   public void deleteUser(@PathVariable("id") Integer id) {
+   public void deleteUser(@ApiParam(value = "customer id") @PathVariable("id") Integer id) {
       Customer dUser = customerService.getCustomer(id);
 
       if(dUser.isAdmin()) {
