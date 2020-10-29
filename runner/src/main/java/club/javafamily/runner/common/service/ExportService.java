@@ -35,8 +35,7 @@ public class ExportService {
 
    public void export(ExportTableLens tableLens,
                       HttpServletResponse response,
-                      ExportType exportType,
-                      String fileName)
+                      ExportType exportType)
       throws Exception
    {
 
@@ -50,7 +49,7 @@ public class ExportService {
             I18nUtil.getString("em.audit.noExporterError", exportType.getLabel()));
       }
 
-      exporter.export(tableLens, response, exportType, fileName);
+      exporter.export(tableLens, response, exportType);
    }
 
    private List<Exporter> exporters;

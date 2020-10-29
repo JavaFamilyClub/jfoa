@@ -1,6 +1,8 @@
 package club.javafamily.runner.util;
 
 import club.javafamily.runner.annotation.Exportable;
+import club.javafamily.runner.common.table.cell.Cell;
+import club.javafamily.runner.common.table.cell.CellValueType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
@@ -8,9 +10,11 @@ import org.springframework.util.StringUtils;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public final class ExportUtil {
@@ -75,6 +79,25 @@ public final class ExportUtil {
          fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
       response.setHeader("Content-Disposition",
          "attachment;fileName=" + downloadFileName);
+   }
+
+   public static String toString(Cell cell) {
+      if(cell == null) {
+         return "";
+      }
+
+      Object data = cell.getValue();
+      CellValueType type = cell.getType();
+
+      switch(type) {
+         case DATE:
+            Date date = (Date) data;
+            return DateTimeFormatter.ofPattern(Tool.DEFAULT_DATETIME_FORMAT)
+               .format(LocalDateTime.ofInstant(date.toInstant(),
+                  ZoneId.systemDefault()));
+         default:
+            return data.toString();
+      }
    }
 
    private static final Logger LOGGER = LoggerFactory.getLogger(ExportUtil.class);

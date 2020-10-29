@@ -33,7 +33,8 @@ export class ExportDialog implements OnInit {
   @Input() model: ExportModel;
   @Input() exportFormats: ExportType[] = [
      ExportType.Excel,
-     ExportType.Excel_2003
+     ExportType.Excel_2003,
+     ExportType.PDF
   ];
 
   form: FormGroup;

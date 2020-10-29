@@ -20,6 +20,8 @@ export namespace ExportTool {
             return "Excel";
          case ExportType.Excel_2003:
             return "Excel 2003";
+         case ExportType.PDF:
+            return "PDF";
          default:
             return "";
       }

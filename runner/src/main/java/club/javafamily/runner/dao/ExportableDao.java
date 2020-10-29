@@ -42,7 +42,7 @@ public abstract class ExportableDao<T, R extends Serializable> extends BaseDao<T
       }
 
       // TODO get table name
-      ExportTableLens result = new ExportTableLens(lens, desc, desc);
+      ExportTableLens result = new ExportTableLens(lens, "JavaFamily OA Audit", desc);
 
       // 1. get export field by order
       Field[] exportFields = ExportUtil.getExportFields(clazz);

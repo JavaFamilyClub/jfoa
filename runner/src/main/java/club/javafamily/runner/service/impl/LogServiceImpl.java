@@ -44,7 +44,7 @@ public class LogServiceImpl implements LogService {
                                                 DaoFilter<R> filter) throws Exception
    {
       ExportTableLens tableLens = getTableLens(filter);
-      exportService.export(tableLens, response, exportType, "JavaFamily Audit");
+      exportService.export(tableLens, response, exportType);
    }
 
    @Autowired

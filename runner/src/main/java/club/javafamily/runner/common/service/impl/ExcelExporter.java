@@ -16,11 +16,10 @@ package club.javafamily.runner.common.service.impl;
 
 import club.javafamily.runner.common.service.Exporter;
 import club.javafamily.runner.common.table.lens.ExportTableLens;
-import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ExportType;
 import club.javafamily.runner.util.ExcelUtil;
 import club.javafamily.runner.util.ExportUtil;
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFWorkbookFactory;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
 import org.springframework.stereotype.Service;
@@ -36,10 +35,10 @@ public class ExcelExporter implements Exporter {
       return exportType == ExportType.Excel || exportType == ExportType.Excel_2003;
    }
 
+   @Override
    public void export(ExportTableLens tableLens,
                       HttpServletResponse response,
-                      ExportType exportType,
-                      String fileName)
+                      ExportType exportType)
       throws Exception
    {
       ServletOutputStream out = response.getOutputStream();
@@ -92,6 +91,7 @@ public class ExcelExporter implements Exporter {
          }
       }
 
+      String fileName = tableLens.getTableName();
       fileName = ExcelUtil.buildExcelName(fileName, exportType);
       ExportUtil.writeDownloadHeader(response, fileName);
 

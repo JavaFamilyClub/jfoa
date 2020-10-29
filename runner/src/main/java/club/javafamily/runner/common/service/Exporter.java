@@ -25,7 +25,6 @@ public interface Exporter {
 
    void export(ExportTableLens tableLens,
                HttpServletResponse response,
-               ExportType exportType,
-               String fileName)
+               ExportType exportType)
       throws Exception;
 }

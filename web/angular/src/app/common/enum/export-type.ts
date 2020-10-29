@@ -11,7 +11,9 @@
  * thereof may not be provided or otherwise made available to any other
  * person.
  */
+
 export enum ExportType {
    Excel,
-   Excel_2003
+   Excel_2003,
+   PDF
 }

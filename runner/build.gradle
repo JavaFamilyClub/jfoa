@@ -78,6 +78,9 @@ dependencies {
    implementation "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
    implementation "org.apache.poi:poi-ooxml:${poiVersion}"
 
+   // iText
+   implementation "com.itextpdf:itext7-core:${iTextVersion}"
+
    // lucene
    implementation "org.apache.lucene:lucene-core:${luceneVersion}"
    implementation "org.apache.lucene:lucene-queryparser:${luceneVersion}"

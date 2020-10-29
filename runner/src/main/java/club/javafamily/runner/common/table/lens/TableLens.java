@@ -15,6 +15,7 @@
 package club.javafamily.runner.common.table.lens;
 
 import club.javafamily.runner.common.table.cell.Cell;
+import club.javafamily.runner.util.ExportUtil;
 
 /**
  * TableLens interface
@@ -23,14 +24,17 @@ public interface TableLens {
 
    /**
     * get cell
-    * @param row
-    * @param col
-    * @return
     */
    Cell getObject(int row, int col);
 
+   /**
+    * include header row count
+    */
    int getRowCount();
 
+   /**
+    * include header col count
+    */
    int getColCount();
 
    default int getHeaderRowCount() {
@@ -39,6 +43,21 @@ public interface TableLens {
 
    default int getHeaderColCount() {
       return 0;
+   }
+
+   default int getColWidth(int col) {
+      int max = 20; // default char count;
+      int checkLength = Math.min(getRowCount(), 50); // max check 50 rows
+
+      for(int i = 0; i < checkLength; i++) {
+         String value = ExportUtil.toString(getObject(i, col));
+
+         if(value.length() > max) {
+            max = value.length();
+         }
+      }
+
+      return max;
    }
 
 }
