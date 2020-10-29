@@ -17,21 +17,4 @@ public interface ExportableService {
    default TableLens getTableLens() {
       return getTableLens(null);
    }
-
-   default <R extends Comparable<R>> void export(HttpServletResponse response,
-                                                 ExportType exportType,
-                                                 DaoFilter<R> filter)
-      throws Exception
-   {
-      switch(exportType) {
-         case Excel:
-         case Excel_2003:
-            exportExcel(response, exportType, filter);
-            break;
-         default:
-      }
-   }
-
-   <R extends Comparable<R>> void exportExcel(HttpServletResponse response,
-                                              ExportType exportType, DaoFilter<R> filter) throws Exception;
 }

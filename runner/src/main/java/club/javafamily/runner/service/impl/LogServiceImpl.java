@@ -1,7 +1,7 @@
 package club.javafamily.runner.service.impl;
 
-import club.javafamily.runner.common.service.ExcelService;
-import club.javafamily.runner.common.filter.Filter;
+import club.javafamily.runner.common.service.ExportService;
+import club.javafamily.runner.common.service.impl.ExcelExporter;
 import club.javafamily.runner.common.filter.DaoFilter;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.dao.LogDao;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.metamodel.Metamodel;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -39,20 +38,20 @@ public class LogServiceImpl implements LogService {
 
    @Transactional(readOnly = true)
    @Override
-   public <R extends Comparable<R>> void exportExcel(HttpServletResponse response,
-                                                     ExportType exportType,
-                                                     DaoFilter<R> filter) throws Exception
+   public <R extends Comparable<R>> void export(HttpServletResponse response,
+                                                ExportType exportType,
+                                                DaoFilter<R> filter) throws Exception
    {
       TableLens tableLens = getTableLens(filter);
-      excelService.export(tableLens, response, exportType, filter, "JavaFamily Audit");
+      exportService.export(tableLens, response, exportType, "JavaFamily Audit");
    }
 
    @Autowired
-   public LogServiceImpl(LogDao logDao, ExcelService excelService) {
+   public LogServiceImpl(LogDao logDao, ExportService exportService) {
       this.logDao = logDao;
-      this.excelService = excelService;
+      this.exportService = exportService;
    }
 
    private final LogDao logDao;
-   private final ExcelService excelService;
+   private final ExportService exportService;
 }

@@ -144,6 +144,7 @@
          "endDate": "终止日期",
          "showDetail": "显示详情",
          "errorDetail": "错误详情",
+         "noExporterError": "导出 {{0}} 时没有找到匹配的导出器",
          "endBeforeStartError": "终止日期必须在开始日期之后."
       },
       "client": {

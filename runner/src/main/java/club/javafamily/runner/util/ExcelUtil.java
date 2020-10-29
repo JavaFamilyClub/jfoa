@@ -20,15 +20,15 @@ public class ExcelUtil {
 
    private ExcelUtil() {}
 
-   public static HSSFCell createTitleRow(HSSFWorkbook workbook,
-                                        HSSFSheet sheet,
-                                        String titleLabel,
-                                        int colCount)
+   public static Cell createTitleRow(Workbook workbook,
+                                     Sheet sheet,
+                                     String titleLabel,
+                                     int colCount)
    {
-      HSSFRow title = createRow(workbook, sheet, 0);
+      Row title = createRow(workbook, sheet, 0);
       title.setHeightInPoints(DEFAULT_TITLE_HEIGHT);
       int colIndex = colCount / 2 - 1;
-      HSSFCell cell = null, temp;
+      Cell cell = null, temp;
 
       for (int i = 0; i < colCount; i++) {
          temp = createCell(workbook, title, i);
@@ -43,8 +43,8 @@ public class ExcelUtil {
       int span = 2 + colCount % 2 - 1;
       sheet.addMergedRegion(new CellRangeAddress(0, 0, colIndex, colIndex + span));
 
-      HSSFCellStyle cellStyle = cell.getCellStyle();
-      HSSFFont font = workbook.createFont();
+      CellStyle cellStyle = cell.getCellStyle();
+      Font font = workbook.createFont();
       font.setBold(true);
       font.setColor(IndexedColors.ORANGE.getIndex());
       font.setFontHeightInPoints(((short) 20));
@@ -55,30 +55,30 @@ public class ExcelUtil {
       return cell;
    }
 
-   public static HSSFRow createRow(HSSFWorkbook workbook,
-                                   HSSFSheet sheet,
-                                   int rowIndex)
+   public static Row createRow(Workbook workbook,
+                               Sheet sheet,
+                               int rowIndex)
    {
-      HSSFRow row = sheet.createRow(rowIndex);
+      Row row = sheet.createRow(rowIndex);
 
       row.setHeightInPoints(DEFAULT_ROW_HEIGHT);
 
-      HSSFCellStyle rowStyle = workbook.createCellStyle();
+      CellStyle rowStyle = workbook.createCellStyle();
 
       row.setRowStyle(rowStyle);
 
       return row;
    }
 
-   public static HSSFCell createHeaderCell(HSSFWorkbook workbook,
-                                           HSSFRow row,
-                                           int column)
+   public static Cell createHeaderCell(Workbook workbook,
+                                       Row row,
+                                       int column)
    {
-      HSSFCell cell = createCell(workbook, row, column);
+      Cell cell = createCell(workbook, row, column);
 
-      HSSFCellStyle cellStyle = cell.getCellStyle();
+      CellStyle cellStyle = cell.getCellStyle();
 
-      HSSFFont font = workbook.createFont();
+      Font font = workbook.createFont();
       font.setBold(true);
       cellStyle.setFont(font);
 
@@ -88,7 +88,7 @@ public class ExcelUtil {
       return cell;
    }
 
-   private static void setCellBorder(HSSFCellStyle cellStyle) {
+   private static void setCellBorder(CellStyle cellStyle) {
       cellStyle.setBorderBottom(BorderStyle.THIN);
       cellStyle.setBottomBorderColor(IndexedColors.GREY_50_PERCENT.getIndex());
       cellStyle.setBorderLeft(BorderStyle.THIN);
@@ -99,12 +99,12 @@ public class ExcelUtil {
       cellStyle.setTopBorderColor(IndexedColors.GREY_50_PERCENT.getIndex());
    }
 
-   public static HSSFCell createCell(HSSFWorkbook workbook,
-                                     HSSFRow row,
+   public static Cell createCell(Workbook workbook,
+                                     Row row,
                                      int column)
    {
-      HSSFCell cell = row.createCell(column);
-      HSSFCellStyle cellStyle = workbook.createCellStyle();
+      Cell cell = row.createCell(column);
+      CellStyle cellStyle = workbook.createCellStyle();
 
       cellStyle.setAlignment(HorizontalAlignment.CENTER);
       cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
@@ -115,15 +115,15 @@ public class ExcelUtil {
       return cell;
    }
 
-   public static void fillData(HSSFCreationHelper helper,
-                               HSSFCell cell,
+   public static void fillData(CreationHelper helper,
+                               Cell cell,
                                Object data)
    {
       if(data == null || cell == null) {
          return;
       }
 
-      HSSFCellStyle cellStyle = cell.getCellStyle();
+      CellStyle cellStyle = cell.getCellStyle();
 
       if(data instanceof String) {
          cell.setCellValue(data.toString());
@@ -132,7 +132,7 @@ public class ExcelUtil {
          cell.setCellValue(Integer.parseInt(data.toString()));
       }
       else if(data instanceof Double) {
-         cell.setCellValue(Double.valueOf(data.toString()));
+         cell.setCellValue(Double.parseDouble(data.toString()));
       }
       else if(data instanceof Date) {
          cell.setCellValue(((Date) data));
@@ -147,7 +147,7 @@ public class ExcelUtil {
       LocalDateTime localDateTime = LocalDateTime.now();
       fileName = fileName
          + localDateTime.format(DateTimeFormatter.ofPattern(Tool.DEFAULT_DATETIME_FORMAT))
-         + (exportType == ExportType.Excel_2003 ? Excel_xls : Excel_xlsx);
+         + exportType.getSuffix();
 
       return fileName;
    }

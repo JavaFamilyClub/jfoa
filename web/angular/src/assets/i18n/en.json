@@ -144,6 +144,7 @@
          "endDate": "End Date",
          "showDetail": "Show Detail",
          "errorDetail": "Error Detail",
+         "noExporterError": "No matching exporter was found when exporting {{0}}",
          "endBeforeStartError": "The end date must after start date."
       },
       "client": {
