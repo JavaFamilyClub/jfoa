@@ -3,6 +3,7 @@ package club.javafamily.runner.service.impl;
 import club.javafamily.runner.common.service.ExportService;
 import club.javafamily.runner.common.service.impl.ExcelExporter;
 import club.javafamily.runner.common.filter.DaoFilter;
+import club.javafamily.runner.common.table.lens.ExportTableLens;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.dao.LogDao;
 import club.javafamily.runner.domain.Log;
@@ -32,7 +33,7 @@ public class LogServiceImpl implements LogService {
 
    @Transactional(readOnly = true)
    @Override
-   public <R extends Comparable<R>> TableLens getTableLens(DaoFilter<R> filter) {
+   public <R extends Comparable<R>> ExportTableLens getTableLens(DaoFilter<R> filter) {
       return logDao.getTableLens(filter);
    }
 
@@ -42,7 +43,7 @@ public class LogServiceImpl implements LogService {
                                                 ExportType exportType,
                                                 DaoFilter<R> filter) throws Exception
    {
-      TableLens tableLens = getTableLens(filter);
+      ExportTableLens tableLens = getTableLens(filter);
       exportService.export(tableLens, response, exportType, "JavaFamily Audit");
    }
 

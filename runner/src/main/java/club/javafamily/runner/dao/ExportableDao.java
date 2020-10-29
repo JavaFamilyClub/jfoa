@@ -3,8 +3,7 @@ package club.javafamily.runner.dao;
 import club.javafamily.runner.annotation.Exportable;
 import club.javafamily.runner.common.filter.DaoFilter;
 import club.javafamily.runner.common.table.cell.Cell;
-import club.javafamily.runner.common.table.lens.DefaultTableLens;
-import club.javafamily.runner.common.table.lens.TableLens;
+import club.javafamily.runner.common.table.lens.*;
 import club.javafamily.runner.util.CellValueTypeUtils;
 import club.javafamily.runner.util.ExportUtil;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +28,7 @@ public abstract class ExportableDao<T, R extends Serializable> extends BaseDao<T
    }
 
    @Transactional(readOnly = true)
-   public <R extends Comparable<R>> TableLens getTableLens(DaoFilter<R> filter) {
+   public <R extends Comparable<R>> ExportTableLens getTableLens(DaoFilter<R> filter) {
       DefaultTableLens lens = new DefaultTableLens();
       List<T> data = getAll(filter);
       Class<T> clazz = getClazz();
@@ -42,7 +41,8 @@ public abstract class ExportableDao<T, R extends Serializable> extends BaseDao<T
          desc = clazz.getSimpleName();
       }
 
-      lens.setDescription(desc);
+      // TODO get table name
+      ExportTableLens result = new ExportTableLens(lens, desc, desc);
 
       // 1. get export field by order
       Field[] exportFields = ExportUtil.getExportFields(clazz);
@@ -80,7 +80,7 @@ public abstract class ExportableDao<T, R extends Serializable> extends BaseDao<T
          }
       }
 
-      return lens;
+      return result;
    }
 
 }

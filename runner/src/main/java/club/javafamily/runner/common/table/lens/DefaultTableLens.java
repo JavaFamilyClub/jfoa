@@ -15,7 +15,7 @@ package club.javafamily.runner.common.table.lens;
 
 import club.javafamily.runner.common.table.cell.Cell;
 
-public class DefaultTableLens implements TableLens {
+public class DefaultTableLens implements TableLens, EditableTableLens {
 
    public DefaultTableLens() {
       this(0, 0);
@@ -64,27 +64,7 @@ public class DefaultTableLens implements TableLens {
       this.colCount = colCount;
    }
 
-   @Override
-   public String getTableName() {
-      return tableName;
-   }
-
-   public void setTableName(String tableName) {
-      this.tableName = tableName;
-   }
-
-   @Override
-   public String getDescription() {
-      return description;
-   }
-
-   public void setDescription(String description) {
-      this.description = description;
-   }
-
    private Cell[][] data;
    private int rowCount;
    private int colCount;
-   private String tableName;
-   private String description;
 }

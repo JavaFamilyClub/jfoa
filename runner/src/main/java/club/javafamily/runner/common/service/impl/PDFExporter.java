@@ -1,6 +1,7 @@
 package club.javafamily.runner.common.service.impl;
 
 import club.javafamily.runner.common.service.Exporter;
+import club.javafamily.runner.common.table.lens.ExportTableLens;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ExportType;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class PDFExporter implements Exporter {
    }
 
    @Override
-   public void export(TableLens tableLens, HttpServletResponse response,
+   public void export(ExportTableLens tableLens, HttpServletResponse response,
                       ExportType exportType, String fileName)
       throws Exception
    {

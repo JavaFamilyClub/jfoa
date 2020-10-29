@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.common.service;
 
-import club.javafamily.runner.common.table.lens.TableLens;
+import club.javafamily.runner.common.table.lens.ExportTableLens;
 import club.javafamily.runner.enums.ExportType;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,9 +23,9 @@ public interface Exporter {
 
    boolean isAccept(ExportType exportType);
 
-   void export(TableLens tableLens,
-                       HttpServletResponse response,
-                       ExportType exportType,
-                       String fileName)
+   void export(ExportTableLens tableLens,
+               HttpServletResponse response,
+               ExportType exportType,
+               String fileName)
       throws Exception;
 }

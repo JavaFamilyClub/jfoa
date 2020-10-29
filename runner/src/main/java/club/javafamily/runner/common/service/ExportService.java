@@ -15,6 +15,7 @@
 package club.javafamily.runner.common.service;
 
 import club.javafamily.runner.common.MessageException;
+import club.javafamily.runner.common.table.lens.ExportTableLens;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ExportType;
 import club.javafamily.runner.util.I18nUtil;
@@ -32,7 +33,7 @@ public class ExportService {
       this.exporters = exporters;
    }
 
-   public void export(TableLens tableLens,
+   public void export(ExportTableLens tableLens,
                       HttpServletResponse response,
                       ExportType exportType,
                       String fileName)

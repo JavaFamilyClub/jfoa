@@ -29,19 +29,9 @@ public interface TableLens {
     */
    Cell getObject(int row, int col);
 
-   void setObject(int row, int col, Cell cell);
-
    int getRowCount();
 
    int getColCount();
-
-   String getTableName();
-
-   String getDescription();
-
-   default void reset() {
-      // no op
-   }
 
    default int getHeaderRowCount() {
       return 1;

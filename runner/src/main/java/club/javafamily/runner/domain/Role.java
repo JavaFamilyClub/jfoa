@@ -16,6 +16,9 @@ public class Role implements Serializable {
   @Column
   private String name;
 
+  /**
+   * 'desc' is mysql key words.
+   */
   @Column
   private String description;
 
