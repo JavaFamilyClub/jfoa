@@ -17,7 +17,7 @@ public class Role implements Serializable {
   private String name;
 
   @Column
-  private String desc;
+  private String description;
 
   /**
    * default role for registered user
@@ -58,12 +58,12 @@ public class Role implements Serializable {
     this.name = name;
   }
 
-  public String getDesc() {
-    return desc;
+  public String getDescription() {
+    return description;
   }
 
-  public void setDesc(String desc) {
-    this.desc = desc;
+  public void setDescription(String desc) {
+    this.description = desc;
   }
 
   public boolean isDefaultRole() {
