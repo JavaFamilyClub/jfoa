@@ -13,12 +13,15 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.UnitValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
+
+import static club.javafamily.runner.common.table.lens.LensTool.DEFAULT_HEADER_FONT;
 
 /**
  * iText7 export pdf support.
@@ -61,11 +64,6 @@ public class PDFExporter implements Exporter {
       // 设置页边距, 默认为 36
       document.setMargins(20, 20, 20, 20);
 
-      // 创建一个 Times-Roman 字体准备写入 Cell 数据
-      PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
-      // 创建一个 Times-Bold 字体准备写入 Header 数据
-      PdfFont bold = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
-
       // 创建一个 Table 元素, 并初始化 Table 每列的宽度
       // 注意该 table 的 <code>colWidth</code> 指定的仅仅是各个列的相对宽度, 而不是具体宽度
       int colCount = tableLens.getColCount();
@@ -84,7 +82,7 @@ public class PDFExporter implements Exporter {
       // 填充 table
       for(int i = 0; i < tableLens.getRowCount(); i++) {
          for(int j = 0; j < tableLens.getColCount(); j++) {
-            fillCellData(table, tableLens, i, j, font, bold);
+            fillCellData(table, tableLens, i, j);
          }
       }
 
@@ -99,36 +97,39 @@ public class PDFExporter implements Exporter {
    }
 
    /**
-    * if is header using bold font, otherwise, using font.
+    * fill cell data.
     * @param table pdf table
     * @param tableLens data source
     * @param row row index
     * @param col col index
-    * @param font normal cell font.
-    * @param bold header cell font.
     */
-   private void fillCellData(Table table, ExportTableLens tableLens, int row, int col,
-                             PdfFont font, PdfFont bold)
-      throws IOException
-   {
+   private void fillCellData(Table table, ExportTableLens tableLens, int row, int col) {
       boolean isHeader = tableLens.isHeader(row, col);
       club.javafamily.runner.common.table.cell.Cell cell = tableLens.getObject(row, col);
 
       Font cellFont = tableLens.getFont(row, col);
-      PdfFont font1 = PdfFontFactory.createFont(cellFont.getFontName());
+      PdfFont pdfFont = getFont(cellFont, isHeader);
 
       if (isHeader) {
          // <code>Paragraph</code> 代表一个段落, 传入字符串就可以写入一个文本段落到 Document,
          // 传入 <code>Cell</code> 就会画一个 cell.
          table.addHeaderCell(new Cell().add(
-            new Paragraph(ExportUtil.toString(cell)).setFont(bold)));
+            new Paragraph(ExportUtil.toString(cell)).setFont(pdfFont)));
       } else {
          table.addCell(new Cell().add(
-            new Paragraph(ExportUtil.toString(cell)).setFont(font)));
+            new Paragraph(ExportUtil.toString(cell)).setFont(pdfFont)));
       }
    }
 
-   private PdfFont getFont(Font cellFont) {
+   private PdfFont getFont(Font font, boolean isHeader) {
+      try {
+         return PdfFontFactory.createRegisteredFont(font.getFontName());
+      } catch(IOException e) {
+         LOGGER.warn("Registered font is not found! {}", font.getFontName());
+      }
 
+      return isHeader ? DEFAULT_PDF_BOLD_FONT : DEFAULT_PDF_TEXT_FONT;
    }
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(PDFExporter.class);
 }
