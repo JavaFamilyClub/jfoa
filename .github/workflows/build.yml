@@ -58,7 +58,8 @@ jobs:
       run: bash <(curl -s https://codecov.io/bash)
 
     # upload build text reports
-    - name: Publish to github artifact
+    - name: Publish reports
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: jfoa-build-reports-${{ runner.os }}
