@@ -82,7 +82,7 @@ public final class ExportUtil {
    }
 
    public static String toString(Cell cell) {
-      if(cell == null) {
+      if(cell == null || cell.getValue() == null) {
          return "";
       }
 
