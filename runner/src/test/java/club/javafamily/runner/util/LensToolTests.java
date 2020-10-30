@@ -1,22 +1,31 @@
 package club.javafamily.runner.util;
 
-import club.javafamily.runner.common.table.lens.LensTool;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 import static club.javafamily.runner.common.table.lens.LensTool.DEFAULT_HEADER_FONT;
 
 public class LensToolTests {
 
    @Test
-   public void testFont() throws IOException {
+   public void printSystemFonts() throws IOException {
       PdfFontFactory.registerSystemDirectories();
+      String fonts = String.join("\n", PdfFontFactory.getRegisteredFonts());
+      System.out.println(fonts);
+      LOGGER.warn("System Fonts: \n {}", fonts);
+   }
 
-//      System.out.println(PdfFontFactory.getRegisteredFonts().stream().collect(Collectors.joining("\n")));
+   @Test
+   public void testITextFont() throws IOException {
+      PdfFontFactory.registerSystemDirectories();
 
       System.out.println(DEFAULT_HEADER_FONT.getFontName());
       System.out.println(DEFAULT_HEADER_FONT.getName());
@@ -28,4 +37,17 @@ public class LensToolTests {
       System.out.println(width);
    }
 
+   @Test
+   public void testPOIFont() {
+     Workbook workbook = XSSFWorkbookFactory.createWorkbook();
+      Font font = workbook.createFont();
+//      font.setBold(true);
+      font.setFontName(DEFAULT_HEADER_FONT.getName());
+
+      System.out.println(DEFAULT_HEADER_FONT.isBold());
+      System.out.println(font.getFontName());
+      System.out.println(font.getBold());
+   }
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(LensToolTests.class);
 }

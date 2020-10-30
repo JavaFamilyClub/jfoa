@@ -1,7 +1,7 @@
 package club.javafamily.runner.util;
 
+import club.javafamily.runner.common.table.lens.ExportTableLens;
 import club.javafamily.runner.enums.ExportType;
-import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 
@@ -31,7 +31,7 @@ public class ExcelUtil {
       Cell cell = null, temp;
 
       for (int i = 0; i < colCount; i++) {
-         temp = createCell(workbook, title, i);
+         temp = createCell(null, workbook, title, i);
 
          if(i == colIndex) {
             cell = temp;
@@ -70,22 +70,13 @@ public class ExcelUtil {
       return row;
    }
 
-   public static Cell createHeaderCell(Workbook workbook,
-                                       Row row,
-                                       int column)
-   {
-      Cell cell = createCell(workbook, row, column);
+   public static short convertColor(java.awt.Color color) {
+      // TODO fill color types.
+      if(color.equals(java.awt.Color.LIGHT_GRAY)) {
+         return IndexedColors.GREY_25_PERCENT.getIndex();
+      }
 
-      CellStyle cellStyle = cell.getCellStyle();
-
-      Font font = workbook.createFont();
-      font.setBold(true);
-      cellStyle.setFont(font);
-
-      cellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-      cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
-      return cell;
+      return IndexedColors.WHITE.index;
    }
 
    private static void setCellBorder(CellStyle cellStyle) {
@@ -99,13 +90,34 @@ public class ExcelUtil {
       cellStyle.setTopBorderColor(IndexedColors.GREY_50_PERCENT.getIndex());
    }
 
-   public static Cell createCell(Workbook workbook,
-                                     Row row,
-                                     int column)
+   public static Cell createCell(ExportTableLens tableLens,
+                                 Workbook workbook,
+                                 Row row,
+                                 int column)
    {
       Cell cell = row.createCell(column);
       CellStyle cellStyle = workbook.createCellStyle();
 
+      if(tableLens != null) {
+         // font
+         java.awt.Font cellFont = tableLens.getFont(row.getRowNum(), column);
+         Font font = workbook.createFont();
+
+         if(cellFont.isBold()) {
+            font.setBold(true);
+         }
+
+         font.setFontName(cellFont.getName());
+
+         cellStyle.setFont(font);
+
+         // background
+         cellStyle.setFillForegroundColor(
+            convertColor(tableLens.getBackground(row.getRowNum(), column)));
+         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+      }
+
+      // alignment
       cellStyle.setAlignment(HorizontalAlignment.CENTER);
       cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
       setCellBorder(cellStyle);

@@ -82,4 +82,12 @@ public interface TableLens {
       return LensTool.DEFAULT_TEXT_FONT;
    }
 
+   default Color getBackground(int row, int col) {
+      if(isHeader(row, col)) {
+         return LensTool.DEFAULT_HEADER_BG;
+      }
+
+      return LensTool.DEFAULT_TEXT_BG;
+   }
+
 }

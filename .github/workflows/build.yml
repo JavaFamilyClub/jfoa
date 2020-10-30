@@ -57,5 +57,12 @@ jobs:
       if: ${{ runner.os == 'Linux' }}
       run: bash <(curl -s https://codecov.io/bash)
 
+    # upload build text reports
+    - name: Publish to github artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: jfoa-build-reports-${{ runner.os }}
+        path: runner/build/reports/
+
     - name: Clean Env
       run: ./gradlew cleanAll -Pbuildenv=prod --no-daemon --console=plain

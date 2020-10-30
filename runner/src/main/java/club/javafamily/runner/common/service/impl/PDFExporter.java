@@ -4,15 +4,18 @@ import club.javafamily.runner.common.service.Exporter;
 import club.javafamily.runner.common.table.lens.ExportTableLens;
 import club.javafamily.runner.enums.ExportType;
 import club.javafamily.runner.util.ExportUtil;
+import club.javafamily.runner.util.PDFUtil;
 import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.property.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -30,19 +33,6 @@ import static club.javafamily.runner.common.table.lens.LensTool.DEFAULT_HEADER_F
 @Service("pdfExporter")
 public class PDFExporter implements Exporter {
 
-   private static PdfFont DEFAULT_PDF_TEXT_FONT;
-   private static PdfFont DEFAULT_PDF_BOLD_FONT;
-
-   static {
-      try {
-         PdfFontFactory.registerSystemDirectories();
-         DEFAULT_PDF_TEXT_FONT = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
-         DEFAULT_PDF_BOLD_FONT = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
-      }
-      catch(Exception ignore) {
-      }
-   }
-
    @Override
    public boolean isAccept(ExportType exportType) {
       return exportType == ExportType.PDF;
@@ -54,6 +44,8 @@ public class PDFExporter implements Exporter {
                       ExportType exportType)
       throws Exception
    {
+      PdfFontFactory.registerSystemDirectories();
+
       // 创建一个指向文件或者 out 流的 PDFWriter, 该 writer 会监听 PdfDocument
       PdfWriter pdfWriter = new PdfWriter(response.getOutputStream());
       // 创建 PdfDocument 代表要创建的 PDF 文件, 管理要写入的内容和相关信息
@@ -77,7 +69,9 @@ public class PDFExporter implements Exporter {
 
       // 指定 table 相对 Document 的宽度.
       // <code>UnitValue.createPercentValue(100)</code> 表示 100%(排除页边距).
-      table.setWidth(UnitValue.createPercentValue(100));
+      table.setWidth(UnitValue.createPercentValue(100))
+         .setTextAlignment(TextAlignment.CENTER)
+         .setHorizontalAlignment(HorizontalAlignment.CENTER);
 
       // 填充 table
       for(int i = 0; i < tableLens.getRowCount(); i++) {
@@ -108,27 +102,30 @@ public class PDFExporter implements Exporter {
       club.javafamily.runner.common.table.cell.Cell cell = tableLens.getObject(row, col);
 
       Font cellFont = tableLens.getFont(row, col);
-      PdfFont pdfFont = getFont(cellFont, isHeader);
+      Color cellBG = tableLens.getBackground(row, col);
+      PdfFont pdfFont = PDFUtil.convertFont(cellFont);
+      Cell pdfCell;
 
-      if (isHeader) {
+      if(isHeader) {
          // <code>Paragraph</code> 代表一个段落, 传入字符串就可以写入一个文本段落到 Document,
          // 传入 <code>Cell</code> 就会画一个 cell.
-         table.addHeaderCell(new Cell().add(
-            new Paragraph(ExportUtil.toString(cell)).setFont(pdfFont)));
+         pdfCell = new Cell().add(
+            new Paragraph(ExportUtil.toString(cell)));
       } else {
-         table.addCell(new Cell().add(
-            new Paragraph(ExportUtil.toString(cell)).setFont(pdfFont)));
-      }
-   }
-
-   private PdfFont getFont(Font font, boolean isHeader) {
-      try {
-         return PdfFontFactory.createRegisteredFont(font.getFontName());
-      } catch(IOException e) {
-         LOGGER.warn("Registered font is not found! {}", font.getFontName());
+         pdfCell = new Cell().add(
+            new Paragraph(ExportUtil.toString(cell)));
       }
 
-      return isHeader ? DEFAULT_PDF_BOLD_FONT : DEFAULT_PDF_TEXT_FONT;
+      pdfCell.setFont(pdfFont)
+         .setBorder(new SolidBorder(new DeviceRgb(Color.BLACK), 0.5f))
+         .setBackgroundColor(PDFUtil.convertColor(cellBG));
+
+      if(isHeader) {
+         table.addHeaderCell(pdfCell);
+      }
+      else {
+         table.addCell(pdfCell);
+      }
    }
 
    private static final Logger LOGGER = LoggerFactory.getLogger(PDFExporter.class);
