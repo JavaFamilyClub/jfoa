@@ -21,27 +21,24 @@ public class LensToolTests {
    public void printSystemFonts() throws IOException {
       PdfFontFactory.registerSystemDirectories();
       String fonts = String.join("\n", PdfFontFactory.getRegisteredFonts());
-      System.out.println(fonts);
-      LOGGER.warn("System Fonts: \n {}", fonts);
+      LOGGER.warn("System Fonts: \n\n {} \n\n", fonts);
+   }
+
+   @Test
+   public void printDefaultFont() throws IOException {
+      java.awt.Font font = new java.awt.Font(null, java.awt.Font.PLAIN, 16);
+      LOGGER.warn("Default font name: {} \n\n ", font.getName());
    }
 
    @Test
    public void testITextFont() throws IOException {
       PdfFontFactory.registerSystemDirectories();
 
-      System.out.println(DEFAULT_HEADER_FONT.getFontName());
-      System.out.println(DEFAULT_HEADER_FONT.getName());
-      System.out.println(DEFAULT_HEADER_FONT.getPSName());
-      System.out.println(DEFAULT_HEADER_FONT.getFamily());
-
       PdfFont font = PdfFontFactory.createRegisteredFont(DEFAULT_HEADER_FONT.getName());
       Assertions.assertNotNull(font, "default header font can't convert to pdfFont");
 
       font = PdfFontFactory.createRegisteredFont(DEFAULT_TEXT_FONT.getName());
       Assertions.assertNotNull(font, "default text font can't convert to pdfFont");
-
-      int width = font.getWidth("jfoa");
-      System.out.println(width);
    }
 
    @Test
