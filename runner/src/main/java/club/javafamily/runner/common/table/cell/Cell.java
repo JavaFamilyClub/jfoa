@@ -1,5 +1,7 @@
 package club.javafamily.runner.common.table.cell;
 
+import club.javafamily.runner.util.ExportUtil;
+
 /**
  * Database Cell
  */
@@ -21,5 +23,10 @@ public class Cell {
 
    public void setType(CellValueType type) {
       this.type = type;
+   }
+
+   @Override
+   public String toString() {
+      return ExportUtil.toString(this);
    }
 }

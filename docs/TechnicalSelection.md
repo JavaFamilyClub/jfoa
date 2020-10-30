@@ -16,6 +16,7 @@
 - Thymeleaf
 - Junit5
 - Urlrewritefilter
+- iText
 
 ## 2 `Web`
 - Angular 10+
@@ -29,7 +30,8 @@
 
 ## 3 `Tools`
 - Gradle
-- [Travis CI](https://travis-ci.org/github/JavaFamilyClub/jfoa)
+- [GitHub Actions](https://github.com/JavaFamilyClub/jfoa/actions)
+- [Travis CI(Deprecated)](https://travis-ci.org/github/JavaFamilyClub/jfoa)
 - docsify
 - swagger, swagger-ui
 - jasypt

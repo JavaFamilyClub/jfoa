@@ -60,4 +60,16 @@ public interface TableLens {
       return max;
    }
 
+   default boolean isRowHeader(int row) {
+      return row < getHeaderRowCount();
+   }
+
+   default boolean isColHeader(int col) {
+      return col < getHeaderColCount();
+   }
+
+   default boolean isHeader(int row, int col) {
+      return isRowHeader(row) || isColHeader(col);
+   }
+
 }

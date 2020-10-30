@@ -16,6 +16,7 @@
 - Thymeleaf(服务端页面以及邮件模板)
 - Junit5(Junit 测试框架)
 - Urlrewritefilter(URL重写过滤器)
+- iText(PDF 导出)
 
 ## 2 `Web`
 - Angular 10+(前端基础框架)
@@ -29,7 +30,8 @@
 
 ## 3 `Tools`
 - Gradle(项目构建工具)
-- [Travis CI](https://travis-ci.org/github/JavaFamilyClub/jfoa) --- (CI 持续集成工具)
+- [GitHub Actions](https://github.com/JavaFamilyClub/jfoa/actions) -- (CI/CD)
+- [Travis CI(Deprecated)](https://travis-ci.org/github/JavaFamilyClub/jfoa) --- (CI 持续集成工具)
 - docsify(文档工具)
 - swagger, swagger-ui(API 工具)
 - jasypt(SpringBoot配置文件加密工具)
