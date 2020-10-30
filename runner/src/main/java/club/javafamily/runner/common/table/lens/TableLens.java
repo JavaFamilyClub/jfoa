@@ -17,6 +17,8 @@ package club.javafamily.runner.common.table.lens;
 import club.javafamily.runner.common.table.cell.Cell;
 import club.javafamily.runner.util.ExportUtil;
 
+import java.awt.*;
+
 /**
  * TableLens interface
  */
@@ -70,6 +72,14 @@ public interface TableLens {
 
    default boolean isHeader(int row, int col) {
       return isRowHeader(row) || isColHeader(col);
+   }
+
+   default Font getFont(int row, int col) {
+      if(isHeader(row, col)) {
+         return LensTool.DEFAULT_HEADER_FONT;
+      }
+
+      return LensTool.DEFAULT_TEXT_FONT;
    }
 
 }

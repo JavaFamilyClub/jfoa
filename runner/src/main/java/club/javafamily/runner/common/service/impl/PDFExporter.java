@@ -15,7 +15,10 @@ import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.UnitValue;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.IOException;
 
 /**
  * iText7 export pdf support.
@@ -23,6 +26,20 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Service("pdfExporter")
 public class PDFExporter implements Exporter {
+
+   private static PdfFont DEFAULT_PDF_TEXT_FONT;
+   private static PdfFont DEFAULT_PDF_BOLD_FONT;
+
+   static {
+      try {
+         PdfFontFactory.registerSystemDirectories();
+         DEFAULT_PDF_TEXT_FONT = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
+         DEFAULT_PDF_BOLD_FONT = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
+      }
+      catch(Exception ignore) {
+      }
+   }
+
    @Override
    public boolean isAccept(ExportType exportType) {
       return exportType == ExportType.PDF;
@@ -92,9 +109,13 @@ public class PDFExporter implements Exporter {
     */
    private void fillCellData(Table table, ExportTableLens tableLens, int row, int col,
                              PdfFont font, PdfFont bold)
+      throws IOException
    {
       boolean isHeader = tableLens.isHeader(row, col);
       club.javafamily.runner.common.table.cell.Cell cell = tableLens.getObject(row, col);
+
+      Font cellFont = tableLens.getFont(row, col);
+      PdfFont font1 = PdfFontFactory.createFont(cellFont.getFontName());
 
       if (isHeader) {
          // <code>Paragraph</code> 代表一个段落, 传入字符串就可以写入一个文本段落到 Document,
@@ -105,5 +126,9 @@ public class PDFExporter implements Exporter {
          table.addCell(new Cell().add(
             new Paragraph(ExportUtil.toString(cell)).setFont(font)));
       }
+   }
+
+   private PdfFont getFont(Font cellFont) {
+
    }
 }
