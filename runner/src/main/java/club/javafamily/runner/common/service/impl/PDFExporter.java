@@ -54,6 +54,7 @@ public class PDFExporter implements Exporter {
       // 创建一个 Table 元素, 并初始化 Table 每列的宽度
       // 注意该 table 的 <code>colWidth</code> 指定的仅仅是各个列的相对宽度, 而不是具体宽度
       int colCount = tableLens.getColCount();
+      // by JackLi: 不要使用相对宽度, 因为经常会出现一列比例较小, 文字换行的情况
 //      float[] colWidth = new float[colCount];
 //
 //      for(int i = 0; i < colCount; i++) {
