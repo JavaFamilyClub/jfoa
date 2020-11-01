@@ -16,7 +16,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { SearchResultResolver } from "../search-result/search-result-resolver.service";
 import { SearchResultComponent } from "../search-result/search-result.component";
-import { AuditViewComponent } from "./audit/audit-view.component";
+import { AuditView } from "./audit/audit-view.component";
 import { EmMonitorComponent } from "./em-monitor.component";
 
 const appRoutes: Routes = [
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
       children: [
          {
             path: "audit",
-            component: AuditViewComponent
+            component: AuditView
          },
          {
             path: "search",

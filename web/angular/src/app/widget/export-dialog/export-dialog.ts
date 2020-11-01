@@ -42,8 +42,7 @@ export class ExportDialog implements OnInit {
   @Output() onCommit = new EventEmitter<ExportModel>();
   @Output() onCancel = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder,
-              private downloadService: DownloadService)
+  constructor(private fb: FormBuilder)
   {
     this.model = {
       type: ExportType.Excel
@@ -62,14 +61,6 @@ export class ExportDialog implements OnInit {
   }
 
   export(): void {
-    let params = new HttpParams()
-       .set("format", this.model.type + "");
-
-    const url = GuiTool.appendParams(
-       Tool.API_VERSION + EmUrlConstants.AUDIT_EXPORT, params);
-
-    this.downloadService.download(url);
-
     this.onCommit.emit(this.model);
   }
 

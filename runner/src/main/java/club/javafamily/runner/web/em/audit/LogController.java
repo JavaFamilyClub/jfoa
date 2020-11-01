@@ -47,11 +47,16 @@ public class LogController {
 
    @GetMapping("/public/log/export")
    public void export(@RequestParam("format") int format,
+                      @RequestParam(value = "startDate", required = false, defaultValue = "-1") long startDate,
+                      @RequestParam(value = "endDate", required = false, defaultValue = "-1") long endDate,
                       HttpServletResponse response)
       throws Exception
    {
       ExportType exportType = ExportType.parse(format);
-      logService.export(response, exportType, null);
+
+      DateRangeFilter rangeFilter = DateRangeFilter.build(startDate, endDate);
+
+      logService.export(response, exportType, rangeFilter);
    }
 
    @Autowired

@@ -53,6 +53,20 @@ public class DateRangeFilter extends DaoFilter<Date> {
 
    public static final String DATE_RANGE_FIELD = "date";
 
+   public static DateRangeFilter build(long startDate, long endDate) {
+      DateRangeFilter filter = new DateRangeFilter();
+
+      if(startDate > 0) {
+         filter.startDate = new Date(startDate);
+      }
+
+      if(endDate > 0) {
+         filter.endDate = new Date(endDate);
+      }
+
+      return filter;
+   }
+
    private Date startDate;
    private Date endDate;
 }

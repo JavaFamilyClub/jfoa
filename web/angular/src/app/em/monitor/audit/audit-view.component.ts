@@ -12,7 +12,9 @@
  * person.
  */
 
+import { HttpParams } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder } from "@angular/forms";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort } from "@angular/material/sort";
@@ -21,9 +23,14 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
 import { Moment } from "moment";
 import { Searchable } from "../../../common/annotation/searchable";
+import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
 import { DateRangeFilter } from "../../../common/filter/date-range-filter";
 import { ComponentTool } from "../../../common/util/component-tool";
+import { GuiTool } from "../../../common/util/gui-tool";
+import { Tool } from "../../../common/util/tool";
+import { DownloadService } from "../../../download/download.service";
 import { ExportDialog } from "../../../widget/export-dialog/export-dialog";
+import { ExportModel } from "../../../widget/model/export-model";
 import { ModelService } from "../../../widget/services/model.service";
 import { Log } from "./model/log";
 
@@ -51,10 +58,11 @@ export class AuditView implements OnInit {
   displayedColumns: string[]
      = ["id", "resource", "action", "customer", "date", "message"];
 
-  constructor(private modelService: ModelService,
-              private snackBar: MatSnackBar,
+  constructor(private snackBar: MatSnackBar,
+              private modalService: NgbModal,
+              private modelService: ModelService,
               private translate: TranslateService,
-              private modalService: NgbModal)
+              private downloadService: DownloadService)
   {
     this.resetFilter();
   }
@@ -123,6 +131,18 @@ export class AuditView implements OnInit {
     event.preventDefault();
 
     const exportDialog = ComponentTool.showDialog(this.modalService,
-       ExportDialog, () => {});
+       ExportDialog, (model: ExportModel) =>
+       {
+         let params = new HttpParams()
+            .set("format", model.type + "")
+            .set("startDate", (this.filter?.startDate?.getTime() ?? -1) + "")
+            .set("endDate", (this.filter?.endDate?.getTime() ?? -1) + "")
+         ;
+
+         const url = GuiTool.appendParams(
+            Tool.API_VERSION + EmUrlConstants.AUDIT_EXPORT, params);
+
+         this.downloadService.download(url);
+       });
   }
 }
