@@ -5,8 +5,7 @@ import com.itextpdf.kernel.font.PdfFontFactory;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,11 +24,12 @@ public class LensToolTests {
    }
 
    @Test
-   public void printDefaultFont() throws IOException {
+   public void printDefaultFont() {
       java.awt.Font font = new java.awt.Font(null, java.awt.Font.PLAIN, 16);
       LOGGER.warn("Default font name: {} \n\n ", font.getName());
    }
 
+   @Disabled("Export PDF using simsun font.")
    @Test
    public void testITextFont() throws IOException {
       PdfFontFactory.registerSystemDirectories();
