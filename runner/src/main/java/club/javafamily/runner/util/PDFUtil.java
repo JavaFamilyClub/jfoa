@@ -47,6 +47,10 @@ public final class PDFUtil {
 //         LOGGER.warn("Registered font is not found! {}", font.getFontName());
 //      }
 
+      // by JackLi: 字体不能为静态, 需要每次请求都创建新的,
+      // 否则在多次导出时 <code>document.close()</code> 会出检查异常.
+      // TODO 在 ThreadLocal 中进行缓存避免对每个 cell 都创建字体.
+
       return font.isBold()
          ? PdfFontFactory.createFont(DEFAULT_PDF_TEXT_FONT, PdfEncodings.IDENTITY_H, true)
          : PdfFontFactory.createFont(DEFAULT_PDF_BOLD_FONT, PdfEncodings.IDENTITY_H, true);
