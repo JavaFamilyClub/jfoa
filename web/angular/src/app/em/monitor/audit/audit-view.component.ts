@@ -41,7 +41,7 @@ const LOG_ALL_URI = "/logs";
   templateUrl: "./audit-view.component.html",
   styleUrls: ["./audit-view.component.scss"]
 })
-export class AuditViewComponent implements OnInit {
+export class AuditView implements OnInit {
   filter: DateRangeFilter;
   dataSource: MatTableDataSource<Log>;
 

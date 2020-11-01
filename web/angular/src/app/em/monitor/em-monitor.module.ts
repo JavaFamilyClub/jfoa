@@ -29,14 +29,14 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { TranslateModule } from "@ngx-translate/core";
 import { SearchResultModule } from "../search-result/search-result.module";
-import { AuditViewComponent } from "./audit/audit-view.component";
+import { AuditView } from "./audit/audit-view.component";
 import { EmMonitorRoutingModule } from "./em-monitor-routing.module";
 import { EmMonitorComponent } from "./em-monitor.component";
 
 @NgModule({
    declarations: [
       EmMonitorComponent,
-      AuditViewComponent,
+      AuditView,
    ],
    imports: [
       CommonModule,
