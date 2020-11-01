@@ -57,7 +57,7 @@ jobs:
       if: ${{ runner.os == 'Linux' }}
       run: bash <(curl -s https://codecov.io/bash)
 
-    # upload build text reports
+    # upload build test reports
     - name: Publish reports
       if: always()
       uses: actions/upload-artifact@v2
