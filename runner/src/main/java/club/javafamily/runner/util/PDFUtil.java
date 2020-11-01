@@ -14,11 +14,14 @@
 
 package club.javafamily.runner.util;
 
+import club.javafamily.runner.common.table.lens.ExportTableLens;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,9 +66,24 @@ public final class PDFUtil {
       // 否则在多次导出时 <code>document.close()</code> 会出检查异常.
       // TODO 在 ThreadLocal 中进行缓存避免对每个 cell 都创建字体.
 
-      return font.isBold()
+      return getFont(font.isBold());
+   }
+
+   private static PdfFont getFont(boolean bold) throws IOException {
+      return bold
          ? PdfFontFactory.createFont(DEFAULT_PDF_BOLD_FONT, PdfEncodings.IDENTITY_H, true)
          : PdfFontFactory.createFont(DEFAULT_PDF_TEXT_FONT, PdfEncodings.IDENTITY_H, true);
+   }
+
+   public static void writeTitle(Document doc, ExportTableLens tableLens) throws IOException {
+      Paragraph p = new Paragraph(tableLens.getTableName());
+      Font titleFont = tableLens.getTitleFont();
+
+      p.setFont(getFont(true))
+         .setFontSize(titleFont.getSize())
+         .setBackgroundColor(convertColor(tableLens.getTitleBackground()));
+
+      doc.add(p);
    }
 
    private static final Logger LOGGER = LoggerFactory.getLogger(PDFUtil.class);

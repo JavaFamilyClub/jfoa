@@ -18,4 +18,20 @@ public class LensTool {
 
    public static final Color DEFAULT_HEADER_BG = Color.LIGHT_GRAY;
 
+   public static final Font getDefaultHeaderFont() {
+      return getFont(true);
+   }
+
+   public static final Font getDefaultTextFont() {
+      return getFont(false);
+   }
+
+   private static final Font getFont(boolean bold) {
+      Font font = bold ? DEFAULT_HEADER_FONT : DEFAULT_TEXT_FONT;
+
+      return new Font(font.getName(),
+         bold ? Font.BOLD : Font.PLAIN,
+         font.getSize());
+   }
+
 }

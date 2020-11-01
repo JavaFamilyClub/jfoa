@@ -2,6 +2,7 @@ package club.javafamily.runner.common.table.lens;
 
 import club.javafamily.runner.common.table.cell.Cell;
 
+import java.awt.*;
 import java.util.Map;
 
 public class ExportTableLens implements TableLens {
@@ -25,6 +26,14 @@ public class ExportTableLens implements TableLens {
       this.tableName = tableName;
       this.description = description;
       this.exportProperties = exportProperties;
+   }
+
+   public Color getTitleBackground() {
+      return Color.orange;
+   }
+
+   public Font getTitleFont() {
+      return new Font(LensTool.DEFAULT_HEADER_FONT.getName(), Font.BOLD, 22);
    }
 
    public TableLens getTable() {

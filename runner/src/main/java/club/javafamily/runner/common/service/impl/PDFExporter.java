@@ -51,6 +51,9 @@ public class PDFExporter implements Exporter {
       // 设置页边距, 默认为 36
       document.setMargins(20, 20, 20, 20);
 
+      // write title
+      PDFUtil.writeTitle(document, tableLens);
+
       // 创建一个 Table 元素, 并初始化 Table 每列的宽度
       // 注意该 table 的 <code>colWidth</code> 指定的仅仅是各个列的相对宽度, 而不是具体宽度
       int colCount = tableLens.getColCount();
