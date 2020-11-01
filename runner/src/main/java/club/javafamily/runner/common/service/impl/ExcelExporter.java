@@ -66,27 +66,14 @@ public class ExcelExporter implements Exporter {
 
       // create header
       Cell cell;
-      int colIndex = 0;
       int rowIndex = 1; // title row
-      int headerEndIndex = rowIndex + tableLens.getHeaderRowCount();
-
-      while(rowIndex < headerEndIndex) {
-         Row header = ExcelUtil.createRow(workbook, sheet, rowIndex++);
-
-         for(int i = 0; i < columnCount; i++) {
-            cell = ExcelUtil.createCell(tableLens, workbook, header, colIndex);
-            ExcelUtil.fillData(helper, cell, tableLens.getObject(0, i).getValue());
-            colIndex++;
-         }
-      }
-
       Row dataRow;
 
-      for(int r = tableLens.getHeaderRowCount(); r < tableLens.getRowCount(); r++) {
+      for(int r = 0; r < tableLens.getRowCount(); r++) {
          dataRow = ExcelUtil.createRow(workbook, sheet, rowIndex++);
 
          for(int c = 0; c < columnCount; c++) {
-            cell = ExcelUtil.createCell(tableLens, workbook, dataRow, c);
+            cell = ExcelUtil.createCell(tableLens, workbook, dataRow, r, c);
             ExcelUtil.fillData(helper, cell, tableLens.getObject(r, c).getValue());
          }
       }

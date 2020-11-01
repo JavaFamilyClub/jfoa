@@ -11,8 +11,7 @@ import java.util.Date;
 
 public class ExcelUtil {
 
-   public static String Excel_xls = ".xls";
-   public static String Excel_xlsx = ".xlsx";
+   public static final int TITLE_ROW_INDEX = -1;
 
    public static final int DEFAULT_ROW_HEIGHT = 25;
    public static final int DEFAULT_COL_WIDTH = 20 * 256;
@@ -31,7 +30,7 @@ public class ExcelUtil {
       Cell cell = null, temp;
 
       for (int i = 0; i < colCount; i++) {
-         temp = createCell(null, workbook, title, i);
+         temp = createCell(null, workbook, title, TITLE_ROW_INDEX, i);
 
          if(i == colIndex) {
             cell = temp;
@@ -93,6 +92,7 @@ public class ExcelUtil {
    public static Cell createCell(ExportTableLens tableLens,
                                  Workbook workbook,
                                  Row row,
+                                 int r,
                                  int column)
    {
       Cell cell = row.createCell(column);
@@ -100,7 +100,7 @@ public class ExcelUtil {
 
       if(tableLens != null) {
          // font
-         java.awt.Font cellFont = tableLens.getFont(row.getRowNum(), column);
+         java.awt.Font cellFont = tableLens.getFont(r, column);
          Font font = workbook.createFont();
 
          if(cellFont.isBold()) {
@@ -113,7 +113,7 @@ public class ExcelUtil {
 
          // background
          cellStyle.setFillForegroundColor(
-            convertColor(tableLens.getBackground(row.getRowNum(), column)));
+            convertColor(tableLens.getBackground(r, column)));
          cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
       }
 
