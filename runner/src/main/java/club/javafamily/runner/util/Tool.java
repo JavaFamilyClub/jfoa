@@ -1,15 +1,30 @@
+/*
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
+ *
+ * The software and information contained herein are copyrighted and
+ * proprietary to JavaFamily Technology Corp. This software is furnished
+ * pursuant to a written license agreement and may be used, copied,
+ * transmitted, and stored only in accordance with the terms of such
+ * license and with the inclusion of the above copyright notice. Please
+ * refer to the file "COPYRIGHT" for further copyright and licensing
+ * information. This software and information or any other copies
+ * thereof may not be provided or otherwise made available to any other
+ * person.
+ */
+
 package club.javafamily.runner.util;
 
 import club.javafamily.runner.domain.Installer;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.*;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.*;
@@ -285,8 +300,27 @@ public class Tool {
       return "./";
    }
 
-   public static URL getConfigURL(String path) {
-      return Tool.class.getClassLoader().getResource(path);
+   public static Resource getConfigURL(String path) {
+      return new DefaultResourceLoader().getResource(ResourceUtils.CLASSPATH_URL_PREFIX + path);
+   }
+
+   public static byte[] getConfigFileData(String path) throws IOException {
+      ClassPathResource resource = new ClassPathResource(path);
+
+      if(!resource.exists()) {
+         LOG.error("config file {} is not found!", path);
+         throw new FileNotFoundException("config file {} is not found!");
+      }
+
+      try(InputStream is = resource.getInputStream()) {
+         byte[] bytes = IOUtils.toByteArray(is);
+
+         LOG.info("Read file {} data: {}", path, bytes.length);
+
+         return bytes;
+      }
+      finally {
+      }
    }
 
    public static String getInstallerUploadPath(Installer installer) {

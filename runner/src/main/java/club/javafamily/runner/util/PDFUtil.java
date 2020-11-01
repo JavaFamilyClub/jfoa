@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
+ *
+ * The software and information contained herein are copyrighted and
+ * proprietary to JavaFamily Technology Corp. This software is furnished
+ * pursuant to a written license agreement and may be used, copied,
+ * transmitted, and stored only in accordance with the terms of such
+ * license and with the inclusion of the above copyright notice. Please
+ * refer to the file "COPYRIGHT" for further copyright and licensing
+ * information. This software and information or any other copies
+ * thereof may not be provided or otherwise made available to any other
+ * person.
+ */
+
 package club.javafamily.runner.util;
 
 import com.itextpdf.io.font.PdfEncodings;
@@ -16,14 +30,16 @@ public final class PDFUtil {
    private PDFUtil() {
    }
 
-   private static String DEFAULT_PDF_TEXT_FONT;
-   private static String DEFAULT_PDF_BOLD_FONT;
+   private static byte[] DEFAULT_PDF_TEXT_FONT;
+   private static byte[] DEFAULT_PDF_BOLD_FONT;
 
    static {
       try {
 //         PdfFontFactory.registerSystemDirectories();
-         DEFAULT_PDF_TEXT_FONT = Tool.getConfigURL("public/fonts/simsun.ttf").getPath();
-         DEFAULT_PDF_BOLD_FONT = Tool.getConfigURL("public/fonts/simhei.TTF").getPath();
+         DEFAULT_PDF_TEXT_FONT = Tool.getConfigFileData("public/fonts/simsun.ttf");
+//            .getURL().getPath();
+         DEFAULT_PDF_BOLD_FONT = Tool.getConfigFileData("public/fonts/simhei.TTF");
+//            .getURL().getPath();
       }
       catch(Exception e) {
          e.printStackTrace();
