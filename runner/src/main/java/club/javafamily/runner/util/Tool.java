@@ -9,6 +9,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.*;
@@ -282,6 +283,10 @@ public class Tool {
       }
 
       return "./";
+   }
+
+   public static URL getConfigURL(String path) {
+      return Tool.class.getClassLoader().getResource(path);
    }
 
    public static String getInstallerUploadPath(Installer installer) {
