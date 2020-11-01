@@ -92,7 +92,7 @@ public class PDFExporter implements Exporter {
     * @param row row index
     * @param col col index
     */
-   private void fillCellData(Table table, ExportTableLens tableLens, int row, int col) {
+   private void fillCellData(Table table, ExportTableLens tableLens, int row, int col) throws Exception {
       boolean isHeader = tableLens.isHeader(row, col);
       club.javafamily.runner.common.table.cell.Cell cell = tableLens.getObject(row, col);
 
