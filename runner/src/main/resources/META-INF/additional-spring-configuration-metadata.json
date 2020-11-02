@@ -13,6 +13,16 @@
          "description": "Description for jfoa.amqp.override.",
          "sourceType": "club.javafamily.runner.config.RabbitMQConfigProperties",
          "defaultValue": false
+      },
+      {
+         "name": "jfoa.rest.github.client-id",
+         "type": "java.lang.String",
+         "description": "Description for jfoa.rest.github.client-id."
+      },
+      {
+         "name": "jfoa.rest.github.client-secrets",
+         "type": "java.lang.String",
+         "description": "Description for jfoa.rest.github.client-secrets."
       }
    ],
    "hints": [

@@ -138,6 +138,7 @@ public class ShiroConfig {
       filterChainMap.put(API_VERSION + "/customer/verify", "anon");
 
       // public api
+      filterChainMap.put("/public/**", "anon");
       filterChainMap.put(API_VERSION + "/public/**", "anon");
       filterChainMap.put(CLIENT_API_VERSION + "/public/**", "anon");
 

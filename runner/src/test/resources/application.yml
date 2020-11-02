@@ -1,6 +1,10 @@
 jfoa:
    amqp:
       override: false
+   rest:
+      github:
+         client-id: ${GITHUB_JF_CLIENT_ID}
+         client-secrets: ${GITHUB_JF_CLIENT_SECRETS}
 
 jasypt:
    encryptor:
