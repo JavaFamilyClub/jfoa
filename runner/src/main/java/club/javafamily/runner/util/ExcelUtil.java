@@ -35,9 +35,11 @@ public class ExcelUtil {
 
    public static Cell createTitleRow(Workbook workbook,
                                      Sheet sheet,
-                                     String titleLabel,
-                                     int colCount)
+                                     ExportTableLens tableLens)
    {
+      assert tableLens != null;
+      int colCount = tableLens.getColCount();
+
       Row title = createRow(workbook, sheet, 0);
       title.setHeightInPoints(DEFAULT_TITLE_HEIGHT);
       int colIndex = colCount / 2 - 1;
@@ -51,16 +53,19 @@ public class ExcelUtil {
          }
       }
 
-      cell.setCellValue(titleLabel);
+      cell.setCellValue(tableLens.getTableName());
 
       int span = 2 + colCount % 2 - 1;
       sheet.addMergedRegion(new CellRangeAddress(0, 0, colIndex, colIndex + span));
 
+      java.awt.Font titleFont = tableLens.getTitleFont();
+      java.awt.Color fontColor = tableLens.getFontColor();
+
       CellStyle cellStyle = cell.getCellStyle();
       Font font = workbook.createFont();
-      font.setBold(true);
-      font.setColor(IndexedColors.ORANGE.getIndex());
-      font.setFontHeightInPoints(((short) 20));
+      font.setBold(titleFont.isBold());
+      font.setColor(convertColor(fontColor));
+      font.setFontHeightInPoints(((short) titleFont.getSize()));
       cellStyle.setFont(font);
 
       cell.setCellStyle(cellStyle);
@@ -87,6 +92,9 @@ public class ExcelUtil {
       // TODO fill color types.
       if(color.equals(java.awt.Color.LIGHT_GRAY)) {
          return IndexedColors.GREY_25_PERCENT.getIndex();
+      }
+      else if(color.equals(java.awt.Color.ORANGE)) {
+         return IndexedColors.ORANGE.getIndex();
       }
 
       return IndexedColors.WHITE.index;

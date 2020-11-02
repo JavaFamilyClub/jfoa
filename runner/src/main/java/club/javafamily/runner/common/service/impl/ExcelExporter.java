@@ -52,7 +52,7 @@ public class ExcelExporter implements Exporter {
          workbook = HSSFWorkbookFactory.createWorkbook();
       }
 
-      Sheet sheet = workbook.createSheet(tableLens.getDescription());
+      Sheet sheet = workbook.createSheet(tableLens.getTableName());
       int columnCount = tableLens.getColCount();
 
       for(int i = 0; i < columnCount; i++) {
@@ -62,7 +62,7 @@ public class ExcelExporter implements Exporter {
       CreationHelper helper = workbook.getCreationHelper();
 
       // create title
-      ExcelUtil.createTitleRow(workbook, sheet, tableLens.getDescription(), columnCount);
+      ExcelUtil.createTitleRow(workbook, sheet, tableLens);
 
       // create header
       Cell cell;

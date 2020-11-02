@@ -9,26 +9,24 @@ public class ExportTableLens implements TableLens {
 
    private TableLens table;
    private String tableName;
-   private String description;
    private Map<String, String> exportProperties;
 
    public ExportTableLens() {
    }
 
-   public ExportTableLens(TableLens table, String tableName, String description) {
-      this(table, tableName, description, null);
+   public ExportTableLens(TableLens table, String tableName) {
+      this(table, tableName, null);
    }
 
-   public ExportTableLens(TableLens table, String tableName, String description,
+   public ExportTableLens(TableLens table, String tableName,
                           Map<String, String> exportProperties)
    {
       this.table = table;
       this.tableName = tableName;
-      this.description = description;
       this.exportProperties = exportProperties;
    }
 
-   public Color getTitleBackground() {
+   public Color getFontColor() {
       return Color.orange;
    }
 
@@ -42,10 +40,6 @@ public class ExportTableLens implements TableLens {
 
    public String getTableName() {
       return this.tableName;
-   }
-
-   public String getDescription() {
-      return this.description;
    }
 
    public String getProperty(String key) {

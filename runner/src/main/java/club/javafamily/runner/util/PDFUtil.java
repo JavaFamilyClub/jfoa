@@ -33,27 +33,56 @@ public final class PDFUtil {
    private PDFUtil() {
    }
 
-   private static byte[] DEFAULT_PDF_TEXT_FONT;
-   private static byte[] DEFAULT_PDF_BOLD_FONT;
+   // by JackLi: 字体不能为静态, 需要每次请求都创建新的,
+   // 否则在多次导出时 <code>document.close()</code> 会出检查异常.
+   private static byte[] defaultTextFontData;
+   private static byte[] defaultBoldFontData;
+   private static final ThreadLocal<byte[]> DEFAULT_PDF_TEXT_FONT = new ThreadLocal<>();
+   private static final ThreadLocal<byte[]> DEFAULT_PDF_BOLD_FONT = new ThreadLocal<>();
 
    static {
+      initDefaultFontData();
+   }
+
+   private static void initDefaultFontData() {
       try {
 //         PdfFontFactory.registerSystemDirectories();
-         DEFAULT_PDF_TEXT_FONT = Tool.getConfigFileData("public/fonts/simsun.ttf");
-//            .getURL().getPath();
-         DEFAULT_PDF_BOLD_FONT = Tool.getConfigFileData("public/fonts/simhei.TTF");
-//            .getURL().getPath();
+         defaultTextFontData = Tool.getConfigFileData("public/fonts/simsun.ttf");
+         defaultBoldFontData = Tool.getConfigFileData("public/fonts/simhei.TTF");
+         LOGGER.info("PDF font init: {}",
+            defaultTextFontData != null && defaultBoldFontData != null);
       }
       catch(Exception e) {
          e.printStackTrace();
       }
    }
 
+   private static void resetDefaultFont() {
+      try {
+         DEFAULT_PDF_TEXT_FONT.set(defaultTextFontData);
+         DEFAULT_PDF_BOLD_FONT.set(defaultBoldFontData);
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+   /**
+    * Convert awt's color to iText's color.
+    * @param color awt's color.
+    * @return iText's color
+    */
    public static Color convertColor(java.awt.Color color) {
       return new DeviceRgb(color);
    }
 
+   /**
+    * Convert awt's font to iText's font.
+    * @param font awt's font.
+    * @return iText's font
+    */
    public static PdfFont convertFont(Font font) throws IOException {
+      // 这在项目打成 jar 包后会出现访问不到字体文件的错误.
 //      try {
 //         PdfFont pdfFont = PdfFontFactory.createRegisteredFont(font.getName());
 //
@@ -62,26 +91,27 @@ public final class PDFUtil {
 //         LOGGER.warn("Registered font is not found! {}", font.getFontName());
 //      }
 
-      // by JackLi: 字体不能为静态, 需要每次请求都创建新的,
-      // 否则在多次导出时 <code>document.close()</code> 会出检查异常.
-      // TODO 在 ThreadLocal 中进行缓存避免对每个 cell 都创建字体.
+      ThreadLocal<byte[]> fontProvider = font.isBold()
+         ? DEFAULT_PDF_BOLD_FONT
+         : DEFAULT_PDF_TEXT_FONT;
 
-      return getFont(font.isBold());
-   }
+      byte[] fontData = fontProvider.get();
 
-   private static PdfFont getFont(boolean bold) throws IOException {
-      return bold
-         ? PdfFontFactory.createFont(DEFAULT_PDF_BOLD_FONT, PdfEncodings.IDENTITY_H, true)
-         : PdfFontFactory.createFont(DEFAULT_PDF_TEXT_FONT, PdfEncodings.IDENTITY_H, true);
+      if(fontData == null) {
+         resetDefaultFont();
+         fontData = fontProvider.get();
+      }
+
+      return PdfFontFactory.createFont(fontData, PdfEncodings.IDENTITY_H, true);
    }
 
    public static void writeTitle(Document doc, ExportTableLens tableLens) throws IOException {
       Paragraph p = new Paragraph(tableLens.getTableName());
       Font titleFont = tableLens.getTitleFont();
 
-      p.setFont(getFont(true))
+      p.setFont(convertFont(titleFont))
          .setFontSize(titleFont.getSize())
-         .setBackgroundColor(convertColor(tableLens.getTitleBackground()));
+         .setFontColor(convertColor(tableLens.getFontColor()));
 
       doc.add(p);
    }

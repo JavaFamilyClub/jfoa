@@ -39,8 +39,6 @@ public class PDFExporter implements Exporter {
                       ExportType exportType)
       throws Exception
    {
-//      PdfFontFactory.registerSystemDirectories();
-
       // 创建一个指向文件或者 out 流的 PDFWriter, 该 writer 会监听 PdfDocument
       PdfWriter pdfWriter = new PdfWriter(response.getOutputStream());
       // 创建 PdfDocument 代表要创建的 PDF 文件, 管理要写入的内容和相关信息

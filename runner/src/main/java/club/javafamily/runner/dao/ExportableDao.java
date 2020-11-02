@@ -34,15 +34,14 @@ public abstract class ExportableDao<T, R extends Serializable> extends BaseDao<T
       Class<T> clazz = getClazz();
 
       // 0. get table name(sheet name)
-      String desc = ExportUtil.getExportableTableName(clazz);
+      String tableName = ExportUtil.getExportableTableName(clazz);
 
-      if(StringUtils.isEmpty(desc)) {
+      if(StringUtils.isEmpty(tableName)) {
          // TODO get table name of db
-         desc = clazz.getSimpleName();
+         tableName = clazz.getSimpleName();
       }
 
-      // TODO get table name
-      ExportTableLens result = new ExportTableLens(lens, "JavaFamily OA Audit", desc);
+      ExportTableLens result = new ExportTableLens(lens, tableName);
 
       // 1. get export field by order
       Field[] exportFields = ExportUtil.getExportFields(clazz);
