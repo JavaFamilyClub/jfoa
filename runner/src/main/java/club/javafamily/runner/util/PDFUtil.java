@@ -22,6 +22,8 @@ import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.HorizontalAlignment;
+import com.itextpdf.layout.property.TextAlignment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,6 +113,8 @@ public final class PDFUtil {
 
       p.setFont(convertFont(titleFont))
          .setFontSize(titleFont.getSize())
+         .setTextAlignment(TextAlignment.CENTER)
+         .setHorizontalAlignment(HorizontalAlignment.CENTER)
          .setFontColor(convertColor(tableLens.getFontColor()));
 
       doc.add(p);
