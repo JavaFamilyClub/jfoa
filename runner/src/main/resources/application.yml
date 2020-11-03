@@ -79,6 +79,14 @@ server:
       key-store-password: jj5qDzz4
       key-store-type: PKCS12
 
+jfoa:
+   oauth:
+      callback: https://javafamily.club/public/oauth/github/callback
+
+      github:
+         client-id: ${JF_GITHUB_CLIENT_ID}
+         client-secrets: ${JF_GITHUB_CLIENT_SECRETS}
+
 spring:
    profiles: prod
 
