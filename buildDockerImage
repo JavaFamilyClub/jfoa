@@ -6,4 +6,11 @@
 
 echo JF_JASYPT_ENCRYPTOR Token is: $JF_JASYPT_ENCRYPTOR
 
-docker build --build-arg JF_JASYPT_ENCRYPTOR=$JF_JASYPT_ENCRYPTOR --build-arg JF_GITHUB_CLIENT_ID=$JF_GITHUB_CLIENT_ID --build-arg JF_GITHUB_CLIENT_SECRETS=$JF_GITHUB_CLIENT_SECRETS -f ./Dockerfile -m 1g -t javafamily/jfoa ./runner/build/libs/
+docker build \
+-t javafamily/jfoa \
+--build-arg JF_JASYPT_ENCRYPTOR=$JF_JASYPT_ENCRYPTOR \
+--build-arg JF_GITHUB_CLIENT_ID=$JF_GITHUB_CLIENT_ID \
+--build-arg JF_GITHUB_CLIENT_SECRETS=$JF_GITHUB_CLIENT_SECRETS \
+-f ./Dockerfile \
+-m 1g \
+--no-cache ./runner/build/libs/
