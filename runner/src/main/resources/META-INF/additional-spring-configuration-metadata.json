@@ -30,7 +30,7 @@
       {
          "name": "jfoa.oauth.callback",
          "description": "Description for jfoa.oauth.callback.",
-         "defaultValue": ""
+         "defaultValue": "https://javafamily.club/public/oauth/github/callback"
       }
    ],
    "hints": [
