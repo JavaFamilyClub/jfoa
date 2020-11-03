@@ -74,6 +74,9 @@
          "signUpSuccessTitle": "Registration Success",
          "signUpSuccessInfo": "You will receive an email containing your account information, please click the activation link in the email within ten minutes to activate your account.\n\n Go to login page?"
       },
+      "errorMsg": {
+         "insertError": "Insert user error!"
+      },
       "pwd": {
          "change": "Change Password",
          "oldPwd": "Old Password",
@@ -177,9 +180,10 @@
    "security": {
       "link": {
          "em": "Enterprise Management",
-         "sign-in": "Sign In",
-         "sign-up": "Sign Up",
-         "sign-out": "Sign Out"
+         "sign-in": "Sign in",
+         "sign-in-by-gitHub": "Sign in by GitHub",
+         "sign-up": "Sign up",
+         "sign-out": "Sign out"
       }
    },
    "common": {

@@ -15,41 +15,29 @@
 package club.javafamily.runner.controller;
 
 import club.javafamily.runner.config.OAuthUsernamePasswordToken;
-import club.javafamily.runner.controller.model.OAuthAuthenticationException;
 import club.javafamily.runner.domain.Customer;
-import club.javafamily.runner.dto.*;
+import club.javafamily.runner.dto.AccessTokenResponse;
+import club.javafamily.runner.dto.GithubUser;
 import club.javafamily.runner.enums.Gender;
 import club.javafamily.runner.enums.UserType;
 import club.javafamily.runner.rest.github.GithubProvider;
 import club.javafamily.runner.service.CustomerService;
+import club.javafamily.runner.util.I18nUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.sql.Date;
 
 @Controller
 @Lazy
 public class GithubLoginController {
-
-   @Value("${jfoa.rest.github.client-id}")
-   private String clientId;
-
-   @Value("${jfoa.rest.github.client-secrets}")
-   private String clientSecrets;
-
-   @Value("${jfoa.rest.callback}")
-   private String callback;
 
    @Autowired
    public GithubLoginController(CustomerService customerService,
@@ -61,14 +49,7 @@ public class GithubLoginController {
 
    @GetMapping("/public/oauth/github/auth")
    public String auth() {
-      Map<String, String> params = new HashMap<>();
-      params.put("client_id", clientId);
-      params.put("redirect_uri", callback);
-      params.put("scope", "user:email");
-      params.put("response_type", "code");
-      params.put("state", "1");
-
-      String authorizeUrl = githubProvider.getAuthorizeUrl(params);
+      String authorizeUrl = githubProvider.getAuthorizeUrl();
 
       return "redirect:" + authorizeUrl;
    }
@@ -77,14 +58,8 @@ public class GithubLoginController {
    public String callback(@RequestParam("code") String code,
                           @RequestParam("state") String state)
    {
-      AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
-      accessTokenDTO.setClient_id(this.clientId);
-      accessTokenDTO.setClient_secret(this.clientSecrets);
-      accessTokenDTO.setCode(code);
-      accessTokenDTO.setState(state);
-      accessTokenDTO.setRedirect_uri(callback);
-
-      AccessTokenResponse accessTokenResponse = githubProvider.queryAccessToken(accessTokenDTO);
+      AccessTokenResponse accessTokenResponse
+         = githubProvider.queryAccessToken(code, state);
 
       LOGGER.info("Getting access token: {}", accessTokenResponse);
 
@@ -94,7 +69,10 @@ public class GithubLoginController {
    }
 
    private void authentication(AccessTokenResponse accessTokenResponse) {
-      GithubUser user = githubProvider.getUser(accessTokenResponse.getAccess_token());
+      GithubUser user = githubProvider.getUser(accessTokenResponse);
+
+      LOGGER.info("Getting github user: {}", user);
+
       String email = user.getEmail();
       String account = user.getLogin();
 
@@ -109,10 +87,20 @@ public class GithubLoginController {
          customer.setGender(Gender.Unknown);
          customer.setActive(true);
          customer.setType(UserType.GitHub);
+         customer.setRegisterDate(new Date(System.currentTimeMillis()));
          // password is not required.
          // TODO registered user should have default role.
 //         customer.setRoles();
-         customerService.insertCustomer(customer);
+
+         try{
+            customerService.insertCustomer(customer);
+         }
+         catch(Exception e) {
+            LOGGER.error(I18nUtil.getString("user.errorMsg.insertError"));
+            throw e;
+         }
+
+         LOGGER.info("Insert github user: {}", customer);
       }
 
       // login
@@ -123,7 +111,7 @@ public class GithubLoginController {
       Subject subject = SecurityUtils.getSubject();
 
       subject.login(new OAuthUsernamePasswordToken(
-         customer.getAccount(), null, customer.getType()));
+         customer.getAccount(), "", customer.getType()));
    }
 
    private final CustomerService customerService;

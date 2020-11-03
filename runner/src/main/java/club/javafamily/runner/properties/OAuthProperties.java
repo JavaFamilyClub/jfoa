@@ -23,7 +23,7 @@ public class OAuthProperties {
    private String callback;
 
    @NestedConfigurationProperty
-   private GithubOAuthProperties github;
+   private GithubOAuthProperties github = new GithubOAuthProperties();
 
    public String getCallback() {
       return callback;

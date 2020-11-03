@@ -29,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Component
@@ -91,7 +92,7 @@ public class MainRealm extends AuthorizingRealm {
     ByteSource credentialsSalt = ByteSource.Util.bytes(account);
 
     AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(account,
-       user.getPassword(), credentialsSalt, getName());
+       Objects.toString(user.getPassword(), ""), credentialsSalt, getName());
 
     return authcInfo;
   }

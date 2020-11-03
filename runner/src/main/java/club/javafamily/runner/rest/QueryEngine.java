@@ -16,12 +16,13 @@ package club.javafamily.runner.rest;
 
 import club.javafamily.runner.controller.model.OAuthAuthenticationException;
 import club.javafamily.runner.dto.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
 
 public interface QueryEngine <T extends RestUser> {
 
@@ -43,14 +44,38 @@ public interface QueryEngine <T extends RestUser> {
    /**
     * query access token param name
     */
-   default String accessTokeParamName() {
-      return "access_token";
+   default String authorizationParamName() {
+      return "Authorization";
    }
 
    /**
     * User class type.
     */
    Class<T> getUserClass();
+
+   /**
+    * execute get query for setting header.
+    * @param returnType response type
+    * @param url url
+    * @param headers query header
+    */
+   default <R> R getForObject(String url,
+                              Class<R> returnType,
+                              HttpHeaders headers)
+   {
+      RestTemplate restTemplate = getRestTemplate();
+      headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+      headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+      HttpEntity<R> request = new HttpEntity<>(headers);
+      RequestCallback requestCallback = restTemplate.httpEntityCallback(request, returnType);
+      HttpMessageConverterExtractor<R> responseExtractor =
+         new HttpMessageConverterExtractor<>(returnType,
+            restTemplate.getMessageConverters());
+
+      return restTemplate.execute(url, HttpMethod.GET,
+         requestCallback, responseExtractor);
+   }
 
    /**
     * fetch access token
@@ -74,20 +99,26 @@ public interface QueryEngine <T extends RestUser> {
       return accessTokenResponse;
    }
 
-   default T getUser(String accessToken) {
-      RestTemplate restTemplate = getRestTemplate();
-      Map<String, String> params = new HashMap<>();
+   default T getUser(AccessTokenResponse accessTokenResponse) {
+      String url = getUserInfoUrl();
 
-      params.put(accessTokeParamName(), accessToken);
+      HttpHeaders headers = new HttpHeaders();
+      headers.set(authorizationParamName(),
+         accessTokenResponse.getToken_type()
+            + " " + accessTokenResponse.getAccess_token());
 
       try{
-         T user = restTemplate.getForObject(getUserInfoUrl(), getUserClass(), params);
+         T user = getForObject(url, getUserClass(), headers);
+
+         LOGGER.info("Getting github user: {}", user);
 
          return user;
       }
-      catch(Exception ignore) {
+      catch(Exception e) {
+         e.printStackTrace();
+         throw new OAuthAuthenticationException("OAuth Authentication Getting User Failed.");
       }
-
-      throw new OAuthAuthenticationException("OAuth Authentication Getting User Failed.");
    }
+
+   Logger LOGGER = LoggerFactory.getLogger(QueryEngine.class);
 }

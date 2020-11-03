@@ -14,13 +14,15 @@
 
 package club.javafamily.runner.rest.github;
 
-import club.javafamily.runner.dto.GithubUser;
+import club.javafamily.runner.dto.*;
+import club.javafamily.runner.properties.OAuthProperties;
 import club.javafamily.runner.rest.QueryEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -31,8 +33,23 @@ public class GithubProvider implements QueryEngine<GithubUser> {
    private static final String AUTHORIZE_URL = "https://github.com/login/oauth/authorize";
 
    @Autowired
-   public GithubProvider(RestTemplate restTemplate) {
+   public GithubProvider(RestTemplate restTemplate,
+                         OAuthProperties oAuthProperties)
+   {
       this.restTemplate = restTemplate;
+      this.oAuthProperties = oAuthProperties;
+   }
+
+   public String getAuthorizeUrl() {
+      assert oAuthProperties.getGithub() != null;
+      Map<String, String> params = new HashMap<>();
+      params.put("client_id", oAuthProperties.getGithub().getClientId());
+      params.put("redirect_uri", oAuthProperties.getCallback());
+      params.put("scope", "user:email");
+      params.put("response_type", "code");
+      params.put("state", "1");
+
+      return this.getAuthorizeUrl(params);
    }
 
    public String getAuthorizeUrl(Map<String, String> params) {
@@ -48,6 +65,18 @@ public class GithubProvider implements QueryEngine<GithubUser> {
       sb.append(paramsStr);
 
       return sb.toString();
+   }
+
+   public AccessTokenResponse queryAccessToken(String code, String state) {
+      assert oAuthProperties.getGithub() != null;
+      AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
+      accessTokenDTO.setClient_id(this.oAuthProperties.getGithub().getClientId());
+      accessTokenDTO.setClient_secret(this.oAuthProperties.getGithub().getClientSecrets());
+      accessTokenDTO.setCode(code);
+      accessTokenDTO.setState(state);
+      accessTokenDTO.setRedirect_uri(oAuthProperties.getCallback());
+
+      return queryAccessToken(accessTokenDTO);
    }
 
    @Override
@@ -71,4 +100,5 @@ public class GithubProvider implements QueryEngine<GithubUser> {
    }
 
    private final RestTemplate restTemplate;
+   private final OAuthProperties oAuthProperties;
 }

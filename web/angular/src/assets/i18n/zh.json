@@ -74,6 +74,9 @@
          "signUpSuccessTitle": "注册成功",
          "signUpSuccessInfo": "您将收到一封包含您帐户信息的电子邮件，请在十分钟内点击电子邮件中的激活链接激活您的帐户.\n\n 前往登录页面?"
       },
+      "errorMsg": {
+         "insertError": "插入用户出错."
+      },
       "pwd": {
          "change": "修改密码",
          "oldPwd": "旧密码",
@@ -178,6 +181,7 @@
       "link": {
          "em": "企业管理",
          "sign-in": "登录",
+         "sign-in-by-gitHub": "通过 GitHub 登录",
          "sign-up": "注册",
          "sign-out": "注销"
       }

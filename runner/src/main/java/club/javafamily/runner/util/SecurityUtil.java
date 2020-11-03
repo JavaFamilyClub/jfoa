@@ -148,7 +148,8 @@ public final class SecurityUtil {
    }
 
    public static String generatorPassword(String account, String password) {
-      SimpleHash simpleHash = new SimpleHash("MD5", password, account, 1024);
+      SimpleHash simpleHash = new SimpleHash("MD5",
+         Objects.toString(password, ""), account, 1024);
 
       return simpleHash.toHex();
    }
