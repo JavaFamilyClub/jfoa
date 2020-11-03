@@ -24,6 +24,7 @@ public enum ExceptionEnum {
    SECURITY_LOCKED_ACCOUNT("0x003", "账户被锁定!"),
    SECURITY_EXCESSIVE_ATTEMPTS("0x004", "尝试次数太多, 请稍后重试!"),
    SECURITY_AUTHENTICATION("0x005", "登录失败, 请稍后再试!"),
+   SECURITY_OAUTH_AUTHENTICATION("0x006", "oAuth 认证失败, 请稍后重试!"),
 
    MESSAGE_EXCEPTION("0x201", null),
 

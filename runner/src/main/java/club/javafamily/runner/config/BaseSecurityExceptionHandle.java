@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.config;
 
+import club.javafamily.runner.controller.model.OAuthAuthenticationException;
 import club.javafamily.runner.enums.ExceptionEnum;
 import org.apache.shiro.authc.*;
 import org.springframework.ui.Model;
@@ -45,6 +46,12 @@ public abstract class BaseSecurityExceptionHandle <T> {
    public T excessiveAttemptsExceptionHandle(Model model, ServletRequest request) {
       return buildAuthenticationResponse(model, request,
          ExceptionEnum.SECURITY_EXCESSIVE_ATTEMPTS);
+   }
+
+   @ExceptionHandler(OAuthAuthenticationException.class)
+   public T oAuthAuthenticationException(Model model, ServletRequest request) {
+      return buildAuthenticationResponse(model, request,
+         ExceptionEnum.SECURITY_OAUTH_AUTHENTICATION);
    }
 
    @ExceptionHandler(AuthenticationException.class)

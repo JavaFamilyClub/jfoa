@@ -80,17 +80,17 @@ public class MainRealm extends AuthorizingRealm {
 
   @Override
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-    String userName = (String) token.getPrincipal();
+    String account = (String) token.getPrincipal();
 
-    Customer user = customerService.getCustomerByAccount(userName);
+    Customer user = customerService.getCustomerByAccount(account);
 
     if(user == null) {
       return null;
     }
 
-    ByteSource credentialsSalt = ByteSource.Util.bytes(userName);
+    ByteSource credentialsSalt = ByteSource.Util.bytes(account);
 
-    AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(userName,
+    AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(account,
        user.getPassword(), credentialsSalt, getName());
 
     return authcInfo;

@@ -14,16 +14,29 @@
 
 package club.javafamily.runner.controller;
 
-import club.javafamily.runner.dto.AccessTokenDTO;
-import club.javafamily.runner.dto.AccessTokenResponse;
+import club.javafamily.runner.config.OAuthUsernamePasswordToken;
+import club.javafamily.runner.controller.model.OAuthAuthenticationException;
+import club.javafamily.runner.domain.Customer;
+import club.javafamily.runner.dto.*;
+import club.javafamily.runner.enums.Gender;
+import club.javafamily.runner.enums.UserType;
+import club.javafamily.runner.service.CustomerService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.*;
 
 @Controller
 @Lazy
@@ -38,7 +51,8 @@ public class GithubLoginController {
    private String callback = "http://localhost/public/oauth/github/callback";
 
    @Autowired
-   public GithubLoginController(RestTemplate restTemplate) {
+   public GithubLoginController(CustomerService customerService, RestTemplate restTemplate) {
+      this.customerService = customerService;
       this.restTemplate = restTemplate;
    }
 
@@ -66,6 +80,76 @@ public class GithubLoginController {
       accessTokenDTO.setState(state);
       accessTokenDTO.setRedirect_uri(callback);
 
+      AccessTokenResponse accessTokenResponse = getAccessToken(accessTokenDTO);
+
+      System.out.println("Getting access token: " + accessTokenResponse);
+
+      if(accessTokenResponse == null || StringUtils.isEmpty(accessTokenResponse.getAccess_token())) {
+         // TODO i18n
+         throw new OAuthAuthenticationException("OAuth Authentication Failed.");
+      }
+
+      // TODO registered user and login.
+      authentication(accessTokenResponse);
+
+      return "redirect:/";
+   }
+
+   private void authentication(AccessTokenResponse accessTokenResponse) {
+      GithubUser user = getUser(accessTokenResponse);
+      String email = user.getEmail();
+      String account = JF_GITHUB_USER_ACCOUNT_PREFIX + user.getLogin();
+
+      Customer customer = customerService.getCustomerByAccount(account);
+
+      if(customer == null) {
+         // sign up
+         customer = new Customer();
+         customer.setAccount(account);
+         customer.setName(user.getName());
+         customer.setEmail(email);
+         customer.setGender(Gender.Unknown);
+         customer.setActive(true);
+         customer.setType(UserType.GitHub);
+         // password is not required.
+         // TODO registered user should have default role.
+//         customer.setRoles();
+         customerService.insertCustomer(customer);
+      }
+
+      // login
+      authentication(customer);
+   }
+
+   private void authentication(Customer customer) {
+      Subject subject = SecurityUtils.getSubject();
+
+      subject.login(new OAuthUsernamePasswordToken(
+         customer.getAccount(), null, customer.getType()));
+
+   }
+
+   private GithubUser getUser(AccessTokenResponse accessTokenResponse) {
+      Map<String, String> params = new HashMap<>();
+
+      params.put("access_token", accessTokenResponse.getAccess_token());
+
+      try{
+         GithubUser githubUser = restTemplate.getForObject(
+            "https://api.github.com/user", GithubUser.class, params);
+
+         LOGGER.info("Getting github user info: " + githubUser);
+
+         return githubUser;
+      }
+      catch(Exception ignore) {
+      }
+
+      // TODO i18n
+      throw new OAuthAuthenticationException("OAuth Authentication Getting User Failed.");
+   }
+
+   private AccessTokenResponse getAccessToken(AccessTokenDTO accessTokenDTO) {
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
       HttpEntity<AccessTokenDTO> requestBody = new HttpEntity<>(accessTokenDTO, headers);
@@ -74,13 +158,12 @@ public class GithubLoginController {
          "https://github.com/login/oauth/access_token",
          requestBody, AccessTokenResponse.class);
 
-      System.out.println("Getting access token: " + accessTokenResponse);
-
-      // TODO registered user and login.
-
-      return "redirect:/";
+      return accessTokenResponse;
    }
 
+   private static final String JF_GITHUB_USER_ACCOUNT_PREFIX = "JF_GITHUB_^_^_";
 
+   private final CustomerService customerService;
    private final RestTemplate restTemplate;
+   private static final Logger LOGGER = LoggerFactory.getLogger(GithubLoginController.class);
 }

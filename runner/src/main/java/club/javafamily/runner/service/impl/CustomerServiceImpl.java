@@ -22,8 +22,7 @@ import club.javafamily.runner.common.service.AmqpService;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.dao.CustomerDao;
 import club.javafamily.runner.domain.Customer;
-import club.javafamily.runner.enums.ActionType;
-import club.javafamily.runner.enums.ResourceEnum;
+import club.javafamily.runner.enums.*;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.vo.CustomerVO;
@@ -110,6 +109,7 @@ public class CustomerServiceImpl implements CustomerService {
    @Override
    public Integer insertCustomer(@AuditObject("getAccount()") Customer user) {
       if(isValid(user)) {
+         // password encryption
          user.setPassword(
             SecurityUtil.generatorPassword(user.getAccount(), user.getPassword()));
 
@@ -124,7 +124,8 @@ public class CustomerServiceImpl implements CustomerService {
          throw new MessageException("Account must is not empty!");
       }
 
-      if(StringUtils.isEmpty(user.getPassword())) {
+      // password is not required for github user.
+      if(StringUtils.isEmpty(user.getPassword()) && (UserType.User.equals(user.getType()))) {
          throw new MessageException("Password must is not empty!");
       }
 

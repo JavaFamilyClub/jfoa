@@ -15,6 +15,7 @@
 package club.javafamily.runner.domain;
 
 import club.javafamily.runner.enums.Gender;
+import club.javafamily.runner.enums.UserType;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.util.Tool;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -25,7 +26,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.Random;
 import java.util.Set;
 
 import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE;
@@ -40,6 +40,7 @@ public class Customer implements Serializable, Cloneable {
    private String password;
    private String email;
    private Gender gender = Gender.Unknown;
+   private UserType type = UserType.User;
    private boolean active;
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
    @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
@@ -121,14 +122,31 @@ public class Customer implements Serializable, Cloneable {
       this.gender = gender;
    }
 
+   public UserType getType() {
+      return type;
+   }
+
+   public void setType(UserType type) {
+      if(type == null) {
+         return;
+      }
+
+      this.type = type;
+   }
+
    @Override
    public String toString() {
       return "Customer{" +
          "id=" + id +
-         ", name='" + name + '\'' +
          ", account='" + account + '\'' +
+         ", name='" + name + '\'' +
+         ", password='" + password + '\'' +
          ", email='" + email + '\'' +
-         ", registerDate='" + registerDate + '\'' +
+         ", gender=" + gender +
+         ", type=" + type +
+         ", active=" + active +
+         ", registerDate=" + registerDate +
+         ", roles=" + roles +
          '}';
    }
 
@@ -140,6 +158,7 @@ public class Customer implements Serializable, Cloneable {
       customer.name = name;
       customer.password = password;
       customer.active = active;
+      customer.type = type;
       customer.registerDate = registerDate;
       customer.roles = Tool.deepCloneCollection(roles);
 

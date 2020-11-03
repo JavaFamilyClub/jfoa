@@ -21,6 +21,9 @@ public class GithubUser implements Serializable {
    private Long id; // long id
    private String bio; // desc
    private String login; // account
+   private String email; // email
+   private String company; // company
+   private String location; // location
 
    public String getName() {
       return name;
@@ -54,6 +57,30 @@ public class GithubUser implements Serializable {
       this.login = login;
    }
 
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
+   }
+
+   public String getCompany() {
+      return company;
+   }
+
+   public void setCompany(String company) {
+      this.company = company;
+   }
+
+   public String getLocation() {
+      return location;
+   }
+
+   public void setLocation(String location) {
+      this.location = location;
+   }
+
    @Override
    public String toString() {
       return "GithubUser{" +
@@ -61,6 +88,9 @@ public class GithubUser implements Serializable {
          ", id=" + id +
          ", bio='" + bio + '\'' +
          ", login='" + login + '\'' +
+         ", email='" + email + '\'' +
+         ", company='" + company + '\'' +
+         ", location='" + location + '\'' +
          '}';
    }
 }
