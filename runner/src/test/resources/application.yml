@@ -9,8 +9,8 @@ jfoa:
       callback: http://localhost/public/oauth/github/callback
 
       github:
-         client-id: ${DEV_GITHUB_JF_CLIENT_ID}
-         client-secrets: ${DEV_GITHUB_JF_CLIENT_SECRETS}
+         client-id: ${DEV_JF_GITHUB_CLIENT_ID}
+         client-secrets: ${DEV_JF_GITHUB_CLIENT_SECRETS}
 
 spring:
    # Mail Config
