@@ -23,6 +23,8 @@ jobs:
 
     env:
       JF_JASYPT_ENCRYPTOR: ${{ secrets.JF_JASYPT_ENCRYPTOR }}
+      GITHUB_JF_CLIENT_ID: ${{ secrets.GITHUB_JF_CLIENT_ID }}
+      GITHUB_JF_CLIENT_SECRETS: ${{ secrets.GITHUB_JF_CLIENT_SECRETS }}
 
     steps:
     - uses: actions/checkout@v2
