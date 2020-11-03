@@ -1,14 +1,16 @@
-jfoa:
-   amqp:
-      override: false
-   rest:
-      github:
-         client-id: ${GITHUB_JF_CLIENT_ID}
-         client-secrets: ${GITHUB_JF_CLIENT_SECRETS}
-
 jasypt:
    encryptor:
       password: ${JF_JASYPT_ENCRYPTOR}
+
+jfoa:
+   amqp:
+      override: false
+   oauth:
+      callback: http://localhost/public/oauth/github/callback
+
+      github:
+         client-id: ${DEV_GITHUB_JF_CLIENT_ID}
+         client-secrets: ${DEV_GITHUB_JF_CLIENT_SECRETS}
 
 spring:
    # Mail Config

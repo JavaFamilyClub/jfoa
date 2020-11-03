@@ -14,9 +14,7 @@
 
 package club.javafamily.runner.controller.model;
 
-import org.apache.shiro.authc.AuthenticationException;
-
-public class OAuthAuthenticationException extends AuthenticationException {
+public class OAuthAuthenticationException extends RuntimeException {
    public OAuthAuthenticationException() {
    }
 

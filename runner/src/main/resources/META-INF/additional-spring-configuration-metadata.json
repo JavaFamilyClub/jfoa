@@ -4,6 +4,11 @@
          "name": "jfoa.amqp",
          "type": "club.javafamily.runner.config.RabbitMQConfigProperties",
          "sourceType": "club.javafamily.runner.config.RabbitMQConfigProperties"
+      },
+      {
+         "name": "jfoa.oauth",
+         "type": "club.javafamily.runner.properties.OAuthProperties",
+         "sourceType": "club.javafamily.runner.properties.OAuthProperties"
       }
    ],
    "properties": [
@@ -15,14 +20,17 @@
          "defaultValue": false
       },
       {
-         "name": "jfoa.rest.github.client-id",
-         "type": "java.lang.String",
-         "description": "Description for jfoa.rest.github.client-id."
+         "name": "jfoa.oauth.github.client-id",
+         "description": "Description for jfoa.oauth.github.client-id."
       },
       {
-         "name": "jfoa.rest.github.client-secrets",
-         "type": "java.lang.String",
-         "description": "Description for jfoa.rest.github.client-secrets."
+         "name": "jfoa.oauth.github.client-secrets",
+         "description": "Description for jfoa.oauth.github.client-secrets."
+      },
+      {
+         "name": "jfoa.oauth.callback",
+         "description": "Description for jfoa.oauth.callback.",
+         "defaultValue": ""
       }
    ],
    "hints": [

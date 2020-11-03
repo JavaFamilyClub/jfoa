@@ -20,9 +20,9 @@ import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.dto.*;
 import club.javafamily.runner.enums.Gender;
 import club.javafamily.runner.enums.UserType;
+import club.javafamily.runner.rest.github.GithubProvider;
 import club.javafamily.runner.service.CustomerService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,25 +48,29 @@ public class GithubLoginController {
    @Value("${jfoa.rest.github.client-secrets}")
    private String clientSecrets;
 
-   private String callback = "http://localhost/public/oauth/github/callback";
+   @Value("${jfoa.rest.callback}")
+   private String callback;
 
    @Autowired
-   public GithubLoginController(CustomerService customerService, RestTemplate restTemplate) {
+   public GithubLoginController(CustomerService customerService,
+                                GithubProvider githubProvider)
+   {
       this.customerService = customerService;
-      this.restTemplate = restTemplate;
+      this.githubProvider = githubProvider;
    }
 
    @GetMapping("/public/oauth/github/auth")
    public String auth() {
-      StringBuilder sb = new StringBuilder();
+      Map<String, String> params = new HashMap<>();
+      params.put("client_id", clientId);
+      params.put("redirect_uri", callback);
+      params.put("scope", "user:email");
+      params.put("response_type", "code");
+      params.put("state", "1");
 
-      sb.append("https://github.com/login/oauth/authorize?client_id=");
-      sb.append(clientId);
-      sb.append("&redirect_uri=");
-      sb.append(callback);
-      sb.append("&scope=user:email&response_type=code&state=1");
+      String authorizeUrl = githubProvider.getAuthorizeUrl(params);
 
-      return "redirect:" + sb.toString();
+      return "redirect:" + authorizeUrl;
    }
 
    @GetMapping("/public/oauth/github/callback")
@@ -80,23 +84,17 @@ public class GithubLoginController {
       accessTokenDTO.setState(state);
       accessTokenDTO.setRedirect_uri(callback);
 
-      AccessTokenResponse accessTokenResponse = getAccessToken(accessTokenDTO);
+      AccessTokenResponse accessTokenResponse = githubProvider.queryAccessToken(accessTokenDTO);
 
-      System.out.println("Getting access token: " + accessTokenResponse);
+      LOGGER.info("Getting access token: {}", accessTokenResponse);
 
-      if(accessTokenResponse == null || StringUtils.isEmpty(accessTokenResponse.getAccess_token())) {
-         // TODO i18n
-         throw new OAuthAuthenticationException("OAuth Authentication Failed.");
-      }
-
-      // TODO registered user and login.
       authentication(accessTokenResponse);
 
       return "redirect:/";
    }
 
    private void authentication(AccessTokenResponse accessTokenResponse) {
-      GithubUser user = getUser(accessTokenResponse);
+      GithubUser user = githubProvider.getUser(accessTokenResponse.getAccess_token());
       String email = user.getEmail();
       String account = user.getLogin();
 
@@ -126,44 +124,9 @@ public class GithubLoginController {
 
       subject.login(new OAuthUsernamePasswordToken(
          customer.getAccount(), null, customer.getType()));
-
    }
-
-   private GithubUser getUser(AccessTokenResponse accessTokenResponse) {
-      Map<String, String> params = new HashMap<>();
-
-      params.put("access_token", accessTokenResponse.getAccess_token());
-
-      try{
-         GithubUser githubUser = restTemplate.getForObject(
-            "https://api.github.com/user", GithubUser.class, params);
-
-         LOGGER.info("Getting github user info: " + githubUser);
-
-         return githubUser;
-      }
-      catch(Exception ignore) {
-      }
-
-      // TODO i18n
-      throw new OAuthAuthenticationException("OAuth Authentication Getting User Failed.");
-   }
-
-   private AccessTokenResponse getAccessToken(AccessTokenDTO accessTokenDTO) {
-      HttpHeaders headers = new HttpHeaders();
-      headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-      HttpEntity<AccessTokenDTO> requestBody = new HttpEntity<>(accessTokenDTO, headers);
-
-      AccessTokenResponse accessTokenResponse = restTemplate.postForObject(
-         "https://github.com/login/oauth/access_token",
-         requestBody, AccessTokenResponse.class);
-
-      return accessTokenResponse;
-   }
-
-   private static final String JF_GITHUB_USER_ACCOUNT_PREFIX = "JF_GITHUB_^_^_";
 
    private final CustomerService customerService;
-   private final RestTemplate restTemplate;
+   private final GithubProvider githubProvider;
    private static final Logger LOGGER = LoggerFactory.getLogger(GithubLoginController.class);
 }

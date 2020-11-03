@@ -1,0 +1,74 @@
+/*
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
+ *
+ * The software and information contained herein are copyrighted and
+ * proprietary to JavaFamily Technology Corp. This software is furnished
+ * pursuant to a written license agreement and may be used, copied,
+ * transmitted, and stored only in accordance with the terms of such
+ * license and with the inclusion of the above copyright notice. Please
+ * refer to the file "COPYRIGHT" for further copyright and licensing
+ * information. This software and information or any other copies
+ * thereof may not be provided or otherwise made available to any other
+ * person.
+ */
+
+package club.javafamily.runner.rest.github;
+
+import club.javafamily.runner.dto.GithubUser;
+import club.javafamily.runner.rest.QueryEngine;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Lazy
+@Service("githubProvider")
+public class GithubProvider implements QueryEngine<GithubUser> {
+
+   private static final String AUTHORIZE_URL = "https://github.com/login/oauth/authorize";
+
+   @Autowired
+   public GithubProvider(RestTemplate restTemplate) {
+      this.restTemplate = restTemplate;
+   }
+
+   public String getAuthorizeUrl(Map<String, String> params) {
+      StringBuilder sb = new StringBuilder();
+
+      sb.append(AUTHORIZE_URL);
+      sb.append("?");
+
+      String paramsStr = params.entrySet().stream()
+         .map(kv -> kv.getKey() + "=" + kv.getValue())
+         .collect(Collectors.joining("&"));
+
+      sb.append(paramsStr);
+
+      return sb.toString();
+   }
+
+   @Override
+   public RestTemplate getRestTemplate() {
+      return restTemplate;
+   }
+
+   @Override
+   public String getAccessTokenUrl() {
+      return "https://github.com/login/oauth/access_token";
+   }
+
+   @Override
+   public String getUserInfoUrl() {
+      return "https://api.github.com/user";
+   }
+
+   @Override
+   public Class<GithubUser> getUserClass() {
+      return GithubUser.class;
+   }
+
+   private final RestTemplate restTemplate;
+}

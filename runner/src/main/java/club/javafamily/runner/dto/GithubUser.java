@@ -14,9 +14,10 @@
 
 package club.javafamily.runner.dto;
 
-import java.io.Serializable;
+import club.javafamily.runner.enums.Gender;
+import club.javafamily.runner.enums.UserType;
 
-public class GithubUser implements Serializable {
+public class GithubUser implements RestUser {
    private String name; // nick name
    private Long id; // long id
    private String bio; // desc
@@ -27,6 +28,11 @@ public class GithubUser implements Serializable {
 
    public String getName() {
       return name;
+   }
+
+   @Override
+   public String getAccount() {
+      return getLogin();
    }
 
    public void setName(String name) {
@@ -57,8 +63,19 @@ public class GithubUser implements Serializable {
       this.login = login;
    }
 
+   @Override
    public String getEmail() {
       return email;
+   }
+
+   @Override
+   public UserType getUserType() {
+      return UserType.GitHub;
+   }
+
+   @Override
+   public Gender getGender() {
+      return Gender.Unknown;
    }
 
    public void setEmail(String email) {
