@@ -98,7 +98,7 @@ public class GithubLoginController {
    private void authentication(AccessTokenResponse accessTokenResponse) {
       GithubUser user = getUser(accessTokenResponse);
       String email = user.getEmail();
-      String account = JF_GITHUB_USER_ACCOUNT_PREFIX + user.getLogin();
+      String account = user.getLogin();
 
       Customer customer = customerService.getCustomerByAccount(account);
 
