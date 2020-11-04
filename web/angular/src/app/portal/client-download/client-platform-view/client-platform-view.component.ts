@@ -56,7 +56,8 @@ export class ClientPlatformViewComponent implements OnInit {
     this.modelService.getModel<InstallerModel>(InstallerClientUrlConstants.CLIENT_DOWNLOAD, params)
        .subscribe(installer =>
     {
-      this.downloadService.download(installer.link);
+      GuiTool.openBrowserTab(installer.link);
+      // this.downloadService.download(installer.link); // browser security
     });
   }
 
