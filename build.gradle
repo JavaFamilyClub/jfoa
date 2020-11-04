@@ -41,6 +41,7 @@ allprojects {
          luceneVersion = '7.7.3' // 8+ for jdk11
          urlRewriteFilterversion = '4.0.4'
          iTextVersion = '7.1.13'
+         httpClientVersion = '4.5.13'
 
          // env
          webModule = project.hasProperty('webModule') ? project.property('webModule') : 'web:angular'

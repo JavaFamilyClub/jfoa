@@ -13,6 +13,19 @@ jfoa:
          client-id: ${JF_GITHUB_CLIENT_ID}
          client-secrets: ${JF_GITHUB_CLIENT_SECRETS}
 
+   http:
+      maxTotalConnect: 100
+      maxConnectPerRoute: 40
+      connectTimeout: 60000
+      readTimeout: 60000
+      connectionRequestTimout: 60000
+      retryTimes: 3
+      charset: UTF-8
+      keepAliveTime: 60
+      keepAliveTargetHost:
+         www.github.com: 60
+         api.github.com: 60
+
 spring:
 #   devtools:
 #      restart:

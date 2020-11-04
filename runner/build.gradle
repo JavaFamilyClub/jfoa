@@ -98,6 +98,9 @@ dependencies {
    // urlrewritefilter
    implementation "org.tuckey:urlrewritefilter:${urlRewriteFilterversion}"
 
+   // http client
+   implementation "org.apache.httpcomponents:httpclient:${httpClientVersion}"
+
    // webjars
    implementation "org.webjars:jquery:${jqueryVersion}"
    implementation "org.webjars:bootstrap:${bootstrapVersion}"
