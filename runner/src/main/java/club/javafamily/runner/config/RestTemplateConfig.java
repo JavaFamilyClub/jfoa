@@ -131,7 +131,7 @@ public class RestTemplateConfig {
 
          return httpClientBuilder.build();
       }
-      catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException e) {
+      catch(Exception e) {
          LOGGER.error("Init HTTP Client Error.", e);
       }
 
