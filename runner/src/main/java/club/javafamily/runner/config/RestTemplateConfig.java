@@ -46,10 +46,11 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
+import javax.net.ssl.*;
 import java.nio.charset.Charset;
 import java.security.*;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.*;
 
 @Configuration
@@ -74,8 +75,29 @@ public class RestTemplateConfig {
 
       try {
          //设置信任ssl访问
-         SSLContext sslContext = new SSLContextBuilder()
-            .loadTrustMaterial(null, (arg0, arg1) -> true).build();
+//         SSLContext sslContext = new SSLContextBuilder()
+//            .loadTrustMaterial(null, (arg0, arg1) -> true).build();
+
+         SSLContext sslContext =SSLContext.getInstance("SSL");
+
+         TrustManager[] trustAllCerts =new TrustManager[] {
+            new X509TrustManager() {
+               @Override
+               public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+               }
+
+               @Override
+               public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+               }
+
+               @Override
+               public X509Certificate[] getAcceptedIssuers() {
+                  return new X509Certificate[0];
+               }
+            }
+         };
+
+         sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
 
          httpClientBuilder.setSSLContext(sslContext);
          HostnameVerifier hostnameVerifier = NoopHostnameVerifier.INSTANCE;
