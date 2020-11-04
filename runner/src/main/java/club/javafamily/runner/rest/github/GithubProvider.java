@@ -95,6 +95,11 @@ public class GithubProvider implements QueryEngine<GithubUser> {
    }
 
    @Override
+   public String getEmailUrl() {
+      return "https://api.github.com/user/emails";
+   }
+
+   @Override
    public Class<GithubUser> getUserClass() {
       return GithubUser.class;
    }

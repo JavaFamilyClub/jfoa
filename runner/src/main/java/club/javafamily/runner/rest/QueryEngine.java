@@ -42,6 +42,11 @@ public interface QueryEngine <T extends RestUser> {
    String getUserInfoUrl();
 
    /**
+    * fetch email url
+    */
+   String getEmailUrl();
+
+   /**
     * query access token param name
     */
    default String authorizationParamName() {
@@ -101,11 +106,7 @@ public interface QueryEngine <T extends RestUser> {
 
    default T getUser(AccessTokenResponse accessTokenResponse) {
       String url = getUserInfoUrl();
-
-      HttpHeaders headers = new HttpHeaders();
-      headers.set(authorizationParamName(),
-         accessTokenResponse.getToken_type()
-            + " " + accessTokenResponse.getAccess_token());
+      HttpHeaders headers = queryResourceHeader(accessTokenResponse);
 
       try{
          return getForObject(url, getUserClass(), headers);
@@ -114,6 +115,30 @@ public interface QueryEngine <T extends RestUser> {
          e.printStackTrace();
          throw new OAuthAuthenticationException("OAuth Authentication Getting User Failed.");
       }
+   }
+
+   default <R> R getEmail(AccessTokenResponse accessTokenResponse,
+                          Class<R> clazz)
+   {
+      String url = getEmailUrl();
+      HttpHeaders headers = queryResourceHeader(accessTokenResponse);
+
+      try{
+         return getForObject(url, clazz, headers);
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+         throw new OAuthAuthenticationException("OAuth Authentication Getting User Email Failed.");
+      }
+   }
+
+   default HttpHeaders queryResourceHeader(AccessTokenResponse token) {
+      HttpHeaders headers = new HttpHeaders();
+      headers.set(authorizationParamName(),
+         token.getToken_type()
+            + " " + token.getAccess_token());
+
+      return headers;
    }
 
    Logger LOGGER = LoggerFactory.getLogger(QueryEngine.class);
