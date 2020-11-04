@@ -51,8 +51,6 @@ public final class PDFUtil {
 //         PdfFontFactory.registerSystemDirectories();
          defaultTextFontData = Tool.getConfigFileData("public/fonts/simsun.ttf");
          defaultBoldFontData = Tool.getConfigFileData("public/fonts/simhei.TTF");
-         LOGGER.info("PDF font init: {}",
-            defaultTextFontData != null && defaultBoldFontData != null);
       }
       catch(Exception e) {
          e.printStackTrace();
