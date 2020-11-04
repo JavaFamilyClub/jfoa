@@ -56,6 +56,7 @@
          "Gender": "性别",
          "Male": "男",
          "Female": "女",
+         "type": "用户类型",
          "setting": "个人资料设置",
          "name": "用户名",
          "ph": {

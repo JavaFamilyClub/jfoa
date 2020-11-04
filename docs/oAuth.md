@@ -30,7 +30,7 @@ https://javafamily.club/public/oauth/github/auth
 https://javafamily.club/public/oauth/github/callback
 ```
 
-> 在回调中需要会做如下工作:
+> 在回调中需要做如下工作:
 > * 接受 `rest` 服务器返回的 `code` 和 `state`
 > * 认证 `rest` 服务器返回的 `state`. (一定时间内有效, 比如 GitHub, 10 分钟内有效)
 > * 借助 `HTTPClient` 等工具发起 `callback` 请求得到 `access_token`

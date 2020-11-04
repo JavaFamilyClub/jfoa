@@ -25,7 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE;
@@ -173,7 +173,7 @@ public class Customer implements Serializable, Cloneable {
    public void autoGenerator() {
       autoGeneratorName();
       autoGeneratorPwd();
-      registerDate = new Date(System.currentTimeMillis());
+      registerDate = new Date();
    }
 
    public void autoGeneratorName() {

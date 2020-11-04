@@ -9,11 +9,11 @@ import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.enums.ActionType;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
+import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.vo.EmailCustomerVO;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,10 +38,16 @@ public class SecurityController {
   @PostMapping(API_VERSION + "/login")
   public String login(@RequestParam @AuditObject String userName,
                       @RequestParam String password,
-                      @RequestParam(required = false) boolean rememberMe) {
+                      @RequestParam(required = false) boolean rememberMe)
+  {
+    if(!StringUtils.hasText(password)) {
+      throw new IncorrectCredentialsException(
+         I18nUtil.getString("user.pwd.warn.required"));
+    }
+
     Subject currentUser = SecurityUtils.getSubject();
 
-    if (!currentUser.isAuthenticated()) {
+    if(!currentUser.isAuthenticated()) {
       UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
 
       token.setRememberMe(rememberMe);

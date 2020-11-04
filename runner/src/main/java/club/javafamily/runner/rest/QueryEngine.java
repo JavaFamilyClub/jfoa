@@ -108,11 +108,7 @@ public interface QueryEngine <T extends RestUser> {
             + " " + accessTokenResponse.getAccess_token());
 
       try{
-         T user = getForObject(url, getUserClass(), headers);
-
-         LOGGER.info("Getting github user: {}", user);
-
-         return user;
+         return getForObject(url, getUserClass(), headers);
       }
       catch(Exception e) {
          e.printStackTrace();

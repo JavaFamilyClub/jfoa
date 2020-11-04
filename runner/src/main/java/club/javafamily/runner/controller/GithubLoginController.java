@@ -33,7 +33,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Controller
 @Lazy
@@ -61,8 +61,6 @@ public class GithubLoginController {
       AccessTokenResponse accessTokenResponse
          = githubProvider.queryAccessToken(code, state);
 
-      LOGGER.info("Getting access token: {}", accessTokenResponse);
-
       authentication(accessTokenResponse);
 
       return "redirect:/";
@@ -71,10 +69,8 @@ public class GithubLoginController {
    private void authentication(AccessTokenResponse accessTokenResponse) {
       GithubUser user = githubProvider.getUser(accessTokenResponse);
 
-      LOGGER.info("Getting github user: {}", user);
-
       String email = user.getEmail();
-      String account = user.getLogin();
+      String account = UserType.GitHub.getLabel() + ":" + user.getLogin();
 
       Customer customer = customerService.getCustomerByAccount(account);
 
@@ -87,7 +83,7 @@ public class GithubLoginController {
          customer.setGender(Gender.Unknown);
          customer.setActive(true);
          customer.setType(UserType.GitHub);
-         customer.setRegisterDate(new Date(System.currentTimeMillis()));
+         customer.setRegisterDate(new Date());
          // password is not required.
          // TODO registered user should have default role.
 //         customer.setRoles();
@@ -99,8 +95,6 @@ public class GithubLoginController {
             LOGGER.error(I18nUtil.getString("user.errorMsg.insertError"));
             throw e;
          }
-
-         LOGGER.info("Insert github user: {}", customer);
       }
 
       // login

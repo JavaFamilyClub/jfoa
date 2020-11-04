@@ -11,7 +11,7 @@
           </ng-container>
 
           <ng-container *ngIf="!!!col.btnElement">
-            {{element[col.name]}}
+            {{col.valueFunc ? col.valueFunc(element, col.name) : element[col.name]}}
           </ng-container>
         </td>
       </ng-container>

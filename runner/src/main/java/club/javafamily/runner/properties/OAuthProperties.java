@@ -41,7 +41,7 @@ public class OAuthProperties {
       this.github = github;
    }
 
-   public class GithubOAuthProperties {
+   public static class GithubOAuthProperties {
       private String clientId;
       private String clientSecrets;
 

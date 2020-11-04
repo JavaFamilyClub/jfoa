@@ -18,6 +18,30 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
 public enum UserType {
-   User,
-   GitHub
+   User(0, "User"),
+   GitHub(1, "GitHub");
+
+   UserType(int type, String label) {
+      this.type = type;
+      this.label = label;
+   }
+
+   private int type;
+   private String label;
+
+   public int getType() {
+      return type;
+   }
+
+   public void setType(int type) {
+      this.type = type;
+   }
+
+   public String getLabel() {
+      return label;
+   }
+
+   public void setLabel(String label) {
+      this.label = label;
+   }
 }

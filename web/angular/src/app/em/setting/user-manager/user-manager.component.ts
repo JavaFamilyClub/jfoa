@@ -18,6 +18,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { ContextHelp } from "../../../common/annotation/context-help";
 import { Searchable } from "../../../common/annotation/searchable";
 import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
+import { GuiTool } from "../../../common/util/gui-tool";
 import { MatColumnIno } from "../../../widget/mat-table-view/mat-column-ino";
 import { ModelService } from "../../../widget/services/model.service";
 import { PrincipalService } from "../../../widget/services/principal-service";
@@ -62,8 +63,14 @@ export class UserManagerComponent implements OnInit {
       name: "email"
     },
     {
+      label: this.translate.instant("user.profile.type"),
+      name: "type",
+      valueFunc: (elem, prop) => GuiTool.parseUserType(elem[prop])
+    },
+    {
       label: this.translate.instant("user.profile.Gender"),
-      name: "gender"
+      name: "gender",
+      valueFunc: (elem, prop) => GuiTool.parseGender(this.translate, elem[prop])
     },
     {
       label: this.translate.instant("user.status.active"),

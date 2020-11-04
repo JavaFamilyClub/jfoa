@@ -12,16 +12,7 @@
  * person.
  */
 
-import { Gender } from "../../../common/enum/gender";
-import { UserType } from "../../../common/enum/user-type";
-
-export interface CustomerModel {
-   id: number;
-   account: string;
-   name: string;
-   email: string;
-   type: UserType;
-   gender: Gender;
-   active: boolean;
-   registerDate: Date;
+export enum UserType {
+   User,
+   GitHub
 }
