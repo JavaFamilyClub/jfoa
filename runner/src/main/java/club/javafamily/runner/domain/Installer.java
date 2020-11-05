@@ -40,7 +40,7 @@ public class Installer implements Serializable {
    private Date uploadDate;
 
    public Installer() {
-      uploadDate = new Date(System.currentTimeMillis());
+      uploadDate = new Date();
    }
 
    public Installer(Platform platform, String version, String link) {
