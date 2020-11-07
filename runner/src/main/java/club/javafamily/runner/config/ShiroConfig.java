@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.config;
 
+import club.javafamily.runner.filter.RequestFilter;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.permission.WildcardPermissionResolver;
@@ -29,7 +30,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.*;
 
-import java.util.LinkedHashMap;
+import javax.servlet.Filter;
 import java.util.Map;
 
 import static club.javafamily.runner.util.SecurityUtil.API_VERSION;
@@ -97,7 +98,8 @@ public class ShiroConfig {
       shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
 
       // LinkedHashMap 是有序的，进行顺序拦截器配置
-      Map<String,String> filterChainMap = new LinkedHashMap<>();
+      Map<String,String> filterChainMap
+         = shiroFilterFactoryBean.getFilterChainDefinitionMap();
 
       // 配置可以匿名访问的地址，可以根据实际情况自己添加，放行一些静态资源等，anon 表示放行
       filterChainMap.put("/css/**", "anon");
@@ -153,7 +155,16 @@ public class ShiroConfig {
 
       shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainMap);
 
+      // 添加 Filter
+      Map<String, Filter> filters = shiroFilterFactoryBean.getFilters(); // LinkedHashMap
+      filters.put("requestFilter", requestFilter());
+
       return shiroFilterFactoryBean;
+   }
+
+   @Bean
+   public RequestFilter requestFilter() {
+      return new RequestFilter();
    }
 
    /**

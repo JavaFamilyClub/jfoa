@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.util;
 
+import club.javafamily.runner.config.ThreadContext;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.text.MessageFormat;
@@ -28,16 +29,12 @@ public final class I18nUtil {
    private static final Map<String, ResourceBundle> bundles = new ConcurrentHashMap<>();
 
    public static final Locale DEFAULT_LOCALE = Locale.US;
-   private static Locale locale = DEFAULT_LOCALE;
 
    private I18nUtil() {
    }
 
-   public static String getString(String key) {
-      return getString(key, null, locale);
-   }
-
    public static String getString(String key, Object...params) {
+      Locale locale = ThreadContext.getLocale().orElse(DEFAULT_LOCALE);
       return getString(key, params, locale);
    }
 
