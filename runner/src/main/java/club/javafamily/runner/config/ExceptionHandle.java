@@ -17,9 +17,11 @@ package club.javafamily.runner.config;
 import club.javafamily.runner.common.MessageException;
 import org.springframework.ui.Model;
 
+import javax.servlet.ServletRequest;
+
 public interface ExceptionHandle<T> {
 
    T messageException(MessageException exception, Model model);
 
-   T exceptionHandle();
+   T exceptionHandle(ServletRequest request);
 }

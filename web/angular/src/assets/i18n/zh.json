@@ -185,6 +185,15 @@
          "sign-in-by-gitHub": "通过 GitHub 登录",
          "sign-up": "注册",
          "sign-out": "注销"
+      },
+      "errorMsg": {
+         "accountNotExist": "账户不存在!",
+         "accountLocked": "账户被锁定!",
+         "manyAttempts": "尝试次数太多, 请稍后重试!",
+         "loginError": "登录失败, 请稍后再试!",
+         "oAuth": {
+            "authFailed": "oAuth 认证失败, 请稍后重试!"
+         }
       }
    },
    "common": {

@@ -42,16 +42,18 @@ public class ClientExceptionHandle
    {
       return ResponseResult.build(
          exception.getCode(),
-         exception.getMessage());
+         exception.getLocaleMessage(request));
    }
 
    @ExceptionHandler(MessageException.class)
-   public ResponseResult<String> messageException(MessageException exception, Model model) {
+   public ResponseResult<String> messageException(MessageException exception,
+                                                  Model model) {
      return ResponseResult.build(MESSAGE_EXCEPTION.getCode(), exception.getMessage());
    }
 
    @ExceptionHandler(Exception.class)
-   public ResponseResult<String> exceptionHandle() {
-      return ResponseResult.build(EXCEPTION.getCode(), EXCEPTION.getMessage());
+   public ResponseResult<String> exceptionHandle(ServletRequest request) {
+      return ResponseResult.build(EXCEPTION.getCode(),
+         EXCEPTION.getLocaleMessage(request));
    }
 }

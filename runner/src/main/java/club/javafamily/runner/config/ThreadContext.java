@@ -14,6 +14,8 @@
 
 package club.javafamily.runner.config;
 
+import club.javafamily.runner.util.I18nUtil;
+
 import java.util.Locale;
 import java.util.Optional;
 
@@ -22,8 +24,12 @@ import java.util.Optional;
  */
 public class ThreadContext {
 
-   public static Optional<Locale> getLocale() {
-      return Optional.ofNullable(locale.get());
+   public static Locale getLocale() {
+      return locale.get();
+   }
+
+   public static Locale getLocaleOrElseDefault() {
+      return Optional.ofNullable(locale.get()).orElse(I18nUtil.DEFAULT_LOCALE);
    }
 
    public static void setLocale(Locale locale) {

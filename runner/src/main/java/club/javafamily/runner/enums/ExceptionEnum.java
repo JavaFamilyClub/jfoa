@@ -14,17 +14,24 @@
 
 package club.javafamily.runner.enums;
 
+import club.javafamily.runner.util.I18nUtil;
+import org.springframework.web.servlet.support.RequestContextUtils;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
+
 public enum ExceptionEnum {
 
    /**
     * Login Exceptions.
     */
-   SECURITY_UNKNOWN_ACCOUNT("0x001", "账户不存在!"),
-   SECURITY_INCORRECT_CREDENTIALS("0x002", "密码不正确!"),
-   SECURITY_LOCKED_ACCOUNT("0x003", "账户被锁定!"),
-   SECURITY_EXCESSIVE_ATTEMPTS("0x004", "尝试次数太多, 请稍后重试!"),
-   SECURITY_AUTHENTICATION("0x005", "登录失败, 请稍后再试!"),
-   SECURITY_OAUTH_AUTHENTICATION("0x006", "oAuth 认证失败, 请稍后重试!"),
+   SECURITY_UNKNOWN_ACCOUNT("0x001", "security.errorMsg.accountNotExist"),
+   SECURITY_INCORRECT_CREDENTIALS("0x002", "user.pwd.warn.notMatch"),
+   SECURITY_LOCKED_ACCOUNT("0x003", "security.errorMsg.accountLocked"),
+   SECURITY_EXCESSIVE_ATTEMPTS("0x004", "security.errorMsg.manyAttempts"),
+   SECURITY_AUTHENTICATION("0x005", "security.errorMsg.loginError"),
+   SECURITY_OAUTH_AUTHENTICATION("0x006", "security.errorMsg.oAuth.authFailed"),
 
    MESSAGE_EXCEPTION("0x201", null),
 
@@ -55,6 +62,20 @@ public enum ExceptionEnum {
 
    public String getMessage() {
       return message;
+   }
+
+   public String getLocaleMessage() {
+      return I18nUtil.getString(message);
+   }
+
+   public String getLocaleMessage(ServletRequest request) {
+      if(request instanceof HttpServletRequest) {
+         Locale locale = RequestContextUtils.getLocale((HttpServletRequest) request);
+
+         return I18nUtil.getString(message, locale);
+      }
+
+      return I18nUtil.getString(message);
    }
 
    public void setMessage(String message) {

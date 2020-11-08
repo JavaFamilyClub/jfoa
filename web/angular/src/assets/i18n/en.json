@@ -185,6 +185,15 @@
          "sign-in-by-gitHub": "Sign in by GitHub",
          "sign-up": "Sign up",
          "sign-out": "Sign out"
+      },
+      "errorMsg": {
+         "accountNotExist": "The account is not exist!",
+         "accountLocked": "The account is locked!",
+         "manyAttempts": "Too many attempts, please try again later!",
+         "loginError": "Login failed, please try again later!",
+         "oAuth": {
+            "authFailed": "oAuth authentication failed, please try again later!"
+         }
       }
    },
    "common": {

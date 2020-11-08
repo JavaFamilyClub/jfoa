@@ -34,7 +34,7 @@ public final class I18nUtil {
    }
 
    public static String getString(String key, Object...params) {
-      Locale locale = ThreadContext.getLocale().orElse(DEFAULT_LOCALE);
+      Locale locale = ThreadContext.getLocaleOrElseDefault();
       return getString(key, params, locale);
    }
 
@@ -43,6 +43,10 @@ public final class I18nUtil {
    }
 
    public static String getString(String key, Object[] params, Locale locale) {
+      if(key == null) {
+         return null;
+      }
+
       ResourceBundle bundle = getBundle(locale);
       String value;
 

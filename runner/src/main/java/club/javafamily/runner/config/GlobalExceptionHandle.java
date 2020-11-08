@@ -35,7 +35,7 @@ public class GlobalExceptionHandle extends BaseSecurityExceptionHandle<String>
    {
       ResponseResult<String> result = ResponseResult.build(
          exception.getCode(),
-         exception.getMessage(),
+         exception.getLocaleMessage(request),
          request.getParameter("userName"));
 
       model.addAttribute("result", result);
@@ -53,7 +53,7 @@ public class GlobalExceptionHandle extends BaseSecurityExceptionHandle<String>
 
    @Override
    @ExceptionHandler(Exception.class)
-   public String exceptionHandle() {
+   public String exceptionHandle(ServletRequest request) {
       return "error/exception";
    }
 }
