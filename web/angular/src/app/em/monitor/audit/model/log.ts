@@ -17,6 +17,7 @@ export interface Log {
    resource: string;
    action: string;
    customer: string;
+   ip: string;
    date: Date;
    message: string;
 }

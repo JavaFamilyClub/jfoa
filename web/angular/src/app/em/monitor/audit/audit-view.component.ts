@@ -56,7 +56,7 @@ export class AuditView implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   displayedColumns: string[]
-     = ["id", "resource", "action", "customer", "date", "message"];
+     = ["id", "resource", "action", "customer", "ip", "date", "message"];
 
   constructor(private snackBar: MatSnackBar,
               private modalService: NgbModal,

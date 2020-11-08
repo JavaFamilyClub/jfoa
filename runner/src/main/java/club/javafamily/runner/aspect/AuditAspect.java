@@ -7,6 +7,7 @@ import club.javafamily.runner.enums.ActionType;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.service.LogService;
+import club.javafamily.runner.util.WebMvcUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -83,6 +84,7 @@ public class AuditAspect {
 //      log.setCustomer(getAuditUser());// set in insert log for login action
       log.setResource(resource.getLabel() + ": " + objectName);
       log.setAction(actionType.getLabel());
+      log.setIp(WebMvcUtil.getIP());
     }
     catch (Exception ignore) {
       LOGGER.warn("Build Log Failed!");

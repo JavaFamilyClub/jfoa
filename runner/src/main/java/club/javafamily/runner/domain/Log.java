@@ -28,12 +28,15 @@ public class Log implements Serializable {
   @Exportable(description = "操作人员", order = 3)
   private String customer;
 
-  @Exportable(description = "执行时间", order = 4)
+  @Exportable(description = "IP", order = 4)
+  private String ip;
+
+  @Exportable(description = "执行时间", order = 5)
   @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
   private Date date;
 
-  @Exportable(description = "备注", order = 5)
+  @Exportable(description = "备注", order = 6)
   private String message;
 
   public Integer getId() {
@@ -84,14 +87,23 @@ public class Log implements Serializable {
     this.message = message;
   }
 
+  public String getIp() {
+    return ip;
+  }
+
+  public void setIp(String ip) {
+    this.ip = ip;
+  }
+
   @Override
   public String toString() {
     return "Log{" +
        "id=" + id +
-       ", date=" + date +
-       ", customer='" + customer + '\'' +
-       ", action='" + action + '\'' +
        ", resource='" + resource + '\'' +
+       ", action='" + action + '\'' +
+       ", customer='" + customer + '\'' +
+       ", ip='" + ip + '\'' +
+       ", date=" + date +
        ", message='" + message + '\'' +
        '}';
   }
