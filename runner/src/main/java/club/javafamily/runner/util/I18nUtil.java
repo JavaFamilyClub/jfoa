@@ -14,8 +14,8 @@
 
 package club.javafamily.runner.util;
 
-import club.javafamily.runner.config.ThreadContext;
 import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -34,7 +34,7 @@ public final class I18nUtil {
    }
 
    public static String getString(String key, Object...params) {
-      Locale locale = ThreadContext.getLocaleOrElseDefault();
+      Locale locale = LocaleContextHolder.getLocale();
       return getString(key, params, locale);
    }
 

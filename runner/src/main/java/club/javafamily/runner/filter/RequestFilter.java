@@ -14,26 +14,18 @@
 
 package club.javafamily.runner.filter;
 
-import club.javafamily.runner.config.ThreadContext;
-import org.springframework.web.servlet.support.RequestContextUtils;
-
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.Locale;
 
 /**
  * Request Filter:
- * 1. Getting locale info
  */
 public class RequestFilter extends HttpFilter {
 
    @Override
    protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-      // Getting locale
-      Locale locale = RequestContextUtils.getLocale(request);
-      ThreadContext.setLocale(locale);
-
       // do chain
       super.doFilter(request, response, chain);
    }

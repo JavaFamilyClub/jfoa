@@ -15,11 +15,8 @@
 package club.javafamily.runner.enums;
 
 import club.javafamily.runner.util.I18nUtil;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
 
 public enum ExceptionEnum {
 
@@ -69,13 +66,7 @@ public enum ExceptionEnum {
    }
 
    public String getLocaleMessage(ServletRequest request) {
-      if(request instanceof HttpServletRequest) {
-         Locale locale = RequestContextUtils.getLocale((HttpServletRequest) request);
-
-         return I18nUtil.getString(message, locale);
-      }
-
-      return I18nUtil.getString(message);
+      return getLocaleMessage();
    }
 
    public void setMessage(String message) {
