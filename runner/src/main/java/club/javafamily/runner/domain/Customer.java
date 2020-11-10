@@ -37,6 +37,7 @@ public class Customer implements Serializable, Cloneable {
    private Integer id;
    private String account;
    private String name;
+   @JsonIgnore
    private String password;
    private String email;
    private Gender gender = Gender.Unknown;

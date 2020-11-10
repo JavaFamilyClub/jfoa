@@ -7,6 +7,8 @@
    "OK": "OK",
    "Ok": "Ok",
    "Ip": "Ip",
+   "subjectList": "Subject List",
+   "Create": "Create",
    "Loading": "Loading",
    "Type": "Type",
    "Add": "Add",
@@ -136,7 +138,8 @@
          }
       },
       "toolbar": {
-         "mailAuthor": "Mail Author"
+         "mailAuthor": "Mail Author",
+         "vote": "Subject to vote"
       }
    },
    "em": {
@@ -199,7 +202,8 @@
       }
    },
    "common": {
-      "noPermission": "You do not have permission to perform this operation"
+      "noPermission": "You do not have permission to perform this operation",
+      "fieldRequired": "This field is required"
    },
    "dialog": {
       "inputName": {

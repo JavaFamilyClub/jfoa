@@ -1,0 +1,13 @@
+<nav mat-tab-nav-bar mat-align-tabs="start">
+  <a mat-tab-link
+     routerLink="./subject-list"
+     routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">{{'subjectList' | translate}}</a>
+
+  <a mat-tab-link
+     routerLink="./subject-create"
+     routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">{{'Create' | translate}}</a>
+</nav>
+
+<router-outlet></router-outlet>

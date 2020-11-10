@@ -16,63 +16,44 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
-import { MatChipsModule } from "@angular/material/chips";
-import { MatDividerModule } from "@angular/material/divider";
+import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
-import { MatMenuModule } from "@angular/material/menu";
-import { MatRadioModule } from "@angular/material/radio";
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTabsModule } from "@angular/material/tabs";
-import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule } from "@ngx-translate/core";
-import { PortalAppComponent } from "./app.component";
-import { WidgetModule } from "../widget/widget.module";
-import { ChangePasswordDialog } from "./dialog/change-password-dialog";
-import { UserProfileDialog } from "./dialog/user-profile-dialog";
-import { MODULE_COMPONENTS } from "./index.components";
-import { PortalAppRoutingModule } from "./app-routing.module";
+import { WidgetModule } from "../../widget/widget.module";
+import { AppRoutingModule } from "./app-routing.module";
+import { SubjectCreateComponent } from "./subject-create/subject-create.component";
+import { SubjectListComponent } from "./subject-list/subject-list.component";
+import { SubjectVoteComponent } from "./subject-vote.component";
 
 @NgModule({
    declarations: [
-      PortalAppComponent,
-      ...MODULE_COMPONENTS
+      SubjectVoteComponent,
+      SubjectListComponent,
+      SubjectCreateComponent
    ],
    imports: [
       CommonModule,
       FormsModule,
+      AppRoutingModule,
       WidgetModule,
       ReactiveFormsModule,
       NgbModule,
-      PortalAppRoutingModule,
-      MatToolbarModule,
-      MatButtonModule,
-      MatIconModule,
-      MatMenuModule,
-      MatDividerModule,
-      MatRadioModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatChipsModule,
-      MatSnackBarModule,
       TranslateModule,
-      MatTabsModule
+      MatTabsModule,
+      MatCardModule,
+      MatButtonModule,
+      MatFormFieldModule,
+      MatInputModule
    ],
-   bootstrap: [PortalAppComponent],
+   bootstrap: [SubjectVoteComponent],
    entryComponents: [
-      UserProfileDialog,
-      ChangePasswordDialog
    ],
    providers: [
-      {
-         provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-         useValue: {
-            duration: 2500
-         }
-      }
    ]
 })
-export class PortalAppModule {
+export class SubjectVoteAppModule {
 }
+

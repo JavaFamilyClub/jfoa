@@ -22,8 +22,6 @@ import java.util.List;
 public interface CustomerService {
    /**
     * get user by id
-    *
-    * @return
     */
    Customer getCustomer(Integer id);
 

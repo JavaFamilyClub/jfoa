@@ -16,6 +16,14 @@
     </a>
   </div>
 
+  <div class="btn-group portal-toolbar-text-links" role="group"
+       aria-label="Request Tab Btn">
+    <a mat-button [attr.aria-label]="'portal.toolbar.vote' | translate"
+       [title]="'portal.toolbar.vote' | translate"
+       routerLink="./subjectVote"
+    >{{'portal.toolbar.vote' | translate}}</a>
+  </div>
+
   <div class="btn-group title-bar-align-right"
        role="group" aria-label="Portal Manager Btn Group"
        *ngIf="!!principal">

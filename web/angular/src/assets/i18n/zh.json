@@ -7,6 +7,8 @@
    "OK": "确定",
    "Ok": "确定",
    "Ip": "IP 地址",
+   "subjectList": "主题列表",
+   "Create": "创建",
    "Loading": "加载中",
    "Type": "类型",
    "Add": "添加",
@@ -136,7 +138,8 @@
          }
       },
       "toolbar": {
-         "mailAuthor": "发送邮件给博主"
+         "mailAuthor": "发送邮件给博主",
+         "vote": "主题投票"
       }
    },
    "em": {
@@ -199,7 +202,8 @@
       }
    },
    "common": {
-      "noPermission": "您没有权限执行该操作"
+      "noPermission": "您没有权限执行该操作",
+      "fieldRequired": "该字段是必填项"
    },
    "dialog": {
       "inputName": {

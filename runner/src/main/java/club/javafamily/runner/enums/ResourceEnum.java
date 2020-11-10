@@ -11,7 +11,8 @@ public enum ResourceEnum {
   MailAuthor(67, "MailAuthor"),
   Password(68, "Password"),
   Upload_Installer(69, "Upload Installer"),
-  Role(70, "Role")
+  Role(70, "Role"),
+  SubjectRequest(71, "Subject Request")
   ;
 
   private int type;
