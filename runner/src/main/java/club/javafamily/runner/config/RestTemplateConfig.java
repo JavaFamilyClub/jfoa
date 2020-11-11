@@ -78,7 +78,7 @@ public class RestTemplateConfig {
 //         SSLContext sslContext = new SSLContextBuilder()
 //            .loadTrustMaterial(null, (arg0, arg1) -> true).build();
 
-         SSLContext sslContext =SSLContext.getInstance("SSL");
+         SSLContext sslContext = SSLContext.getInstance("SSL");
 
          TrustManager[] trustAllCerts =new TrustManager[] {
             new X509TrustManager() {

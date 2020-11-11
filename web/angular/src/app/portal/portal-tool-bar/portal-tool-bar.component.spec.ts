@@ -12,8 +12,8 @@
  * person.
  */
 
-import { HttpClient, HttpHandler } from "@angular/common/http";
-import { TestBed, async } from "@angular/core/testing";
+import { HttpClient } from "@angular/common/http";
+import { TestBed, waitForAsync } from "@angular/core/testing";
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatDividerModule } from "@angular/material/divider";
@@ -25,7 +25,7 @@ import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { observable, of } from "rxjs";
+import { of } from "rxjs";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
 import { PortalToolBarComponent } from "./portal-tool-bar.component";
@@ -38,7 +38,7 @@ describe("PortalToolBarComponent", () => {
    let modalService: any;
    let translate: any;
 
-   beforeEach(async(() => {
+   beforeEach(waitForAsync(() => {
       modelService = {
          getModel: jest.fn(() => of({})),
          sendModel: jest.fn(),
@@ -57,6 +57,12 @@ describe("PortalToolBarComponent", () => {
          get: jest.fn(() => of({})),
          getBrowserLang: jest.fn(() => of("en")),
          use: jest.fn(() => of({}))
+      };
+
+      router = {
+         navigate: jest.fn(() => of(true)),
+         navigateByUrl: jest.fn(() => of(true)),
+         url: ""
       };
 
       TestBed.configureTestingModule({
@@ -100,7 +106,7 @@ describe("PortalToolBarComponent", () => {
       }).compileComponents();
    }));
 
-   it("should create the app", async(() => {
+   it("should create the app", waitForAsync(() => {
       const fixture = TestBed.createComponent(PortalToolBarComponent);
       const app = fixture.debugElement.componentInstance;
       expect(app).toBeTruthy();

@@ -12,7 +12,7 @@
  * person.
  */
 
-import { TestBed, async } from "@angular/core/testing";
+import { TestBed, waitForAsync } from "@angular/core/testing";
 import { MatDialogModule } from "@angular/material/dialog";
 import { AppComponent } from "./app.component";
 import { BrowserModule } from "@angular/platform-browser";
@@ -20,9 +20,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 
 describe("AppComponent", () => {
 
-    let router: any;
-
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -37,7 +35,7 @@ describe("AppComponent", () => {
     }).compileComponents();
   }));
 
-  xit("should create the app", async(() => {
+  xit("should create the app", waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
