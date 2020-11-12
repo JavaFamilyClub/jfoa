@@ -202,6 +202,8 @@
       }
    },
    "common": {
+      "createUser": "Create User",
+      "createDate": "Create Date",
       "noPermission": "You do not have permission to perform this operation",
       "fieldRequired": "This field is required"
    },

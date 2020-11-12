@@ -2,7 +2,7 @@
   <mat-card-content [formGroup]="form">
     <mat-form-field>
       <mat-label>{{'portal.email.placeholder.subject' | translate}}</mat-label>
-      <input matInput [(ngModel)]="model.subject"
+      <input matInput [value]="model.subject"
              formControlName="subject"
              [placeholder]="'portal.email.placeholder.subject' | translate">
       <mat-error *ngIf="form.get('subject').hasError('required')">
@@ -12,7 +12,7 @@
 
     <mat-form-field>
       <mat-label>{{'Description' | translate}}</mat-label>
-      <textarea matInput [(ngModel)]="model.description"
+      <textarea matInput [value]="model.description"
                 rows="3" formControlName="description"
              [placeholder]="'Description' | translate">
       </textarea>

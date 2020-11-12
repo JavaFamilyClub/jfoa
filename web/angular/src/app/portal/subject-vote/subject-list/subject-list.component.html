@@ -1,7 +1,7 @@
-<mat-card class="h-100">
+<mat-card class="h-100 subject-list-content" *ngIf="!!model">
   <mat-card-content>
-    <ng-container *ngFor="let subject of model.subjects">
-      <subject-item-view [model]="subject"></subject-item-view>
-    </ng-container>
+    <div *ngFor="let sub of model.subjects" class="subject-list-item">
+      <subject-item-view [model]="sub"></subject-item-view>
+    </div>
   </mat-card-content>
 </mat-card>

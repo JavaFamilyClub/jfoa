@@ -1,6 +1,6 @@
-<mat-accordion *ngIf="!!model">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
+<mat-accordion *ngIf="!!model" class="subject-item-view-body">
+  <mat-expansion-panel class="rounded-0" hideToggle>
+    <mat-expansion-panel-header class="subject-item-view-header">
       <mat-panel-title>
         {{model.subject}}
       </mat-panel-title>
@@ -8,7 +8,15 @@
         {{model.description}}
 
         <div class="subject-item-view-tr">
+          <button mat-icon-button class="tile-bar-icon-size"
+                  (click)="changeVote($event, true)">
+            <mat-icon class="icon-like"></mat-icon>
+          </button>
 
+          <button mat-icon-button class="tile-bar-icon-size"
+                  (click)="changeVote($event, false)">
+            <mat-icon class="icon-pressing"></mat-icon>
+          </button>
         </div>
       </mat-panel-description>
 
@@ -16,7 +24,8 @@
 
     <ng-template matExpansionPanelContent>
       <div class="subject-item-view-bl">
-        {{model.customer?.name}} -- {{model.createDate}}
+        <label>{{'common.createUser' | translate}}: <strong>{{model.customer?.name}}</strong></label>
+        <label>{{'common.createDate' | translate}}: <strong>{{model.createDate}}</strong></label>
       </div>
     </ng-template>
 

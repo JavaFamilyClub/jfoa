@@ -202,6 +202,8 @@
       }
    },
    "common": {
+      "createUser": "创建用户",
+      "createDate": "创建日期",
       "noPermission": "您没有权限执行该操作",
       "fieldRequired": "该字段是必填项"
    },

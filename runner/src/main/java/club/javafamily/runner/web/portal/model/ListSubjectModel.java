@@ -12,25 +12,22 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
-import { JfPrincipal } from "../../widget/model/jf-principal";
-import { PrincipalService } from "../../widget/services/principal-service";
+package club.javafamily.runner.web.portal.model;
 
-@Component({
-   selector: "subject-vote",
-   templateUrl: "subject-vote.component.html",
-   styleUrls: ["subject-vote.component.scss"]
-})
-export class SubjectVoteComponent implements OnInit {
+import club.javafamily.runner.domain.SubjectRequest;
 
-   constructor(private principalService: PrincipalService) {
+import java.io.Serializable;
+import java.util.List;
+
+public class ListSubjectModel implements Serializable {
+
+   public List<SubjectRequest> getSubjects() {
+      return subjects;
    }
 
-   ngOnInit(): void {
+   public void setSubjects(List<SubjectRequest> subjects) {
+      this.subjects = subjects;
    }
 
-   get principal(): JfPrincipal {
-      return this.principalService.principal;
-   }
-
+   private List<SubjectRequest> subjects;
 }

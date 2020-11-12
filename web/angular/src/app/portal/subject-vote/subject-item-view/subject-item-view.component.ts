@@ -13,6 +13,7 @@
  */
 
 import { Component, Input, OnInit } from "@angular/core";
+import { PortalUrlConstants } from "../../../common/constants/url/portal-url-constants";
 import { SubjectRequest } from "../../../domain/subject-request";
 import { ModelService } from "../../../widget/services/model.service";
 
@@ -30,4 +31,14 @@ export class SubjectItemViewComponent implements OnInit {
    ngOnInit(): void {
    }
 
+   changeVote(event: MouseEvent, add: boolean): void {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.modelService.putModel(PortalUrlConstants.SUBJECT_REQUEST_VOTE +
+         this.model.id + "/" + add)
+         .subscribe(() => {
+
+         });
+   }
 }

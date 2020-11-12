@@ -1,56 +1,61 @@
-$jfoa-font-cache-buster: "53kz7tbqcku27x0eyz2xcxg4u4";
+$jfoa-font-cache-buster: "926ayp2wtrempg944athtmnke4";
 
-$icon-account: "\e900";
-$icon-alarm: "\e901";
-$icon-arrow-down: "\e902";
-$icon-arrow-left: "\e903";
-$icon-arrow-right: "\e904";
-$icon-arrow-up: "\e905";
-$icon-clear_circle: "\e906";
-$icon-edit: "\e907";
-$icon-en2zh: "\e908";
-$icon-export_import: "\e909";
-$icon-export: "\e90a";
-$icon-file-select: "\e90b";
-$icon-help: "\e90c";
-$icon-home: "\e90d";
-$icon-logout: "\e90f";
-$icon-mail-send: "\e910";
-$icon-mail-write: "\e912";
-$icon-menu-off: "\e913";
-$icon-menu-on: "\e914";
-$icon-monitor: "\e915";
-$icon-notify: "\e916";
-$icon-refresh: "\e917";
-$icon-search: "\e918";
-$icon-setting: "\e919";
-$icon-volume_up: "\e91a";
-$icon-zh2en: "\e91b";
+$icon-account: "\ea01";
+$icon-alarm: "\ea02";
+$icon-arrow-down: "\ea03";
+$icon-arrow-left: "\ea04";
+$icon-arrow-right: "\ea05";
+$icon-arrow-up: "\ea06";
+$icon-clear_circle: "\ea07";
+$icon-edit: "\ea08";
+$icon-en2zh: "\ea09";
+$icon-export_import: "\ea0a";
+$icon-export: "\ea0b";
+$icon-file-select: "\ea0c";
+$icon-help: "\ea0d";
+$icon-home: "\ea0e";
+$icon-like: "\ea0f";
+$icon-logout: "\ea10";
+$icon-mail-send: "\ea11";
+$icon-mail-write: "\ea12";
+$icon-menu-off: "\ea13";
+$icon-menu-on: "\ea14";
+$icon-monitor: "\ea15";
+$icon-notify: "\ea16";
+$icon-pressing: "\ea17";
+$icon-refresh: "\ea18";
+$icon-search: "\ea19";
+$icon-setting: "\ea1a";
+$icon-volume_up: "\ea1b";
+$icon-zh2en: "\ea1c";
 
 $jfoa-base-map: (
-   icon-account: $icon-account,
-   icon-alarm: $icon-alarm,
-   icon-arrow-down: $icon-arrow-down,
-   icon-arrow-left: $icon-arrow-left,
-   icon-arrow-right: $icon-arrow-right,
-   icon-arrow-up: $icon-arrow-up,
-   icon-clear_circle: $icon-clear_circle,
-   icon-edit: $icon-edit,
-   icon-export_import: $icon-export_import,
-   icon-export: $icon-export,
-   icon-help: $icon-help,
-   icon-home: $icon-home,
-   icon-logout: $icon-logout,
-   icon-mail-send: $icon-mail-send,
-   icon-mail-write: $icon-mail-write,
-   icon-menu-off: $icon-menu-off,
-   icon-menu-on: $icon-menu-on,
-   icon-monitor: $icon-monitor,
-   icon-notify: $icon-notify,
-   icon-refresh: $icon-refresh,
-   icon-search: $icon-search,
-   icon-setting: $icon-setting,
-   icon-volume_up: $icon-volume_up,
-   icon-en2zh: $icon-en2zh,
-   icon-zh2en: $icon-zh2en
+  icon-account: $icon-account,
+  icon-alarm: $icon-alarm,
+  icon-arrow-down: $icon-arrow-down,
+  icon-arrow-left: $icon-arrow-left,
+  icon-arrow-right: $icon-arrow-right,
+  icon-arrow-up: $icon-arrow-up,
+  icon-clear_circle: $icon-clear_circle,
+  icon-edit: $icon-edit,
+  icon-en2zh: $icon-en2zh,
+  icon-export_import: $icon-export_import,
+  icon-export: $icon-export,
+  icon-file-select: $icon-file-select,
+  icon-help: $icon-help,
+  icon-home: $icon-home,
+  icon-like: $icon-like,
+  icon-logout: $icon-logout,
+  icon-mail-send: $icon-mail-send,
+  icon-mail-write: $icon-mail-write,
+  icon-menu-off: $icon-menu-off,
+  icon-menu-on: $icon-menu-on,
+  icon-monitor: $icon-monitor,
+  icon-notify: $icon-notify,
+  icon-pressing: $icon-pressing,
+  icon-refresh: $icon-refresh,
+  icon-search: $icon-search,
+  icon-setting: $icon-setting,
+  icon-volume_up: $icon-volume_up,
+  icon-zh2en: $icon-zh2en
 );

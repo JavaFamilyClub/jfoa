@@ -96,7 +96,7 @@ export class ModelService {
     /**
      * Use put method to send model.
      */
-    putModel<T>(controller: string, model: any, params?: HttpParams): Observable<HttpResponse<T>> {
+    putModel<T>(controller: string, model: any = null, params?: HttpParams): Observable<HttpResponse<T>> {
         return this.http.put<T>(this.baseHref + controller, model, {
             headers: this.headers,
             observe: "response",

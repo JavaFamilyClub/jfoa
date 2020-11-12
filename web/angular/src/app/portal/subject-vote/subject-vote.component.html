@@ -6,6 +6,7 @@
 
   <a mat-tab-link
      routerLink="./subject-create"
+     [disabled]="!principal?.authenticated"
      routerLinkActive #rla="routerLinkActive"
      [active]="rla.isActive">{{'Create' | translate}}</a>
 </nav>

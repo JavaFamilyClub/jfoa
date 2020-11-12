@@ -24,4 +24,9 @@ export class PortalUrlConstants {
     */
    public static readonly SUBJECT_REQUEST_LIST = "/subject-request/list";
 
+   /**
+    * Getting Subject Request Vote
+    */
+   public static readonly SUBJECT_REQUEST_VOTE = "/public/subject-request/vote/";
+
 }

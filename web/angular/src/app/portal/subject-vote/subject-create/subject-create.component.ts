@@ -64,5 +64,13 @@ export class SubjectCreateComponent implements OnInit {
          subject: this.fb.control(this.model.subject, [Validators.required]),
          description: this.fb.control(this.model.description, [Validators.required])
       });
+
+      this.form.get("subject").valueChanges.subscribe(value => {
+         this.model.subject = value;
+      });
+
+      this.form.get("description").valueChanges.subscribe(value => {
+         this.model.description = value;
+      });
    }
 }

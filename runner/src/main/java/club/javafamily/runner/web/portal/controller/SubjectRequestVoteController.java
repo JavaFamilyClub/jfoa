@@ -14,42 +14,26 @@
 
 package club.javafamily.runner.web.portal.controller;
 
-import club.javafamily.runner.domain.Customer;
-import club.javafamily.runner.domain.SubjectRequest;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.service.SubjectRequestService;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.web.portal.model.CreateSubjectModel;
-import club.javafamily.runner.web.portal.model.ListSubjectModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(SecurityUtil.API_VERSION)
-public class SubjectRequestController {
+@RequestMapping(SecurityUtil.API_VERSION + "/public/")
+public class SubjectRequestVoteController {
 
    @Autowired
-   public SubjectRequestController(CustomerService customerService, SubjectRequestService subjectRequestService) {
+   public SubjectRequestVoteController(CustomerService customerService, SubjectRequestService subjectRequestService) {
       this.customerService = customerService;
       this.subjectRequestService = subjectRequestService;
    }
 
-   @GetMapping("/public/subject-request/list")
-   public ListSubjectModel getSubjectRequestList() {
-      ListSubjectModel listSubjectModel = new ListSubjectModel();
-      List<SubjectRequest> list = subjectRequestService.getList();
-      listSubjectModel.setSubjects(list);
-
-      return listSubjectModel;
-   }
-
-   @PostMapping("/subject-request")
-   public void createSubjectRequest(@RequestBody CreateSubjectModel model) {
-      Customer customer = customerService.getCurrentCustomer();
-      SubjectRequest subjectRequest = model.convertToDomain(customer);
-      subjectRequestService.insert(subjectRequest);
+   @PutMapping("/subject-request/vote/{id}/{add}")
+   public void vote(@PathVariable("id") int id,
+                    @PathVariable("add") boolean add)
+   {
    }
 
    private final CustomerService customerService;

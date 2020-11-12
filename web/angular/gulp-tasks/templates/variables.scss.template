@@ -1,0 +1,10 @@
+$jfoa-font-cache-buster: "<%= hash %>";
+<% glyphs.forEach(function(glyph) { %>
+$<%= glyph.name %>: "\<%= glyph.codeString %>";<%
+}); %>
+
+$jfoa-base-map: (<%
+glyphs.forEach(function(glyph, index) { %>
+  <%= glyph.name %>: $<%= glyph.name %><%= index < glyphs.length - 1 ? "," : "" %><%
+}); %>
+);
