@@ -35,7 +35,7 @@ public class SubjectRequestController {
       this.subjectRequestService = subjectRequestService;
    }
 
-   @GetMapping("/public/subject-request")
+   @GetMapping("/public/subject-request/list")
    public List<SubjectRequest> getSubjectRequestList() {
       List<SubjectRequest> list = subjectRequestService.getList();
 

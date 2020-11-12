@@ -53,10 +53,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew cleanAll build -Pbuildenv=prod --no-daemon --console=plain
 
-    - name: Code Coverage
-      if: ${{ runner.os == 'Linux' }}
-      run: bash <(curl -s https://codecov.io/bash)
-
     # upload build test reports
     - name: Publish reports
       if: always()
@@ -64,6 +60,10 @@ jobs:
       with:
         name: jfoa-build-reports-${{ runner.os }}
         path: runner/build/reports/
+
+    - name: Code Coverage
+      if: ${{ runner.os == 'Linux' }}
+      run: bash <(curl -s https://codecov.io/bash)
 
     - name: Clean Env
       run: ./gradlew cleanAll -Pbuildenv=prod --no-daemon --console=plain

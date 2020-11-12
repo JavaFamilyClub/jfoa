@@ -23,7 +23,9 @@ export namespace TestUtils {
    export function createModelService(): any {
       return {
          deleteModel: jest.fn(),
-         getModel: jest.fn(() => of([]))
+         getModel: jest.fn(() => of([])),
+         sendModel: jest.fn(),
+         putModel: jest.fn()
       };
    }
 
@@ -44,4 +46,13 @@ export namespace TestUtils {
       };
    }
 
+   export function createRouter(): any {
+      return {
+         navigate: jest.fn(() => of(true)),
+         navigateByUrl: jest.fn(() => of(true)),
+         url: "",
+         routerState: jest.fn(() => {}),
+         events: of({})
+      };
+   }
 }

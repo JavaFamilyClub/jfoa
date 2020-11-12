@@ -22,10 +22,10 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { Router } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { of } from "rxjs";
+import { TestUtils } from "../../common/test/test-utils";
 import { ModelService } from "../../widget/services/model.service";
 import { PrincipalService } from "../../widget/services/principal-service";
 import { PortalToolBarComponent } from "./portal-tool-bar.component";
@@ -39,11 +39,7 @@ describe("PortalToolBarComponent", () => {
    let translate: any;
 
    beforeEach(waitForAsync(() => {
-      modelService = {
-         getModel: jest.fn(() => of({})),
-         sendModel: jest.fn(),
-         putModel: jest.fn()
-      };
+      modelService = TestUtils.createModelService();
 
       modalService = {
          open: jest.fn()
@@ -53,22 +49,12 @@ describe("PortalToolBarComponent", () => {
          get: jest.fn(() => of({}))
       };
 
-      translate = {
-         get: jest.fn(() => of({})),
-         getBrowserLang: jest.fn(() => of("en")),
-         use: jest.fn(() => of({}))
-      };
-
-      router = {
-         navigate: jest.fn(() => of(true)),
-         navigateByUrl: jest.fn(() => of(true)),
-         url: ""
-      };
+      translate = TestUtils.createTranslateService();
+      router = TestUtils.createRouter();
 
       TestBed.configureTestingModule({
          imports: [
             BrowserModule,
-            RouterTestingModule,
             MatToolbarModule,
             MatButtonModule,
             MatIconModule,

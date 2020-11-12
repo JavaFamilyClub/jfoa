@@ -19,4 +19,9 @@ export class PortalUrlConstants {
     */
    public static readonly SUBJECT_REQUEST = "/subject-request";
 
+   /**
+    * Getting Subject Request List
+    */
+   public static readonly SUBJECT_REQUEST_LIST = "/subject-request/list";
+
 }

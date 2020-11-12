@@ -17,6 +17,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatTabsModule } from "@angular/material/tabs";
@@ -25,6 +26,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { WidgetModule } from "../../widget/widget.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { SubjectCreateComponent } from "./subject-create/subject-create.component";
+import { SubjectItemViewComponent } from "./subject-item-view/subject-item-view.component";
 import { SubjectListComponent } from "./subject-list/subject-list.component";
 import { SubjectVoteComponent } from "./subject-vote.component";
 
@@ -32,7 +34,8 @@ import { SubjectVoteComponent } from "./subject-vote.component";
    declarations: [
       SubjectVoteComponent,
       SubjectListComponent,
-      SubjectCreateComponent
+      SubjectCreateComponent,
+      SubjectItemViewComponent
    ],
    imports: [
       CommonModule,
@@ -46,7 +49,8 @@ import { SubjectVoteComponent } from "./subject-vote.component";
       MatCardModule,
       MatButtonModule,
       MatFormFieldModule,
-      MatInputModule
+      MatInputModule,
+      MatExpansionModule
    ],
    bootstrap: [SubjectVoteComponent],
    entryComponents: [

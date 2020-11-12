@@ -33,7 +33,8 @@ export class SubjectListComponent implements OnInit {
    }
 
    refreshModel(): void {
-      this.modelService.getModel<ListSubjectModel>("/public" + PortalUrlConstants.SUBJECT_REQUEST)
+      this.modelService.getModel<ListSubjectModel>(
+         "/public" + PortalUrlConstants.SUBJECT_REQUEST_LIST)
          .subscribe(result =>
       {
          this.model = result;
