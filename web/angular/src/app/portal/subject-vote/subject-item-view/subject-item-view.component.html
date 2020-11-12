@@ -1,0 +1,24 @@
+<mat-accordion *ngIf="!!model">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{model.subject}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{model.description}}
+
+        <div class="subject-item-view-tr">
+
+        </div>
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <div class="subject-item-view-bl">
+        {{model.customer?.name}} -- {{model.createDate}}
+      </div>
+    </ng-template>
+
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,5 +1,7 @@
 <mat-card class="h-100">
   <mat-card-content>
-
+    <ng-container *ngFor="let subject of model.subjects">
+      <subject-item-view [model]="subject"></subject-item-view>
+    </ng-container>
   </mat-card-content>
 </mat-card>
