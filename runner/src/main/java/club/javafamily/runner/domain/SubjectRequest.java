@@ -42,6 +42,9 @@ public class SubjectRequest implements Serializable {
    @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
    private Date createDate;
 
+   @OneToOne(fetch = FetchType.LAZY, mappedBy = "subjectRequest")
+   private SubjectRequestVote vote;
+
    public Integer getId() {
       return id;
    }
@@ -82,6 +85,14 @@ public class SubjectRequest implements Serializable {
       this.createDate = createDate;
    }
 
+   public SubjectRequestVote getVote() {
+      return vote;
+   }
+
+   public void setVote(SubjectRequestVote vote) {
+      this.vote = vote;
+   }
+
    @Override
    public String toString() {
       return "SubjectRequest{" +
@@ -90,6 +101,7 @@ public class SubjectRequest implements Serializable {
          ", description='" + description + '\'' +
          ", customer=" + customer +
          ", createDate=" + createDate +
+         ", vote=" + vote +
          '}';
    }
 }

@@ -14,9 +14,8 @@
 
 package club.javafamily.runner.web.portal.controller;
 
-import club.javafamily.runner.service.CustomerService;
-import club.javafamily.runner.service.SubjectRequestService;
 import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.web.portal.service.SubjectVoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,17 +24,16 @@ import org.springframework.web.bind.annotation.*;
 public class SubjectRequestVoteController {
 
    @Autowired
-   public SubjectRequestVoteController(CustomerService customerService, SubjectRequestService subjectRequestService) {
-      this.customerService = customerService;
-      this.subjectRequestService = subjectRequestService;
+   public SubjectRequestVoteController(SubjectVoteService voteService) {
+      this.voteService = voteService;
    }
 
    @PutMapping("/subject-request/vote/{id}/{add}")
    public void vote(@PathVariable("id") int id,
                     @PathVariable("add") boolean add)
    {
+      this.voteService.changeVote(id, add);
    }
 
-   private final CustomerService customerService;
-   private final SubjectRequestService subjectRequestService;
+   private final SubjectVoteService voteService;
 }

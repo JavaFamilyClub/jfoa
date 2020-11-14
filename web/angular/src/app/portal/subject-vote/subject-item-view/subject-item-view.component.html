@@ -9,13 +9,16 @@
 
         <div class="subject-item-view-tr">
           <button mat-icon-button class="tile-bar-icon-size"
-                  (click)="changeVote($event, true)">
-            <mat-icon class="icon-like"></mat-icon>
+                  (click)="changeVote($event, false)">
+            <mat-icon class="icon-pressing" matBadge="0"
+                      matBadgeOverlap="true"
+                      matBadgeColor="warn"></mat-icon>
           </button>
 
           <button mat-icon-button class="tile-bar-icon-size"
-                  (click)="changeVote($event, false)">
-            <mat-icon class="icon-pressing"></mat-icon>
+                  (click)="changeVote($event, true)">
+            <mat-icon class="icon-like" matBadge="123"
+                      matBadgeOverlap="true"></mat-icon>
           </button>
         </div>
       </mat-panel-description>
