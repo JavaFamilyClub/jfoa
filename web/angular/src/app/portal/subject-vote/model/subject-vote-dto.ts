@@ -15,4 +15,6 @@
 export interface SubjectVoteDto {
    support: number;
    oppose: number;
+   supportProcessed: boolean;
+   opposeProcessed: boolean;
 }

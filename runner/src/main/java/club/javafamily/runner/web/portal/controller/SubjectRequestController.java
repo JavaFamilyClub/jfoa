@@ -19,6 +19,7 @@ import club.javafamily.runner.domain.SubjectRequest;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.service.SubjectRequestService;
 import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.util.WebMvcUtil;
 import club.javafamily.runner.web.portal.model.CreateSubjectModel;
 import club.javafamily.runner.web.portal.model.ListSubjectModel;
 import club.javafamily.runner.web.portal.service.SubjectVoteHandle;
@@ -43,7 +44,8 @@ public class SubjectRequestController {
 
    @GetMapping("/public/subject-request/list")
    public ListSubjectModel getSubjectRequestList() {
-      ListSubjectModel listSubjectModel = voteHandle.getListSubjectModel();
+      final String ip = WebMvcUtil.getIP();
+      ListSubjectModel listSubjectModel = voteHandle.getListSubjectModel(ip);
 
       return listSubjectModel;
    }

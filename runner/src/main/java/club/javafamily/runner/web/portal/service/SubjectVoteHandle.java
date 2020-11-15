@@ -29,29 +29,31 @@ public class SubjectVoteHandle {
    /**
     * Getting subject request list pane model
     */
-   public ListSubjectModel getListSubjectModel() {
+   public ListSubjectModel getListSubjectModel(final String ip) {
       ListSubjectModel listSubjectModel = new ListSubjectModel();
-      List<SubjectRequestVO> list = getFullSubjectList();
+      List<SubjectRequestVO> list = getFullSubjectList(ip);
       listSubjectModel.setSubjects(list);
 
       return listSubjectModel;
    }
 
-   private List<SubjectRequestVO> getFullSubjectList() {
+   private List<SubjectRequestVO> getFullSubjectList(final String ip) {
       List<SubjectRequest> list = subjectRequestService.getList();
 
       List<SubjectRequestVO> subjectVoList = list.stream()
-         .map(this::convertSubjectVo)
+         .map(subjectRequest -> this.convertSubjectVo(subjectRequest, ip))
          .collect(Collectors.toList());
 
       return subjectVoList;
    }
 
-   private SubjectRequestVO convertSubjectVo(SubjectRequest subjectRequest) {
+   private SubjectRequestVO convertSubjectVo(SubjectRequest subjectRequest,
+                                             String ip)
+   {
       SubjectRequestVO vo = new SubjectRequestVO();
       Integer id = subjectRequest.getId();
 
-      SubjectRequestVoteDto voteVO = voteService.getSubjectVoteDto(id);
+      SubjectRequestVoteDto voteVO = voteService.getSubjectVoteDto(ip, id);
 
       vo.setId(id);
       vo.setCreateDate(subjectRequest.getCreateDate());

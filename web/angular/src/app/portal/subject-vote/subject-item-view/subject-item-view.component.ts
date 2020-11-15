@@ -39,10 +39,26 @@ export class SubjectItemViewComponent implements OnInit {
          this.model.id + "/" + like)
          .subscribe(() => {
             if(like) {
-               this.model.vote.support++;
+               if(this.model.vote.supportProcessed) {
+                  this.model.vote.support--;
+               }
+               else {
+                  this.model.vote.support++;
+               }
+
+               this.model.vote.supportProcessed
+                  = !this.model.vote.supportProcessed;
             }
             else {
-               this.model.vote.oppose++;
+               if(this.model.vote.opposeProcessed) {
+                  this.model.vote.oppose--;
+               }
+               else {
+                  this.model.vote.oppose++;
+               }
+
+               this.model.vote.opposeProcessed
+                  = !this.model.vote.opposeProcessed;
             }
          });
    }

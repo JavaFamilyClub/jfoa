@@ -21,7 +21,6 @@ import club.javafamily.runner.domain.SubjectRequestVote;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.service.SubjectRequestService;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.util.WebMvcUtil;
 import club.javafamily.runner.web.portal.model.SubjectRequestVoteDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,11 +53,26 @@ public class SubjectVoteService {
       this.transactionManager = transactionManager;
    }
 
-   public SubjectRequestVoteDto getSubjectVoteDto(int id) {
+   public SubjectRequestVoteDto getSubjectVoteDto(String ip, int id) {
       int support = getVoteCurrentCount(id, true);
       int oppose = getVoteCurrentCount(id, false);
 
-      return new SubjectRequestVoteDto(support, oppose);
+      Customer user = customerService.getCurrentCustomer();
+      String account = user != null ? user.getAccount() : null;
+      String opKey = convertOpKey(ip, id, account);
+      Integer op;
+
+      lock.readLock().lock();
+
+      try {
+         op = redisClient.get(opKey);
+      }
+      finally {
+         lock.readLock().unlock();
+      }
+
+      return new SubjectRequestVoteDto(support, oppose,
+         SUPPORT_FLAG.equals(op), OPPOSE_FLAG.equals(op));
    }
 
    /**
@@ -66,11 +80,11 @@ public class SubjectVoteService {
     * @param support is support
     */
    @Async
-   public void changeVote(int id, boolean support) {
+   public void changeVote(String ip, int id, boolean support) {
       Customer user = customerService.getCurrentCustomer();
       String account = user != null ? user.getAccount() : null;
 
-      String opKey = convertOpKey(id, account);
+      String opKey = convertOpKey(ip, id, account);
       String countKey = convertCountKey(id, support);
       Integer op;
       int count;
@@ -169,8 +183,8 @@ public class SubjectVoteService {
          // first op
          return 1;
       }
-      else if((op == SUPPORT_FLAG && !support)
-         || (op == OPPOSE_FLAG && support))
+      else if((Objects.equals(op, SUPPORT_FLAG) && !support)
+         || (Objects.equals(op, OPPOSE_FLAG) && support))
       {
          // conflict op
          return 0;
@@ -189,16 +203,15 @@ public class SubjectVoteService {
       return VOTE_CACHE_PREFIX + VOTE_COUNT + id + VOTE_CACHE_SEPARATOR + support;
    }
 
-   private String convertOpKey(int id, String account) {
-      String ip = WebMvcUtil.getIP();
+   private String convertOpKey(String ip, int id, String account) {
       account = Objects.toString(account, SecurityUtil.Anonymous);
       return VOTE_CACHE_PREFIX + VOTE_OP + ip + VOTE_CACHE_SEPARATOR
          + account + VOTE_CACHE_SEPARATOR + id;
    }
 
    private static final int CACHED_TIME = 24 * 60 * 60; // one day
-   private static final int SUPPORT_FLAG = 1;
-   private static final int OPPOSE_FLAG = 0;
+   private static final Integer SUPPORT_FLAG = 1;
+   private static final Integer OPPOSE_FLAG = 0;
    private static final String VOTE_CACHE_PREFIX = "sr-vote-";
    private static final String VOTE_CACHE_SEPARATOR = "__";
    private static final String VOTE_COUNT = "count" + VOTE_CACHE_SEPARATOR;

@@ -15,6 +15,7 @@
 package club.javafamily.runner.web.portal.controller;
 
 import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.util.WebMvcUtil;
 import club.javafamily.runner.web.portal.service.SubjectVoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,8 @@ public class SubjectRequestVoteController {
    public void vote(@PathVariable("id") int id,
                     @PathVariable("support") boolean support)
    {
-      this.voteService.changeVote(id, support);
+      String ip = WebMvcUtil.getIP();
+      this.voteService.changeVote(ip, id, support);
    }
 
    private final SubjectVoteService voteService;

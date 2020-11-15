@@ -19,6 +19,8 @@ import java.io.Serializable;
 public class SubjectRequestVoteDto implements Serializable {
    private Integer support;
    private Integer oppose;
+   private boolean supportProcessed;
+   private boolean opposeProcessed;
 
    public SubjectRequestVoteDto() {
    }
@@ -26,6 +28,17 @@ public class SubjectRequestVoteDto implements Serializable {
    public SubjectRequestVoteDto(Integer support, Integer oppose) {
       this.support = support;
       this.oppose = oppose;
+   }
+
+   public SubjectRequestVoteDto(Integer support,
+                                Integer oppose,
+                                boolean supportEnabled,
+                                boolean opposeEnabled)
+   {
+      this.support = support;
+      this.oppose = oppose;
+      this.supportProcessed = supportEnabled;
+      this.opposeProcessed = opposeEnabled;
    }
 
    public Integer getSupport() {
@@ -44,11 +57,29 @@ public class SubjectRequestVoteDto implements Serializable {
       this.oppose = oppose;
    }
 
+   public boolean isSupportProcessed() {
+      return supportProcessed;
+   }
+
+   public void setSupportProcessed(boolean supportProcessed) {
+      this.supportProcessed = supportProcessed;
+   }
+
+   public boolean isOpposeProcessed() {
+      return opposeProcessed;
+   }
+
+   public void setOpposeProcessed(boolean opposeProcessed) {
+      this.opposeProcessed = opposeProcessed;
+   }
+
    @Override
    public String toString() {
-      return "SubjectRequestVoteVO{" +
+      return "SubjectRequestVoteDto{" +
          "support=" + support +
          ", oppose=" + oppose +
+         ", supportProcessed=" + supportProcessed +
+         ", opposeProcessed=" + opposeProcessed +
          '}';
    }
 }
