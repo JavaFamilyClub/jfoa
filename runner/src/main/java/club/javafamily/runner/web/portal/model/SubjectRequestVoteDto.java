@@ -15,17 +15,40 @@
 package club.javafamily.runner.web.portal.model;
 
 import java.io.Serializable;
-import java.util.List;
 
-public class ListSubjectModel implements Serializable {
+public class SubjectRequestVoteDto implements Serializable {
+   private Integer support;
+   private Integer oppose;
 
-   public List<SubjectRequestVO> getSubjects() {
-      return subjects;
+   public SubjectRequestVoteDto() {
    }
 
-   public void setSubjects(List<SubjectRequestVO> subjects) {
-      this.subjects = subjects;
+   public SubjectRequestVoteDto(Integer support, Integer oppose) {
+      this.support = support;
+      this.oppose = oppose;
    }
 
-   private List<SubjectRequestVO> subjects;
+   public Integer getSupport() {
+      return support;
+   }
+
+   public void setSupport(Integer support) {
+      this.support = support;
+   }
+
+   public Integer getOppose() {
+      return oppose;
+   }
+
+   public void setOppose(Integer oppose) {
+      this.oppose = oppose;
+   }
+
+   @Override
+   public String toString() {
+      return "SubjectRequestVoteVO{" +
+         "support=" + support +
+         ", oppose=" + oppose +
+         '}';
+   }
 }

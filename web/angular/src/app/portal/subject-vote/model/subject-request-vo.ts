@@ -12,20 +12,13 @@
  * person.
  */
 
-package club.javafamily.runner.web.portal.model;
+import { SubjectVoteDto } from "./subject-vote-dto";
 
-import java.io.Serializable;
-import java.util.List;
-
-public class ListSubjectModel implements Serializable {
-
-   public List<SubjectRequestVO> getSubjects() {
-      return subjects;
-   }
-
-   public void setSubjects(List<SubjectRequestVO> subjects) {
-      this.subjects = subjects;
-   }
-
-   private List<SubjectRequestVO> subjects;
+export interface SubjectRequestVo {
+   id: number;
+   subject: string;
+   description: string;
+   createUserName: string;
+   createDate: string;
+   vote: SubjectVoteDto;
 }

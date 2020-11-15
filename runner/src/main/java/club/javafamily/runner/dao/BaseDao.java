@@ -54,7 +54,13 @@ public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R
          }
       }
 
-      return session.createQuery(criteriaQuery).list();
+      List<T> list = session.createQuery(criteriaQuery).list();
+
+      if(list == null) {
+         list = new ArrayList<>();
+      }
+
+      return list;
    }
 
    private Predicate buildCondition(CriteriaBuilder criteriaBuilder,

@@ -35,9 +35,9 @@ public class SubjectRequestVote implements Serializable {
 
    private Integer support;
 
-   private Integer against;
+   private Integer oppose;
 
-   @OneToOne(fetch = FetchType.LAZY, optional = false)
+   @OneToOne(fetch = FetchType.LAZY)
    @PrimaryKeyJoinColumn
    private SubjectRequest subjectRequest;
 
@@ -57,12 +57,20 @@ public class SubjectRequestVote implements Serializable {
       this.support = support;
    }
 
-   public Integer getAgainst() {
-      return against;
+   public Integer getOppose() {
+      return oppose;
    }
 
-   public void setAgainst(Integer against) {
-      this.against = against;
+   public void setOppose(Integer against) {
+      this.oppose = against;
+   }
+
+   public SubjectRequest getSubjectRequest() {
+      return subjectRequest;
+   }
+
+   public void setSubjectRequest(SubjectRequest subjectRequest) {
+      this.subjectRequest = subjectRequest;
    }
 
    @Override
@@ -70,7 +78,7 @@ public class SubjectRequestVote implements Serializable {
       return "SubjectRequestVote{" +
          "id=" + id +
          ", support=" + support +
-         ", against=" + against +
+         ", oppose=" + oppose +
          '}';
    }
 }

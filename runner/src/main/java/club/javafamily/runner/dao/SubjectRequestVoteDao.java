@@ -12,20 +12,15 @@
  * person.
  */
 
-package club.javafamily.runner.web.portal.model;
+package club.javafamily.runner.dao;
 
-import java.io.Serializable;
-import java.util.List;
+import club.javafamily.runner.domain.SubjectRequestVote;
+import org.springframework.stereotype.Repository;
 
-public class ListSubjectModel implements Serializable {
-
-   public List<SubjectRequestVO> getSubjects() {
-      return subjects;
+@Repository
+public class SubjectRequestVoteDao extends BaseDao<SubjectRequestVote, Integer> {
+   @Override
+   protected Class<SubjectRequestVote> getClazz() {
+      return SubjectRequestVote.class;
    }
-
-   public void setSubjects(List<SubjectRequestVO> subjects) {
-      this.subjects = subjects;
-   }
-
-   private List<SubjectRequestVO> subjects;
 }

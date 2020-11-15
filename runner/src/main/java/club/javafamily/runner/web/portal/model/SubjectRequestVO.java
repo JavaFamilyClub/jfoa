@@ -12,28 +12,27 @@
  * person.
  */
 
-package club.javafamily.runner.domain;
+package club.javafamily.runner.web.portal.model;
 
-import org.hibernate.annotations.Cascade;
+import club.javafamily.runner.util.Tool;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity(name = "t_subject_request")
-public class SubjectRequest implements Serializable {
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Integer id;
+import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE;
 
+public class SubjectRequestVO implements Serializable {
+   private Integer id;
    private String subject;
    private String description;
-
-   @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-   @ManyToOne(targetEntity = Customer.class, fetch = FetchType.EAGER)
-   private Customer customer;
-
+   private String createUserName;
+   @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
+   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
    private Date createDate;
+
+   private SubjectRequestVoteDto vote;
 
    public Integer getId() {
       return id;
@@ -59,12 +58,12 @@ public class SubjectRequest implements Serializable {
       this.description = description;
    }
 
-   public Customer getCustomer() {
-      return customer;
+   public String getCreateUserName() {
+      return createUserName;
    }
 
-   public void setCustomer(Customer customer) {
-      this.customer = customer;
+   public void setCreateUserName(String createUserName) {
+      this.createUserName = createUserName;
    }
 
    public Date getCreateDate() {
@@ -75,13 +74,23 @@ public class SubjectRequest implements Serializable {
       this.createDate = createDate;
    }
 
+   public SubjectRequestVoteDto getVote() {
+      return vote;
+   }
+
+   public void setVote(SubjectRequestVoteDto vote) {
+      this.vote = vote;
+   }
+
    @Override
    public String toString() {
-      return "SubjectRequest{" +
+      return "SubjectRequestVO{" +
          "id=" + id +
          ", subject='" + subject + '\'' +
          ", description='" + description + '\'' +
+         ", createUserName='" + createUserName + '\'' +
          ", createDate=" + createDate +
+         ", vote=" + vote +
          '}';
    }
 }

@@ -12,8 +12,8 @@
  * person.
  */
 
-import { SubjectRequest } from "../../../domain/subject-request";
+import { SubjectRequestVo } from "./subject-request-vo";
 
 export interface ListSubjectModel {
-   subjects: SubjectRequest[];
+   subjects: SubjectRequestVo[];
 }

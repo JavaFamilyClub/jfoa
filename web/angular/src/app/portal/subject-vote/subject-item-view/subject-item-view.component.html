@@ -10,14 +10,17 @@
         <div class="subject-item-view-tr">
           <button mat-icon-button class="tile-bar-icon-size"
                   (click)="changeVote($event, false)">
-            <mat-icon class="icon-pressing" matBadge="0"
+            <mat-icon class="icon-pressing" [matBadge]="model.vote.oppose"
                       matBadgeOverlap="true"
+                      [matBadgeHidden]="!!!model.vote"
                       matBadgeColor="warn"></mat-icon>
           </button>
 
           <button mat-icon-button class="tile-bar-icon-size"
                   (click)="changeVote($event, true)">
-            <mat-icon class="icon-like" matBadge="123"
+            <mat-icon class="icon-like"
+                      [matBadgeHidden]="!!!model.vote"
+                      [matBadge]="model.vote.support"
                       matBadgeOverlap="true"></mat-icon>
           </button>
         </div>
@@ -27,7 +30,7 @@
 
     <ng-template matExpansionPanelContent>
       <div class="subject-item-view-bl">
-        <label>{{'common.createUser' | translate}}: <strong>{{model.customer?.name}}</strong></label>
+        <label>{{'common.createUser' | translate}}: <strong>{{model.createUserName}}</strong></label>
         <label>{{'common.createDate' | translate}}: <strong>{{model.createDate}}</strong></label>
       </div>
     </ng-template>

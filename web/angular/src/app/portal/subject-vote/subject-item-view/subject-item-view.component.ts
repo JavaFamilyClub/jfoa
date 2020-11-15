@@ -14,8 +14,8 @@
 
 import { Component, Input, OnInit } from "@angular/core";
 import { PortalUrlConstants } from "../../../common/constants/url/portal-url-constants";
-import { SubjectRequest } from "../../../domain/subject-request";
 import { ModelService } from "../../../widget/services/model.service";
+import { SubjectRequestVo } from "../model/subject-request-vo";
 
 @Component({
    selector: "subject-item-view",
@@ -23,7 +23,7 @@ import { ModelService } from "../../../widget/services/model.service";
    styleUrls: ["subject-item-view.component.scss"]
 })
 export class SubjectItemViewComponent implements OnInit {
-   @Input() model: SubjectRequest;
+   @Input() model: SubjectRequestVo;
 
    constructor(private modelService: ModelService) {
    }
@@ -31,14 +31,19 @@ export class SubjectItemViewComponent implements OnInit {
    ngOnInit(): void {
    }
 
-   changeVote(event: MouseEvent, add: boolean): void {
+   changeVote(event: MouseEvent, like: boolean): void {
       event.preventDefault();
       event.stopPropagation();
 
       this.modelService.putModel(PortalUrlConstants.SUBJECT_REQUEST_VOTE +
-         this.model.id + "/" + add)
+         this.model.id + "/" + like)
          .subscribe(() => {
-
+            if(like) {
+               this.model.vote.support++;
+            }
+            else {
+               this.model.vote.oppose++;
+            }
          });
    }
 }

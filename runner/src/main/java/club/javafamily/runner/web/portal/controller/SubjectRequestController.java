@@ -21,26 +21,29 @@ import club.javafamily.runner.service.SubjectRequestService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.portal.model.CreateSubjectModel;
 import club.javafamily.runner.web.portal.model.ListSubjectModel;
+import club.javafamily.runner.web.portal.service.SubjectVoteHandle;
+import club.javafamily.runner.web.portal.service.SubjectVoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(SecurityUtil.API_VERSION)
 public class SubjectRequestController {
 
    @Autowired
-   public SubjectRequestController(CustomerService customerService, SubjectRequestService subjectRequestService) {
+   public SubjectRequestController(SubjectVoteHandle voteHandle, CustomerService customerService,
+                                   SubjectRequestService subjectRequestService,
+                                   SubjectVoteService voteService)
+   {
+      this.voteHandle = voteHandle;
       this.customerService = customerService;
       this.subjectRequestService = subjectRequestService;
+      this.voteService = voteService;
    }
 
    @GetMapping("/public/subject-request/list")
    public ListSubjectModel getSubjectRequestList() {
-      ListSubjectModel listSubjectModel = new ListSubjectModel();
-      List<SubjectRequest> list = subjectRequestService.getList();
-      listSubjectModel.setSubjects(list);
+      ListSubjectModel listSubjectModel = voteHandle.getListSubjectModel();
 
       return listSubjectModel;
    }
@@ -52,6 +55,8 @@ public class SubjectRequestController {
       subjectRequestService.insert(subjectRequest);
    }
 
+   private final SubjectVoteHandle voteHandle;
    private final CustomerService customerService;
    private final SubjectRequestService subjectRequestService;
+   private final SubjectVoteService voteService;
 }

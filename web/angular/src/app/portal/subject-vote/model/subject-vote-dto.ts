@@ -12,20 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.portal.model;
-
-import java.io.Serializable;
-import java.util.List;
-
-public class ListSubjectModel implements Serializable {
-
-   public List<SubjectRequestVO> getSubjects() {
-      return subjects;
-   }
-
-   public void setSubjects(List<SubjectRequestVO> subjects) {
-      this.subjects = subjects;
-   }
-
-   private List<SubjectRequestVO> subjects;
+export interface SubjectVoteDto {
+   support: number;
+   oppose: number;
 }

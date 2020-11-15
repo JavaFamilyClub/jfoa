@@ -35,7 +35,7 @@ public class Role implements Serializable {
   private boolean administrator;
 
   @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-  @ManyToMany(targetEntity = Permission.class, fetch = FetchType.EAGER)
+  @ManyToMany(targetEntity = Permission.class, fetch = FetchType.LAZY)
   private Set<Permission> permissions;
 
   public Role() {

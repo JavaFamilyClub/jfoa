@@ -28,11 +28,11 @@ public class SubjectRequestVoteController {
       this.voteService = voteService;
    }
 
-   @PutMapping("/subject-request/vote/{id}/{add}")
+   @PutMapping("/subject-request/vote/{id}/{support}")
    public void vote(@PathVariable("id") int id,
-                    @PathVariable("add") boolean add)
+                    @PathVariable("support") boolean support)
    {
-      this.voteService.changeVote(id, add);
+      this.voteService.changeVote(id, support);
    }
 
    private final SubjectVoteService voteService;

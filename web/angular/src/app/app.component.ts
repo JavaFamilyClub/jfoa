@@ -52,25 +52,27 @@ export class AppComponent extends BaseSubscription implements OnInit, OnDestroy 
          this.translateService.use(lang);
       }
 
-      this.subscriptions.add(notifyService.getMessageChannel().onReceiveMessage().subscribe((message: string) => {
-         if(this.notification == message || !!!message) {
-            return;
-         }
+      this.zone.runOutsideAngular(() => {
+         this.subscriptions.add(notifyService.getMessageChannel().onReceiveMessage().subscribe((message: string) => {
+            if(this.notification == message || !!!message) {
+               return;
+            }
 
-         this.notification = message;
+            this.notification = message;
 
-         if(!!this.notification) {
-            this.zone.runTask(() => {
-               ComponentTool.showMessageDialog(this.modalService,
-                  this.translateService.instant("Notification"),
-                  this.notification, {"ok": this.translateService.instant("OK")})
-                  .then(() =>
-                  {
-                     this.notification = null;
-                  });
-            });
-         }
-      }));
+            if(!!this.notification) {
+               this.zone.runTask(() => {
+                  ComponentTool.showMessageDialog(this.modalService,
+                     this.translateService.instant("Notification"),
+                     this.notification, {"ok": this.translateService.instant("OK")})
+                     .then(() =>
+                     {
+                        this.notification = null;
+                     });
+               });
+            }
+         }));
+      });
    }
 
    ngOnInit(): void {

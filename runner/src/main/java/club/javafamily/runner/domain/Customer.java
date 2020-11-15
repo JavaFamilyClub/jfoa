@@ -48,7 +48,7 @@ public class Customer implements Serializable, Cloneable {
    private Date registerDate;
 
    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-   @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
+   @ManyToMany(targetEntity = Role.class, fetch = FetchType.LAZY)
    private Set<Role> roles;
 
    public Integer getId() {
