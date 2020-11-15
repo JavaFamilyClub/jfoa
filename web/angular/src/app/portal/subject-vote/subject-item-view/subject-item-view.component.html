@@ -9,17 +9,19 @@
 
         <div class="subject-item-view-tr">
           <button mat-icon-button class="tile-bar-icon-size"
+                  [disabled]="model.vote.supportProcessed"
                   (click)="changeVote($event, false)">
             <mat-icon class="icon-pressing" [matBadge]="model.vote.oppose"
                       matBadgeOverlap="true"
-                      [matBadgeHidden]="!!!model.vote"
+                      [matBadgeHidden]="!!!model.vote || model.vote.oppose < 1"
                       matBadgeColor="warn"></mat-icon>
           </button>
 
           <button mat-icon-button class="tile-bar-icon-size"
+                  [disabled]="model.vote.opposeProcessed"
                   (click)="changeVote($event, true)">
             <mat-icon class="icon-like"
-                      [matBadgeHidden]="!!!model.vote"
+                      [matBadgeHidden]="!!!model.vote || model.vote.support < 1"
                       [matBadge]="model.vote.support"
                       matBadgeOverlap="true"></mat-icon>
           </button>
