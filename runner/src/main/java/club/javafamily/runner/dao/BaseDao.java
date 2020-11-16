@@ -106,4 +106,8 @@ public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R
    public void delete(T entity) {
       getSession().delete(entity);
    }
+
+   public void saveOrUpdate(T entity) {
+      getSession().saveOrUpdate(entity);
+   }
 }

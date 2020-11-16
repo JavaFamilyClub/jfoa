@@ -48,6 +48,12 @@ public class SubjectRequestVoteServiceImpl implements SubjectRequestVoteService 
       voteDao.delete(vote);
    }
 
+   @Transactional
+   @Override
+   public void saveOrUpdate(SubjectRequestVote vote) {
+      voteDao.saveOrUpdate(vote);
+   }
+
    @Autowired
    public SubjectRequestVoteServiceImpl(SubjectRequestVoteDao voteDao) {
       this.voteDao = voteDao;

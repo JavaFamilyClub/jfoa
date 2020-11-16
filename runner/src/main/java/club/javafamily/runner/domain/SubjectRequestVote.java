@@ -41,6 +41,13 @@ public class SubjectRequestVote implements Serializable {
    @PrimaryKeyJoinColumn
    private SubjectRequest subjectRequest;
 
+   public SubjectRequestVote() {
+   }
+
+   public SubjectRequestVote(SubjectRequest subjectRequest) {
+      this.subjectRequest = subjectRequest;
+   }
+
    public Integer getId() {
       return id;
    }

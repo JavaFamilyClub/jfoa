@@ -40,6 +40,12 @@ public class SubjectRequestServiceImpl implements SubjectRequestService {
       return subjectRequestDao.getAll();
    }
 
+   @Transactional(readOnly = true)
+   @Override
+   public SubjectRequest get(Integer id) {
+      return subjectRequestDao.get(id);
+   }
+
    @Audit(ResourceEnum.SubjectRequest)
    @Transactional
    @Override

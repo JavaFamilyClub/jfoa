@@ -81,6 +81,10 @@ ds:
       useGlobalDataSourceStat: true
       connectionProperties: druid.stat.mergeSql
 
+# logging to file
+logging:
+   path: ./jfLogs
+
 ---
 
 server:

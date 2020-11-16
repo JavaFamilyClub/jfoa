@@ -34,6 +34,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.stream.Collectors;
 
 @Service
 public class SubjectVoteService {
@@ -170,6 +171,18 @@ public class SubjectVoteService {
 
    /**
     * Getting cached count.
+    * @param id vote id
+    * @param support is support
+    * @return count. null if no cached.
+    */
+   public Integer getCachedCount(int id, boolean support) {
+      String countKey = convertCountKey(id, support);
+
+      return getCachedCount(countKey);
+   }
+
+   /**
+    * Getting cached count.
     * @param countKey key
     * @return count. null if no cached.
     */
@@ -210,8 +223,10 @@ public class SubjectVoteService {
     * parse count vote dto.
     * @param countKey for example: sr-vote-count__id__support
     */
-   public VoteDto parseCountKey(String countKey) {
-      if(StringUtils.isEmpty(countKey) || !countKey.startsWith(VOTE_COUNT_PREFIX)) {
+   private VoteDto parseCountKey(String countKey) {
+      if(StringUtils.isEmpty(countKey)
+         || !countKey.startsWith(VOTE_COUNT_PREFIX))
+      {
          return null;
       }
 
@@ -221,14 +236,62 @@ public class SubjectVoteService {
          return null;
       }
 
-      return new VoteDto(parts[1], Boolean.parseBoolean(parts[2]));
+      return new VoteDto(Integer.parseInt(parts[1]),
+         Boolean.parseBoolean(parts[2]));
    }
 
    /**
     * Getting count keys
     */
    public Set<String> countKeys() {
-      return redisClient.prefixKeys(VOTE_COUNT_PREFIX);
+      lock.readLock().lock();
+
+      try{
+         return redisClient.prefixKeys(VOTE_COUNT_PREFIX);
+      }
+      finally {
+         lock.readLock().unlock();
+      }
+   }
+
+   /**
+    * Getting count ids.
+    */
+   public Set<Integer> countIds() {
+      Set<String> countKeys = countKeys();
+
+      return countKeys.stream()
+         .map(this::parseCountKey)
+         .filter(Objects::nonNull)
+         .map(VoteDto::getId)
+         .collect(Collectors.toSet());
+   }
+
+   /**
+    * Delete count by id. include support and oppose.
+    * @param id vote id
+    */
+   public void delCount(int id) {
+      lock.writeLock().lock();
+
+      try {
+         redisClient.delete(convertCountKey(id, true));
+         redisClient.delete(convertCountKey(id, false));
+      }
+      finally {
+         lock.writeLock().unlock();
+      }
+   }
+
+   public void resetCachedCount(int id, boolean support, int value) {
+      lock.writeLock().lock();
+
+      try{
+         redisClient.set(convertCountKey(id, support), value, CACHED_TIME);
+      }
+      finally {
+         lock.writeLock().unlock();
+      }
    }
 
    /**

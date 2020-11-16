@@ -25,6 +25,8 @@ public interface SubjectRequestService {
     */
    List<SubjectRequest> getList();
 
+   SubjectRequest get(Integer id);
+
    /**
     * insert a subject requests
     */

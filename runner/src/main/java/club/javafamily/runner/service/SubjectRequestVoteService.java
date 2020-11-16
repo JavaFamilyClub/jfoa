@@ -24,4 +24,6 @@ public interface SubjectRequestVoteService {
    void update(SubjectRequestVote vote);
 
    void delete(SubjectRequestVote vote);
+
+   void saveOrUpdate(SubjectRequestVote vote);
 }

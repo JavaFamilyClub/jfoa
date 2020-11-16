@@ -15,13 +15,13 @@
 package club.javafamily.runner.dto;
 
 public class VoteDto {
-   private String id;
+   private int id;
    private boolean support;
 
    public VoteDto() {
    }
 
-   public VoteDto(String id, boolean support) {
+   public VoteDto(int id, boolean support) {
       this.id = id;
       this.support = support;
    }
@@ -34,11 +34,11 @@ public class VoteDto {
       this.support = support;
    }
 
-   public String getId() {
+   public int getId() {
       return id;
    }
 
-   public void setId(String id) {
+   public void setId(int id) {
       this.id = id;
    }
 
