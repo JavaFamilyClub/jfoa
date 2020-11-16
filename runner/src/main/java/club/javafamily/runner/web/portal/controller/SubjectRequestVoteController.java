@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(SecurityUtil.API_VERSION + "/public/")
+@RequestMapping(SecurityUtil.API_VERSION)
 public class SubjectRequestVoteController {
 
    @Autowired
@@ -29,7 +29,7 @@ public class SubjectRequestVoteController {
       this.voteService = voteService;
    }
 
-   @PutMapping("/subject-request/vote/{id}/{support}")
+   @PutMapping("/public/subject-request/vote/{id}/{support}")
    public void vote(@PathVariable("id") int id,
                     @PathVariable("support") boolean support)
    {

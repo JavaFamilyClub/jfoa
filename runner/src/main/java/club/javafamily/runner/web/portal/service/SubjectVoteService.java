@@ -15,24 +15,23 @@
 package club.javafamily.runner.web.portal.service;
 
 import club.javafamily.runner.common.service.RedisClient;
-import club.javafamily.runner.dao.SubjectRequestVoteDao;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.domain.SubjectRequestVote;
+import club.javafamily.runner.dto.VoteDto;
+import club.javafamily.runner.enums.VoteOperatorStatus;
 import club.javafamily.runner.service.CustomerService;
-import club.javafamily.runner.service.SubjectRequestService;
+import club.javafamily.runner.service.SubjectRequestVoteService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.portal.model.SubjectRequestVoteDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.util.StringUtils;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -42,15 +41,11 @@ public class SubjectVoteService {
    @Autowired
    public SubjectVoteService(RedisClient<Integer> redisClient,
                              CustomerService customerService,
-                             SubjectRequestService subjectRequestService,
-                             SubjectRequestVoteDao voteDao,
-                             HibernateTransactionManager transactionManager)
+                             SubjectRequestVoteService voteService)
    {
       this.redisClient = redisClient;
       this.customerService = customerService;
-      this.subjectRequestService = subjectRequestService;
-      this.voteDao = voteDao;
-      this.transactionManager = transactionManager;
+      this.voteService = voteService;
    }
 
    public SubjectRequestVoteDto getSubjectVoteDto(String ip, int id) {
@@ -99,16 +94,16 @@ public class SubjectVoteService {
          lock.readLock().unlock();
       }
 
-      int opNumber = getOpNumber(op, support);
+      VoteOperatorStatus opStatus = getOpNumber(op, support);
 
-      if(opNumber == 0) {
+      if(opStatus == VoteOperatorStatus.Conflict) {
          // invalid
-         LOGGER.warn("Invalid vote opNumber: 0");
+         LOGGER.warn("Invalid vote opStatus: {}", opStatus);
          return;
       }
 
       // count always is not null
-      count = count + opNumber; // opNumber is 1 or -1.
+      count = count + opStatus.getValue(); // opStatus value is 1 or -1.
 
       if(count < 0) {
          LOGGER.warn("Invalid vote count: {}", count);
@@ -123,11 +118,12 @@ public class SubjectVoteService {
       try {
          redisClient.set(countKey, count, CACHED_TIME);
 
-         if(opNumber > 0) {
+         // allow op
+         if(opStatus == VoteOperatorStatus.Allow) {
             redisClient.set(opKey, op, CACHED_TIME);
          }
          else {
-            // clear op status
+            // clear op status, opStatus is again
             redisClient.delete(opKey);
          }
       }
@@ -138,19 +134,17 @@ public class SubjectVoteService {
 
    private int getVoteCurrentCount(int id, boolean support) {
       String countKey = convertCountKey(id, support);
-      Integer count = redisClient.get(countKey);
+      Integer count = getCachedCount(countKey);
 
       if(count == null) {
-         TransactionStatus transaction;
-         SubjectRequestVote subjectRequestVote = null;
+         SubjectRequestVote subjectRequestVote;
 
          try{
-            transaction = transactionManager.getTransaction(transactionDefinition);
-            subjectRequestVote = voteDao.get(id);
-            transactionManager.commit(transaction);
+            subjectRequestVote = voteService.get(id);
          }
          catch(Exception e) {
             LOGGER.error("Get real vote error: ", e);
+            return -1;
          }
 
          if(subjectRequestVote == null) {
@@ -175,23 +169,32 @@ public class SubjectVoteService {
    }
 
    /**
+    * Getting cached count.
+    * @param countKey key
+    * @return count. null if no cached.
+    */
+   public Integer getCachedCount(String countKey) {
+      return redisClient.get(countKey);
+   }
+
+   /**
     * check op is invalid.
     *
     */
-   private int getOpNumber(Integer op, boolean support) {
+   private VoteOperatorStatus getOpNumber(Integer op, boolean support) {
       if(op == null) {
-         // first op
-         return 1;
+         // allow, first op
+         return VoteOperatorStatus.Allow;
       }
       else if((Objects.equals(op, SUPPORT_FLAG) && !support)
          || (Objects.equals(op, OPPOSE_FLAG) && support))
       {
          // conflict op
-         return 0;
+         return VoteOperatorStatus.Conflict;
       }
 
       // again op
-      return -1;
+      return VoteOperatorStatus.Again;
    }
 
    /**
@@ -200,12 +203,43 @@ public class SubjectVoteService {
     * @param support is support
     */
    private String convertCountKey(int id, boolean support) {
-      return VOTE_CACHE_PREFIX + VOTE_COUNT + id + VOTE_CACHE_SEPARATOR + support;
+      return VOTE_COUNT_PREFIX + id + VOTE_CACHE_SEPARATOR + support;
    }
 
+   /**
+    * parse count vote dto.
+    * @param countKey for example: sr-vote-count__id__support
+    */
+   public VoteDto parseCountKey(String countKey) {
+      if(StringUtils.isEmpty(countKey) || !countKey.startsWith(VOTE_COUNT_PREFIX)) {
+         return null;
+      }
+
+      String[] parts = countKey.split(VOTE_CACHE_SEPARATOR);
+
+      if(parts.length < 3) {
+         return null;
+      }
+
+      return new VoteDto(parts[1], Boolean.parseBoolean(parts[2]));
+   }
+
+   /**
+    * Getting count keys
+    */
+   public Set<String> countKeys() {
+      return redisClient.prefixKeys(VOTE_COUNT_PREFIX);
+   }
+
+   /**
+    * Convert cached op key
+    * @param ip ip address
+    * @param id vote id
+    * @param account user account or anonymous. nullable
+    */
    private String convertOpKey(String ip, int id, String account) {
       account = Objects.toString(account, SecurityUtil.Anonymous);
-      return VOTE_CACHE_PREFIX + VOTE_OP + ip + VOTE_CACHE_SEPARATOR
+      return VOTE_OP_PREFIX + ip + VOTE_CACHE_SEPARATOR
          + account + VOTE_CACHE_SEPARATOR + id;
    }
 
@@ -214,18 +248,14 @@ public class SubjectVoteService {
    private static final Integer OPPOSE_FLAG = 0;
    private static final String VOTE_CACHE_PREFIX = "sr-vote-";
    private static final String VOTE_CACHE_SEPARATOR = "__";
-   private static final String VOTE_COUNT = "count" + VOTE_CACHE_SEPARATOR;
-   private static final String VOTE_OP = "op" + VOTE_CACHE_SEPARATOR;
+   private static final String VOTE_COUNT_PREFIX = VOTE_CACHE_PREFIX + "count" + VOTE_CACHE_SEPARATOR;
+   private static final String VOTE_OP_PREFIX = VOTE_CACHE_PREFIX + "op" + VOTE_CACHE_SEPARATOR;
 
    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
    private final RedisClient<Integer> redisClient;
    private final CustomerService customerService;
-   private final SubjectRequestService subjectRequestService;
-
-   private final SubjectRequestVoteDao voteDao;
-   private final HibernateTransactionManager transactionManager;
-   private final TransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
+   private final SubjectRequestVoteService voteService;
 
    private static final Logger LOGGER = LoggerFactory.getLogger(SubjectVoteService.class);
 }

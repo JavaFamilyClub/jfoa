@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -31,6 +32,21 @@ public class RedisClient <T extends Serializable> {
 
    public T get(String key) {
       return getValueOperations().get(key);
+   }
+
+   /**
+    * Getting keys that prefix with <code>prefix</code>
+    */
+   public Set<String> prefixKeys(String prefix) {
+      return keys(prefix + "*");
+   }
+
+   /**
+    * Getting keys.
+    * @param pattern Regular expression
+    */
+   public Set<String> keys(String pattern) {
+      return redisTemplate.keys(pattern);
    }
 
    /**

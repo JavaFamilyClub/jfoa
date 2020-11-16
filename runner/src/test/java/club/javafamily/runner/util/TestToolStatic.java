@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.Security;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public class TestToolStatic {
@@ -17,6 +19,15 @@ public class TestToolStatic {
          LOGGER.info("MessageDigest: {}", digest);
          System.out.println("MessageDigest: " + digest);
       }
+   }
+
+   @Test
+   public void dateTime() {
+      System.out.println(Instant.now().toString());
+
+      LocalDateTime dateTime = LocalDateTime.now();
+
+      System.out.println(dateTime);
    }
 
    private static final Logger LOGGER = LoggerFactory.getLogger(TestToolStatic.class);
