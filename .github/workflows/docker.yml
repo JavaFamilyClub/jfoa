@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       JF_JASYPT_ENCRYPTOR: ${{ secrets.JF_JASYPT_ENCRYPTOR }}
       JF_GITHUB_CLIENT_ID: ${{ secrets.JF_GITHUB_CLIENT_ID }}
       JF_GITHUB_CLIENT_SECRETS: ${{ secrets.JF_GITHUB_CLIENT_SECRETS }}

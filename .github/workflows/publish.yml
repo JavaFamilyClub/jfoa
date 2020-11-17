@@ -27,10 +27,12 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       JF_NEXUS_PWD: ${{ secrets.JF_NEXUS_PWD }}
 
     steps:

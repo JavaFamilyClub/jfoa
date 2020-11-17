@@ -19,10 +19,12 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       JF_JASYPT_ENCRYPTOR: ${{ secrets.JF_JASYPT_ENCRYPTOR }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
