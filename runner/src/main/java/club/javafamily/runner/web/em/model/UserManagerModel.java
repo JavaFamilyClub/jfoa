@@ -26,18 +26,18 @@ public class UserManagerModel {
    public UserManagerModel() {
    }
 
-   public UserManagerModel(List<Customer> users) {
+   public UserManagerModel(List<CustomerVO> users) {
       this.users = users;
    }
 
-   public List<Customer> getUsers() {
+   public List<CustomerVO> getUsers() {
       return users;
    }
 
-   public void setUsers(List<Customer> users) {
+   public void setUsers(List<CustomerVO> users) {
       this.users = users;
    }
 
    @ApiModelProperty("User List")
-   private List<Customer> users;
+   private List<CustomerVO> users;
 }

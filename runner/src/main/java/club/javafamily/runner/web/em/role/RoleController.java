@@ -21,6 +21,7 @@ import club.javafamily.runner.service.RoleService;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.em.model.RoleManagerModel;
+import club.javafamily.runner.web.em.model.RoleVO;
 import io.swagger.annotations.*;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class RoleController {
          .setTooltip(role.getName())
          .setPath("/" + role.getName())
          .setLeaf(true)
-         .setData(role);
+         .setData(RoleVO.buildFromDomain(role));
    }
 
    @RequiresUser
@@ -89,8 +90,10 @@ public class RoleController {
       response = Role.class
    )
    @GetMapping("/role/{id}")
-   public Role getRole(@ApiParam(name = "Role id", required = true, example = "3") @PathVariable("id") int id) {
-      return roleService.getRole(id);
+   public RoleVO getRole(@ApiParam(name = "Role id", required = true, example = "3") @PathVariable("id") int id) {
+      Role role = roleService.getRole(id);
+
+      return RoleVO.buildFromDomain(role);
    }
 
    @RequiresUser

@@ -15,15 +15,16 @@
 package club.javafamily.runner.service;
 
 import club.javafamily.runner.domain.Customer;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Date;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class CustomerServiceTests {
 
@@ -37,8 +38,14 @@ public class CustomerServiceTests {
       customer.setName("aaa");
       customer.setPassword("aaaa");
 
-      Integer result = customerService.insertCustomer(customer);
+      Integer id = customerService.insertCustomer(customer);
 
-      System.out.println(result);
+      Assertions.assertNotNull(id, "Insert customer error.");
+
+      Customer cust = customerService.getCustomer(id);
+
+      Assertions.assertNotNull(cust, "Getting inserted user is null");
+      Assertions.assertEquals(
+         cust.getName(), customer.getName(), "Getting insert user is invalid.");
    }
 }

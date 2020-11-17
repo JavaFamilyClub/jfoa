@@ -51,7 +51,14 @@ public class SubjectRequestVoteServiceTests {
 
       Integer id = subjectRequestService.insert(sr);
 
-      Assertions.assertTrue(id > 0, "Insert SubjectRequest Error");
+      Assertions.assertNotNull(id, "Insert SubjectRequest Error");
+
+      SubjectRequest getSr = subjectRequestService.get(id);
+
+      Assertions.assertNotNull(getSr, "Can't getting inserted subject request.");
+
+      Assertions.assertEquals(sr.getDescription(), getSr.getDescription(),
+         "Getting subject request is not consistent.");
    }
 
    @RepeatedTest(2)

@@ -19,6 +19,7 @@ import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.web.em.model.CustomerVO;
 import club.javafamily.runner.web.em.model.UserManagerModel;
 import io.swagger.annotations.*;
 import org.apache.shiro.authz.annotation.RequiresUser;
@@ -26,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(SecurityUtil.API_VERSION)
@@ -46,9 +48,12 @@ public class UsersController {
    @GetMapping("/users")
    public UserManagerModel getUsers() {
       List<Customer> customers = customerService.getCustomers();
-      UserManagerModel model = new UserManagerModel(customers);
 
-      return model;
+      List<CustomerVO> voList = customers.stream()
+         .map(CustomerVO::buildFromDomain)
+         .collect(Collectors.toList());
+
+      return new UserManagerModel(voList);
    }
 
    @RequiresUser
