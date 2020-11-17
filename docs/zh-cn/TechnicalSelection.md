@@ -17,6 +17,7 @@
 - Junit5(Junit 测试框架)
 - Urlrewritefilter(URL重写过滤器)
 - iText(PDF 导出)
+- OAuth 2.0(GitHub 等第三方登录)
 
 ## 2 `Web`
 - Angular 10+(前端基础框架)

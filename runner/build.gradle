@@ -51,6 +51,8 @@ dependencies {
    implementation 'org.springframework.boot:spring-boot-starter-amqp'
    // WebSocket
    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+   // Quartz
+   implementation 'org.springframework.boot:spring-boot-starter-quartz'
 
    // template
    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

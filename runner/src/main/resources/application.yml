@@ -53,8 +53,15 @@ spring:
       host: javafamily.club
       port: 6379
       database: 0
+   # Message
    messages:
       basename: i18n.messages
+   # Quartz
+   quartz:
+      scheduler-name: JavaFamily-Scheduler
+      job-store-type: jdbc
+      overwriteExistingJobs: true
+      wait-for-jobs-to-complete-on-shutdown: true
 
 ds:
    # Hibernate config

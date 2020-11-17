@@ -17,6 +17,7 @@
 - Junit5
 - Urlrewritefilter
 - iText
+- OAuth 2.0
 
 ## 2 `Web`
 - Angular 10+
