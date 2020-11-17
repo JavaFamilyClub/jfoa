@@ -67,6 +67,11 @@ public class GithubLoginController {
    }
 
    private void authentication(AccessTokenResponse accessTokenResponse) {
+      if(accessTokenResponse == null) {
+         LOGGER.error("AccessTokenResponse is null.");
+         return;
+      }
+
       GithubUser user = githubProvider.getUser(accessTokenResponse);
 
       String email = user.getEmail();

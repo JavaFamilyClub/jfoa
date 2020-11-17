@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.rest.github;
 
+import club.javafamily.runner.controller.model.OAuthAuthenticationException;
 import club.javafamily.runner.dto.*;
 import club.javafamily.runner.properties.OAuthProperties;
 import club.javafamily.runner.rest.QueryEngine;
@@ -47,7 +48,7 @@ public class GithubProvider implements QueryEngine<GithubUser> {
       params.put("redirect_uri", oAuthProperties.getCallback());
       params.put("scope", "user:email");
       params.put("response_type", "code");
-      params.put("state", "1");
+      params.put("state", "1"); // TODO generate state
 
       return this.getAuthorizeUrl(params);
    }
@@ -69,6 +70,11 @@ public class GithubProvider implements QueryEngine<GithubUser> {
 
    public AccessTokenResponse queryAccessToken(String code, String state) {
       assert oAuthProperties.getGithub() != null;
+
+      if(!"1".equals(state)) {
+         throw new OAuthAuthenticationException("OAuth Authentication State is not match.");
+      }
+
       AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
       accessTokenDTO.setClient_id(this.oAuthProperties.getGithub().getClientId());
       accessTokenDTO.setClient_secret(this.oAuthProperties.getGithub().getClientSecrets());
