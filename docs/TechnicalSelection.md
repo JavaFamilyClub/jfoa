@@ -18,6 +18,7 @@
 - Urlrewritefilter
 - iText
 - OAuth 2.0
+- Quartz
 
 ## 2 `Web`
 - Angular 10+

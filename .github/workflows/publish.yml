@@ -12,11 +12,13 @@ on:
     branches: [ master ]
     paths-ignore:
       - '**.md'
+      - 'docs/**/*'
       - '.github/**/*'
   pull_request:
     branches: [ master ]
     paths-ignore:
       - '**.md'
+      - 'docs/**/*'
       - '.github/**/*'
   release:
     types: [published, edited]
