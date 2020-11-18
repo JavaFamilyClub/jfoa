@@ -33,11 +33,12 @@ public class QuartzConfig {
    @Bean
    public Trigger syncRedisToDbJobTrigger() {
       CronScheduleBuilder cron
-         = CronScheduleBuilder.cronSchedule("15 * * * * ?");
+         = CronScheduleBuilder.cronSchedule("15 * * * * ?")
+         .withMisfireHandlingInstructionDoNothing();
 
       return TriggerBuilder.newTrigger()
          .forJob(syncRedisToDbJobDetail())
-         .withIdentity(SyncRedisAndDbJob.class.getName(), JF_INTERNAL_GROUP)//给Trigger起个名字
+         .withIdentity(SyncRedisAndDbJob.class.getName(), JF_INTERNAL_GROUP)
          .withSchedule(cron)
          .build();
    }

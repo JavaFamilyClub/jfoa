@@ -62,6 +62,7 @@ spring:
       job-store-type: jdbc
       overwriteExistingJobs: true
       wait-for-jobs-to-complete-on-shutdown: true
+      startupDelay: 10
 
 ds:
    # Hibernate config
@@ -91,6 +92,17 @@ ds:
 # logging to file
 logging:
    path: ./jfLogs
+   level:
+      root: info
+      club.javafamily: info
+
+# Server
+server:
+   max-http-header-size: 1MB
+   tomcat:
+      uri-encoding: UTF-8
+      max-http-post-size: 3MB
+      max-swallow-size: 3MB
 
 ---
 

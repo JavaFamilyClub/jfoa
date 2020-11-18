@@ -32,9 +32,9 @@ import java.util.Set;
 public class SyncDatabaseSchedulerTask {
 
    /**
-    * Synchronize Redis to DB every day at 3:30 AM
+    * Synchronize Redis to DB every day at 3:30:00 AM
     */
-   @Scheduled(cron = "* 30 3 * * ?")
+   @Scheduled(cron = "0 30 3 * * ?")
    public void syncRedisToDb() {
       LOGGER.info("Start Sync Redis to DB at {}", LocalDateTime.now());
 

@@ -23,6 +23,6 @@ import java.time.LocalDateTime;
 public class SyncRedisAndDbJob extends QuartzJobBean {
    @Override
    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-      System.out.println("---------------------" + LocalDateTime.now());
+      System.out.println("---------Execute Quartz Job------------" + LocalDateTime.now());
    }
 }
