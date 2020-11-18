@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.config;
 
-import club.javafamily.runner.tasks.SyncRedisAndDbJob;
+import club.javafamily.runner.tasks.SyncDatabaseJob;
 import org.quartz.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +24,8 @@ public class QuartzConfig {
 
    @Bean
    public JobDetail syncRedisToDbJobDetail() {
-      return JobBuilder.newJob(SyncRedisAndDbJob.class)
-         .withIdentity(SyncRedisAndDbJob.class.getName(), JF_INTERNAL_GROUP)
+      return JobBuilder.newJob(SyncDatabaseJob.class)
+         .withIdentity(SyncDatabaseJob.class.getName(), JF_INTERNAL_GROUP)
          .storeDurably()
          .build();
    }
@@ -33,12 +33,12 @@ public class QuartzConfig {
    @Bean
    public Trigger syncRedisToDbJobTrigger() {
       CronScheduleBuilder cron
-         = CronScheduleBuilder.cronSchedule("15 * * * * ?")
+         = CronScheduleBuilder.cronSchedule("0 30 3 * * ?")
          .withMisfireHandlingInstructionDoNothing();
 
       return TriggerBuilder.newTrigger()
          .forJob(syncRedisToDbJobDetail())
-         .withIdentity(SyncRedisAndDbJob.class.getName(), JF_INTERNAL_GROUP)
+         .withIdentity(SyncDatabaseJob.class.getName(), JF_INTERNAL_GROUP)
          .withSchedule(cron)
          .build();
    }

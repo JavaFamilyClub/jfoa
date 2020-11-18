@@ -155,7 +155,7 @@ processResources {
 
 task cleanAll(type: Delete, dependsOn: [clean]) {
    group 'build'
-   delete = ['out']
+   delete = [ 'out', 'logs' ]
 }
 
 task server() {

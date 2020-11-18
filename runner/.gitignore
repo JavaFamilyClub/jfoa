@@ -44,5 +44,6 @@ out/
 /build
 
 # Log file
+/logs
 *.log
 *.log.gz

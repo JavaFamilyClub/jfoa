@@ -19,23 +19,21 @@ import club.javafamily.runner.domain.SubjectRequestVote;
 import club.javafamily.runner.service.SubjectRequestService;
 import club.javafamily.runner.service.SubjectRequestVoteService;
 import club.javafamily.runner.web.portal.service.SubjectVoteService;
+import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Component
-public class SyncDatabaseSchedulerTask {
+@PersistJobDataAfterExecution
+@DisallowConcurrentExecution
+public class SyncDatabaseJob extends QuartzJobBean {
 
-   /**
-    * Synchronize Redis to DB every day at 3:30:00 AM
-    */
-   @Scheduled(cron = "0 30 3 * * ?")
-   public void syncRedisToDb() {
+   @Override
+   protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
       LOGGER.info("Start Sync Redis to DB at {}", LocalDateTime.now());
 
       Set<Integer> redisIds = voteService.countIds();
@@ -98,9 +96,9 @@ public class SyncDatabaseSchedulerTask {
       LOGGER.info("Complete Sync Redis to DB at {}", LocalDateTime.now());
    }
 
-   public SyncDatabaseSchedulerTask(SubjectVoteService voteService,
-                                    SubjectRequestVoteService voteDbService,
-                                    SubjectRequestService subjectRequestService)
+   public SyncDatabaseJob(SubjectVoteService voteService,
+                          SubjectRequestVoteService voteDbService,
+                          SubjectRequestService subjectRequestService)
    {
       this.voteService = voteService;
       this.voteDbService = voteDbService;
@@ -111,5 +109,5 @@ public class SyncDatabaseSchedulerTask {
    private final SubjectRequestVoteService voteDbService;
    private final SubjectRequestService subjectRequestService;
 
-   private static final Logger LOGGER = LoggerFactory.getLogger(SyncDatabaseSchedulerTask.class);
+   private static final Logger LOGGER = LoggerFactory.getLogger(SyncDatabaseJob.class);
 }

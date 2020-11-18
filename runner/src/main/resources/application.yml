@@ -59,10 +59,12 @@ spring:
    # Quartz
    quartz:
       scheduler-name: JavaFamily-Scheduler
-      job-store-type: jdbc
+      job-store-type: memory
       overwriteExistingJobs: true
       wait-for-jobs-to-complete-on-shutdown: true
       startupDelay: 10
+      jdbc:
+         initialize-schema: never
 
 ds:
    # Hibernate config
@@ -91,7 +93,7 @@ ds:
 
 # logging to file
 logging:
-   path: ./jfLogs
+   file: ./logs/jfoa-log.log
    level:
       root: info
       club.javafamily: info
@@ -171,6 +173,10 @@ jfoa:
 spring:
    profiles: dev
 
+   # Redis
+   redis:
+      database: 8
+
    # rest template
    http:
       log-request-details: true
@@ -219,6 +225,10 @@ server:
 
 spring:
    profiles: test
+
+   # Redis
+   redis:
+      database: 15
 
    # Mail Config
    mail:
