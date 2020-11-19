@@ -48,6 +48,10 @@ public class SyncDatabaseJob extends QuartzJobBean {
 
          if(CollectionUtils.isEmpty(redisIds)) {
             LOGGER.info("Empty redis ids.");
+
+            params.put("success", true);
+            params.put("msg", "Empty redis ids.");
+
             return;
          }
 
@@ -107,7 +111,7 @@ public class SyncDatabaseJob extends QuartzJobBean {
       }
       catch(Exception e) {
          params.put("success", false);
-         params.put("errorMsg", e.getMessage());
+         params.put("msg", e.getMessage());
 
          throw e;
       }

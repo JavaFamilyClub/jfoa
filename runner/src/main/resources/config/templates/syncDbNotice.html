@@ -9,16 +9,18 @@
 <body>
     <div style="width: 100%; height: 100%; margin: 5px; padding: 0;">
 
-        <div>Synchronous Redis to DB Result:
-          <strong style="color: lawngreen" th:if="${success}">Success!</strong>
+        <h3>Synchronous Redis to DB Result:
+          <strong style="color: green" th:if="${success}">Success!</strong>
 
           <strong style="color: red" th:unless="${success}">Failed!</strong>
+        </h3>
 
-          <div th:unless="${success}">
-            <strong>Reason:</strong>
+        <div th:if="${msg} != null">
+          <strong>Message:</strong>
 
-            <div th:text="${errorMsg}"></div>
-          </div>
+          <br>
+
+          <div th:text="${msg}"></div>
         </div>
 
         <hr>
