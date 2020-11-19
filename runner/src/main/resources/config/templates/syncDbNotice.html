@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaFamily OA Sync Result</title>
+    <meta name="format-detection" content="telephone=no,email=no">
+    <link rel="icon" type="image/x-icon" href="../../public/jfoa-favicon.ico" th:href="@{../../public/jfoa-icon.ico}">
+</head>
+<body>
+    <div style="width: 100%; height: 100%; margin: 5px; padding: 0;">
+
+        <div>Synchronous Redis to DB Result:
+          <strong style="color: lawngreen" th:if="${success}">Success!</strong>
+
+          <strong style="color: red" th:unless="${success}">Failed!</strong>
+
+          <div th:unless="${success}">
+            <strong>Reason:</strong>
+
+            <div th:text="${errorMsg}"></div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div style="margin-top: 30px">
+            <div><strong>-- Java Family</strong></div>
+            <div><small>javafamily.club@outlook.com</small></div>
+        </div>
+    </div>
+</body>
+</html>
