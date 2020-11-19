@@ -38,11 +38,9 @@ public class MailAuthorController {
    }
 
    @Autowired
-   public MailAuthorController(CustomerService customerService, EmailService emailService) {
-      this.customerService = customerService;
+   public MailAuthorController(EmailService emailService) {
       this.emailService = emailService;
    }
 
-   private final CustomerService customerService;
    private final EmailService emailService;
 }
