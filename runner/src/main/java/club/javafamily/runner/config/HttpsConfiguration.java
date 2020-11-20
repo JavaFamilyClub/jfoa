@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.config;
 
+import club.javafamily.runner.common.constants.Profiles;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
@@ -25,7 +26,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.context.annotation.*;
 
 @Configuration
-@Profile("prod")
+@Profile(Profiles.PRODUCTION)
 public class HttpsConfiguration {
 
    /**

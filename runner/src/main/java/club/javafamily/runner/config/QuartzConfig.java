@@ -14,12 +14,13 @@
 
 package club.javafamily.runner.config;
 
+import club.javafamily.runner.common.constants.Profiles;
 import club.javafamily.runner.tasks.SyncDatabaseJob;
 import org.quartz.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 
 @Configuration
+@Profile({ Profiles.PRODUCTION, Profiles.DEVELOPMENT })
 public class QuartzConfig {
 
    @Bean
