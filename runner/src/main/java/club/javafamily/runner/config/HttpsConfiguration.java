@@ -33,12 +33,12 @@ public class HttpsConfiguration {
     */
    @Bean
    public TomcatServletWebServerFactory servletContainer(){
-      TomcatServletWebServerFactory tomcat=new TomcatServletWebServerFactory(){
+      TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory(){
          @Override
          protected void postProcessContext(Context context) {
             SecurityConstraint securityConstraint=new SecurityConstraint();
             securityConstraint.setUserConstraint("CONFIDENTIAL"); //confidential
-            SecurityCollection collection=new SecurityCollection();
+            SecurityCollection collection = new SecurityCollection();
             collection.addPattern("/*");
             securityConstraint.addCollection(collection);
             context.addConstraint(securityConstraint);
