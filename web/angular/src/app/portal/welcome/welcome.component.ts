@@ -12,7 +12,8 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Tool } from "../../common/util/tool";
 
 @Component({
    selector: "portal-welcome",
@@ -20,8 +21,14 @@ import { Component, OnInit } from "@angular/core";
    styleUrls: ["welcome.component.scss"]
 })
 export class WelcomeComponent implements OnInit {
+   @ViewChild("welcomeFrame", {static: true}) welcomeFrame: ElementRef;
 
    ngOnInit(): void {
+      if(!!this.welcomeFrame) {
+         this.welcomeFrame.nativeElement.setAttribute("src", Tool.DOC_URL);
+      }
+      else {
+         console.warn("Welcome page loadding failed.");
+      }
    }
-
 }
