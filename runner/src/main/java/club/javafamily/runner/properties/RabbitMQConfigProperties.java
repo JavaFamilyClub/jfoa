@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.config;
+package club.javafamily.runner.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

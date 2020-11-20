@@ -13,6 +13,11 @@ jfoa:
          client-id: ${JF_GITHUB_CLIENT_ID}
          client-secrets: ${JF_GITHUB_CLIENT_SECRETS}
 
+   thread:
+      maxSize: 10
+      waitTasksComplete: true
+      prefix: "jfoa-"
+
    http:
       maxTotalConnect: 100
       maxConnectPerRoute: 40

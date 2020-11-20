@@ -2,13 +2,18 @@
    "groups": [
       {
          "name": "jfoa.amqp",
-         "type": "club.javafamily.runner.config.RabbitMQConfigProperties",
-         "sourceType": "club.javafamily.runner.config.RabbitMQConfigProperties"
+         "type": "club.javafamily.runner.properties.RabbitMQConfigProperties",
+         "sourceType": "club.javafamily.runner.properties.RabbitMQConfigProperties"
       },
       {
          "name": "jfoa.oauth",
          "type": "club.javafamily.runner.properties.OAuthProperties",
          "sourceType": "club.javafamily.runner.properties.OAuthProperties"
+      },
+      {
+         "name": "jfoa.thread",
+         "type": "club.javafamily.runner.properties.ThreadPoolProperties",
+         "sourceType": "club.javafamily.runner.properties.ThreadPoolProperties"
       }
    ],
    "properties": [
@@ -16,8 +21,31 @@
          "name": "jfoa.amqp.override",
          "type": "java.lang.Boolean",
          "description": "Description for jfoa.amqp.override.",
-         "sourceType": "club.javafamily.runner.config.RabbitMQConfigProperties",
+         "sourceType": "club.javafamily.runner.properties.RabbitMQConfigProperties",
          "defaultValue": false
+      },
+      {
+         "name": "jfoa.thread.maxSize",
+         "type": "java.lang.Integer",
+         "description": "Description for jfoa.thread.maxSize.",
+         "defaultValue": 20
+      },
+      {
+         "name": "jfoa.thread.waitTasksComplete",
+         "type": "java.lang.Boolean",
+         "description": "Description for jfoa.thread.waitTasksComplete.",
+         "defaultValue": true
+      },
+      {
+         "name": "jfoa.thread.prefix",
+         "type": "java.lang.String",
+         "description": "Description for jfoa.thread.prefix.",
+         "defaultValue": "jfoa-"
+      },
+      {
+         "name": "jfoa.thread.corePoolSize",
+         "type": "java.lang.Integer",
+         "description": "Description for jfoa.thread.corePoolSize."
       },
       {
          "name": "jfoa.oauth.github.client-id",
