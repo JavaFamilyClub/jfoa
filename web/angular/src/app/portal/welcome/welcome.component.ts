@@ -28,7 +28,7 @@ export class WelcomeComponent implements OnInit {
          this.welcomeFrame.nativeElement.setAttribute("src", Tool.DOC_URL);
       }
       else {
-         console.warn("Welcome page loadding failed.");
+         console.warn("Welcome page loading failed.");
       }
    }
 }
