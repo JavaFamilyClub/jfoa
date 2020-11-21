@@ -16,8 +16,11 @@ package club.javafamily.runner.config;
 
 import club.javafamily.runner.common.constants.Profiles;
 import club.javafamily.runner.tasks.SyncDatabaseJob;
+import club.javafamily.runner.util.Tool;
 import org.quartz.*;
 import org.springframework.context.annotation.*;
+
+import java.util.TimeZone;
 
 @Configuration
 @Profile({ Profiles.PRODUCTION, Profiles.DEVELOPMENT })
@@ -35,6 +38,7 @@ public class QuartzConfig {
    public Trigger syncRedisToDbJobTrigger() {
       CronScheduleBuilder cron
          = CronScheduleBuilder.cronSchedule("0 30 3 * * ?")
+         .inTimeZone(TimeZone.getTimeZone(Tool.DEFAULT_TIME_ZONE))
          .withMisfireHandlingInstructionDoNothing();
 
       return TriggerBuilder.newTrigger()
