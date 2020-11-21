@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class LogDao extends ExportableDao<Log, Integer> {
    @Override
-   protected Class<Log> getClazz() {
+   public Class<Log> getClazz() {
       return Log.class;
    }
 }

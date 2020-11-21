@@ -26,6 +26,7 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatTreeModule } from "@angular/material/tree";
 import { TranslateModule } from "@ngx-translate/core";
+import { NgxEchartsModule } from "ngx-echarts";
 import { MatMessageDialog } from "./dialog/mat-message-dialog";
 import { ExportDialog } from "./export-dialog/export-dialog";
 import { HelpUrlService } from "./help-link/help-url.service";
@@ -63,7 +64,10 @@ import { InputNameDialogComponent } from "./dialog/input-name-dialog/input-name-
       MatSortModule,
       TranslateModule,
       MatTreeModule,
-      MatIconModule
+      MatIconModule,
+      NgxEchartsModule.forRoot({
+         echarts: () => import("echarts")
+      })
    ],
    declarations: [
       ...MODULE_COMPONENTS,

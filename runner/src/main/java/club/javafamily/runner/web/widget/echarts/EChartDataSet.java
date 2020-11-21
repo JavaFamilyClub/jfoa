@@ -12,24 +12,26 @@
  * person.
  */
 
-package club.javafamily.runner.service;
-
-import club.javafamily.runner.domain.SubjectRequest;
+package club.javafamily.runner.web.widget.echarts;
 
 import java.util.List;
 
-public interface SubjectRequestService extends TableLensSupport {
+public class EChartDataSet {
 
-   /**
-    * get all subject requests
-    */
-   List<SubjectRequest> getList();
+   public EChartDataSet() {
+   }
 
-   SubjectRequest get(Integer id);
+   public EChartDataSet(List<List<Object>> source) {
+      this.source = source;
+   }
 
-   /**
-    * insert a subject requests
-    */
-   Integer insert(SubjectRequest subjectRequest);
+   public List<List<Object>> getSource() {
+      return source;
+   }
 
+   public void setSource(List<List<Object>> source) {
+      this.source = source;
+   }
+
+   private List<List<Object>> source;
 }

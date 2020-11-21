@@ -16,6 +16,7 @@ package club.javafamily.runner.service.impl;
 
 import club.javafamily.runner.annotation.Audit;
 import club.javafamily.runner.annotation.AuditObject;
+import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.dao.SubjectRequestDao;
 import club.javafamily.runner.domain.SubjectRequest;
 import club.javafamily.runner.enums.ResourceEnum;
@@ -32,6 +33,12 @@ public class SubjectRequestServiceImpl implements SubjectRequestService {
    @Autowired
    public SubjectRequestServiceImpl(SubjectRequestDao subjectRequestDao) {
       this.subjectRequestDao = subjectRequestDao;
+   }
+
+   @Transactional(readOnly = true)
+   @Override
+   public TableLens getTableLens() {
+      return subjectRequestDao.getTableLens();
    }
 
    @Transactional(readOnly = true)

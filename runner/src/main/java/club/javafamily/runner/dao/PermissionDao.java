@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PermissionDao extends BaseDao<Permission, Integer>  {
    @Override
-   protected Class<Permission> getClazz() {
+   public Class<Permission> getClazz() {
       return Permission.class;
    }
 }

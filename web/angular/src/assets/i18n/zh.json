@@ -1,5 +1,6 @@
 {
    "Support": "支持",
+   "Oppose": "反对",
    "Home": "主页",
    "ID": "编号",
    "Close": "关闭",
@@ -7,6 +8,7 @@
    "OK": "确定",
    "Ok": "确定",
    "Ip": "IP 地址",
+   "Votes": "票数",
    "subjectList": "主题列表",
    "Create": "创建",
    "Loading": "加载中",
@@ -205,7 +207,9 @@
       "createUser": "创建用户",
       "createDate": "创建日期",
       "noPermission": "您没有权限执行该操作",
-      "fieldRequired": "该字段是必填项"
+      "fieldRequired": "该字段是必填项",
+      "subjectRequest": "主题请求",
+      "subjectRequestManager": "主题请求管理"
    },
    "dialog": {
       "inputName": {

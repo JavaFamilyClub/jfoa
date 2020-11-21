@@ -24,7 +24,7 @@ import javax.persistence.criteria.*;
 public class CustomerDao extends BaseDao<Customer, Integer> {
 
    @Override
-   protected Class<Customer> getClazz() {
+   public Class<Customer> getClazz() {
       return Customer.class;
    }
 

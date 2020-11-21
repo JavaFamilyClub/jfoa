@@ -12,24 +12,25 @@
  * person.
  */
 
-package club.javafamily.runner.service;
+package club.javafamily.runner.util;
 
-import club.javafamily.runner.domain.SubjectRequest;
+import org.apache.commons.lang3.EnumUtils;
 
-import java.util.List;
+public final class EnumUtil {
 
-public interface SubjectRequestService extends TableLensSupport {
+   public static <T extends Enum<T>> T matchEnum(Class<T> clazz,
+                                              String parseStr)
+   {
+      return matchEnum(clazz, parseStr, null);
+   }
 
-   /**
-    * get all subject requests
-    */
-   List<SubjectRequest> getList();
+   public static <T extends Enum<T>> T matchEnum(Class<T> clazz,
+                                                 String enumName,
+                                                 T defaultEnum)
+   {
+      T anEnum = EnumUtils.getEnum(clazz, enumName);
 
-   SubjectRequest get(Integer id);
-
-   /**
-    * insert a subject requests
-    */
-   Integer insert(SubjectRequest subjectRequest);
+      return anEnum != null ? anEnum : defaultEnum;
+   }
 
 }

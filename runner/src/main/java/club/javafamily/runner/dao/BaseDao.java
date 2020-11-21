@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R> {
+public abstract class BaseDao<T, R extends Serializable> implements TableLensDao<T, R> {
 
    @Autowired
    private SessionFactory sessionFactory;
@@ -23,7 +23,7 @@ public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R
       return null;
    }
 
-   protected abstract Class<T> getClazz();
+   public abstract Class<T> getClazz();
 
    @Override
    public T get(R id) {
@@ -86,8 +86,6 @@ public abstract class BaseDao<T, R extends Serializable> implements CURDDao<T, R
          default:
             return criteriaBuilder.equal(path, value);
       }
-
-
    }
 
    @Override

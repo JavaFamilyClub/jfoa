@@ -1,5 +1,8 @@
 package club.javafamily.runner.util;
 
+import club.javafamily.runner.enums.ChartType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +31,13 @@ public class TestToolStatic {
       LocalDateTime dateTime = LocalDateTime.now();
 
       System.out.println(dateTime);
+   }
+
+   @Test
+   public void jackson() throws Exception {
+      ObjectMapper mapper = new ObjectMapper();
+
+      Assertions.assertEquals("\"bar\"", mapper.writeValueAsString(ChartType.bar));
    }
 
    private static final Logger LOGGER = LoggerFactory.getLogger(TestToolStatic.class);

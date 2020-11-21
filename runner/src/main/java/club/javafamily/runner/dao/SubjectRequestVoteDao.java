@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SubjectRequestVoteDao extends BaseDao<SubjectRequestVote, Integer> {
    @Override
-   protected Class<SubjectRequestVote> getClazz() {
+   public Class<SubjectRequestVote> getClazz() {
       return SubjectRequestVote.class;
    }
 }

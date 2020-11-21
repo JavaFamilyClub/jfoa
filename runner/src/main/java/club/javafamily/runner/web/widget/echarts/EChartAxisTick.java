@@ -12,24 +12,24 @@
  * person.
  */
 
-package club.javafamily.runner.service;
+package club.javafamily.runner.web.widget.echarts;
 
-import club.javafamily.runner.domain.SubjectRequest;
+public class EChartAxisTick {
 
-import java.util.List;
+   private boolean alignWithLabel = true;
 
-public interface SubjectRequestService extends TableLensSupport {
+   public EChartAxisTick() {
+   }
 
-   /**
-    * get all subject requests
-    */
-   List<SubjectRequest> getList();
+   public EChartAxisTick(boolean alignWithLabel) {
+      this.alignWithLabel = alignWithLabel;
+   }
 
-   SubjectRequest get(Integer id);
+   public boolean isAlignWithLabel() {
+      return alignWithLabel;
+   }
 
-   /**
-    * insert a subject requests
-    */
-   Integer insert(SubjectRequest subjectRequest);
-
+   public void setAlignWithLabel(boolean alignWithLabel) {
+      this.alignWithLabel = alignWithLabel;
+   }
 }

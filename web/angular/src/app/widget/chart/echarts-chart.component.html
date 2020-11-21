@@ -1,0 +1,6 @@
+<div *ngIf="!!chartModel">
+  <div echarts class="chartRegion"
+       [initOpts]="chartModel.initOpts"
+       [options]="chartModel.options"></div>
+</div>
+

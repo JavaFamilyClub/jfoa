@@ -1,6 +1,16 @@
 package club.javafamily.runner.common.table.lens;
 
+import club.javafamily.runner.annotation.TableLensColumn;
+import org.springframework.expression.Expression;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.util.StringUtils;
+
 import java.awt.*;
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.*;
 
 public class LensTool {
 
@@ -34,4 +44,45 @@ public class LensTool {
          font.getSize());
    }
 
+   public static Field[] processTableLensColumn(Field[] fields) {
+      List<Field> fieldList = Arrays.asList(fields);
+      Iterator<Field> iterator = fieldList.iterator();
+      Field field;
+
+      while(iterator.hasNext()) {
+         field = iterator.next();
+         field.setAccessible(true);
+         TableLensColumn column = field.getAnnotation(TableLensColumn.class);
+
+         if(column == null) {
+            continue;
+         }
+
+         if(column.ignore()) {
+            iterator.remove();
+         }
+      }
+
+      return fieldList.toArray(new Field[0]);
+   }
+
+   public static Object getFieldValue(Field field, Object targetObj) {
+      field.setAccessible(true);
+      Object value = ReflectionUtils.getField(field, targetObj);
+      TableLensColumn column = field.getAnnotation(TableLensColumn.class);
+
+      if(value == null || column == null || StringUtils.isEmpty(column.value())) {
+         return value;
+      }
+
+      String expression = column.value();
+
+      StandardEvaluationContext context = new StandardEvaluationContext(value);
+      Expression expr = LensTool.spelParser.parseExpression(expression);
+      value = expr.getValue(context, column.valueType());
+
+      return value;
+   }
+
+   private static final SpelExpressionParser spelParser = new SpelExpressionParser();
 }

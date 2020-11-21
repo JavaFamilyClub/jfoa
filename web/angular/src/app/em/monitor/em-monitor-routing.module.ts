@@ -18,6 +18,7 @@ import { SearchResultResolver } from "../search-result/search-result-resolver.se
 import { SearchResultComponent } from "../search-result/search-result.component";
 import { AuditView } from "./audit/audit-view.component";
 import { EmMonitorComponent } from "./em-monitor.component";
+import { SubjectRequestMonitor } from "./subject-request-monitor/subject-request-monitor.component";
 
 const appRoutes: Routes = [
    {
@@ -27,6 +28,10 @@ const appRoutes: Routes = [
          {
             path: "audit",
             component: AuditView
+         },
+         {
+           path: "subject-request",
+           component: SubjectRequestMonitor
          },
          {
             path: "search",

@@ -20,6 +20,7 @@
  */
 
 import { Type } from "@angular/core";
+import { EchartsChartComponent } from "./chart/echarts-chart.component";
 import { MatMessageDialog } from "./dialog/mat-message-dialog";
 import { ExportDialog } from "./export-dialog/export-dialog";
 import { ActionsContextmenuComponent } from "./fixed-dropdown/actions-contextmenu.component";
@@ -59,5 +60,6 @@ export const MODULE_COMPONENTS: Type<any>[] = [
    SplitPaneComponent,
    TooltipComponent,
    TreeNodeComponent,
-   MatTreeViewComponent
+   MatTreeViewComponent,
+   EchartsChartComponent
 ];

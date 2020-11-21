@@ -12,7 +12,7 @@
  * person.
  */
 
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Tool } from "../../common/util/tool";
 
 @Component({
@@ -20,10 +20,13 @@ import { Tool } from "../../common/util/tool";
    templateUrl: "welcome.component.html",
    styleUrls: ["welcome.component.scss"]
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent implements OnInit, AfterViewInit {
    @ViewChild("welcomeFrame", {static: true}) welcomeFrame: ElementRef;
 
    ngOnInit(): void {
+   }
+
+   ngAfterViewInit(): void {
       if(!!this.welcomeFrame) {
          this.welcomeFrame.nativeElement.setAttribute("src", Tool.DOC_URL);
       }

@@ -12,24 +12,24 @@
  * person.
  */
 
-package club.javafamily.runner.service;
+package club.javafamily.runner.annotation;
 
-import club.javafamily.runner.domain.SubjectRequest;
+import java.lang.annotation.*;
 
-import java.util.List;
-
-public interface SubjectRequestService extends TableLensSupport {
-
-   /**
-    * get all subject requests
-    */
-   List<SubjectRequest> getList();
-
-   SubjectRequest get(Integer id);
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+public @interface TableLensColumn {
 
    /**
-    * insert a subject requests
+    * get column value for object provider spel expression
     */
-   Integer insert(SubjectRequest subjectRequest);
+   String value() default "";
 
+   Class<?> valueType() default String.class;
+
+   /**
+    * ignore field.
+    */
+   boolean ignore() default false;
 }

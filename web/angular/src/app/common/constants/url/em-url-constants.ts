@@ -59,4 +59,8 @@ export class EmUrlConstants {
     */
    public static readonly ROLES_TREE = "/roles/tree";
 
+   /**
+    * Getting subject request chart model
+    */
+   public static readonly SUBJECT_REQUEST_CHART = "/subject-request/chart";
 }

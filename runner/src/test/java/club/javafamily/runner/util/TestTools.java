@@ -14,7 +14,10 @@
 
 package club.javafamily.runner.util;
 
+import club.javafamily.runner.enums.ChartType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jasypt.encryption.StringEncryptor;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +31,21 @@ public class TestTools {
    @Autowired
    private StringEncryptor encryption;
 
+   @Autowired
+   private ObjectMapper objectMapper;
+
    @Test
    public void generatorEnvPassword() {
       String password = "";
 
       System.out.println(encryption.encrypt(password));
+   }
+
+   @Test
+   public void jackson() throws Exception {
+      ObjectMapper mapper = new ObjectMapper();
+
+      Assertions.assertEquals("\"bar\"", mapper.writeValueAsString(ChartType.bar));
    }
 
 }

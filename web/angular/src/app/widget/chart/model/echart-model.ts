@@ -12,24 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.service;
-
-import club.javafamily.runner.domain.SubjectRequest;
-
-import java.util.List;
-
-public interface SubjectRequestService extends TableLensSupport {
-
-   /**
-    * get all subject requests
-    */
-   List<SubjectRequest> getList();
-
-   SubjectRequest get(Integer id);
-
-   /**
-    * insert a subject requests
-    */
-   Integer insert(SubjectRequest subjectRequest);
-
+export interface EChartModel {
+   initOpts: any;
+   options: any;
 }

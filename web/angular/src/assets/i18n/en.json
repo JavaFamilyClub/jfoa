@@ -1,5 +1,6 @@
 {
    "Support": "Support",
+   "Oppose": "Oppose",
    "Home": "Home",
    "ID": "ID",
    "Close": "Close",
@@ -7,6 +8,7 @@
    "OK": "OK",
    "Ok": "Ok",
    "Ip": "Ip",
+   "Votes": "Votes",
    "subjectList": "Subject List",
    "Create": "Create",
    "Loading": "Loading",
@@ -205,7 +207,9 @@
       "createUser": "Create User",
       "createDate": "Create Date",
       "noPermission": "You do not have permission to perform this operation",
-      "fieldRequired": "This field is required"
+      "fieldRequired": "This field is required",
+      "subjectRequest": "Subject Request",
+      "subjectRequestManager": "Subject Request Manager"
    },
    "dialog": {
       "inputName": {

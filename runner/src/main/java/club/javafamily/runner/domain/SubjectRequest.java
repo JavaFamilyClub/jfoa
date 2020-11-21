@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.domain;
 
+import club.javafamily.runner.annotation.TableLensColumn;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class SubjectRequest implements Serializable {
    private String subject;
    private String description;
 
+   @TableLensColumn("getName()")
    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
    @ManyToOne(targetEntity = Customer.class, fetch = FetchType.EAGER)
    private Customer customer;

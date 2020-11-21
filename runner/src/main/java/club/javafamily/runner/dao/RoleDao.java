@@ -20,7 +20,7 @@ public class RoleDao extends BaseDao<Role, Integer> {
   }
 
   @Override
-  protected Class<Role> getClazz() {
+  public Class<Role> getClazz() {
     return Role.class;
   }
 }

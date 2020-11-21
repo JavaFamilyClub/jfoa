@@ -28,15 +28,18 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { TranslateModule } from "@ngx-translate/core";
+import { WidgetModule } from "../../widget/widget.module";
 import { SearchResultModule } from "../search-result/search-result.module";
 import { AuditView } from "./audit/audit-view.component";
 import { EmMonitorRoutingModule } from "./em-monitor-routing.module";
 import { EmMonitorComponent } from "./em-monitor.component";
+import { SubjectRequestMonitor } from "./subject-request-monitor/subject-request-monitor.component";
 
 @NgModule({
    declarations: [
       EmMonitorComponent,
       AuditView,
+      SubjectRequestMonitor,
    ],
    imports: [
       CommonModule,
@@ -56,7 +59,8 @@ import { EmMonitorComponent } from "./em-monitor.component";
       MatPaginatorModule,
       MatDatepickerModule,
       MatMomentDateModule,
-      TranslateModule
+      TranslateModule,
+      WidgetModule
    ],
    entryComponents: [
    ],

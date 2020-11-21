@@ -133,7 +133,7 @@ public class SubjectVoteService {
       }
    }
 
-   private int getVoteCurrentCount(int id, boolean support) {
+   public int getVoteCurrentCount(int id, boolean support) {
       String countKey = convertCountKey(id, support);
       Integer count = getCachedCount(countKey);
 
@@ -192,7 +192,6 @@ public class SubjectVoteService {
 
    /**
     * check op is invalid.
-    *
     */
    private VoteOperatorStatus getOpNumber(Integer op, boolean support) {
       if(op == null) {

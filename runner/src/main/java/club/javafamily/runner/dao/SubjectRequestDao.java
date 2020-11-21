@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SubjectRequestDao extends BaseDao<SubjectRequest, Integer> {
    @Override
-   protected Class<SubjectRequest> getClazz() {
+   public Class<SubjectRequest> getClazz() {
       return SubjectRequest.class;
    }
 }

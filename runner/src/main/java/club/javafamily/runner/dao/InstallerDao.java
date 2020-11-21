@@ -26,7 +26,7 @@ import java.util.List;
 @Repository
 public class InstallerDao extends BaseDao<Installer, Integer>  {
    @Override
-   protected Class<Installer> getClazz() {
+   public Class<Installer> getClazz() {
       return Installer.class;
    }
 
