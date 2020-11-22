@@ -17,8 +17,8 @@ package club.javafamily.runner.web.em.srm;
 import club.javafamily.runner.domain.SubjectRequest;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.service.SubjectRequestService;
-import club.javafamily.runner.util.EnumUtil;
-import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.util.*;
+import club.javafamily.runner.web.em.model.SubjectRequestMonitorModel;
 import club.javafamily.runner.web.widget.echarts.EChartModel;
 import club.javafamily.runner.web.widget.echarts.EChartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +36,47 @@ public class SubjectRequestMonitorController {
       this.chartService = chartService;
    }
 
-   @GetMapping("/subject-request/chart")
-   public EChartModel getChartModel(@RequestParam(value = "width", required = false, defaultValue = "500") int width,
-                                    @RequestParam(value = "height", required = false, defaultValue = "500") int height,
-                                    @RequestParam(value = "type", required = false, defaultValue = "bar") String type)
+   @GetMapping("/subject-request/monitor")
+   public SubjectRequestMonitorModel getSubjectMonitorModel(
+      @RequestParam(value = "width", required = false) Double width,
+      @RequestParam(value = "height", required = false) Double height)
+   {
+      SubjectRequestMonitorModel model = new SubjectRequestMonitorModel();
+
+      model.setSummaryChartModel(getSummaryChartModel(width, height, "bar"));
+      model.setSupportChartModel(getSupportChartModel(true, width, height, "pie"));
+      model.setOpposeChartModel(getSupportChartModel(false, width, height, "pie"));
+
+      return model;
+   }
+
+   @GetMapping("/subject-request/chart/summary")
+   public EChartModel getSummaryChartModel(
+      @RequestParam(value = "width", required = false) Double width,
+      @RequestParam(value = "height", required = false) Double height,
+      @RequestParam(value = "type", required = false, defaultValue = "bar") String type)
    {
       List<SubjectRequest> list = subjectRequestService.getList();
       ChartType chartType = EnumUtil.matchEnum(ChartType.class, type);
 
-      return chartService.getSubjectRequestChartModel(list, width, height, chartType);
+      return chartService.getSummaryChartModel(list, width, height, chartType);
+   }
+
+   @GetMapping("/subject-request/chart/support")
+   public EChartModel getSupportChartModel(
+      @RequestParam("support") boolean support,
+      @RequestParam(value = "width", required = false) Double width,
+      @RequestParam(value = "height", required = false) Double height,
+      @RequestParam(value = "type", required = false, defaultValue = "pie") String type)
+   {
+      List<SubjectRequest> list = subjectRequestService.getList();
+      ChartType chartType = EnumUtil.matchEnum(ChartType.class, type);
+
+      String title = I18nUtil.getString(
+         support ? "common.subjectRequestSupport" : "common.subjectRequestOppose");
+
+      return chartService.getCustomizedPieModel(
+         list, width, height, chartType, title, support);
    }
 
    private final SubjectRequestService subjectRequestService;

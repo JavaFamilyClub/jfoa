@@ -18,10 +18,13 @@ import java.util.List;
 
 public class EChartOption {
 
+   private String backgroundColor;
+   private EChartTitle title;
+   private EChartVisualMap visualMap;
    private List<String> color;
    // TODO
-   private Object tooltip = new Object();
-   private Object legend = new Object();
+   private Object tooltip;
+   private Object legend;
 
    private List<EChartAxis> xAxis;
    private List<EChartAxis> yAxis;
@@ -83,5 +86,29 @@ public class EChartOption {
 
    public void setLegend(Object legend) {
       this.legend = legend;
+   }
+
+   public String getBackgroundColor() {
+      return backgroundColor;
+   }
+
+   public void setBackgroundColor(String backgroundColor) {
+      this.backgroundColor = backgroundColor;
+   }
+
+   public EChartTitle getTitle() {
+      return title;
+   }
+
+   public void setTitle(EChartTitle title) {
+      this.title = title;
+   }
+
+   public EChartVisualMap getVisualMap() {
+      return visualMap;
+   }
+
+   public void setVisualMap(EChartVisualMap visualMap) {
+      this.visualMap = visualMap;
    }
 }

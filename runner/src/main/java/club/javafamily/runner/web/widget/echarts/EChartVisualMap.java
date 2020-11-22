@@ -14,41 +14,41 @@
 
 package club.javafamily.runner.web.widget.echarts;
 
-public class EChartInitOptions {
+public class EChartVisualMap {
+   private boolean show;
+   private Integer min;
+   private Integer max;
+   private EChartVisualInRange inRange;
 
-   private String renderer = "svg";
-   private Double width;
-   private Double height;
-
-   public EChartInitOptions() {
+   public boolean isShow() {
+      return show;
    }
 
-   public EChartInitOptions(Double width, Double height) {
-      this.width = width;
-      this.height = height;
+   public void setShow(boolean show) {
+      this.show = show;
    }
 
-   public String getRenderer() {
-      return renderer;
+   public Integer getMin() {
+      return min;
    }
 
-   public void setRenderer(String renderer) {
-      this.renderer = renderer;
+   public void setMin(Integer min) {
+      this.min = min;
    }
 
-   public Double getWidth() {
-      return width;
+   public Integer getMax() {
+      return max;
    }
 
-   public void setWidth(Double width) {
-      this.width = width;
+   public void setMax(Integer max) {
+      this.max = max;
    }
 
-   public Double getHeight() {
-      return height;
+   public EChartVisualInRange getInRange() {
+      return inRange;
    }
 
-   public void setHeight(Double height) {
-      this.height = height;
+   public void setInRange(EChartVisualInRange inRange) {
+      this.inRange = inRange;
    }
 }

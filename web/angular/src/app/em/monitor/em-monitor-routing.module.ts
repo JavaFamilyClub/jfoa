@@ -26,12 +26,12 @@ const appRoutes: Routes = [
       component: EmMonitorComponent,
       children: [
          {
-            path: "audit",
-            component: AuditView
+            path: "subject-request",
+            component: SubjectRequestMonitor
          },
          {
-           path: "subject-request",
-           component: SubjectRequestMonitor
+            path: "audit",
+            component: AuditView
          },
          {
             path: "search",
@@ -43,7 +43,7 @@ const appRoutes: Routes = [
          },
          {
             path: "**",
-            redirectTo: "audit"
+            redirectTo: "subject-request"
          }
       ]
    }

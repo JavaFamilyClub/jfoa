@@ -12,9 +12,10 @@
  * person.
  */
 
-package club.javafamily.runner.enums;
+import { EChartModel } from "../../../../widget/chart/model/echart-model";
 
-public enum ChartType {
-   bar,
-   pie
+export interface SubjectRequestMonitorModel {
+   summaryChartModel: EChartModel;
+   supportChartModel: EChartModel;
+   opposeChartModel: EChartModel;
 }

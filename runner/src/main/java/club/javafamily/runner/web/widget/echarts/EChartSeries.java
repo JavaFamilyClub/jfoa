@@ -19,11 +19,19 @@ import club.javafamily.runner.enums.ChartType;
 import java.util.List;
 
 public class EChartSeries {
-
    private String name;
    private ChartType type;
    private String seriesLayoutBy;
-   private List<Integer> data;
+   private List<Object> data;
+   private String radius;
+   private String[] center;
+   private String roseType;
+   private ColorObject label;
+   private EChartSeriesLabelLine labelLine;
+   private EChartSeriesItemStyle itemStyle;
+   private String animationType;
+   private String animationEasing;
+   private Double animationDelay;
 
    public EChartSeries() {
    }
@@ -57,15 +65,87 @@ public class EChartSeries {
       this.seriesLayoutBy = seriesLayoutBy;
    }
 
-   public List<Integer> getData() {
+   public List<Object> getData() {
       return data;
    }
 
-   public void setData(List<Integer> data) {
+   public void setData(List<Object> data) {
       this.data = data;
    }
 
    public String getSeriesLayoutBy() {
       return seriesLayoutBy;
+   }
+
+   public String getRadius() {
+      return radius;
+   }
+
+   public void setRadius(String radius) {
+      this.radius = radius;
+   }
+
+   public String[] getCenter() {
+      return center;
+   }
+
+   public void setCenter(String[] center) {
+      this.center = center;
+   }
+
+   public String getRoseType() {
+      return roseType;
+   }
+
+   public void setRoseType(String roseType) {
+      this.roseType = roseType;
+   }
+
+   public ColorObject getLabel() {
+      return label;
+   }
+
+   public void setLabel(ColorObject label) {
+      this.label = label;
+   }
+
+   public EChartSeriesLabelLine getLabelLine() {
+      return labelLine;
+   }
+
+   public void setLabelLine(EChartSeriesLabelLine labelLine) {
+      this.labelLine = labelLine;
+   }
+
+   public EChartSeriesItemStyle getItemStyle() {
+      return itemStyle;
+   }
+
+   public void setItemStyle(EChartSeriesItemStyle itemStyle) {
+      this.itemStyle = itemStyle;
+   }
+
+   public String getAnimationType() {
+      return animationType;
+   }
+
+   public void setAnimationType(String animationType) {
+      this.animationType = animationType;
+   }
+
+   public String getAnimationEasing() {
+      return animationEasing;
+   }
+
+   public void setAnimationEasing(String animationEasing) {
+      this.animationEasing = animationEasing;
+   }
+
+   public Double getAnimationDelay() {
+      return animationDelay;
+   }
+
+   public void setAnimationDelay(Double animationDelay) {
+      this.animationDelay = animationDelay;
    }
 }

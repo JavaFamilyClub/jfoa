@@ -209,6 +209,8 @@
       "noPermission": "You do not have permission to perform this operation",
       "fieldRequired": "This field is required",
       "subjectRequest": "Subject Request",
+      "subjectRequestSupport": "Subject Request-Support",
+      "subjectRequestOppose": "Subject Request-Oppose",
       "subjectRequestManager": "Subject Request Manager"
    },
    "dialog": {

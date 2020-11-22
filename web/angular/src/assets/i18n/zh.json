@@ -209,6 +209,8 @@
       "noPermission": "您没有权限执行该操作",
       "fieldRequired": "该字段是必填项",
       "subjectRequest": "主题请求",
+      "subjectRequestSupport": "主题请求-支持",
+      "subjectRequestOppose": "主题请求-反对",
       "subjectRequestManager": "主题请求管理"
    },
    "dialog": {

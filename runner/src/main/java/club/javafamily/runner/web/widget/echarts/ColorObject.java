@@ -14,41 +14,21 @@
 
 package club.javafamily.runner.web.widget.echarts;
 
-public class EChartInitOptions {
+public class ColorObject {
+   protected String color;
 
-   private String renderer = "svg";
-   private Double width;
-   private Double height;
-
-   public EChartInitOptions() {
+   public ColorObject() {
    }
 
-   public EChartInitOptions(Double width, Double height) {
-      this.width = width;
-      this.height = height;
+   public ColorObject(String color) {
+      this.color = color;
    }
 
-   public String getRenderer() {
-      return renderer;
+   public String getColor() {
+      return color;
    }
 
-   public void setRenderer(String renderer) {
-      this.renderer = renderer;
-   }
-
-   public Double getWidth() {
-      return width;
-   }
-
-   public void setWidth(Double width) {
-      this.width = width;
-   }
-
-   public Double getHeight() {
-      return height;
-   }
-
-   public void setHeight(Double height) {
-      this.height = height;
+   public void setColor(String color) {
+      this.color = color;
    }
 }

@@ -14,41 +14,30 @@
 
 package club.javafamily.runner.web.widget.echarts;
 
-public class EChartInitOptions {
+public class EChartSeriesItemStyle extends ColorObject {
+   private Integer shadowBlur;
+   private String shadowColor;
 
-   private String renderer = "svg";
-   private Double width;
-   private Double height;
-
-   public EChartInitOptions() {
+   public EChartSeriesItemStyle() {
    }
 
-   public EChartInitOptions(Double width, Double height) {
-      this.width = width;
-      this.height = height;
+   public EChartSeriesItemStyle(String color) {
+      super(color);
    }
 
-   public String getRenderer() {
-      return renderer;
+   public Integer getShadowBlur() {
+      return shadowBlur;
    }
 
-   public void setRenderer(String renderer) {
-      this.renderer = renderer;
+   public void setShadowBlur(Integer shadowBlur) {
+      this.shadowBlur = shadowBlur;
    }
 
-   public Double getWidth() {
-      return width;
+   public String getShadowColor() {
+      return shadowColor;
    }
 
-   public void setWidth(Double width) {
-      this.width = width;
-   }
-
-   public Double getHeight() {
-      return height;
-   }
-
-   public void setHeight(Double height) {
-      this.height = height;
+   public void setShadowColor(String shadowColor) {
+      this.shadowColor = shadowColor;
    }
 }

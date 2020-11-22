@@ -17,6 +17,7 @@ import { Searchable } from "../../../common/annotation/searchable";
 import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
 import { EChartModel } from "../../../widget/chart/model/echart-model";
 import { ModelService } from "../../../widget/services/model.service";
+import { SubjectRequestMonitorModel } from "./model/subject-request-monitor-model";
 
 @Searchable({
   title: "Subject Request",
@@ -31,6 +32,7 @@ import { ModelService } from "../../../widget/services/model.service";
   styleUrls: ["./subject-request-monitor.component.scss"]
 })
 export class SubjectRequestMonitor implements OnInit {
+   model: SubjectRequestMonitorModel;
    chartModel: EChartModel;
 
    constructor(private modelService: ModelService) {
@@ -41,10 +43,10 @@ export class SubjectRequestMonitor implements OnInit {
    }
 
    private refresh(): void {
-      this.modelService.getModel<EChartModel>(EmUrlConstants.SUBJECT_REQUEST_CHART)
+      this.modelService.getModel<SubjectRequestMonitorModel>(EmUrlConstants.SUBJECT_REQUEST_MONITOR)
          .subscribe((model) =>
       {
-         this.chartModel = model;
+         this.model = model;
       });
    }
 }

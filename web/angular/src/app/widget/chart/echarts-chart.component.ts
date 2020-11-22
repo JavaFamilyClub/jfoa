@@ -27,6 +27,14 @@ export class EchartsChartComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get initOpts(): any {
+    return {
+      width: "500",
+      height: "500",
+      renderer: "svg"
+    };
+  }
+
   get options(): EChartOption {
     return {
       color: ['red', "green"],

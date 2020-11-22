@@ -1,9 +1,27 @@
-<div>
-  Subject Request...
+<div *ngIf="!!model" class="container-fluid subject-request-monitor-body">
 
-  <ng-container *ngIf="!!chartModel">
-    <echarts-chart [chartModel]="chartModel"></echarts-chart>
-  </ng-container>
+  <div class="row">
+    <div class="col">
+      <ng-container *ngIf="!!model.summaryChartModel">
+        <echarts-chart [chartModel]="model.summaryChartModel"></echarts-chart>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <ng-container *ngIf="!!model.supportChartModel">
+        <echarts-chart [chartModel]="model.supportChartModel"></echarts-chart>
+      </ng-container>
+    </div>
+
+    <div class="col-6">
+      <ng-container *ngIf="!!model.opposeChartModel">
+        <echarts-chart [chartModel]="model.opposeChartModel"></echarts-chart>
+      </ng-container>
+    </div>
+
+  </div>
 
 </div>
 
