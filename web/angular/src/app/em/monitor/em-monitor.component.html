@@ -12,12 +12,16 @@
       </mat-form-field>
 
       <mat-nav-list>
-        <mat-list-item>
-          <a matLine routerLink="subject-request">{{'common.subjectRequest' | translate}}</a>
+        <mat-list-item [class.selected]="srRla.isActive">
+          <a matLine routerLink="subject-request"
+             routerLinkActive #srRla="routerLinkActive"
+          >{{'common.subjectRequest' | translate}}</a>
         </mat-list-item>
 
-        <mat-list-item>
-          <a matLine routerLink="audit">{{'em.audit.Audit' | translate}}</a>
+        <mat-list-item [class.selected]="auditRla.isActive">
+          <a matLine routerLink="audit"
+             routerLinkActive #auditRla="routerLinkActive"
+          >{{'em.audit.Audit' | translate}}</a>
         </mat-list-item>
       </mat-nav-list>
     </div>
