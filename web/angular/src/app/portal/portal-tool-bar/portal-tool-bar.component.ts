@@ -13,10 +13,11 @@
  */
 
 import { Component } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
 import { JfoaEnvConstants } from "../../common/constants/jfoa-env-constants";
+import { UserType } from "../../common/enum/user-type";
 import { ComponentTool } from "../../common/util/component-tool";
 import { GuiTool } from "../../common/util/gui-tool";
 import { LocalStorage } from "../../common/util/local-storage.util";
@@ -97,6 +98,11 @@ export class PortalToolBarComponent {
             });
          dialog.model = model;
       });
+   }
+
+   get disableChangePassword(): boolean {
+      return !this.principal?.authenticated
+         || (this.principal?.type != UserType.User);
    }
 
    openChangePasswordDialog(): void {

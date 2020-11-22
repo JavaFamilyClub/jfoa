@@ -12,16 +12,22 @@
       </mat-form-field>
 
       <mat-nav-list>
-        <mat-list-item>
-          <a matLine routerLink="client-manager" translate>em.client.manager</a>
+        <mat-list-item [class.selected]="clientRla.isActive">
+          <a matLine routerLink="client-manager"
+             routerLinkActive #clientRla="routerLinkActive"
+             translate>em.client.manager</a>
         </mat-list-item>
 
-        <mat-list-item>
-          <a matLine routerLink="user-manager" translate>em.user.manager</a>
+        <mat-list-item [class.selected]="userRla.isActive">
+          <a matLine routerLink="user-manager"
+             routerLinkActive #userRla="routerLinkActive"
+             translate>em.user.manager</a>
         </mat-list-item>
 
-        <mat-list-item>
-          <a matLine routerLink="role-manager" translate>em.role.manager</a>
+        <mat-list-item [class.selected]="roleRla.isActive">
+          <a matLine routerLink="role-manager"
+             routerLinkActive #roleRla="routerLinkActive"
+             translate>em.role.manager</a>
         </mat-list-item>
       </mat-nav-list>
 

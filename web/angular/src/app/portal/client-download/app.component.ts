@@ -30,4 +30,45 @@ export class ClientDownloadAppComponent {
    selectPlatform(platform: Platform): void {
       this.platform = platform;
    }
+
+   get images(): {src: string, alt: string}[] {
+      return [
+         {
+            src: "assets/img/demo-index.jpg",
+            alt: "Screenshot of jfoa index"
+         },
+         {
+            src: "assets/img/demo-subject-request-m.jpg",
+            alt: "Screenshot of jfoa subject request monitor"
+         },
+         {
+            src: "assets/img/demo-subject-request.jpg",
+            alt: "Screenshot of jfoa subject request"
+         },
+         {
+            src: "assets/img/demo-login.jpg",
+            alt: "Screenshot of jfoa login"
+         },
+         {
+            src: "assets/img/demo-em-client.jpg",
+            alt: "Screenshot of jfoa client"
+         },
+         {
+            src: "assets/img/demo-user-m.jpg",
+            alt: "Screenshot of jfoa user monitor"
+         },
+         {
+            src: "assets/img/demo-role-m.jpg",
+            alt: "Screenshot of jfoa role monitor"
+         },
+         {
+            src: "assets/img/demo-em-audit.jpg",
+            alt: "Screenshot of jfoa audit"
+         },
+         {
+            src: "assets/img/demo-dev-doc.jpg",
+            alt: "Screenshot of jfoa user dev doc"
+         }
+      ];
+   }
 }

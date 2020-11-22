@@ -44,11 +44,6 @@ export class ClientPlatformViewComponent implements OnInit {
   }
 
   download(): void {
-    if(this.platform != Platform.Mac) {
-      this.snackBar.open(this.translate.instant("portal.installer.unSupportError"));
-      return;
-    }
-
     let params = new HttpParams()
        .set("platform", this.platform + "")
        .set("version", this.version);
@@ -56,6 +51,11 @@ export class ClientPlatformViewComponent implements OnInit {
     this.modelService.getModel<InstallerModel>(InstallerClientUrlConstants.CLIENT_DOWNLOAD, params)
        .subscribe(installer =>
     {
+      if(!!!installer?.link) {
+        this.snackBar.open(this.translate.instant("portal.installer.unSupportError"));
+        return;
+      }
+
       GuiTool.openBrowserTab(installer.link);
       // this.downloadService.download(installer.link); // browser security
     });

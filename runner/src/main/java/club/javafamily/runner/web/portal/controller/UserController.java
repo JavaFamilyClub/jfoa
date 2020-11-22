@@ -39,6 +39,7 @@ public class UserController {
          principal.setAccount(user.getAccount());
          principal.setUserName(user.getName());
          principal.setEmail(user.getEmail());
+         principal.setType(user.getType());
       }
 
       return principal;

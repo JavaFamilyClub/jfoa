@@ -12,10 +12,13 @@
  * person.
  */
 
+import { UserType } from "../../common/enum/user-type";
+
 export interface JfPrincipal {
    readonly id: number;
    readonly account: string;
    readonly userName: string;
    readonly authenticated: boolean;
    readonly email: string;
+   readonly type: UserType;
 }

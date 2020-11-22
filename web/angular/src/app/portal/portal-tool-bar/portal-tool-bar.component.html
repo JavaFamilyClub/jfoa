@@ -45,6 +45,7 @@
       <button mat-button mat-icon-button aria-label="Language"
               [title]="'Language' | translate"
               class="tile-bar-icon-size"
+              *ngIf="!isInstaller"
               (click)="changeLanguage()">
         <mat-icon [class.icon-en2zh]="isZH"
           [class.icon-zh2en]="isEN"></mat-icon>
@@ -69,15 +70,18 @@
           <button mat-menu-item (click)="help()">{{'Document' | translate}}</button>
           <button mat-menu-item (click)="devDoc()">{{'Api Document' | translate}}</button>
 
-          <mat-divider></mat-divider>
+          <ng-container *ngIf="!isInstaller">
+            <mat-divider></mat-divider>
 
-          <button mat-menu-item routerLink="/portal/clientDownload" class="client-download-btn">
-            {{'portal.installer.download' | translate}}
-            <mat-chip-list class="lmargin-5">
-              <mat-chip color="primary" class="bg-primary text-white"
-                        selectable="false">Beta-0.0.1</mat-chip>
-            </mat-chip-list>
-          </button>
+            <button mat-menu-item routerLink="/portal/clientDownload" class="client-download-btn">
+              {{'portal.installer.download' | translate}}
+              <mat-chip-list class="lmargin-5">
+                <mat-chip color="primary" class="bg-primary text-white"
+                          selectable="false">Beta-0.0.1</mat-chip>
+              </mat-chip-list>
+            </button>
+          </ng-container>
+
         </ng-template>
       </mat-menu>
 
@@ -86,8 +90,10 @@
           <button mat-menu-item (click)="editProfile($event)"
                   [disabled]="!principal.authenticated"
             >{{'user.profile.Profile' | translate}} ({{principal.userName}})</button>
+
           <button *ngIf="principal.authenticated" mat-menu-item
-            (click)="openChangePasswordDialog()"
+                  (click)="openChangePasswordDialog()"
+                  [disabled]="disableChangePassword"
             >{{'user.pwd.change' | translate}}</button>
 
           <mat-divider></mat-divider>

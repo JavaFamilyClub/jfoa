@@ -14,11 +14,10 @@
 
 package club.javafamily.runner.web.portal.controller;
 
-import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.domain.Installer;
 import club.javafamily.runner.enums.Platform;
 import club.javafamily.runner.service.InstallerService;
-import club.javafamily.runner.util.*;
+import club.javafamily.runner.util.SecurityUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,15 +37,8 @@ public class ClientDownloadController {
    public Installer download(@ApiParam(value = "platform", example = "1") @RequestParam("platform") int platform,
                              @ApiParam(value = "version", example = "latest") @RequestParam("version") String version)
    {
-      Installer installer = installerService.getInstaller(Platform.parse(platform), version);
-
-      if(installer == null) {
-         throw new MessageException("Installer is not exist!");
-      }
-
-      return installer;
+      return installerService.getInstaller(Platform.parse(platform), version);
    }
-
 
    private final InstallerService installerService;
 }

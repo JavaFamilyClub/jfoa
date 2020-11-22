@@ -14,6 +14,8 @@
 
 package club.javafamily.runner.web.security.model;
 
+import club.javafamily.runner.enums.UserType;
+
 public class JfPrincipal {
 
    public JfPrincipal() {
@@ -59,9 +61,18 @@ public class JfPrincipal {
       this.account = account;
    }
 
+   public UserType getType() {
+      return type;
+   }
+
+   public void setType(UserType type) {
+      this.type = type;
+   }
+
    private boolean authenticated;
    private int id;
    private String account;
    private String userName;
    private String email;
+   private UserType type;
 }

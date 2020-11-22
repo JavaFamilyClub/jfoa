@@ -40,17 +40,9 @@
     </c-client-platform-view>
 
     <div class="d-block width-fit mx-auto mb-6 client-download-screenshot">
-      <img src="assets/img/demo-index.png" alt="Screenshot of jfoa index"
-           class="app-screenshot">
-
-      <img src="assets/img/demo-login.png" alt="Screenshot of jfoa login"
-           class="app-screenshot">
-
-      <img src="assets/img/demo-em-client.png" alt="Screenshot of jfoa client"
-           class="app-screenshot">
-
-      <img src="assets/img/demo-em-audit.png" alt="Screenshot of jfoa audit"
-           class="app-screenshot">
+      <ng-container *ngFor="let img of images">
+        <img [src]="img.src" [alt]="img.alt" class="app-screenshot">
+      </ng-container>
     </div>
 
     <div class="pt-5 pb-5">
@@ -59,7 +51,6 @@
         {{'portal.installer.whatsBuild' | translate}}
       </a>
     </div>
-
   </div>
 </div>
 
