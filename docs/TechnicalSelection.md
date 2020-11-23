@@ -29,6 +29,7 @@
 - SockJS, StompJS(for WebSocket)
 - Froala Editor
 - Ngx-translate
+- ECharts
 
 ## 3 `Tools`
 - Gradle
