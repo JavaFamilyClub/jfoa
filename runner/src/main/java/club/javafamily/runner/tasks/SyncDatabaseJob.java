@@ -77,8 +77,8 @@ public class SyncDatabaseJob extends QuartzJobBean {
 
             count = voteService.getCachedCount(id, true);
 
-            if(count == null || count < 0) { // == 0 may be cancel op
-               voteService.resetCachedCount(id, true, 0);
+            if(count != null && count < 0) { // == 0 may be cancel op
+               voteService.deleteCachedCount(id, true);
                invalid = true;
                LOGGER.warn("Vote's support count is invalid. " +
                   "vote id: {}, count: {}", id, count);
@@ -88,8 +88,8 @@ public class SyncDatabaseJob extends QuartzJobBean {
 
             count = voteService.getCachedCount(id, false);
 
-            if(count == null || count < 0) {
-               voteService.resetCachedCount(id, false, 0);
+            if(count != null && count < 0) {
+               voteService.deleteCachedCount(id, false);
                invalid = true;
 
                LOGGER.warn("Vote's oppose count is invalid. " +

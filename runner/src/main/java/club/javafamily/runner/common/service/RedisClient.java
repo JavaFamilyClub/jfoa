@@ -16,7 +16,7 @@ public class RedisClient <T extends Serializable> {
    private RedisTemplate<String, T> redisTemplate;
 
    public void set(String key, T value) {
-      set(key, value, -1);
+      set(key, value, INVALID_EXPIRE_TIME);
    }
 
    public void set(String key, T value, long seconds) {
@@ -32,6 +32,46 @@ public class RedisClient <T extends Serializable> {
 
    public T get(String key) {
       return getValueOperations().get(key);
+   }
+
+   public Long incr(String key) {
+      return incr(key, INVALID_EXPIRE_TIME);
+   }
+
+   /**
+    * Increment for key, the value must is Number, if not exist, default setting it to 0.
+    * @param key key
+    * @param seconds expire seconds
+    * @return the value after incremented.
+    */
+   public Long incr(String key, long seconds) {
+      Long newValue = getValueOperations().increment(key);
+
+      if(seconds > 0) {
+         redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
+      }
+
+      return newValue;
+   }
+
+   public Long decr(String key) {
+      return decr(key, INVALID_EXPIRE_TIME);
+   }
+
+   /**
+    * Decrement for key, the value must is Number, if not exist, default setting it to 0.
+    * @param key key
+    * @param seconds expire seconds
+    * @return the value after decremented.
+    */
+   public Long decr(String key, long seconds) {
+      Long newValue = getValueOperations().decrement(key);
+
+      if(seconds > 0) {
+         redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
+      }
+
+      return newValue;
    }
 
    /**
@@ -60,4 +100,6 @@ public class RedisClient <T extends Serializable> {
    private ValueOperations<String, T> getValueOperations() {
       return redisTemplate.opsForValue();
    }
+
+   private static final int INVALID_EXPIRE_TIME = -1;
 }

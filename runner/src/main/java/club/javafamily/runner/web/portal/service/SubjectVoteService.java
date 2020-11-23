@@ -83,13 +83,14 @@ public class SubjectVoteService {
       String opKey = convertOpKey(ip, id, account);
       String countKey = convertCountKey(id, support);
       Integer op;
-      int count;
 
       lock.readLock().lock();
 
       try {
          op = redisClient.get(opKey);
-         count = getVoteCurrentCount(id, support);
+         // 1. make db data setting to redis
+         // 2. setting value that key is not exist is 0.
+         int oldCount = getVoteCurrentCount(id, support);
       }
       finally {
          lock.readLock().unlock();
@@ -103,21 +104,17 @@ public class SubjectVoteService {
          return;
       }
 
-      // count always is not null
-      count = count + opStatus.getValue(); // opStatus value is 1 or -1.
-
-      if(count < 0) {
-         LOGGER.warn("Invalid vote count: {}", count);
-         // invalid
-         return;
-      }
-
       op = support ? SUPPORT_FLAG : OPPOSE_FLAG;
 
       lock.writeLock().lock();
 
       try {
-         redisClient.set(countKey, count, CACHED_TIME);
+         if(support) {
+            redisClient.incr(countKey, CACHED_TIME);
+         }
+         else {
+            redisClient.decr(countKey, CACHED_TIME);
+         }
 
          // allow op
          if(opStatus == VoteOperatorStatus.Allow) {
@@ -159,7 +156,12 @@ public class SubjectVoteService {
          lock.writeLock().lock();
 
          try {
-            redisClient.set(countKey, count, CACHED_TIME);
+            if(getCachedCount(countKey) == null) {
+               redisClient.set(countKey, count, CACHED_TIME);
+            }
+            else {
+               LOGGER.warn("Double check for getting cached count failed. key is {}", countKey);
+            }
          }
          finally {
             lock.writeLock().unlock();
@@ -282,11 +284,11 @@ public class SubjectVoteService {
       }
    }
 
-   public void resetCachedCount(int id, boolean support, int value) {
+   public void deleteCachedCount(int id, boolean support) {
       lock.writeLock().lock();
 
       try{
-         redisClient.set(convertCountKey(id, support), value, CACHED_TIME);
+         redisClient.delete(convertCountKey(id, support));
       }
       finally {
          lock.writeLock().unlock();
