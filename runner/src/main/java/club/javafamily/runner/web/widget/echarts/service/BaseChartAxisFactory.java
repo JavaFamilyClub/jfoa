@@ -21,17 +21,19 @@ import club.javafamily.runner.web.widget.echarts.info.AxisInfo;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class BaseChartAxisFactory implements ChartAxisFactory {
+public abstract class BaseChartAxisFactory implements ChartObjectFactory<List<EChartAxis>> {
 
    @Override
    public List<EChartAxis> build(TableLens lens,
                                  BindingInfo bindingInfo,
                                  ChartType type,
-                                 boolean isX)
+                                 Map<String, Object> params)
    {
       List<AxisInfo> list;
+      boolean isX = Boolean.TRUE.equals(params.get("isX"));
 
       if(isX) {
          list = bindingInfo.getXAxis();

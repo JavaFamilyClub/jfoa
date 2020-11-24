@@ -14,21 +14,8 @@
 
 package club.javafamily.runner.web.widget.echarts.info.binding;
 
-import club.javafamily.runner.web.widget.echarts.info.AxisInfo;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.info.dssbar.DataSetSimpleBarAxisInfo;
-
-import java.util.Collections;
-import java.util.List;
-
-public class DataSetSimpleBarBindingInfo implements BindingInfo {
-   @Override
-   public List<AxisInfo> getXAxis() {
-      return Collections.singletonList(new DataSetSimpleBarAxisInfo("category"));
-   }
-
-   @Override
-   public List<AxisInfo> getYAxis() {
-      return Collections.singletonList(new DataSetSimpleBarAxisInfo("value"));
+public class DataSetSimpleBarBindingInfo extends BaseBindingInfo {
+   public DataSetSimpleBarBindingInfo(String subject) {
+      super(subject);
    }
 }

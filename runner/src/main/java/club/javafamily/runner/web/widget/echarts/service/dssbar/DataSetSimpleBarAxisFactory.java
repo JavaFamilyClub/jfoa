@@ -18,15 +18,22 @@ import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
 import club.javafamily.runner.web.widget.echarts.info.binding.DataSetSimpleBarBindingInfo;
 import club.javafamily.runner.web.widget.echarts.service.BaseChartAxisFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DataSetSimpleBarAxisFactory extends BaseChartAxisFactory {
 
+   @Autowired
+   public DataSetSimpleBarAxisFactory(DataSetSimpleBarChartHelper chartHelper) {
+      this.chartHelper = chartHelper;
+   }
+
    @Override
    public boolean isAccept(ChartType type, BindingInfo bindingInfo) {
-      return type == ChartType.bar
-         && bindingInfo instanceof DataSetSimpleBarBindingInfo;
+      return chartHelper.isAccept(type, bindingInfo);
    }
+
+   private final DataSetSimpleBarChartHelper chartHelper;
 
 }

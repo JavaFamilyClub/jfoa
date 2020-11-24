@@ -17,14 +17,21 @@ package club.javafamily.runner.web.widget.echarts.service.cpie;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
 import club.javafamily.runner.web.widget.echarts.service.BaseChartAxisFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CustomizedPieAxisFactory extends BaseChartAxisFactory {
 
-   @Override
-   public boolean isAccept(ChartType type, BindingInfo bindingInfo) {
-      return type == ChartType.pie;
+   @Autowired
+   public CustomizedPieAxisFactory(CustomizedPieChartHelper chartHelper) {
+      this.chartHelper = chartHelper;
    }
 
+   @Override
+   public boolean isAccept(ChartType type, BindingInfo bindingInfo) {
+      return chartHelper.isAccept(type, bindingInfo);
+   }
+
+   private final CustomizedPieChartHelper chartHelper;
 }

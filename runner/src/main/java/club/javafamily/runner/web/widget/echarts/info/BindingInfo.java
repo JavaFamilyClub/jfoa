@@ -26,4 +26,9 @@ public interface BindingInfo {
       return null;
    }
 
+   default boolean isShowVisualMap() {
+      return false;
+   }
+
+   String getSubject();
 }

@@ -40,4 +40,9 @@ public final class CellValueTypeUtils {
          return CellValueType.STRING;
       }
    }
+
+   public static boolean isNumber(CellValueType type) {
+      return type == CellValueType.INTEGER || type == CellValueType.DOUBLE
+         || type == CellValueType.FLOAT;
+   }
 }

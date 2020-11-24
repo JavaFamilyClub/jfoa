@@ -16,6 +16,7 @@ package club.javafamily.runner.common.table.lens;
 
 import club.javafamily.runner.common.table.cell.Cell;
 import club.javafamily.runner.util.ExportUtil;
+import org.springframework.util.StringUtils;
 
 import java.awt.*;
 
@@ -88,6 +89,22 @@ public interface TableLens {
       }
 
       return LensTool.DEFAULT_TEXT_BG;
+   }
+
+   default Integer getColumnIndex(String columnName) {
+      if(getRowCount() < 1 || getColCount() < 1 || StringUtils.isEmpty(columnName)) {
+         return null;
+      }
+
+      for(int i = 0; i < getColCount(); i++) {
+         Cell cell = getObject(0, i);
+
+         if(cell != null && columnName.equals(cell.getValue())) {
+            return i;
+         }
+      }
+
+      return null;
    }
 
 }
