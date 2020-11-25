@@ -151,6 +151,7 @@ public class SubjectVoteService {
          else {
             count = support ? subjectRequestVote.getSupport()
                : subjectRequestVote.getOppose();
+            count = count == null ? 0 : count;
          }
 
          lock.writeLock().lock();

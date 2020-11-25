@@ -33,9 +33,9 @@ public class SubjectRequestVote implements Serializable {
    @Column(nullable = false, unique = true)
    private Integer id;
 
-   private Integer support;
+   private Integer support = 0;
 
-   private Integer oppose;
+   private Integer oppose = 0;
 
    @OneToOne(fetch = FetchType.LAZY)
    @PrimaryKeyJoinColumn
