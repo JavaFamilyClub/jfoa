@@ -18,7 +18,7 @@ import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.EChartSeries;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.info.legend.LegendInfo;
+import club.javafamily.runner.web.widget.echarts.info.LegendInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

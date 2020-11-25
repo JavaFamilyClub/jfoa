@@ -12,12 +12,15 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.info.binding;
+package club.javafamily.runner.web.widget.echarts.info.cpie;
+
+import club.javafamily.runner.web.widget.echarts.EChartVisualInRange;
+import club.javafamily.runner.web.widget.echarts.info.BaseBindingInfo;
 
 public class CustomPieBindingInfo extends BaseBindingInfo {
 
-   public CustomPieBindingInfo(String subject) {
-      super(subject);
+   public CustomPieBindingInfo() {
+      super();
    }
 
    public boolean isShowVisualMap() {
@@ -76,6 +79,14 @@ public class CustomPieBindingInfo extends BaseBindingInfo {
       this.animationDelay = animationDelay;
    }
 
+   public EChartVisualInRange getInRange() {
+      return inRange;
+   }
+
+   public void setInRange(EChartVisualInRange inRange) {
+      this.inRange = inRange;
+   }
+
    private int max;
    private int min;
    private boolean showVisualMap;
@@ -83,4 +94,5 @@ public class CustomPieBindingInfo extends BaseBindingInfo {
    private String animationType;
    private String animationEasing;
    private Double animationDelay;
+   private EChartVisualInRange inRange;
 }

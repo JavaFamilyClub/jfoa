@@ -12,27 +12,13 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.info.binding;
-
-import club.javafamily.runner.web.widget.echarts.info.AxisInfo;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.info.legend.LegendInfo;
+package club.javafamily.runner.web.widget.echarts.info;
 
 import java.util.List;
 
 public abstract class BaseBindingInfo implements BindingInfo {
 
-   protected BaseBindingInfo(String subject) {
-      this.subject = subject;
-   }
-
-   @Override
-   public String getSubject() {
-      return subject;
-   }
-
-   public void setSubject(String subject) {
-      this.subject = subject;
+   protected BaseBindingInfo() {
    }
 
    @Override
@@ -62,8 +48,27 @@ public abstract class BaseBindingInfo implements BindingInfo {
       this.legend = legend;
    }
 
+   @Override
+   public TooltipInfo getTooltip() {
+      return tooltip;
+   }
+
+   public void setTooltip(TooltipInfo tooltip) {
+      this.tooltip = tooltip;
+   }
+
+   @Override
+   public TitleInfo getTitleInfo() {
+      return titleInfo;
+   }
+
+   public void setTitleInfo(TitleInfo titleInfo) {
+      this.titleInfo = titleInfo;
+   }
+
    private List<AxisInfo> xAxisInfo;
    private List<AxisInfo> yAxisInfo;
-   private String subject;
    protected LegendInfo legend;
+   protected TooltipInfo tooltip;
+   protected TitleInfo titleInfo;
 }

@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.info.legend;
+package club.javafamily.runner.web.widget.echarts.info;
 
 public interface LegendInfo {
 

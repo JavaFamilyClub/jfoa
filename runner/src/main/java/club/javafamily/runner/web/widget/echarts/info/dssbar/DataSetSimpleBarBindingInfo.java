@@ -12,31 +12,12 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.info;
+package club.javafamily.runner.web.widget.echarts.info.dssbar;
 
-import java.util.List;
+import club.javafamily.runner.web.widget.echarts.info.BaseBindingInfo;
 
-public interface BindingInfo {
-
-   default List<AxisInfo> getXAxis() {
-      return null;
+public class DataSetSimpleBarBindingInfo extends BaseBindingInfo {
+   public DataSetSimpleBarBindingInfo() {
+      super();
    }
-
-   default List<AxisInfo> getYAxis() {
-      return null;
-   }
-
-   default List<String> dataSet() {
-      return null;
-   }
-
-   default boolean isShowVisualMap() {
-      return false;
-   }
-
-   TooltipInfo getTooltip();
-
-   TitleInfo getTitleInfo();
-
-   LegendInfo getLegend();
 }

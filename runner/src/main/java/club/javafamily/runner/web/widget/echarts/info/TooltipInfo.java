@@ -14,29 +14,31 @@
 
 package club.javafamily.runner.web.widget.echarts.info;
 
-import java.util.List;
+public class TooltipInfo {
+   private String trigger;
+   private String formatter;
 
-public interface BindingInfo {
-
-   default List<AxisInfo> getXAxis() {
-      return null;
+   public TooltipInfo() {
    }
 
-   default List<AxisInfo> getYAxis() {
-      return null;
+   public TooltipInfo(String trigger, String formatter) {
+      this.trigger = trigger;
+      this.formatter = formatter;
    }
 
-   default List<String> dataSet() {
-      return null;
+   public String getTrigger() {
+      return trigger;
    }
 
-   default boolean isShowVisualMap() {
-      return false;
+   public void setTrigger(String trigger) {
+      this.trigger = trigger;
    }
 
-   TooltipInfo getTooltip();
+   public String getFormatter() {
+      return formatter;
+   }
 
-   TitleInfo getTitleInfo();
-
-   LegendInfo getLegend();
+   public void setFormatter(String formatter) {
+      this.formatter = formatter;
+   }
 }

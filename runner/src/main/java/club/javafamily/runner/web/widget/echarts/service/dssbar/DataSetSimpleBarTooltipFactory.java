@@ -14,25 +14,18 @@
 
 package club.javafamily.runner.web.widget.echarts.service.dssbar;
 
-import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.service.BaseChartAxisFactory;
+import club.javafamily.runner.web.widget.echarts.service.ChartTooltipFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DataSetSimpleBarAxisFactory extends BaseChartAxisFactory {
+public class DataSetSimpleBarTooltipFactory extends ChartTooltipFactory {
 
    @Autowired
-   public DataSetSimpleBarAxisFactory(DataSetSimpleBarChartHelper chartHelper) {
+   public DataSetSimpleBarTooltipFactory(DataSetSimpleBarChartHelper chartHelper) {
+      super(chartHelper);
       this.chartHelper = chartHelper;
    }
 
-   @Override
-   public boolean isAccept(ChartType type, BindingInfo bindingInfo) {
-      return chartHelper.isAccept(type, bindingInfo);
-   }
-
    private final DataSetSimpleBarChartHelper chartHelper;
-
 }

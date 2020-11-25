@@ -12,19 +12,18 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service.dssbar;
+package club.javafamily.runner.web.widget.echarts.service;
 
+import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
+import club.javafamily.runner.web.widget.echarts.EChartTitle;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.service.BaseChartAxisFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
-public class DataSetSimpleBarAxisFactory extends BaseChartAxisFactory {
+import java.util.Map;
 
-   @Autowired
-   public DataSetSimpleBarAxisFactory(DataSetSimpleBarChartHelper chartHelper) {
+public abstract class ChartTitleFactory implements ChartObjectFactory<EChartTitle> {
+
+   protected ChartTitleFactory(ChartHelper chartHelper) {
       this.chartHelper = chartHelper;
    }
 
@@ -33,6 +32,12 @@ public class DataSetSimpleBarAxisFactory extends BaseChartAxisFactory {
       return chartHelper.isAccept(type, bindingInfo);
    }
 
-   private final DataSetSimpleBarChartHelper chartHelper;
+   @Override
+   public EChartTitle build(TableLens lens, BindingInfo bindingInfo,
+                            ChartType type, Map<String, Object> params)
+   {
+      return null;
+   }
 
+   private final ChartHelper chartHelper;
 }

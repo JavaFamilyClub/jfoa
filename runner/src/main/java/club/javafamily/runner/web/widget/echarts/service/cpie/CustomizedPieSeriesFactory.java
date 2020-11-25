@@ -6,9 +6,8 @@ import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.util.CellValueTypeUtils;
 import club.javafamily.runner.web.widget.echarts.*;
-import club.javafamily.runner.web.widget.echarts.info.AxisInfo;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.info.binding.CustomPieBindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.*;
+import club.javafamily.runner.web.widget.echarts.info.cpie.CustomPieBindingInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +38,9 @@ public class CustomizedPieSeriesFactory implements ChartObjectFactory<List<EChar
       EChartSeries series = new EChartSeries();
       ColorObject labelAndLineColor = new ColorObject("rgba(255, 255, 255, 0.4)");
 
-      series.setName(bindingInfo.getSubject());
+      TitleInfo titleInfo = bindingInfo.getTitleInfo();
+
+      series.setName(titleInfo != null ? titleInfo.getTitle() : type.name());
       series.setType(type);
       series.setRadius("65%");
       series.setCenter(new String[] {"50%", "55%"});

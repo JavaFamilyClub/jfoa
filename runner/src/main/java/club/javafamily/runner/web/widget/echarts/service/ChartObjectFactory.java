@@ -16,10 +16,8 @@ package club.javafamily.runner.web.widget.echarts.service;
 
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.EChartAxis;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
 
-import java.util.List;
 import java.util.Map;
 
 public interface ChartObjectFactory <T> {
@@ -27,8 +25,8 @@ public interface ChartObjectFactory <T> {
    boolean isAccept(ChartType type, BindingInfo bindingInfo);
 
    default T build(ChartType type, TableLens lens,
-                         BindingInfo bindingInfo,
-                         Map<String, Object> params)
+                   BindingInfo bindingInfo,
+                   Map<String, Object> params)
    {
       if(isAccept(type, bindingInfo) && bindingInfo != null) {
          return build(lens, bindingInfo, type, params);

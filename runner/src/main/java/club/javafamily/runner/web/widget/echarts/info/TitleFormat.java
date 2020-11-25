@@ -14,29 +14,32 @@
 
 package club.javafamily.runner.web.widget.echarts.info;
 
-import java.util.List;
+public class TitleFormat {
+   private String left;
+   private Integer top;
+   private String color;
 
-public interface BindingInfo {
-
-   default List<AxisInfo> getXAxis() {
-      return null;
+   public String getLeft() {
+      return left;
    }
 
-   default List<AxisInfo> getYAxis() {
-      return null;
+   public void setLeft(String left) {
+      this.left = left;
    }
 
-   default List<String> dataSet() {
-      return null;
+   public Integer getTop() {
+      return top;
    }
 
-   default boolean isShowVisualMap() {
-      return false;
+   public void setTop(Integer top) {
+      this.top = top;
    }
 
-   TooltipInfo getTooltip();
+   public String getColor() {
+      return color;
+   }
 
-   TitleInfo getTitleInfo();
-
-   LegendInfo getLegend();
+   public void setColor(String color) {
+      this.color = color;
+   }
 }

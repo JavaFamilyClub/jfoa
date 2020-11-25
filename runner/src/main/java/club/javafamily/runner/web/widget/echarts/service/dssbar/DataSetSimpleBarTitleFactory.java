@@ -12,10 +12,17 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.info.binding;
+package club.javafamily.runner.web.widget.echarts.service.dssbar;
 
-public class DataSetSimpleBarBindingInfo extends BaseBindingInfo {
-   public DataSetSimpleBarBindingInfo(String subject) {
-      super(subject);
+import club.javafamily.runner.web.widget.echarts.service.ChartTitleFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DataSetSimpleBarTitleFactory extends ChartTitleFactory {
+
+   @Autowired
+   public DataSetSimpleBarTitleFactory(DataSetSimpleBarChartHelper chartHelper) {
+      super(chartHelper);
    }
 }

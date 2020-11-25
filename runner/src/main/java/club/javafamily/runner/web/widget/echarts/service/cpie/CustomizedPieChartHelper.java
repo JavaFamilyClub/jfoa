@@ -16,8 +16,8 @@ package club.javafamily.runner.web.widget.echarts.service.cpie;
 
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.EChartVisualInRange;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.info.binding.CustomPieBindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.*;
+import club.javafamily.runner.web.widget.echarts.info.cpie.CustomPieBindingInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
 import org.springframework.stereotype.Component;
 
@@ -31,8 +31,8 @@ public class CustomizedPieChartHelper implements ChartHelper {
    }
 
    @Override
-   public BindingInfo buildDefaultBindingInfo(String subject) {
-      CustomPieBindingInfo bindingInfo = new CustomPieBindingInfo(subject);
+   public BindingInfo buildDefaultBindingInfo(String title) {
+      CustomPieBindingInfo bindingInfo = new CustomPieBindingInfo();
 
       bindingInfo.setShowVisualMap(false);
       bindingInfo.setMax(0);
@@ -41,8 +41,34 @@ public class CustomizedPieChartHelper implements ChartHelper {
       bindingInfo.setAnimationType("scale");
       bindingInfo.setAnimationEasing("animationEasing");
       bindingInfo.setAnimationDelay(100D);
+      bindingInfo.setInRange(defaultCustomizedPieVisualMapInRange());
+      bindingInfo.setTooltip(defaultTooltipInfo());
+      bindingInfo.setTitleInfo(defaultTitleInfo(title));
 
       return bindingInfo;
+   }
+
+   private TitleInfo defaultTitleInfo(String title) {
+      TitleInfo titleInfo = new TitleInfo();
+
+      TitleFormat format = new TitleFormat();
+      format.setLeft("center");
+      format.setTop(10);
+      format.setColor("#ccc");
+
+      titleInfo.setTitle(title);
+      titleInfo.setFormat(format);
+
+      return titleInfo;
+   }
+
+   public TooltipInfo defaultTooltipInfo() {
+      TooltipInfo tooltip = new TooltipInfo();
+
+      tooltip.setTrigger("item");
+      tooltip.setFormatter("{a} <br/>{b} : {c} ({d}%)");
+
+      return tooltip;
    }
 
    public EChartVisualInRange defaultCustomizedPieVisualMapInRange() {

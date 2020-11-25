@@ -16,7 +16,7 @@ package club.javafamily.runner.web.widget.echarts.service.dssbar;
 
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.info.binding.DataSetSimpleBarBindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.dssbar.DataSetSimpleBarBindingInfo;
 import club.javafamily.runner.web.widget.echarts.info.dssbar.DataSetSimpleBarAxisInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
 import org.springframework.stereotype.Component;
@@ -42,8 +42,8 @@ public class DataSetSimpleBarChartHelper implements ChartHelper {
    }
 
    @Override
-   public BindingInfo buildDefaultBindingInfo(String subject) {
-      DataSetSimpleBarBindingInfo bindingInfo = new DataSetSimpleBarBindingInfo(subject);
+   public BindingInfo buildDefaultBindingInfo(String title) {
+      DataSetSimpleBarBindingInfo bindingInfo = new DataSetSimpleBarBindingInfo();
 
       bindingInfo.setxAxisInfo(
          Collections.singletonList(new DataSetSimpleBarAxisInfo("category")));

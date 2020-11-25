@@ -16,43 +16,35 @@ package club.javafamily.runner.web.widget.echarts.service.cpie;
 
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.EChartVisualMap;
+import club.javafamily.runner.web.widget.echarts.EChartTooltip;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.info.cpie.CustomPieBindingInfo;
-import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
+import club.javafamily.runner.web.widget.echarts.info.TooltipInfo;
+import club.javafamily.runner.web.widget.echarts.service.ChartTooltipFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component
-public class CustomizedPieVisualMapFactory implements ChartObjectFactory<EChartVisualMap> {
+public class CustomizedPieTooltipFactory extends ChartTooltipFactory {
 
    @Autowired
-   public CustomizedPieVisualMapFactory(CustomizedPieChartHelper chartHelper) {
+   public CustomizedPieTooltipFactory(CustomizedPieChartHelper chartHelper) {
+      super(chartHelper);
       this.chartHelper = chartHelper;
    }
 
    @Override
-   public boolean isAccept(ChartType type, BindingInfo bindingInfo) {
-      return chartHelper.isAccept(type, bindingInfo);
-   }
+   public EChartTooltip build(TableLens lens, BindingInfo bindingInfo, ChartType type, Map<String, Object> params) {
+      EChartTooltip tooltip = super.build(lens, bindingInfo, type, params);
+      TooltipInfo tooltipInfo = bindingInfo.getTooltip();
 
-   @Override
-   public EChartVisualMap build(TableLens lens,
-                                BindingInfo bindingInfo,
-                                ChartType type,
-                                Map<String, Object> params)
-   {
-      EChartVisualMap visualMap = new EChartVisualMap();
-      CustomPieBindingInfo info = (CustomPieBindingInfo) bindingInfo;
+      if(tooltipInfo != null) {
+         tooltip.setTrigger(tooltipInfo.getTrigger());
+         tooltip.setFormatter(tooltipInfo.getFormatter());
+      }
 
-      visualMap.setMax(info.getMax());
-      visualMap.setMin(info.getMin());
-      visualMap.setShow(info.isShowVisualMap());
-      visualMap.setInRange(info.getInRange());
-
-      return visualMap;
+      return tooltip;
    }
 
    private final CustomizedPieChartHelper chartHelper;
