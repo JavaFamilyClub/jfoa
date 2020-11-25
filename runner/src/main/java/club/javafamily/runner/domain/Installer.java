@@ -24,7 +24,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE;
+import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE_STR;
 
 @Entity(name = "t_installer")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -36,7 +36,7 @@ public class Installer implements Serializable {
    private String version;
    private String link;
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
-   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
+   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE_STR)
    private Date uploadDate;
 
    public Installer() {

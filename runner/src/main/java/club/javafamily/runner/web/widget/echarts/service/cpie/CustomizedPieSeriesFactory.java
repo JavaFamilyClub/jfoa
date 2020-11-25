@@ -2,14 +2,12 @@ package club.javafamily.runner.web.widget.echarts.service.cpie;
 
 import club.javafamily.runner.common.table.cell.Cell;
 import club.javafamily.runner.common.table.cell.CellValueType;
-import club.javafamily.runner.common.table.lens.LensTool;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.util.CellValueTypeUtils;
 import club.javafamily.runner.web.widget.echarts.*;
 import club.javafamily.runner.web.widget.echarts.info.AxisInfo;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.info.binding.BaseBindingInfo;
 import club.javafamily.runner.web.widget.echarts.info.binding.CustomPieBindingInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
 import org.slf4j.Logger;
@@ -17,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -83,7 +80,6 @@ public class CustomizedPieSeriesFactory implements ChartObjectFactory<List<EChar
          return null;
       }
 
-      // TODO build data
       List<Object> data = new ArrayList<>();
 
       for(int row = lens.getHeaderRowCount(); row < lens.getRowCount(); row++) {
@@ -97,7 +93,8 @@ public class CustomizedPieSeriesFactory implements ChartObjectFactory<List<EChar
             continue;
          }
 
-         data.add(new NameValueData(lens.getObject(row, xIndex).getValue() + "",
+         data.add(new NameValueData(
+            Objects.toString(lens.getObject(row, xIndex).getValue(), ""),
             Double.parseDouble(lens.getObject(row, xIndex).toString())));
       }
 

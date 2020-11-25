@@ -38,7 +38,7 @@ public class QuartzConfig {
    public Trigger syncRedisToDbJobTrigger() {
       CronScheduleBuilder cron
          = CronScheduleBuilder.cronSchedule("0 30 3 * * ?")
-         .inTimeZone(TimeZone.getTimeZone(Tool.DEFAULT_TIME_ZONE))
+         .inTimeZone(Tool.DEFAULT_TIME_ZONE)
          .withMisfireHandlingInstructionDoNothing();
 
       return TriggerBuilder.newTrigger()

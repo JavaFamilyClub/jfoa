@@ -28,7 +28,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE;
+import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE_STR;
 
 @Entity(name = "t_customer")
 public class Customer implements Serializable, Cloneable {
@@ -44,7 +44,7 @@ public class Customer implements Serializable, Cloneable {
    private UserType type = UserType.User;
    private boolean active;
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
-   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
+   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE_STR)
    private Date registerDate;
 
    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)

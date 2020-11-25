@@ -11,6 +11,7 @@ import java.security.Security;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.TimeZone;
 
 public class TestToolStatic {
 
@@ -38,6 +39,13 @@ public class TestToolStatic {
       ObjectMapper mapper = new ObjectMapper();
 
       Assertions.assertEquals("\"bar\"", mapper.writeValueAsString(ChartType.bar));
+   }
+
+   @Test
+   public void timeZone() {
+      TimeZone timeZone = TimeZone.getTimeZone(Tool.DEFAULT_TIME_ZONE_STR);
+
+      Assertions.assertNotNull(timeZone, "Default time zone is null");
    }
 
    private static final Logger LOGGER = LoggerFactory.getLogger(TestToolStatic.class);

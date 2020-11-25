@@ -33,10 +33,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Tool {
    public static final String PROJECT_MAIN = "JavaFamily";
    public static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-   public static final String DEFAULT_TIME_ZONE = "GMT+8";
+   public static final String DEFAULT_TIME_ZONE_STR = "GMT+08:00";
+   public static final TimeZone DEFAULT_TIME_ZONE = TimeZone.getTimeZone(DEFAULT_TIME_ZONE_STR);
    public static final String USER_DOCUMENT_URI = "https://javafamilyclub.github.io/jfoa/#/";
 
-   private static final String NOCLONE = new String("noclone");
+   private static final String NOCLONE = "noclone";
    private static Map<String, Object> cloneFns = new ConcurrentHashMap<>();
 
    private static final SecureRandom secureRandom;

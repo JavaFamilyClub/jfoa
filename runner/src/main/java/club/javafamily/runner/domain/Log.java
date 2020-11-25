@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE;
+import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE_STR;
 
 @Entity(name = "t_log")
 @Exportable("JavaFamily OA Audit")
@@ -33,7 +33,7 @@ public class Log implements Serializable {
 
   @Exportable(description = "执行时间", order = 5)
   @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
-  @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
+  @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE_STR)
   private Date date;
 
   @Exportable(description = "备注", order = 6)

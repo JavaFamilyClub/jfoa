@@ -14,6 +14,8 @@
 
 package club.javafamily.runner.web.widget.echarts.info;
 
+import club.javafamily.runner.web.widget.echarts.info.legend.LegendInfo;
+
 import java.util.List;
 
 public interface BindingInfo {
@@ -26,9 +28,15 @@ public interface BindingInfo {
       return null;
    }
 
+   default List<String> dataSet() {
+      return null;
+   }
+
    default boolean isShowVisualMap() {
       return false;
    }
 
    String getSubject();
+
+   LegendInfo getLegend();
 }

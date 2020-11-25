@@ -24,7 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 
-import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE;
+import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE_STR;
 
 public class CustomerVO implements Serializable {
    private int id;
@@ -36,7 +36,7 @@ public class CustomerVO implements Serializable {
    private boolean active;
 
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
-   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE)
+   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE_STR)
    private Date registerDate;
 
    public static CustomerVO buildFromDomain(Customer customer) {

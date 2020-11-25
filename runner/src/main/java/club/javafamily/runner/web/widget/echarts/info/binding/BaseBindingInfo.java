@@ -16,6 +16,7 @@ package club.javafamily.runner.web.widget.echarts.info.binding;
 
 import club.javafamily.runner.web.widget.echarts.info.AxisInfo;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.legend.LegendInfo;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public abstract class BaseBindingInfo implements BindingInfo {
 
    @Override
    public String getSubject() {
-      return null;
+      return subject;
    }
 
    public void setSubject(String subject) {
@@ -52,7 +53,17 @@ public abstract class BaseBindingInfo implements BindingInfo {
       this.yAxisInfo = yAxisInfo;
    }
 
+   @Override
+   public LegendInfo getLegend() {
+      return legend;
+   }
+
+   public void setLegend(LegendInfo legend) {
+      this.legend = legend;
+   }
+
    private List<AxisInfo> xAxisInfo;
    private List<AxisInfo> yAxisInfo;
    private String subject;
+   protected LegendInfo legend;
 }
