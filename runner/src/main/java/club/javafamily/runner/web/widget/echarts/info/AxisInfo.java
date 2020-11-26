@@ -17,7 +17,7 @@ package club.javafamily.runner.web.widget.echarts.info;
 public interface AxisInfo {
    String getType();
 
-   default String bindingColumn() {
+   default String getBindingColumn() {
       return null;
    }
 }

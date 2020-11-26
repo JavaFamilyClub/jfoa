@@ -58,7 +58,7 @@ public class DataSetSimpleBarSeriesFactory implements ChartObjectFactory<List<EC
       int seriesCount;
       String seriesLayoutBy = null;
 
-      if(LegendInfo.SERIES_LAYOUT_BY_ROW.equals(legend.seriesLayoutBy())) {
+      if(legend != null && LegendInfo.SERIES_LAYOUT_BY_ROW.equals(legend.getSeriesLayoutBy())) {
          seriesCount = dataCols.size();
          seriesLayoutBy = LegendInfo.SERIES_LAYOUT_BY_ROW;
       }

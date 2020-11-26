@@ -14,18 +14,11 @@
 
 package club.javafamily.runner.web.widget.echarts.info.dssbar;
 
-import club.javafamily.runner.web.widget.echarts.info.AxisInfo;
+import club.javafamily.runner.web.widget.echarts.info.DefaultAxisInfo;
 
-public class DataSetSimpleBarAxisInfo implements AxisInfo {
+public class DataSetSimpleBarAxisInfo extends DefaultAxisInfo {
 
    public DataSetSimpleBarAxisInfo(String type) {
-      this.type = type;
+      super(type);
    }
-
-   @Override
-   public String getType() {
-      return type;
-   }
-
-   private String type;
 }

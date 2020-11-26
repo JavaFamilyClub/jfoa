@@ -16,6 +16,7 @@ package club.javafamily.runner.web.widget.echarts.service.dssbar;
 
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.LegendInfo;
 import club.javafamily.runner.web.widget.echarts.info.dssbar.DataSetSimpleBarBindingInfo;
 import club.javafamily.runner.web.widget.echarts.info.dssbar.DataSetSimpleBarAxisInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
@@ -37,8 +38,7 @@ public class DataSetSimpleBarChartHelper implements ChartHelper {
       }
 
       return bindingInfo instanceof DataSetSimpleBarBindingInfo
-         && !CollectionUtils.isEmpty(bindingInfo.dataSet())
-         && bindingInfo.getLegend() != null;
+         && !CollectionUtils.isEmpty(bindingInfo.dataSet());
    }
 
    @Override
@@ -50,6 +50,15 @@ public class DataSetSimpleBarChartHelper implements ChartHelper {
       bindingInfo.setyAxisInfo(
          Collections.singletonList(new DataSetSimpleBarAxisInfo("value")));
 
+      bindingInfo.setLegend(defaultLegendInfo());
+
       return bindingInfo;
+   }
+
+   public LegendInfo defaultLegendInfo() {
+      LegendInfo legendInfo = new LegendInfo();
+      legendInfo.setSeriesLayoutBy(LegendInfo.SERIES_LAYOUT_BY_ROW);
+
+      return legendInfo;
    }
 }

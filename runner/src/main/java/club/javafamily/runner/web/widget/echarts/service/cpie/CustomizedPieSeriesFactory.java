@@ -72,8 +72,8 @@ public class CustomizedPieSeriesFactory implements ChartObjectFactory<List<EChar
          return null;
       }
 
-      String xBindingColumn = xAxis.get(0).bindingColumn();
-      String yBindingColumn = yAxis.get(0).bindingColumn();
+      String xBindingColumn = xAxis.get(0).getBindingColumn();
+      String yBindingColumn = yAxis.get(0).getBindingColumn();
       Integer xIndex = lens.getColumnIndex(xBindingColumn);
       Integer yIndex = lens.getColumnIndex(yBindingColumn);
 

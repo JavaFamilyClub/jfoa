@@ -14,26 +14,33 @@
 
 package club.javafamily.runner.web.widget.echarts.info;
 
-public class LegendInfo {
+public class DefaultAxisInfo implements AxisInfo {
 
-   public static final String SERIES_LAYOUT_BY_ROW = "row";
+   protected String type;
+   protected String bindingColumn;
 
-   private String columnName;
-   private String seriesLayoutBy;
-
-   public String getColumnName() {
-      return columnName;
+   public DefaultAxisInfo() {
    }
 
-   public void setColumnName(String columnName) {
-      this.columnName = columnName;
+   public DefaultAxisInfo(String type) {
+      this.type = type;
    }
 
-   public String getSeriesLayoutBy() {
-      return seriesLayoutBy;
+   @Override
+   public String getType() {
+      return type;
    }
 
-   public void setSeriesLayoutBy(String seriesLayoutBy) {
-      this.seriesLayoutBy = seriesLayoutBy;
+   @Override
+   public String getBindingColumn() {
+      return bindingColumn;
+   }
+
+   public void setType(String type) {
+      this.type = type;
+   }
+
+   public void setBindingColumn(String bindingColumn) {
+      this.bindingColumn = bindingColumn;
    }
 }

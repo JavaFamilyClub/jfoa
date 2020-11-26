@@ -17,13 +17,16 @@ package club.javafamily.runner.web.widget.echarts.service.dssbar;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.EChartDataSet;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.*;
 import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
+import java.util.*;
 
+/**
+ *
+ */
 @Component
 public class DataSetSimpleBarDataSetFactory implements ChartObjectFactory<EChartDataSet> {
 
@@ -41,9 +44,12 @@ public class DataSetSimpleBarDataSetFactory implements ChartObjectFactory<EChart
    public EChartDataSet build(TableLens lens, BindingInfo bindingInfo,
                               ChartType type, Map<String, Object> params)
    {
-      EChartDataSet dataSet = new EChartDataSet();
+      List<List<Object>> source = new ArrayList<>();
+      EChartDataSet dataSet = new EChartDataSet(source);
 
       // TODO build dataSet
+      LegendInfo legend = bindingInfo.getLegend();
+      List<AxisInfo> xAxis = bindingInfo.getXAxis();
 
       return dataSet;
    }
