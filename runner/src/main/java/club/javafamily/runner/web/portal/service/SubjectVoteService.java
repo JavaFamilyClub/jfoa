@@ -109,19 +109,14 @@ public class SubjectVoteService {
       lock.writeLock().lock();
 
       try {
-         if(support) {
-            redisClient.incr(countKey, CACHED_TIME);
-         }
-         else {
-            redisClient.decr(countKey, CACHED_TIME);
-         }
-
          // allow op
          if(opStatus == VoteOperatorStatus.Allow) {
+            redisClient.incr(countKey, CACHED_TIME);
             redisClient.set(opKey, op, CACHED_TIME);
          }
          else {
             // clear op status, opStatus is again
+            redisClient.decr(countKey, CACHED_TIME);
             redisClient.delete(opKey);
          }
       }
