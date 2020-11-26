@@ -88,13 +88,14 @@ public class SubjectVoteService {
 
       try {
          op = redisClient.get(opKey);
-         // 1. make db data setting to redis
-         // 2. setting value that key is not exist is 0.
-         int oldCount = getVoteCurrentCount(id, support);
       }
       finally {
          lock.readLock().unlock();
       }
+
+      // 1. make db data setting to redis
+      // 2. setting value that key is not exist is 0.
+      int oldCount = getVoteCurrentCount(id, support);
 
       VoteOperatorStatus opStatus = getOpNumber(op, support);
 
@@ -132,6 +133,10 @@ public class SubjectVoteService {
       }
    }
 
+   /**
+    * @DevWarning
+    * This method will getting write lock, so can't call it in read lock scope.
+    */
    public int getVoteCurrentCount(int id, boolean support) {
       String countKey = convertCountKey(id, support);
       Integer count = getCachedCount(countKey);
