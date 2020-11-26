@@ -119,6 +119,13 @@ public class SubjectVoteService {
             redisClient.decr(countKey, CACHED_TIME);
             redisClient.delete(opKey);
          }
+
+         Integer cachedCount = getCachedCount(countKey);
+
+         if(cachedCount != null && cachedCount < 0) {
+            LOGGER.warn("This vote count({}) is invalid, remove it: {}", cachedCount, countKey);
+            deleteCachedCount(id, support);
+         }
       }
       finally {
          lock.writeLock().unlock();
@@ -146,7 +153,7 @@ public class SubjectVoteService {
          else {
             count = support ? subjectRequestVote.getSupport()
                : subjectRequestVote.getOppose();
-            count = count == null ? 0 : count;
+            count = count == null || count < 0 ? 0 : count;
          }
 
          lock.writeLock().lock();
@@ -156,6 +163,7 @@ public class SubjectVoteService {
                redisClient.set(countKey, count, CACHED_TIME);
             }
             else {
+               count = getCachedCount(countKey);
                LOGGER.warn("Double check for getting cached count failed. key is {}", countKey);
             }
          }
