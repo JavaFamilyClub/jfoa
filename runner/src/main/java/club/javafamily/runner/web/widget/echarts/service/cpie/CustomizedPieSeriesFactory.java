@@ -8,7 +8,7 @@ import club.javafamily.runner.util.CellValueTypeUtils;
 import club.javafamily.runner.web.widget.echarts.*;
 import club.javafamily.runner.web.widget.echarts.info.*;
 import club.javafamily.runner.web.widget.echarts.info.cpie.CustomPieBindingInfo;
-import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
+import club.javafamily.runner.web.widget.echarts.service.BaseChartSeriesFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +18,12 @@ import org.springframework.util.CollectionUtils;
 import java.util.*;
 
 @Component
-public class CustomizedPieSeriesFactory implements ChartObjectFactory<List<EChartSeries>> {
+public class CustomizedPieSeriesFactory extends BaseChartSeriesFactory {
 
    @Autowired
    public CustomizedPieSeriesFactory(CustomizedPieChartHelper chartHelper) {
+      super(chartHelper);
       this.chartHelper = chartHelper;
-   }
-
-   @Override
-   public boolean isAccept(ChartType type, BindingInfo bindingInfo) {
-      return chartHelper.isAccept(type, bindingInfo);
    }
 
    @Override

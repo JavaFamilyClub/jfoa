@@ -19,7 +19,7 @@ import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.EChartSeries;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
 import club.javafamily.runner.web.widget.echarts.info.LegendInfo;
-import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
+import club.javafamily.runner.web.widget.echarts.service.BaseChartSeriesFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +28,12 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class DataSetSimpleBarSeriesFactory implements ChartObjectFactory<List<EChartSeries>> {
+public class DataSetSimpleBarSeriesFactory extends BaseChartSeriesFactory {
 
    @Autowired
    public DataSetSimpleBarSeriesFactory(DataSetSimpleBarChartHelper chartHelper) {
+      super(chartHelper);
       this.chartHelper = chartHelper;
-   }
-
-   @Override
-   public boolean isAccept(ChartType type, BindingInfo bindingInfo) {
-      return chartHelper.isAccept(type, bindingInfo);
    }
 
    @Override

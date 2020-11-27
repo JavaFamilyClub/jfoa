@@ -103,11 +103,13 @@ public interface TableLens {
          return null;
       }
 
-      for(int i = 0; i < getColCount(); i++) {
-         Cell cell = getObject(0, i);
+      for(int row = 0; row < getHeaderRowCount(); row++) {
+         for(int col = 0; col < getColCount(); col++) {
+            Cell cell = getObject(row, col);
 
-         if(cell != null && columnName.equals(cell.getValue())) {
-            return i;
+            if(cell != null && columnName.equals(cell.getValue())) {
+               return col;
+            }
          }
       }
 

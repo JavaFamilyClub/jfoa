@@ -19,6 +19,7 @@ import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.EChartVisualMap;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
 import club.javafamily.runner.web.widget.echarts.info.cpie.CustomPieBindingInfo;
+import club.javafamily.runner.web.widget.echarts.service.BaseChartVisualMapFactory;
 import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,10 +27,11 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public class CustomizedPieVisualMapFactory implements ChartObjectFactory<EChartVisualMap> {
+public class CustomizedPieVisualMapFactory extends BaseChartVisualMapFactory {
 
    @Autowired
    public CustomizedPieVisualMapFactory(CustomizedPieChartHelper chartHelper) {
+      super(chartHelper);
       this.chartHelper = chartHelper;
    }
 

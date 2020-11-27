@@ -18,20 +18,18 @@ import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.EChartDataSet;
 import club.javafamily.runner.web.widget.echarts.info.*;
-import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
+import club.javafamily.runner.web.widget.echarts.service.BaseChartDataSetFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-/**
- *
- */
 @Component
-public class DataSetSimpleBarDataSetFactory implements ChartObjectFactory<EChartDataSet> {
+public class DataSetSimpleBarDataSetFactory extends BaseChartDataSetFactory {
 
    @Autowired
    public DataSetSimpleBarDataSetFactory(DataSetSimpleBarChartHelper chartHelper) {
+      super(chartHelper);
       this.chartHelper = chartHelper;
    }
 
