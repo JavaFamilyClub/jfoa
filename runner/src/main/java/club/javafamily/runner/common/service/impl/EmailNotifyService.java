@@ -20,7 +20,6 @@ import club.javafamily.runner.common.service.NotifyService;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -31,7 +30,6 @@ import java.util.Map;
 @Service("notifyService")
 public class EmailNotifyService implements NotifyService {
 
-   @Async
    @Override
    public void changePasswordNotify(Customer user, HttpServletRequest request) {
       Map<String, Object> params = new HashMap<>();

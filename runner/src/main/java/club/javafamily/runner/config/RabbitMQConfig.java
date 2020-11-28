@@ -15,6 +15,8 @@
 package club.javafamily.runner.config;
 
 import club.javafamily.runner.properties.RabbitMQConfigProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -53,6 +55,8 @@ public class RabbitMQConfig {
    @PostConstruct
    private void init() {
       if(properties != null && properties.getOverride())  {
+         LOGGER.info("############# Override Rabbit MQ Settings #############");
+
          amqpAdmin.deleteExchange(DIRECT_EXCHANGE);
          amqpAdmin.declareExchange(
             new DirectExchange(DIRECT_EXCHANGE, true, false));
@@ -61,6 +65,8 @@ public class RabbitMQConfig {
             DIRECT_REGISTER_ROUTER_KEY);
          bindingQueue(DIRECT_EXCHANGE, SEND_TEMPLATE_EMAIL_QUEUE,
             SEND_TEMPLATE_EMAIL_QUEUE_ROUTER_KEY);
+         bindingQueue(DIRECT_EXCHANGE, SUBJECT_REQUEST_VOTE_QUEUE,
+            SUBJECT_REQUEST_VOTE_QUEUE_ROUTER_KEY);
       }
    }
 
@@ -100,4 +106,6 @@ public class RabbitMQConfig {
    public MappingJackson2MessageConverter json2MessageConverter() {
       return new MappingJackson2MessageConverter();
    }
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMQConfig.class);
 }

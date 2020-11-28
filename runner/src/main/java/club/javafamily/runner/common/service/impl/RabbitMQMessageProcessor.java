@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
- * proprietary to AngBoot Technology Corp. This software is furnished
+ * proprietary to JavaFamily Technology Corp. This software is furnished
  * pursuant to a written license agreement and may be used, copied,
  * transmitted, and stored only in accordance with the terms of such
  * license and with the inclusion of the above copyright notice. Please
@@ -14,15 +14,15 @@
 
 package club.javafamily.runner.common.service.impl;
 
-import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
-import club.javafamily.runner.common.model.amqp.TemplateEmailMessage;
-import club.javafamily.runner.common.service.*;
+import club.javafamily.runner.common.model.amqp.*;
+import club.javafamily.runner.common.service.AmqpMessageProcessor;
+import club.javafamily.runner.common.service.EmailService;
 import club.javafamily.runner.util.HTMLTemplateUtils;
 import club.javafamily.runner.util.Tool;
+import club.javafamily.runner.web.portal.service.SubjectVoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
@@ -30,16 +30,13 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+import static club.javafamily.runner.common.service.AmqpService.*;
 import static club.javafamily.runner.service.impl.CustomerServiceImpl.AMQP_REGISTER_EMAIL_SUBJECT_KEY;
 
-@Service("amqpService")
-public class AmqpServiceImpl implements AmqpService {
+@Service
+public class RabbitMQMessageProcessor implements AmqpMessageProcessor {
 
    @Override
-   public <T> void publishMsg(String exchange, String routerKey, T params) {
-      rabbitTemplate.convertAndSend(exchange, routerKey, params);
-   }
-
    @RabbitListener(queues = {SEND_TEMPLATE_EMAIL_QUEUE})
    public void receiveSendTemplateEmailMessage(
       @Payload TemplateEmailMessage message)
@@ -51,10 +48,11 @@ public class AmqpServiceImpl implements AmqpService {
          emailService.sendMimeMessage(message.getEmail(), subject, content);
       }
       catch(Exception e) {
-         LOGGER.warn("AMQP({}) execute error!", SEND_TEMPLATE_EMAIL_QUEUE, e);
+         LOGGER.warn("RabbitMQ({}) execute error!", SEND_TEMPLATE_EMAIL_QUEUE, e);
       }
    }
 
+   @Override
    @RabbitListener(queues = { REGISTER_QUEUE })
    public void receiveUserRegisterMessage(@Payload RegisterUserInfo info) {
       try {
@@ -65,6 +63,12 @@ public class AmqpServiceImpl implements AmqpService {
       catch(Exception e) {
          LOGGER.warn("{} execute error!", REGISTER_QUEUE, e);
       }
+   }
+
+   @Override
+   @RabbitListener(queues = { SUBJECT_REQUEST_VOTE_QUEUE })
+   public void receiveSubjectRequestChangeVoteMessage(@Payload SubjectRequestChangeVoteMessage message) {
+      voteService.processChangeVote(message);
    }
 
    private String buildRegisterSuccessMailContent(RegisterUserInfo info) {
@@ -83,19 +87,15 @@ public class AmqpServiceImpl implements AmqpService {
    }
 
    @Autowired
-   public AmqpServiceImpl(RabbitTemplate rabbitTemplate, EmailService emailService,
-                          RedisClient<String> redisClient)
+   public RabbitMQMessageProcessor(EmailService emailService,
+                                   SubjectVoteService voteService)
    {
-      this.redisClient = redisClient;
       this.emailService = emailService;
-      this.rabbitTemplate = rabbitTemplate;
+      this.voteService = voteService;
    }
 
-   private final RedisClient<String> redisClient;
    private final EmailService emailService;
-   private final RabbitTemplate rabbitTemplate;
+   private final SubjectVoteService voteService;
 
-   private static final String REGISTERED_INFO_MAIL_TEMPLATE = "signupEmail";
-
-   private static final Logger LOGGER = LoggerFactory.getLogger(AmqpServiceImpl.class);
+   private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMQMessageProcessor.class);
 }

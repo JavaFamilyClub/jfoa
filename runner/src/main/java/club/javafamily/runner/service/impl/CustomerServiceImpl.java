@@ -32,14 +32,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Objects;
 
 import static club.javafamily.runner.util.SecurityUtil.REGISTERED_USER_STORE_PREFIX;
 
@@ -169,7 +167,6 @@ public class CustomerServiceImpl implements CustomerService {
       customerDao.delete(user);
    }
 
-   @Async
    @Override
    public void signup(CustomerVO customerVO, String baseLink) {
       RegisterUserInfo info = new RegisterUserInfo();

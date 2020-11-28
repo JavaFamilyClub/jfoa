@@ -14,8 +14,7 @@
 
 package club.javafamily.runner.common.service;
 
-import club.javafamily.runner.common.model.amqp.TemplateEmailMessage;
-import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
+import club.javafamily.runner.common.model.amqp.*;
 
 public interface AmqpService {
    String DIRECT_EXCHANGE = "jfoa-direct";
@@ -26,6 +25,10 @@ public interface AmqpService {
    // change password
    String SEND_TEMPLATE_EMAIL_QUEUE = "jfoa-send-template-email";
    String SEND_TEMPLATE_EMAIL_QUEUE_ROUTER_KEY = SEND_TEMPLATE_EMAIL_QUEUE;
+
+   // subject request
+   String SUBJECT_REQUEST_VOTE_QUEUE = "jfoa-subject-request-vote";
+   String SUBJECT_REQUEST_VOTE_QUEUE_ROUTER_KEY = SUBJECT_REQUEST_VOTE_QUEUE;
 
    /**
     * send registered message.
@@ -41,6 +44,10 @@ public interface AmqpService {
     */
    default void sendTemplateEmailMessage(TemplateEmailMessage message) {
       publishMsg(DIRECT_EXCHANGE, SEND_TEMPLATE_EMAIL_QUEUE_ROUTER_KEY, message);
+   }
+
+   default void sendSubjectRequestChangeVoteMessage(SubjectRequestChangeVoteMessage message) {
+      publishMsg(DIRECT_EXCHANGE, SUBJECT_REQUEST_VOTE_QUEUE_ROUTER_KEY, message);
    }
 
    /**

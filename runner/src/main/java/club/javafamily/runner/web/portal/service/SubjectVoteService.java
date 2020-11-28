@@ -14,6 +14,8 @@
 
 package club.javafamily.runner.web.portal.service;
 
+import club.javafamily.runner.common.model.amqp.SubjectRequestChangeVoteMessage;
+import club.javafamily.runner.common.service.AmqpService;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.domain.SubjectRequestVote;
@@ -26,14 +28,12 @@ import club.javafamily.runner.web.portal.model.SubjectRequestVoteDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,11 +42,13 @@ public class SubjectVoteService {
    @Autowired
    public SubjectVoteService(RedisClient<Integer> redisClient,
                              CustomerService customerService,
-                             SubjectRequestVoteService voteService)
+                             SubjectRequestVoteService voteService,
+                             AmqpService amqpService)
    {
       this.redisClient = redisClient;
       this.customerService = customerService;
       this.voteService = voteService;
+      this.amqpService = amqpService;
    }
 
    public SubjectRequestVoteDto getSubjectVoteDto(String ip, int id) {
@@ -56,16 +58,7 @@ public class SubjectVoteService {
       Customer user = customerService.getCurrentCustomer();
       String account = user != null ? user.getAccount() : null;
       String opKey = convertOpKey(ip, id, account);
-      Integer op;
-
-      lock.readLock().lock();
-
-      try {
-         op = redisClient.get(opKey);
-      }
-      finally {
-         lock.readLock().unlock();
-      }
+      Integer op = redisClient.get(opKey);
 
       return new SubjectRequestVoteDto(support, oppose,
          SUPPORT_FLAG.equals(op), OPPOSE_FLAG.equals(op));
@@ -75,41 +68,42 @@ public class SubjectVoteService {
     * @param id subject request id, and vote id.(id is same)
     * @param support is support
     */
-   @Async
    public void changeVote(String ip, int id, boolean support) {
       Customer user = customerService.getCurrentCustomer();
       String account = user != null ? user.getAccount() : null;
 
+      amqpService.sendSubjectRequestChangeVoteMessage(
+         new SubjectRequestChangeVoteMessage(id, ip, support, account));
+   }
+
+   public void processChangeVote(SubjectRequestChangeVoteMessage message) {
+      String ip = message.getIp();
+      Integer id = message.getId();
+      String account = message.getAccount();
+      boolean support = message.isSupport();
+
       String opKey = convertOpKey(ip, id, account);
       String countKey = convertCountKey(id, support);
-      Integer op;
 
-      lock.readLock().lock();
+      lock.lock();
 
-      try {
-         op = redisClient.get(opKey);
-      }
-      finally {
-         lock.readLock().unlock();
-      }
+      try{
+         Integer op = redisClient.get(opKey);
 
-      // 1. make db data setting to redis
-      // 2. setting value that key is not exist is 0.
-      int oldCount = getVoteCurrentCount(id, support);
+         VoteOperatorStatus opStatus = getOpNumber(op, support);
 
-      VoteOperatorStatus opStatus = getOpNumber(op, support);
+         if(opStatus == VoteOperatorStatus.Conflict) {
+            // invalid
+            LOGGER.warn("Invalid vote opStatus: {}", opStatus);
+            return;
+         }
 
-      if(opStatus == VoteOperatorStatus.Conflict) {
-         // invalid
-         LOGGER.warn("Invalid vote opStatus: {}", opStatus);
-         return;
-      }
+         op = support ? SUPPORT_FLAG : OPPOSE_FLAG;
 
-      op = support ? SUPPORT_FLAG : OPPOSE_FLAG;
+         // 1. make db data setting to redis
+         // 2. setting value that key is not exist is 0.
+         int oldCount = getVoteCurrentCount(id, support);
 
-      lock.writeLock().lock();
-
-      try {
          // allow op
          if(opStatus == VoteOperatorStatus.Allow) {
             redisClient.incr(countKey, CACHED_TIME);
@@ -120,23 +114,12 @@ public class SubjectVoteService {
             redisClient.decr(countKey, CACHED_TIME);
             redisClient.delete(opKey);
          }
-
-         Integer cachedCount = getCachedCount(countKey);
-
-         if(cachedCount != null && cachedCount < 0) {
-            LOGGER.warn("This vote count({}) is invalid, remove it: {}", cachedCount, countKey);
-            deleteCachedCount(id, support);
-         }
       }
       finally {
-         lock.writeLock().unlock();
+         lock.unlock();
       }
    }
 
-   /**
-    * @DevWarning
-    * This method will getting write lock, so can't call it in read lock scope.
-    */
    public int getVoteCurrentCount(int id, boolean support) {
       String countKey = convertCountKey(id, support);
       Integer count = getCachedCount(countKey);
@@ -161,19 +144,12 @@ public class SubjectVoteService {
             count = count == null || count < 0 ? 0 : count;
          }
 
-         lock.writeLock().lock();
-
-         try {
-            if(getCachedCount(countKey) == null) {
-               redisClient.set(countKey, count, CACHED_TIME);
-            }
-            else {
-               count = getCachedCount(countKey);
-               LOGGER.warn("Double check for getting cached count failed. key is {}", countKey);
-            }
+         if(getCachedCount(countKey) == null) {
+            redisClient.set(countKey, count, CACHED_TIME);
          }
-         finally {
-            lock.writeLock().unlock();
+         else {
+            count = getCachedCount(countKey);
+            LOGGER.warn("Double check for getting cached count failed. key is {}", countKey);
          }
       }
 
@@ -198,7 +174,14 @@ public class SubjectVoteService {
     * @return count. null if no cached.
     */
    public Integer getCachedCount(String countKey) {
-      return redisClient.get(countKey);
+      Integer cachedCount = redisClient.get(countKey);
+
+      if(cachedCount != null && cachedCount < 0) {
+         LOGGER.warn("This vote count({}) is invalid, remove it: {}", cachedCount, countKey);
+         deleteCachedCount(countKey);
+      }
+
+      return cachedCount;
    }
 
    /**
@@ -254,14 +237,7 @@ public class SubjectVoteService {
     * Getting count keys
     */
    public Set<String> countKeys() {
-      lock.readLock().lock();
-
-      try{
-         return redisClient.prefixKeys(VOTE_COUNT_PREFIX);
-      }
-      finally {
-         lock.readLock().unlock();
-      }
+      return redisClient.prefixKeys(VOTE_COUNT_PREFIX);
    }
 
    /**
@@ -282,26 +258,18 @@ public class SubjectVoteService {
     * @param id vote id
     */
    public void delCount(int id) {
-      lock.writeLock().lock();
-
-      try {
-         redisClient.delete(convertCountKey(id, true));
-         redisClient.delete(convertCountKey(id, false));
-      }
-      finally {
-         lock.writeLock().unlock();
-      }
+      redisClient.delete(convertCountKey(id, true));
+      redisClient.delete(convertCountKey(id, false));
    }
 
    public void deleteCachedCount(int id, boolean support) {
-      lock.writeLock().lock();
+      String cacheKey = convertCountKey(id, support);
 
-      try{
-         redisClient.delete(convertCountKey(id, support));
-      }
-      finally {
-         lock.writeLock().unlock();
-      }
+      deleteCachedCount(cacheKey);
+   }
+
+   public void deleteCachedCount(String countKey) {
+      redisClient.delete(countKey);
    }
 
    /**
@@ -324,11 +292,12 @@ public class SubjectVoteService {
    private static final String VOTE_COUNT_PREFIX = VOTE_CACHE_PREFIX + "count" + VOTE_CACHE_SEPARATOR;
    private static final String VOTE_OP_PREFIX = VOTE_CACHE_PREFIX + "op" + VOTE_CACHE_SEPARATOR;
 
-   private final ReadWriteLock lock = new ReentrantReadWriteLock();
+   private final ReentrantLock lock = new ReentrantLock();
 
    private final RedisClient<Integer> redisClient;
    private final CustomerService customerService;
    private final SubjectRequestVoteService voteService;
+   private final AmqpService amqpService;
 
    private static final Logger LOGGER = LoggerFactory.getLogger(SubjectVoteService.class);
 }
