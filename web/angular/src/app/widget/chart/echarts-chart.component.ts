@@ -14,6 +14,7 @@
 
 import { Component, Input, OnInit } from "@angular/core";
 import { EChartOption } from "echarts";
+import { ModelService } from "../services/model.service";
 import { EChartModel } from "./model/echart-model";
 
 @Component({
@@ -23,8 +24,23 @@ import { EChartModel } from "./model/echart-model";
 })
 export class EchartsChartComponent implements OnInit {
   @Input() chartModel: EChartModel;
+  @Input() url: string;
+
+  constructor(private modelService: ModelService) {
+  }
 
   ngOnInit(): void {
+    this.refresh();
+  }
+
+  refresh(): void {
+    if(!this.url) {
+      return;
+    }
+
+    this.modelService.getModel<EChartModel>(this.url).subscribe(model => {
+      this.chartModel = model;
+    });
   }
 
   get initOpts(): any {

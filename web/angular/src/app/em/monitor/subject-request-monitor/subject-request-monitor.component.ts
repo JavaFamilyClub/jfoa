@@ -15,7 +15,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Searchable } from "../../../common/annotation/searchable";
 import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
-import { EChartModel } from "../../../widget/chart/model/echart-model";
 import { ModelService } from "../../../widget/services/model.service";
 import { SubjectRequestMonitorModel } from "./model/subject-request-monitor-model";
 
@@ -33,13 +32,24 @@ import { SubjectRequestMonitorModel } from "./model/subject-request-monitor-mode
 })
 export class SubjectRequestMonitor implements OnInit {
    model: SubjectRequestMonitorModel;
-   chartModel: EChartModel;
 
    constructor(private modelService: ModelService) {
       this.refresh();
    }
 
    ngOnInit(): void {
+   }
+
+   get summaryChart(): string {
+      return EmUrlConstants.SUBJECT_REQUEST_CHART_SUMMARY;
+   }
+
+   get supportChart(): string {
+      return EmUrlConstants.SUBJECT_REQUEST_CHART_SUPPORT + "?support=" + true;
+   }
+
+   get opposeChart(): string {
+      return EmUrlConstants.SUBJECT_REQUEST_CHART_SUPPORT + "?support=" + false;
    }
 
    private refresh(): void {

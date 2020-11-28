@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col">
       <ng-container *ngIf="!!model.summaryChartModel">
-        <echarts-chart [chartModel]="model.summaryChartModel"></echarts-chart>
+        <echarts-chart [url]="summaryChart"></echarts-chart>
       </ng-container>
     </div>
   </div>
@@ -11,13 +11,13 @@
   <div class="row">
     <div class="col-6">
       <ng-container *ngIf="!!model.supportChartModel">
-        <echarts-chart [chartModel]="model.supportChartModel"></echarts-chart>
+        <echarts-chart [url]="supportChart"></echarts-chart>
       </ng-container>
     </div>
 
     <div class="col-6">
       <ng-container *ngIf="!!model.opposeChartModel">
-        <echarts-chart [chartModel]="model.opposeChartModel"></echarts-chart>
+        <echarts-chart [url]="opposeChart"></echarts-chart>
       </ng-container>
     </div>
 

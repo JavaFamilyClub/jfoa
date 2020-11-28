@@ -68,4 +68,14 @@ export class EmUrlConstants {
     * Getting subject request chart model
     */
    public static readonly SUBJECT_REQUEST_CHART = "/subject-request/chart";
+
+   /**
+    * Getting subject request summary chart model
+    */
+   public static readonly SUBJECT_REQUEST_CHART_SUMMARY = "/subject-request/chart/summary";
+
+   /**
+    * Getting subject request support chart model
+    */
+   public static readonly SUBJECT_REQUEST_CHART_SUPPORT = "/subject-request/chart/support";
 }
