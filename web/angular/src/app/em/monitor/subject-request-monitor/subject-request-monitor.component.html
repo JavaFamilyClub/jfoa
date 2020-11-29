@@ -1,24 +1,18 @@
-<div *ngIf="!!model" class="container-fluid subject-request-monitor-body">
+<div class="container-fluid subject-request-monitor-body">
 
   <div class="row">
     <div class="col">
-      <ng-container *ngIf="!!model.summaryChartModel">
-        <echarts-chart [url]="summaryChart"></echarts-chart>
-      </ng-container>
+      <echarts-chart [url]="summaryChart"></echarts-chart>
     </div>
   </div>
 
   <div class="row">
     <div class="col-6">
-      <ng-container *ngIf="!!model.supportChartModel">
-        <echarts-chart [url]="supportChart"></echarts-chart>
-      </ng-container>
+      <echarts-chart [url]="supportChart"></echarts-chart>
     </div>
 
     <div class="col-6">
-      <ng-container *ngIf="!!model.opposeChartModel">
-        <echarts-chart [url]="opposeChart"></echarts-chart>
-      </ng-container>
+      <echarts-chart [url]="opposeChart"></echarts-chart>
     </div>
 
   </div>

@@ -33,8 +33,7 @@ import { SubjectRequestMonitorModel } from "./model/subject-request-monitor-mode
 export class SubjectRequestMonitor implements OnInit {
    model: SubjectRequestMonitorModel;
 
-   constructor(private modelService: ModelService) {
-      this.refresh();
+   constructor() {
    }
 
    ngOnInit(): void {
@@ -50,13 +49,5 @@ export class SubjectRequestMonitor implements OnInit {
 
    get opposeChart(): string {
       return EmUrlConstants.SUBJECT_REQUEST_CHART_SUPPORT + "?support=" + false;
-   }
-
-   private refresh(): void {
-      this.modelService.getModel<SubjectRequestMonitorModel>(EmUrlConstants.SUBJECT_REQUEST_MONITOR)
-         .subscribe((model) =>
-      {
-         this.model = model;
-      });
    }
 }
