@@ -12,32 +12,30 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service;
+package club.javafamily.runner.web.widget.echarts.service.title;
 
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
+import club.javafamily.runner.web.widget.echarts.model.EChartTitle;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
+import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
 
 import java.util.Map;
 
-public interface ChartObjectFactory <T> {
+public abstract class ChartTitleFactory implements ChartObjectFactory<EChartTitle> {
 
-   boolean isAccept(ChartType type, BindingInfo bindingInfo, ChartHelper chartHelper);
-
-   default T build(ChartType type, TableLens lens,
-                   BindingInfo bindingInfo,
-                   ChartHelper chartHelper,
-                   Map<String, Object> params)
-   {
-      if(isAccept(type, bindingInfo, chartHelper) && bindingInfo != null) {
-         return build(lens, bindingInfo, chartHelper, type, params);
-      }
-
-      return null;
+   @Override
+   public boolean isAccept(ChartType type, BindingInfo bindingInfo, ChartHelper chartHelper) {
+      return chartHelper.isAccept(type, bindingInfo);
    }
 
-   T build(TableLens lens, BindingInfo bindingInfo,
-           ChartHelper chartHelper,
-           ChartType type, Map<String, Object> params);
+   @Override
+   public EChartTitle build(TableLens lens, BindingInfo bindingInfo,
+                            ChartHelper chartHelper,
+                            ChartType type, Map<String, Object> params)
+   {
+      return null;
+   }
 
 }

@@ -12,17 +12,15 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service;
+package club.javafamily.runner.web.widget.echarts.info;
 
-import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+public interface SeriesSupport {
 
-public interface ChartHelper {
-   boolean isAccept(ChartType type, BindingInfo bindingInfo);
+   String getSeriesItemStyleColor();
 
-   default BindingInfo buildDefaultBindingInfo() {
-      return buildDefaultBindingInfo(null);
-   }
+   String getAnimationType();
 
-   BindingInfo buildDefaultBindingInfo(String title);
+   String getAnimationEasing();
+
+   Double getAnimationDelay();
 }

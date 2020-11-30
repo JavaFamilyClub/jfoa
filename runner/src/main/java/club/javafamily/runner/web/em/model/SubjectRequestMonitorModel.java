@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.web.em.model;
 
-import club.javafamily.runner.web.widget.echarts.EChartModel;
+import club.javafamily.runner.web.widget.echarts.model.EChartModel;
 
 import java.io.Serializable;
 

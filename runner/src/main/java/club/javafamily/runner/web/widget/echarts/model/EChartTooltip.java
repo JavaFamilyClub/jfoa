@@ -12,17 +12,25 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service;
+package club.javafamily.runner.web.widget.echarts.model;
 
-import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+public class EChartTooltip {
+   private String trigger;
+   private String formatter;
 
-public interface ChartHelper {
-   boolean isAccept(ChartType type, BindingInfo bindingInfo);
-
-   default BindingInfo buildDefaultBindingInfo() {
-      return buildDefaultBindingInfo(null);
+   public String getTrigger() {
+      return trigger;
    }
 
-   BindingInfo buildDefaultBindingInfo(String title);
+   public void setTrigger(String trigger) {
+      this.trigger = trigger;
+   }
+
+   public String getFormatter() {
+      return formatter;
+   }
+
+   public void setFormatter(String formatter) {
+      this.formatter = formatter;
+   }
 }

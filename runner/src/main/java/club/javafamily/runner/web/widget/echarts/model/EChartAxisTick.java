@@ -12,17 +12,24 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service;
+package club.javafamily.runner.web.widget.echarts.model;
 
-import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+public class EChartAxisTick {
 
-public interface ChartHelper {
-   boolean isAccept(ChartType type, BindingInfo bindingInfo);
+   private boolean alignWithLabel = true;
 
-   default BindingInfo buildDefaultBindingInfo() {
-      return buildDefaultBindingInfo(null);
+   public EChartAxisTick() {
    }
 
-   BindingInfo buildDefaultBindingInfo(String title);
+   public EChartAxisTick(boolean alignWithLabel) {
+      this.alignWithLabel = alignWithLabel;
+   }
+
+   public boolean isAlignWithLabel() {
+      return alignWithLabel;
+   }
+
+   public void setAlignWithLabel(boolean alignWithLabel) {
+      this.alignWithLabel = alignWithLabel;
+   }
 }

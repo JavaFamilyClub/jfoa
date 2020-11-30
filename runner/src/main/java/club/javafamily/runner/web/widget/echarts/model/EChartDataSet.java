@@ -12,17 +12,26 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service;
+package club.javafamily.runner.web.widget.echarts.model;
 
-import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import java.util.List;
 
-public interface ChartHelper {
-   boolean isAccept(ChartType type, BindingInfo bindingInfo);
+public class EChartDataSet {
 
-   default BindingInfo buildDefaultBindingInfo() {
-      return buildDefaultBindingInfo(null);
+   public EChartDataSet() {
    }
 
-   BindingInfo buildDefaultBindingInfo(String title);
+   public EChartDataSet(List<List<Object>> source) {
+      this.source = source;
+   }
+
+   public List<List<Object>> getSource() {
+      return source;
+   }
+
+   public void setSource(List<List<Object>> source) {
+      this.source = source;
+   }
+
+   private List<List<Object>> source;
 }

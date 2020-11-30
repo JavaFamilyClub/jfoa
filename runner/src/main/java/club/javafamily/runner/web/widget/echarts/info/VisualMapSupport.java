@@ -12,17 +12,18 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service;
+package club.javafamily.runner.web.widget.echarts.info;
 
-import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.model.EChartVisualInRange;
 
-public interface ChartHelper {
-   boolean isAccept(ChartType type, BindingInfo bindingInfo);
+public interface VisualMapSupport {
 
-   default BindingInfo buildDefaultBindingInfo() {
-      return buildDefaultBindingInfo(null);
-   }
+   boolean isShowVisualMap();
 
-   BindingInfo buildDefaultBindingInfo(String title);
+   int getMax();
+
+   int getMin();
+
+   EChartVisualInRange getInRange();
+
 }

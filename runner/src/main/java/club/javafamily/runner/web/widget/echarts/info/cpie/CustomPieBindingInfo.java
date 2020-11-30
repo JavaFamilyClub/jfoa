@@ -14,15 +14,16 @@
 
 package club.javafamily.runner.web.widget.echarts.info.cpie;
 
-import club.javafamily.runner.web.widget.echarts.EChartVisualInRange;
-import club.javafamily.runner.web.widget.echarts.info.BaseBindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.*;
+import club.javafamily.runner.web.widget.echarts.model.EChartVisualInRange;
 
-public class CustomPieBindingInfo extends BaseBindingInfo {
+public class CustomPieBindingInfo extends BaseBindingInfo implements VisualMapSupport, SeriesSupport {
 
    public CustomPieBindingInfo() {
       super();
    }
 
+   @Override
    public boolean isShowVisualMap() {
       return showVisualMap;
    }
@@ -31,6 +32,7 @@ public class CustomPieBindingInfo extends BaseBindingInfo {
       this.showVisualMap = showVisualMap;
    }
 
+   @Override
    public int getMax() {
       return max;
    }
@@ -39,6 +41,7 @@ public class CustomPieBindingInfo extends BaseBindingInfo {
       this.max = max;
    }
 
+   @Override
    public int getMin() {
       return min;
    }
@@ -47,6 +50,7 @@ public class CustomPieBindingInfo extends BaseBindingInfo {
       this.min = min;
    }
 
+   @Override
    public String getSeriesItemStyleColor() {
       return seriesItemStyleColor;
    }
@@ -55,6 +59,7 @@ public class CustomPieBindingInfo extends BaseBindingInfo {
       this.seriesItemStyleColor = seriesItemStyleColor;
    }
 
+   @Override
    public String getAnimationType() {
       return animationType;
    }
@@ -63,6 +68,7 @@ public class CustomPieBindingInfo extends BaseBindingInfo {
       this.animationType = animationType;
    }
 
+   @Override
    public String getAnimationEasing() {
       return animationEasing;
    }
@@ -71,6 +77,7 @@ public class CustomPieBindingInfo extends BaseBindingInfo {
       this.animationEasing = animationEasing;
    }
 
+   @Override
    public Double getAnimationDelay() {
       return animationDelay;
    }
@@ -79,6 +86,7 @@ public class CustomPieBindingInfo extends BaseBindingInfo {
       this.animationDelay = animationDelay;
    }
 
+   @Override
    public EChartVisualInRange getInRange() {
       return inRange;
    }

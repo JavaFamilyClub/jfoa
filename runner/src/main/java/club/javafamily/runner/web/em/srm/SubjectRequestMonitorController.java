@@ -19,8 +19,8 @@ import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.service.SubjectRequestService;
 import club.javafamily.runner.util.*;
 import club.javafamily.runner.web.em.model.SubjectRequestMonitorModel;
-import club.javafamily.runner.web.widget.echarts.EChartModel;
-import club.javafamily.runner.web.widget.echarts.EChartService;
+import club.javafamily.runner.web.widget.echarts.model.EChartModel;
+import club.javafamily.runner.web.widget.echarts.model.EChartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

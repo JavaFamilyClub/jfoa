@@ -12,17 +12,32 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service;
+package club.javafamily.runner.web.widget.echarts.model;
 
-import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+public class EChartSeriesItemStyle extends ColorObject {
+   private Integer shadowBlur;
+   private String shadowColor;
 
-public interface ChartHelper {
-   boolean isAccept(ChartType type, BindingInfo bindingInfo);
-
-   default BindingInfo buildDefaultBindingInfo() {
-      return buildDefaultBindingInfo(null);
+   public EChartSeriesItemStyle() {
    }
 
-   BindingInfo buildDefaultBindingInfo(String title);
+   public EChartSeriesItemStyle(String color) {
+      super(color);
+   }
+
+   public Integer getShadowBlur() {
+      return shadowBlur;
+   }
+
+   public void setShadowBlur(Integer shadowBlur) {
+      this.shadowBlur = shadowBlur;
+   }
+
+   public String getShadowColor() {
+      return shadowColor;
+   }
+
+   public void setShadowColor(String shadowColor) {
+      this.shadowColor = shadowColor;
+   }
 }

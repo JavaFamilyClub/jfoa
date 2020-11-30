@@ -12,17 +12,19 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service;
+package club.javafamily.runner.web.widget.echarts.service.dataset;
 
 import club.javafamily.runner.enums.ChartType;
+import club.javafamily.runner.web.widget.echarts.model.EChartDataSet;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
+import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
 
-public interface ChartHelper {
-   boolean isAccept(ChartType type, BindingInfo bindingInfo);
+public abstract class ChartDataSetFactory implements ChartObjectFactory<EChartDataSet> {
 
-   default BindingInfo buildDefaultBindingInfo() {
-      return buildDefaultBindingInfo(null);
+   @Override
+   public boolean isAccept(ChartType type, BindingInfo bindingInfo, ChartHelper chartHelper) {
+      return chartHelper.isAccept(type, bindingInfo);
    }
 
-   BindingInfo buildDefaultBindingInfo(String title);
 }

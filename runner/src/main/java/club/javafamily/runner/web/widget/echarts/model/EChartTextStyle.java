@@ -12,17 +12,14 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service;
+package club.javafamily.runner.web.widget.echarts.model;
 
-import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+public class EChartTextStyle extends ColorObject {
 
-public interface ChartHelper {
-   boolean isAccept(ChartType type, BindingInfo bindingInfo);
-
-   default BindingInfo buildDefaultBindingInfo() {
-      return buildDefaultBindingInfo(null);
+   public EChartTextStyle() {
    }
 
-   BindingInfo buildDefaultBindingInfo(String title);
+   public EChartTextStyle(String color) {
+      super(color);
+   }
 }

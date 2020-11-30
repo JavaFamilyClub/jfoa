@@ -12,17 +12,20 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service;
+package club.javafamily.runner.web.widget.echarts.service.visualmap;
 
 import club.javafamily.runner.enums.ChartType;
+import club.javafamily.runner.web.widget.echarts.info.VisualMapSupport;
+import club.javafamily.runner.web.widget.echarts.model.EChartVisualMap;
 import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
+import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
 
-public interface ChartHelper {
-   boolean isAccept(ChartType type, BindingInfo bindingInfo);
+public abstract class ChartVisualMapFactory implements ChartObjectFactory<EChartVisualMap> {
 
-   default BindingInfo buildDefaultBindingInfo() {
-      return buildDefaultBindingInfo(null);
+   @Override
+   public boolean isAccept(ChartType type, BindingInfo bindingInfo, ChartHelper chartHelper) {
+      return chartHelper.isAccept(type, bindingInfo) && bindingInfo instanceof VisualMapSupport;
    }
 
-   BindingInfo buildDefaultBindingInfo(String title);
 }
