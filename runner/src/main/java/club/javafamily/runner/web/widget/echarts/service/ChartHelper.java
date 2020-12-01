@@ -15,14 +15,14 @@
 package club.javafamily.runner.web.widget.echarts.service;
 
 import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
 
 public interface ChartHelper {
-   boolean isAccept(ChartType type, BindingInfo bindingInfo);
+   boolean isAccept(ChartType type, ObjectInfo bindingInfo);
 
-   default BindingInfo buildDefaultBindingInfo() {
+   default ObjectInfo buildDefaultBindingInfo() {
       return buildDefaultBindingInfo(null);
    }
 
-   BindingInfo buildDefaultBindingInfo(String title);
+   ObjectInfo buildDefaultBindingInfo(String title);
 }

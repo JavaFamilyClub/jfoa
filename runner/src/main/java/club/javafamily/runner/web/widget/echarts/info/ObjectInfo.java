@@ -12,21 +12,35 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.service.axis;
+package club.javafamily.runner.web.widget.echarts.info;
 
-import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.model.EChartAxis;
-import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
-import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
-import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
+import club.javafamily.runner.web.widget.echarts.model.ChartFormatInfo;
 
 import java.util.List;
 
-public abstract class ChartAxisFactory implements ChartObjectFactory<List<EChartAxis>> {
+public interface ObjectInfo {
 
-   @Override
-   public boolean isAccept(ChartType type, ObjectInfo bindingInfo, ChartHelper chartHelper) {
-      return chartHelper.isAccept(type, bindingInfo);
+   default List<AxisInfo> getXAxis() {
+      return null;
    }
 
+   default List<AxisInfo> getYAxis() {
+      return null;
+   }
+
+   default List<String> dataSet() {
+      return null;
+   }
+
+   default boolean isShowVisualMap() {
+      return false;
+   }
+
+   TooltipInfo getTooltip();
+
+   TitleInfo getTitleInfo();
+
+   LegendInfo getLegend();
+
+   ChartFormatInfo getFormat();
 }

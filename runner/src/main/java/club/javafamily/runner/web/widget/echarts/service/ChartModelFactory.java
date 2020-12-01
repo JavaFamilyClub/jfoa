@@ -14,7 +14,48 @@
 
 package club.javafamily.runner.web.widget.echarts.service;
 
-public class ChartModelFactory {
+import club.javafamily.runner.common.table.lens.TableLens;
+import club.javafamily.runner.enums.ChartType;
+import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
+import club.javafamily.runner.web.widget.echarts.model.*;
 
+import java.util.Map;
+
+public interface ChartModelFactory extends ChartObjectFactory<EChartModel> {
+
+   default EChartModel build(TableLens lens, ObjectInfo bindingInfo,
+                             ChartHelper chartHelper,
+                             ChartType type, Map<String, Object> params)
+   {
+      EChartModel model = new EChartModel();
+
+      EChartInitOptions initOpts = buildInitOptions(lens, bindingInfo, chartHelper, type, params);
+      EChartOption options = buildOptions(lens, bindingInfo, chartHelper, type, params);
+
+      model.setInitOpts(initOpts);
+      model.setOptions(options);
+
+      return model;
+   }
+
+   default EChartInitOptions buildInitOptions(TableLens lens, ObjectInfo bindingInfo,
+                                              ChartHelper chartHelper,
+                                              ChartType type, Map<String, Object> params)
+   {
+      ChartFormatInfo format = bindingInfo.getFormat();
+
+      if(format == null || format.getBounds() == null) {
+         return null;
+      }
+
+      double width = format.getBounds().width;
+      double height = format.getBounds().height;
+
+      return new EChartInitOptions(width, height);
+   }
+
+   EChartOption buildOptions(TableLens lens, ObjectInfo bindingInfo,
+                             ChartHelper chartHelper,
+                             ChartType type, Map<String, Object> params);
 
 }

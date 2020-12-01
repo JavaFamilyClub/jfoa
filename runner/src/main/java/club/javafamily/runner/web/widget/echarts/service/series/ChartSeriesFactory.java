@@ -17,16 +17,16 @@ package club.javafamily.runner.web.widget.echarts.service.series;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.info.SeriesSupport;
 import club.javafamily.runner.web.widget.echarts.model.EChartSeries;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
 import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
 
 import java.util.List;
 
-public abstract class BaseChartSeriesFactory implements ChartObjectFactory<List<EChartSeries>> {
+public abstract class ChartSeriesFactory implements ChartObjectFactory<List<EChartSeries>> {
 
    @Override
-   public boolean isAccept(ChartType type, BindingInfo bindingInfo, ChartHelper chartHelper) {
+   public boolean isAccept(ChartType type, ObjectInfo bindingInfo, ChartHelper chartHelper) {
       return chartHelper.isAccept(type, bindingInfo) && bindingInfo instanceof SeriesSupport;
    }
 

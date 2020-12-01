@@ -16,16 +16,18 @@ package club.javafamily.runner.web.widget.echarts.service;
 
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
 
 import java.util.Map;
 
 public interface ChartObjectFactory <T> {
 
-   boolean isAccept(ChartType type, BindingInfo bindingInfo, ChartHelper chartHelper);
+   default boolean isAccept(ChartType type, ObjectInfo bindingInfo, ChartHelper chartHelper) {
+      return chartHelper == null || chartHelper.isAccept(type, bindingInfo);
+   }
 
    default T build(ChartType type, TableLens lens,
-                   BindingInfo bindingInfo,
+                   ObjectInfo bindingInfo,
                    ChartHelper chartHelper,
                    Map<String, Object> params)
    {
@@ -36,7 +38,7 @@ public interface ChartObjectFactory <T> {
       return null;
    }
 
-   T build(TableLens lens, BindingInfo bindingInfo,
+   T build(TableLens lens, ObjectInfo bindingInfo,
            ChartHelper chartHelper,
            ChartType type, Map<String, Object> params);
 

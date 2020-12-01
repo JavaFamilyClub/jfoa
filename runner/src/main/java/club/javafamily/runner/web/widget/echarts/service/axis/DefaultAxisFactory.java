@@ -18,7 +18,7 @@ import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.model.EChartAxis;
 import club.javafamily.runner.web.widget.echarts.info.AxisInfo;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
 import org.springframework.stereotype.Component;
 
@@ -35,19 +35,19 @@ public class DefaultAxisFactory extends ChartAxisFactory {
 
    @Override
    public List<EChartAxis> build(TableLens lens,
-                                 BindingInfo bindingInfo,
+                                 ObjectInfo bindingInfo,
                                  ChartHelper chartHelper,
                                  ChartType type,
                                  Map<String, Object> params)
    {
       List<AxisInfo> list;
-      boolean isX = Boolean.TRUE.equals(params.get("isX"));
+      boolean isY = Boolean.TRUE.equals(params.get("isY"));
 
-      if(isX) {
-         list = bindingInfo.getXAxis();
+      if(isY) {
+         list = bindingInfo.getYAxis();
       }
       else {
-         list = bindingInfo.getYAxis();
+         list = bindingInfo.getXAxis();
       }
 
       if(list == null) {

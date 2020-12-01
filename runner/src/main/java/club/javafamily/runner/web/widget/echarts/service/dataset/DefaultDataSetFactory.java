@@ -20,6 +20,7 @@ import club.javafamily.runner.web.widget.echarts.model.EChartDataSet;
 import club.javafamily.runner.web.widget.echarts.info.*;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -27,18 +28,54 @@ import java.util.*;
 public class DefaultDataSetFactory extends ChartDataSetFactory {
 
    @Override
-   public EChartDataSet build(TableLens lens, BindingInfo bindingInfo,
+   public EChartDataSet build(TableLens lens, ObjectInfo bindingInfo,
                               ChartHelper chartHelper,
                               ChartType type, Map<String, Object> params)
    {
       List<List<Object>> source = new ArrayList<>();
       EChartDataSet dataSet = new EChartDataSet(source);
 
-      // TODO build dataSet
-      LegendInfo legend = bindingInfo.getLegend();
       List<AxisInfo> xAxis = bindingInfo.getXAxis();
+      List<AxisInfo> yAxis = bindingInfo.getYAxis();
+
+      if(!CollectionUtils.isEmpty(xAxis)) {
+         String xBinding = xAxis.get(0).getBindingColumn();
+         List<Object> xRow = fillDataSet(lens, xBinding);
+
+         if(!CollectionUtils.isEmpty(xRow)) {
+            source.add(xRow);
+         }
+      }
+
+      if(!CollectionUtils.isEmpty(yAxis)) {
+         for(AxisInfo ya : yAxis) {
+            List<Object> yRow = fillDataSet(lens, ya.getBindingColumn());
+
+            if(!CollectionUtils.isEmpty(yRow)) {
+               source.add(yRow);
+            }
+         }
+      }
 
       return dataSet;
+   }
+
+   private List<Object> fillDataSet(TableLens lens, String bindingColumn) {
+      List<Object> data;
+      Integer index = lens.getColumnIndex(bindingColumn);
+
+      if(index != null && index >= 0) {
+         data = new ArrayList<>();
+         int rowCount = lens.getDataRowCount();
+
+         for(int row = 0; row < rowCount; row++) {
+            data.add(lens.getObject(row, index).getValue());
+         }
+
+         return data;
+      }
+
+      return null;
    }
 
 }

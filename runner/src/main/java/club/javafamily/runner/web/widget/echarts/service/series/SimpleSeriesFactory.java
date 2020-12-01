@@ -17,7 +17,7 @@ package club.javafamily.runner.web.widget.echarts.service.series;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.model.EChartSeries;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
 import club.javafamily.runner.web.widget.echarts.info.LegendInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
 import org.slf4j.Logger;
@@ -27,11 +27,11 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class SimpleSeriesFactory extends BaseChartSeriesFactory {
+public class SimpleSeriesFactory extends ChartSeriesFactory {
 
    @Override
    public List<EChartSeries> build(TableLens lens,
-                                   BindingInfo bindingInfo,
+                                   ObjectInfo bindingInfo,
                                    ChartHelper chartHelper,
                                    ChartType type,
                                    Map<String, Object> params)

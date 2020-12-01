@@ -36,16 +36,23 @@ public interface TableLens {
    int getRowCount();
 
    /**
-    * Check is empty lens.
-    */
-   default boolean isEmpty() {
-      return getRowCount() - getHeaderRowCount() < 1;
-   }
-
-   /**
     * include header col count
     */
    int getColCount();
+
+   /**
+    * Getting data row count.
+    */
+   default int getDataRowCount() {
+      return getRowCount() - getHeaderRowCount();
+   }
+
+   /**
+    * Check is empty lens.
+    */
+   default boolean isEmpty() {
+      return getDataRowCount() < 1;
+   }
 
    default int getHeaderRowCount() {
       return 1;

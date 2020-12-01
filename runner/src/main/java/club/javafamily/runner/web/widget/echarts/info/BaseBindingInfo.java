@@ -14,9 +14,11 @@
 
 package club.javafamily.runner.web.widget.echarts.info;
 
+import club.javafamily.runner.web.widget.echarts.model.ChartFormatInfo;
+
 import java.util.List;
 
-public abstract class BaseBindingInfo implements BindingInfo {
+public abstract class BaseBindingInfo implements ObjectInfo {
 
    protected BaseBindingInfo() {
    }
@@ -66,9 +68,19 @@ public abstract class BaseBindingInfo implements BindingInfo {
       this.titleInfo = titleInfo;
    }
 
+   @Override
+   public ChartFormatInfo getFormat() {
+      return format;
+   }
+
+   public void setFormat(ChartFormatInfo format) {
+      this.format = format;
+   }
+
    private List<AxisInfo> xAxisInfo;
    private List<AxisInfo> yAxisInfo;
    protected LegendInfo legend;
    protected TooltipInfo tooltip;
    protected TitleInfo titleInfo;
+   protected ChartFormatInfo format;
 }

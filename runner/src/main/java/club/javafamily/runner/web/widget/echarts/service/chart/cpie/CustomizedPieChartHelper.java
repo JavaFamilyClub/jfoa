@@ -15,6 +15,7 @@
 package club.javafamily.runner.web.widget.echarts.service.chart.cpie;
 
 import club.javafamily.runner.enums.ChartType;
+import club.javafamily.runner.web.widget.echarts.model.ChartFormatInfo;
 import club.javafamily.runner.web.widget.echarts.model.EChartVisualInRange;
 import club.javafamily.runner.web.widget.echarts.info.*;
 import club.javafamily.runner.web.widget.echarts.info.cpie.CustomPieBindingInfo;
@@ -25,13 +26,13 @@ import org.springframework.stereotype.Component;
 public class CustomizedPieChartHelper implements ChartHelper {
 
    @Override
-   public boolean isAccept(ChartType type, BindingInfo bindingInfo) {
+   public boolean isAccept(ChartType type, ObjectInfo bindingInfo) {
       return type == ChartType.pie &&
          (bindingInfo == null || bindingInfo instanceof CustomPieBindingInfo);
    }
 
    @Override
-   public BindingInfo buildDefaultBindingInfo(String title) {
+   public ObjectInfo buildDefaultBindingInfo(String title) {
       CustomPieBindingInfo bindingInfo = new CustomPieBindingInfo();
 
       bindingInfo.setShowVisualMap(false);
@@ -44,8 +45,17 @@ public class CustomizedPieChartHelper implements ChartHelper {
       bindingInfo.setInRange(defaultCustomizedPieVisualMapInRange());
       bindingInfo.setTooltip(defaultTooltipInfo());
       bindingInfo.setTitleInfo(defaultTitleInfo(title));
+      bindingInfo.setFormat(defaultChartFormat());
 
       return bindingInfo;
+   }
+
+   private ChartFormatInfo defaultChartFormat() {
+      ChartFormatInfo formatInfo = new ChartFormatInfo();
+
+      formatInfo.setBackgroundColor("#2c343c");
+
+      return formatInfo;
    }
 
    private TitleInfo defaultTitleInfo(String title) {

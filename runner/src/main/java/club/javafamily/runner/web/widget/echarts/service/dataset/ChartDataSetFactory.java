@@ -16,14 +16,14 @@ package club.javafamily.runner.web.widget.echarts.service.dataset;
 
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.model.EChartDataSet;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
 import club.javafamily.runner.web.widget.echarts.service.ChartObjectFactory;
 
 public abstract class ChartDataSetFactory implements ChartObjectFactory<EChartDataSet> {
 
    @Override
-   public boolean isAccept(ChartType type, BindingInfo bindingInfo, ChartHelper chartHelper) {
+   public boolean isAccept(ChartType type, ObjectInfo bindingInfo, ChartHelper chartHelper) {
       return chartHelper.isAccept(type, bindingInfo);
    }
 

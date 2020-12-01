@@ -39,7 +39,7 @@ import java.util.Map;
 public class DefaultTitleFactory extends ChartTitleFactory {
 
    @Override
-   public EChartTitle build(TableLens lens, BindingInfo bindingInfo,
+   public EChartTitle build(TableLens lens, ObjectInfo bindingInfo,
                             ChartHelper chartHelper,
                             ChartType type, Map<String, Object> params)
    {

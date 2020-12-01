@@ -17,7 +17,7 @@ package club.javafamily.runner.web.widget.echarts.service.tooltip;
 import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.model.EChartTooltip;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
 import club.javafamily.runner.web.widget.echarts.info.TooltipInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,7 @@ import java.util.Map;
 public class DefaultTooltipFactory extends ChartTooltipFactory {
 
    @Override
-   public EChartTooltip build(TableLens lens, BindingInfo bindingInfo,
+   public EChartTooltip build(TableLens lens, ObjectInfo bindingInfo,
                               ChartHelper chartHelper,
                               ChartType type, Map<String, Object> params)
    {

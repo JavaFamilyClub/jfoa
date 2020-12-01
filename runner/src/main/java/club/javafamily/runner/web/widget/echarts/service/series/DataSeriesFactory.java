@@ -30,10 +30,10 @@ import org.springframework.util.CollectionUtils;
 import java.util.*;
 
 @Component
-public class DataSeriesFactory extends BaseChartSeriesFactory {
+public class DataSeriesFactory extends ChartSeriesFactory {
 
    @Override
-   public List<EChartSeries> build(TableLens lens, BindingInfo bindingInfo,
+   public List<EChartSeries> build(TableLens lens, ObjectInfo bindingInfo,
                                    ChartHelper chartHelper,
                                    ChartType type, Map<String, Object> params)
    {
@@ -71,7 +71,7 @@ public class DataSeriesFactory extends BaseChartSeriesFactory {
       return Collections.singletonList(series);
    }
 
-   private List<Object> buildCustomizedPieSeriesData(TableLens lens, BindingInfo bindingInfo) {
+   private List<Object> buildCustomizedPieSeriesData(TableLens lens, ObjectInfo bindingInfo) {
       List<AxisInfo> xAxis = bindingInfo.getXAxis();
       List<AxisInfo> yAxis = bindingInfo.getYAxis();
 

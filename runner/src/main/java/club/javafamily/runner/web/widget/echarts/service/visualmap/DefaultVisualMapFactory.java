@@ -18,8 +18,7 @@ import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.info.VisualMapSupport;
 import club.javafamily.runner.web.widget.echarts.model.EChartVisualMap;
-import club.javafamily.runner.web.widget.echarts.info.BindingInfo;
-import club.javafamily.runner.web.widget.echarts.info.cpie.CustomPieBindingInfo;
+import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +29,7 @@ public class DefaultVisualMapFactory extends ChartVisualMapFactory {
 
    @Override
    public EChartVisualMap build(TableLens lens,
-                                BindingInfo bindingInfo,
+                                ObjectInfo bindingInfo,
                                 ChartHelper chartHelper,
                                 ChartType type,
                                 Map<String, Object> params)

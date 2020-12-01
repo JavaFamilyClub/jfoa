@@ -12,31 +12,28 @@
  * person.
  */
 
-package club.javafamily.runner.web.widget.echarts.info;
+package club.javafamily.runner.web.widget.echarts.model;
 
-import java.util.List;
+import java.awt.*;
 
-public interface BindingInfo {
+public class ChartFormatInfo {
 
-   default List<AxisInfo> getXAxis() {
-      return null;
+   private Rectangle bounds;
+   private String backgroundColor;
+
+   public Rectangle getBounds() {
+      return bounds;
    }
 
-   default List<AxisInfo> getYAxis() {
-      return null;
+   public void setBounds(Rectangle bounds) {
+      this.bounds = bounds;
    }
 
-   default List<String> dataSet() {
-      return null;
+   public String getBackgroundColor() {
+      return backgroundColor;
    }
 
-   default boolean isShowVisualMap() {
-      return false;
+   public void setBackgroundColor(String backgroundColor) {
+      this.backgroundColor = backgroundColor;
    }
-
-   TooltipInfo getTooltip();
-
-   TitleInfo getTitleInfo();
-
-   LegendInfo getLegend();
 }
