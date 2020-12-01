@@ -17,38 +17,37 @@ package club.javafamily.runner.web.portal.service;
 import club.javafamily.runner.common.model.amqp.SubjectRequestChangeVoteMessage;
 import club.javafamily.runner.common.service.AmqpService;
 import club.javafamily.runner.common.service.RedisClient;
-import club.javafamily.runner.domain.Customer;
-import club.javafamily.runner.domain.SubjectRequestVote;
+import club.javafamily.runner.domain.*;
 import club.javafamily.runner.dto.VoteDto;
 import club.javafamily.runner.enums.VoteOperatorStatus;
-import club.javafamily.runner.service.CustomerService;
-import club.javafamily.runner.service.SubjectRequestVoteService;
+import club.javafamily.runner.service.*;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.portal.model.SubjectRequestVoteDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Objects;
-import java.util.Set;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class SubjectVoteService {
 
    @Autowired
-   public SubjectVoteService(RedisClient<Integer> redisClient,
+   public SubjectVoteService(AmqpService amqpService,
                              CustomerService customerService,
+                             RedisClient<Integer> redisClient,
                              SubjectRequestVoteService voteService,
-                             AmqpService amqpService)
+                             SubjectRequestService subjectRequestService)
    {
       this.redisClient = redisClient;
-      this.customerService = customerService;
       this.voteService = voteService;
       this.amqpService = amqpService;
+      this.customerService = customerService;
+      this.subjectRequestService = subjectRequestService;
    }
 
    public SubjectRequestVoteDto getSubjectVoteDto(String ip, int id) {
@@ -85,38 +84,31 @@ public class SubjectVoteService {
       String opKey = convertOpKey(ip, id, account);
       String countKey = convertCountKey(id, support);
 
-      lock.lock();
+      Integer op = redisClient.get(opKey);
 
-      try{
-         Integer op = redisClient.get(opKey);
+      VoteOperatorStatus opStatus = getOpNumber(op, support);
 
-         VoteOperatorStatus opStatus = getOpNumber(op, support);
-
-         if(opStatus == VoteOperatorStatus.Conflict) {
-            // invalid
-            LOGGER.warn("Invalid vote opStatus: {}", opStatus);
-            return;
-         }
-
-         op = support ? SUPPORT_FLAG : OPPOSE_FLAG;
-
-         // 1. make db data setting to redis
-         // 2. setting value that key is not exist is 0.
-         int oldCount = getVoteCurrentCount(id, support);
-
-         // allow op
-         if(opStatus == VoteOperatorStatus.Allow) {
-            redisClient.incr(countKey, CACHED_TIME);
-            redisClient.set(opKey, op, CACHED_TIME);
-         }
-         else {
-            // clear op status, opStatus is again
-            redisClient.decr(countKey, CACHED_TIME);
-            redisClient.delete(opKey);
-         }
+      if(opStatus == VoteOperatorStatus.Conflict) {
+         // invalid
+         LOGGER.warn("Invalid vote opStatus: {}", opStatus);
+         return;
       }
-      finally {
-         lock.unlock();
+
+      op = support ? SUPPORT_FLAG : OPPOSE_FLAG;
+
+      // 1. make db data setting to redis
+      // 2. setting value that key is not exist is 0.
+      int oldCount = getVoteCurrentCount(id, support);
+
+      // allow op
+      if(opStatus == VoteOperatorStatus.Allow) {
+         redisClient.incr(countKey, CACHED_TIME);
+         redisClient.set(opKey, op, CACHED_TIME);
+      }
+      else {
+         // clear op status, opStatus is again
+         redisClient.decr(countKey, CACHED_TIME);
+         redisClient.delete(opKey);
       }
    }
 
@@ -240,6 +232,12 @@ public class SubjectVoteService {
       return redisClient.prefixKeys(VOTE_COUNT_PREFIX);
    }
 
+   public void deleteAllCachedVoteCount() {
+      Set<String> keys = countKeys();
+
+      redisClient.delete(keys);
+   }
+
    /**
     * Getting count ids.
     */
@@ -284,6 +282,71 @@ public class SubjectVoteService {
          + account + VOTE_CACHE_SEPARATOR + id;
    }
 
+   public void syncCachedVoteToDb(Map<String, Object> result) {
+      Set<Integer> redisIds = countIds();
+
+      if(CollectionUtils.isEmpty(redisIds)) {
+         LOGGER.info("Empty redis ids.");
+
+         result.put("success", true);
+         result.put("msg", "Empty redis ids.");
+
+         return;
+      }
+
+      Integer count;
+      SubjectRequestVote vote;
+
+      for(Integer id : redisIds) {
+         vote = voteService.get(id);
+
+         if(vote == null) {
+            SubjectRequest subjectRequest = subjectRequestService.get(id);
+
+            if(subjectRequest == null) {
+               delCount(id);
+               LOGGER.warn("Vote's subject request is empty. vote id: {}", id);
+               continue;
+            }
+
+            vote = new SubjectRequestVote(subjectRequest);
+         }
+
+         boolean invalid = false;
+
+         count = getCachedCount(id, true);
+
+         if(count != null && count < 0) { // == 0 may be cancel op
+            deleteCachedCount(id, true);
+            invalid = true;
+            LOGGER.warn("Vote's support count is invalid. " +
+               "vote id: {}, count: {}", id, count);
+         }
+
+         vote.setSupport(count);
+
+         count = getCachedCount(id, false);
+
+         if(count != null && count < 0) {
+            deleteCachedCount(id, false);
+            invalid = true;
+
+            LOGGER.warn("Vote's oppose count is invalid. " +
+               "vote id: {}, count: {}", id, count);
+         }
+
+         if(invalid) {
+            continue;
+         }
+
+         vote.setOppose(count);
+
+         voteService.saveOrUpdate(vote);
+      }
+
+      result.put("success", true);
+   }
+
    private static final int CACHED_TIME = 24 * 60 * 60; // one day
    private static final Integer SUPPORT_FLAG = 1;
    private static final Integer OPPOSE_FLAG = 0;
@@ -292,12 +355,11 @@ public class SubjectVoteService {
    private static final String VOTE_COUNT_PREFIX = VOTE_CACHE_PREFIX + "count" + VOTE_CACHE_SEPARATOR;
    private static final String VOTE_OP_PREFIX = VOTE_CACHE_PREFIX + "op" + VOTE_CACHE_SEPARATOR;
 
-   private final ReentrantLock lock = new ReentrantLock();
-
    private final RedisClient<Integer> redisClient;
    private final CustomerService customerService;
    private final SubjectRequestVoteService voteService;
    private final AmqpService amqpService;
+   private final SubjectRequestService subjectRequestService;
 
    private static final Logger LOGGER = LoggerFactory.getLogger(SubjectVoteService.class);
 }

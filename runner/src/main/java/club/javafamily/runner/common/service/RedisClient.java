@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -95,6 +96,14 @@ public class RedisClient <T extends Serializable> {
     */
    public Boolean delete(String key) {
       return redisTemplate.delete(key);
+   }
+
+   /**
+    * Delete all keys form redis
+    * @return deleted count.
+    */
+   public Long delete(Collection<String> keys) {
+      return redisTemplate.delete(keys);
    }
 
    private ValueOperations<String, T> getValueOperations() {
