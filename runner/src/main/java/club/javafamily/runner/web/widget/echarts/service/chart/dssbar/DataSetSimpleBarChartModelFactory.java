@@ -22,6 +22,7 @@ import club.javafamily.runner.web.widget.echarts.service.ChartHelper;
 import club.javafamily.runner.web.widget.echarts.service.ChartModelFactory;
 import club.javafamily.runner.web.widget.echarts.service.axis.DefaultAxisFactory;
 import club.javafamily.runner.web.widget.echarts.service.dataset.DefaultDataSetFactory;
+import club.javafamily.runner.web.widget.echarts.service.legend.DefaultLegendFactory;
 import club.javafamily.runner.web.widget.echarts.service.series.SimpleSeriesFactory;
 import club.javafamily.runner.web.widget.echarts.service.tooltip.DefaultTooltipFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,14 @@ public class DataSetSimpleBarChartModelFactory implements ChartModelFactory {
    public DataSetSimpleBarChartModelFactory(DefaultTooltipFactory tooltipFactory,
                                             DefaultAxisFactory axisFactory,
                                             SimpleSeriesFactory seriesFactory,
-                                            DefaultDataSetFactory dataSetFactory)
+                                            DefaultDataSetFactory dataSetFactory,
+                                            DefaultLegendFactory legendFactory)
    {
       this.tooltipFactory = tooltipFactory;
       this.axisFactory = axisFactory;
       this.seriesFactory = seriesFactory;
       this.dataSetFactory = dataSetFactory;
+      this.legendFactory = legendFactory;
    }
 
    @Override
@@ -52,8 +55,7 @@ public class DataSetSimpleBarChartModelFactory implements ChartModelFactory {
       EChartOption options = new EChartOption();
 
       options.setTooltip(tooltipFactory.build(lens, bindingInfo, chartHelper, type, params));
-      // TODO legend factory
-      options.setLegend(new Object());
+      options.setLegend(legendFactory.build(lens, bindingInfo, chartHelper, type, params));
 
       // TODO ChartOptionColorFactory
 //      options.setColor(color);
@@ -69,5 +71,6 @@ public class DataSetSimpleBarChartModelFactory implements ChartModelFactory {
    private final DefaultAxisFactory axisFactory;
    private final SimpleSeriesFactory seriesFactory;
    private final DefaultDataSetFactory dataSetFactory;
+   private final DefaultLegendFactory legendFactory;
 
 }
