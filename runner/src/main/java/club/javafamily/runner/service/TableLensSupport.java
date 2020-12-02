@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.service;
 
-import club.javafamily.runner.common.table.lens.TableLens;
+import club.javafamily.commons.lens.TableLens;
 
 public interface TableLensSupport {
    TableLens getTableLens();

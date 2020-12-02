@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.web.portal.model;
 
-import club.javafamily.runner.enums.Gender;
+import club.javafamily.commons.enums.Gender;
 
 public class UserProfileDialogModel {
    private Integer id;

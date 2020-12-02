@@ -14,17 +14,15 @@
 
 package club.javafamily.runner.web.em.model;
 
+import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.domain.Customer;
-import club.javafamily.runner.enums.Gender;
-import club.javafamily.runner.enums.UserType;
-import club.javafamily.runner.util.Tool;
+import club.javafamily.commons.enums.Gender;
+import club.javafamily.commons.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE_STR;
 
 public class CustomerVO implements Serializable {
    private int id;
@@ -36,7 +34,7 @@ public class CustomerVO implements Serializable {
    private boolean active;
 
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
-   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE_STR)
+   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = Tool.DEFAULT_TIME_ZONE_STR)
    private Date registerDate;
 
    public static CustomerVO buildFromDomain(Customer customer) {

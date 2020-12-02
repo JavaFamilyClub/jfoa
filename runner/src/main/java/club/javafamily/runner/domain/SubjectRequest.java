@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.domain;
 
-import club.javafamily.runner.annotation.TableLensColumn;
+import club.javafamily.commons.annotation.TableLensColumn;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;

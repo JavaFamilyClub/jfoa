@@ -1,6 +1,6 @@
 package club.javafamily.runner.config;
 
-import club.javafamily.runner.enums.UserType;
+import club.javafamily.commons.enums.UserType;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 public class OAuthUsernamePasswordToken extends UsernamePasswordToken {

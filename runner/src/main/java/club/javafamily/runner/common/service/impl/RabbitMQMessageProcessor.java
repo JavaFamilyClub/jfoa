@@ -14,11 +14,11 @@
 
 package club.javafamily.runner.common.service.impl;
 
+import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.common.model.amqp.*;
 import club.javafamily.runner.common.service.AmqpMessageProcessor;
 import club.javafamily.runner.common.service.EmailService;
 import club.javafamily.runner.util.HTMLTemplateUtils;
-import club.javafamily.runner.util.Tool;
 import club.javafamily.runner.web.portal.service.SubjectVoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

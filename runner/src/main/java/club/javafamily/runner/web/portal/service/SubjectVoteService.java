@@ -19,7 +19,7 @@ import club.javafamily.runner.common.service.AmqpService;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.domain.*;
 import club.javafamily.runner.dto.VoteDto;
-import club.javafamily.runner.enums.VoteOperatorStatus;
+import club.javafamily.commons.enums.VoteOperatorStatus;
 import club.javafamily.runner.service.*;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.portal.model.SubjectRequestVoteDto;

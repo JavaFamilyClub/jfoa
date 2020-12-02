@@ -14,8 +14,8 @@
 
 package club.javafamily.runner.controller;
 
+import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.util.Tool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

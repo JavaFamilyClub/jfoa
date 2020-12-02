@@ -14,8 +14,8 @@
 
 package club.javafamily.runner.web.widget.echarts.service.visualmap;
 
-import club.javafamily.runner.common.table.lens.TableLens;
-import club.javafamily.runner.enums.ChartType;
+import club.javafamily.commons.enums.ChartType;
+import club.javafamily.commons.lens.TableLens;
 import club.javafamily.runner.web.widget.echarts.info.VisualMapSupport;
 import club.javafamily.runner.web.widget.echarts.model.EChartVisualMap;
 import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;

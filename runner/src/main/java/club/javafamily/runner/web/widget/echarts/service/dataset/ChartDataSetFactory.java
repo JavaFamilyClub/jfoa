@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.web.widget.echarts.service.dataset;
 
-import club.javafamily.runner.enums.ChartType;
+import club.javafamily.commons.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.model.EChartDataSet;
 import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;

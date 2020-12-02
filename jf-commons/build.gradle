@@ -1,0 +1,58 @@
+buildscript {
+   repositories {
+      jcenter()
+      mavenCentral()
+   }
+}
+
+plugins {
+   id 'org.springframework.boot' version '2.1.6.RELEASE'
+   id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+   id 'java'
+   id 'jacoco'
+}
+
+sourceCompatibility = '1.8'
+
+repositories {
+   jcenter()
+   mavenCentral()
+}
+
+dependencies {
+   compileOnly 'org.springframework.boot:spring-boot-starter-web'
+   compileOnly "org.apache.commons:commons-lang3"
+
+   // poi
+   compileOnly "org.apache.poi:poi:${poiVersion}"
+   compileOnly "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
+   compileOnly "org.apache.poi:poi-ooxml:${poiVersion}"
+
+   // iText
+   compileOnly "com.itextpdf:itext7-core:${iTextVersion}"
+
+   // test
+   testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}")
+   testImplementation("org.junit.jupiter:junit-jupiter-params:${jupiterVersion}")
+   testImplementation("org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}")
+}
+
+test {
+   useJUnitPlatform()
+
+   testLogging {
+      events "passed", "skipped", "failed"
+   }
+}
+
+check.dependsOn jacocoTestReport
+
+bootJar {
+   dependsOn "jar"
+}
+
+tasks.bootJar.configure {
+   archivesBaseName = "jf-commons"
+}
+
+jar.enabled=true

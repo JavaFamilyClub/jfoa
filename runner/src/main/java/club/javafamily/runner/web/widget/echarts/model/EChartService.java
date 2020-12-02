@@ -15,7 +15,7 @@
 package club.javafamily.runner.web.widget.echarts.model;
 
 import club.javafamily.runner.domain.SubjectRequest;
-import club.javafamily.runner.enums.ChartType;
+import club.javafamily.commons.enums.ChartType;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.web.portal.service.SubjectVoteService;
 import org.springframework.beans.factory.annotation.Autowired;

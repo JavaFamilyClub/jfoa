@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.web.widget.echarts.service.series;
 
-import club.javafamily.runner.enums.ChartType;
+import club.javafamily.commons.enums.ChartType;
 import club.javafamily.runner.web.widget.echarts.info.SeriesSupport;
 import club.javafamily.runner.web.widget.echarts.model.EChartSeries;
 import club.javafamily.runner.web.widget.echarts.info.ObjectInfo;

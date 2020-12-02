@@ -2,7 +2,7 @@ package club.javafamily.runner.service;
 
 import club.javafamily.runner.common.filter.DaoFilter;
 import club.javafamily.runner.domain.Log;
-import club.javafamily.runner.enums.ExportType;
+import club.javafamily.commons.enums.ExportType;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

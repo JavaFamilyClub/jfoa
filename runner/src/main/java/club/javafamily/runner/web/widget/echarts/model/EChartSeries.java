@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.web.widget.echarts.model;
 
-import club.javafamily.runner.enums.ChartType;
+import club.javafamily.commons.enums.ChartType;
 
 import java.util.List;
 

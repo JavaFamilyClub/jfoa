@@ -14,11 +14,11 @@
 
 package club.javafamily.runner.web.widget.echarts.service.series;
 
-import club.javafamily.runner.common.table.cell.Cell;
-import club.javafamily.runner.common.table.cell.CellValueType;
-import club.javafamily.runner.common.table.lens.TableLens;
-import club.javafamily.runner.enums.ChartType;
-import club.javafamily.runner.util.CellValueTypeUtils;
+import club.javafamily.commons.cell.Cell;
+import club.javafamily.commons.cell.CellValueType;
+import club.javafamily.commons.enums.ChartType;
+import club.javafamily.commons.lens.TableLens;
+import club.javafamily.commons.utils.CellValueTypeUtils;
 import club.javafamily.runner.web.widget.echarts.info.*;
 import club.javafamily.runner.web.widget.echarts.model.*;
 import club.javafamily.runner.web.widget.echarts.service.ChartHelper;

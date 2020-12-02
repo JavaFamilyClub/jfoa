@@ -1,15 +1,13 @@
 package club.javafamily.runner.domain;
 
-import club.javafamily.runner.annotation.Exportable;
-import club.javafamily.runner.util.Tool;
+import club.javafamily.commons.annotation.Exportable;
+import club.javafamily.commons.utils.Tool;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
-import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE_STR;
 
 @Entity(name = "t_log")
 @Exportable("JavaFamily OA Audit")
@@ -33,7 +31,7 @@ public class Log implements Serializable {
 
   @Exportable(description = "执行时间", order = 5)
   @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
-  @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE_STR)
+  @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = Tool.DEFAULT_TIME_ZONE_STR)
   private Date date;
 
   @Exportable(description = "备注", order = 6)

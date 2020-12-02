@@ -1,7 +1,7 @@
 package club.javafamily.runner.dto;
 
-import club.javafamily.runner.enums.Gender;
-import club.javafamily.runner.enums.UserType;
+import club.javafamily.commons.enums.Gender;
+import club.javafamily.commons.enums.UserType;
 
 import java.io.Serializable;
 

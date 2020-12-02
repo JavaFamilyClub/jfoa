@@ -14,13 +14,11 @@
 
 package club.javafamily.runner.config;
 
+import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.common.constants.Profiles;
 import club.javafamily.runner.tasks.SyncDatabaseJob;
-import club.javafamily.runner.util.Tool;
 import org.quartz.*;
 import org.springframework.context.annotation.*;
-
-import java.util.TimeZone;
 
 @Configuration
 @Profile({ Profiles.PRODUCTION, Profiles.DEVELOPMENT })

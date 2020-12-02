@@ -41,6 +41,9 @@ repositories {
 }
 
 dependencies {
+   // api
+   implementation project(":jf-commons")
+
    // Spring
    implementation 'org.springframework.boot:spring-boot-starter-web'
    // ORM

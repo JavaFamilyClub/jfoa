@@ -14,10 +14,9 @@
 
 package club.javafamily.runner.common.service;
 
+import club.javafamily.commons.lens.ExportTableLens;
 import club.javafamily.runner.common.MessageException;
-import club.javafamily.runner.common.table.lens.ExportTableLens;
-import club.javafamily.runner.common.table.lens.TableLens;
-import club.javafamily.runner.enums.ExportType;
+import club.javafamily.commons.enums.ExportType;
 import club.javafamily.runner.util.I18nUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.common.filter;
 
-import club.javafamily.runner.enums.OperatorEnum;
+import club.javafamily.commons.enums.OperatorEnum;
 
 import java.util.*;
 

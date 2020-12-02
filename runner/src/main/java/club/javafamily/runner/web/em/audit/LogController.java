@@ -16,7 +16,7 @@ package club.javafamily.runner.web.em.audit;
 
 import club.javafamily.runner.common.filter.DateRangeFilter;
 import club.javafamily.runner.domain.Log;
-import club.javafamily.runner.enums.ExportType;
+import club.javafamily.commons.enums.ExportType;
 import club.javafamily.runner.service.LogService;
 import club.javafamily.runner.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;

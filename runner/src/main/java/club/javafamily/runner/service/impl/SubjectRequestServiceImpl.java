@@ -14,12 +14,12 @@
 
 package club.javafamily.runner.service.impl;
 
+import club.javafamily.commons.lens.TableLens;
 import club.javafamily.runner.annotation.Audit;
 import club.javafamily.runner.annotation.AuditObject;
-import club.javafamily.runner.common.table.lens.TableLens;
 import club.javafamily.runner.dao.SubjectRequestDao;
 import club.javafamily.runner.domain.SubjectRequest;
-import club.javafamily.runner.enums.ResourceEnum;
+import club.javafamily.commons.enums.ResourceEnum;
 import club.javafamily.runner.service.SubjectRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

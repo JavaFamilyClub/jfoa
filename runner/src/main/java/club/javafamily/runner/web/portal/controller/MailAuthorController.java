@@ -15,14 +15,11 @@
 package club.javafamily.runner.web.portal.controller;
 
 import club.javafamily.runner.common.service.EmailService;
-import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.portal.model.MailAuthorModel;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import static club.javafamily.runner.util.SecurityUtil.Author_Email;
 
 @RestController
 @RequestMapping(SecurityUtil.API_VERSION)
@@ -33,7 +30,7 @@ public class MailAuthorController {
    public void mailAuthor(@RequestBody MailAuthorModel model)
       throws Exception
    {
-      emailService.sendMimeMessage(Author_Email, model.getSubject(),
+      emailService.sendMimeMessage(SecurityUtil.Author_Email, model.getSubject(),
          model.getContent());
    }
 

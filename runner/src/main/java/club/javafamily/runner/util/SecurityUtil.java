@@ -14,14 +14,16 @@
 
 package club.javafamily.runner.util;
 
+import club.javafamily.commons.enums.PermissionEnum;
 import club.javafamily.runner.domain.Permission;
 import club.javafamily.runner.domain.Role;
-import club.javafamily.runner.enums.PermissionEnum;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static club.javafamily.commons.enums.PermissionEnum.*;
 
 public final class SecurityUtil {
    // api
@@ -86,34 +88,34 @@ public final class SecurityUtil {
       int permission = operator;
       List<String> permissions = new ArrayList<>();
 
-      if(PermissionEnum.READ.getPermission()
-         == (permission & PermissionEnum.READ.getPermission()))
+      if(READ.getPermission()
+         == (permission & READ.getPermission()))
       {
-         permissions.add(getOperatorPermission(PermissionEnum.READ));
+         permissions.add(getOperatorPermission(READ));
       }
 
-      if(PermissionEnum.WRITE.getPermission()
-         == (permission & PermissionEnum.WRITE.getPermission()))
+      if(WRITE.getPermission()
+         == (permission & WRITE.getPermission()))
       {
-         permissions.add(getOperatorPermission(PermissionEnum.WRITE));
+         permissions.add(getOperatorPermission(WRITE));
       }
 
-      if(PermissionEnum.DELETE.getPermission()
-         == (permission & PermissionEnum.DELETE.getPermission()))
+      if(DELETE.getPermission()
+         == (permission & DELETE.getPermission()))
       {
-         permissions.add(getOperatorPermission(PermissionEnum.DELETE));
+         permissions.add(getOperatorPermission(DELETE));
       }
 
-      if(PermissionEnum.ACCESS.getPermission()
-         == (permission & PermissionEnum.ACCESS.getPermission()))
+      if(ACCESS.getPermission()
+         == (permission & ACCESS.getPermission()))
       {
-         permissions.add(getOperatorPermission(PermissionEnum.ACCESS));
+         permissions.add(getOperatorPermission(ACCESS));
       }
 
-      if(PermissionEnum.ADMIN.getPermission()
-         == (permission & PermissionEnum.ADMIN.getPermission()))
+      if(ADMIN.getPermission()
+         == (permission & ADMIN.getPermission()))
       {
-         permissions.add(getOperatorPermission(PermissionEnum.ADMIN));
+         permissions.add(getOperatorPermission(ADMIN));
       }
 
       return permissions.stream().collect(Collectors.joining(SUBPART_DIVIDER_TOKEN));

@@ -14,10 +14,10 @@
 
 package club.javafamily.runner.domain;
 
-import club.javafamily.runner.enums.Gender;
-import club.javafamily.runner.enums.UserType;
+import club.javafamily.commons.enums.Gender;
+import club.javafamily.commons.enums.UserType;
+import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.util.Tool;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
@@ -27,8 +27,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-
-import static club.javafamily.runner.util.Tool.DEFAULT_TIME_ZONE_STR;
 
 @Entity(name = "t_customer")
 public class Customer implements Serializable, Cloneable {
@@ -44,7 +42,7 @@ public class Customer implements Serializable, Cloneable {
    private UserType type = UserType.User;
    private boolean active;
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
-   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = DEFAULT_TIME_ZONE_STR)
+   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = Tool.DEFAULT_TIME_ZONE_STR)
    private Date registerDate;
 
    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)

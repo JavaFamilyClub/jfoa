@@ -15,7 +15,7 @@
 package club.javafamily.runner.service;
 
 import club.javafamily.runner.domain.Installer;
-import club.javafamily.runner.enums.Platform;
+import club.javafamily.commons.enums.Platform;
 
 import java.util.List;
 

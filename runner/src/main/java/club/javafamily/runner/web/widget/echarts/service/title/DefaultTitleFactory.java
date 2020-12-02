@@ -14,8 +14,8 @@
 
 package club.javafamily.runner.web.widget.echarts.service.title;
 
-import club.javafamily.runner.common.table.lens.TableLens;
-import club.javafamily.runner.enums.ChartType;
+import club.javafamily.commons.enums.ChartType;
+import club.javafamily.commons.lens.TableLens;
 import club.javafamily.runner.web.widget.echarts.model.EChartTextStyle;
 import club.javafamily.runner.web.widget.echarts.model.EChartTitle;
 import club.javafamily.runner.web.widget.echarts.info.*;

@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.web.security.model;
 
-import club.javafamily.runner.enums.UserType;
+import club.javafamily.commons.enums.UserType;
 
 public class JfPrincipal {
 

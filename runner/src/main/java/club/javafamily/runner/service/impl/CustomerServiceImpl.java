@@ -22,7 +22,7 @@ import club.javafamily.runner.common.service.AmqpService;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.dao.CustomerDao;
 import club.javafamily.runner.domain.Customer;
-import club.javafamily.runner.enums.*;
+import club.javafamily.commons.enums.*;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.vo.CustomerVO;

@@ -14,8 +14,8 @@
 
 package club.javafamily.runner.common.service;
 
-import club.javafamily.runner.common.table.lens.ExportTableLens;
-import club.javafamily.runner.enums.ExportType;
+import club.javafamily.commons.lens.ExportTableLens;
+import club.javafamily.commons.enums.ExportType;
 
 import javax.servlet.http.HttpServletResponse;
 

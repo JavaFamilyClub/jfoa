@@ -15,7 +15,7 @@
 package club.javafamily.runner.web.portal.controller;
 
 import club.javafamily.runner.domain.Installer;
-import club.javafamily.runner.enums.Platform;
+import club.javafamily.commons.enums.Platform;
 import club.javafamily.runner.service.InstallerService;
 import club.javafamily.runner.util.SecurityUtil;
 import io.swagger.annotations.*;

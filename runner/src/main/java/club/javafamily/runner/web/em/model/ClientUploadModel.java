@@ -16,7 +16,6 @@ package club.javafamily.runner.web.em.model;
 
 import club.javafamily.runner.common.model.data.FileData;
 import club.javafamily.runner.domain.Installer;
-import club.javafamily.runner.enums.Platform;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
