@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.util;
+package club.javafamily.runner.util;
 
 import club.javafamily.commons.enums.ChartType;
 import com.fasterxml.jackson.databind.ObjectMapper;

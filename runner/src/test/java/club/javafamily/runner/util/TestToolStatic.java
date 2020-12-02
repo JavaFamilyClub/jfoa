@@ -1,6 +1,7 @@
-package club.javafamily.util;
+package club.javafamily.runner.util;
 
 import club.javafamily.commons.enums.ChartType;
+import club.javafamily.commons.utils.Tool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

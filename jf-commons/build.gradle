@@ -6,8 +6,6 @@ buildscript {
 }
 
 plugins {
-   id 'org.springframework.boot' version '2.1.6.RELEASE'
-   id 'io.spring.dependency-management' version '1.0.9.RELEASE'
    id 'java'
    id 'jacoco'
 }
@@ -20,8 +18,18 @@ repositories {
 }
 
 dependencies {
-   compileOnly 'org.springframework.boot:spring-boot-starter-web'
-   compileOnly "org.apache.commons:commons-lang3"
+   // spring
+   compileOnly 'org.springframework:spring-core:5.1.8.RELEASE'
+   compileOnly 'org.springframework:spring-expression:5.1.8.RELEASE'
+
+   // apache
+   compileOnly "org.apache.commons:commons-lang3:3.8.1"
+
+   // jackson
+   compileOnly "com.fasterxml.jackson.core:jackson-databind:2.9.9"
+
+   // tomcat
+   compileOnly 'org.apache.tomcat.embed:tomcat-embed-core:9.0.21'
 
    // poi
    compileOnly "org.apache.poi:poi:${poiVersion}"
@@ -32,12 +40,6 @@ dependencies {
    compileOnly "com.itextpdf:itext7-core:${iTextVersion}"
 
    // test
-   testImplementation('org.springframework.boot:spring-boot-starter-test') {
-      exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-      exclude group: 'org.junit.platform', module: 'junit-platform-engine'
-      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
-   }
-
    testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}") {
       exclude group: 'org.junit.platform', module: 'junit-platform-commons'
    }
@@ -51,7 +53,6 @@ dependencies {
    }
    testImplementation "org.junit.platform:junit-platform-engine:1.6.2"
    testImplementation "org.junit.platform:junit-platform-commons:1.6.2"
-   testImplementation 'org.junit.platform:junit-platform-launcher:1.6.2'
 }
 
 test {
@@ -63,13 +64,5 @@ test {
 }
 
 check.dependsOn jacocoTestReport
-
-bootJar {
-   dependsOn "jar"
-}
-
-tasks.bootJar.configure {
-   archivesBaseName = "jf-commons"
-}
 
 jar.enabled=true

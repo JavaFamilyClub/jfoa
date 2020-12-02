@@ -15,7 +15,7 @@
 package club.javafamily.runner.common.service;
 
 import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
-import club.javafamily.util.SecurityUtil;
+import club.javafamily.runner.util.SecurityUtil;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;

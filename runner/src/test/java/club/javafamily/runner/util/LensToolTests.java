@@ -1,4 +1,4 @@
-package club.javafamily.util;
+package club.javafamily.runner.util;
 
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static club.javafamily.runner.common.table.lens.LensTool.DEFAULT_HEADER_FONT;
-import static club.javafamily.runner.common.table.lens.LensTool.DEFAULT_TEXT_FONT;
+import static club.javafamily.commons.lens.LensTool.DEFAULT_HEADER_FONT;
+import static club.javafamily.commons.lens.LensTool.DEFAULT_TEXT_FONT;
 
 public class LensToolTests {
 

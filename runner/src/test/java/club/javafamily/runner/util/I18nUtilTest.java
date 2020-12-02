@@ -12,8 +12,9 @@
  * person.
  */
 
-package club.javafamily.util;
+package club.javafamily.runner.util;
 
+import club.javafamily.runner.util.I18nUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

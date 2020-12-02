@@ -1,4 +1,4 @@
-package club.javafamily.util;
+package club.javafamily.runner.util;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

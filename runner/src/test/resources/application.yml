@@ -94,40 +94,6 @@ ds:
 ---
 
 spring:
-   profiles: prod
-server:
-   port: 80
-
-ds:
-   hibernate:
-      dialect: org.hibernate.dialect.MySQL8Dialect
-      show-sql: false
-   druid:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://123.56.42.60:3306/db_jfoa?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
-      username: root
-      password: 123456
-
----
-
-spring:
-   profiles: dev
-
-server:
-   port: 8080
-
-ds:
-   hibernate:
-      dialect: org.hibernate.dialect.H2Dialect
-   druid:
-      driver-class-name: org.h2.Driver
-      url: jdbc:h2:./build/resources/main/jfoadb/jfoa_db
-      username: jfoa
-      password: jfoa
-
----
-
-spring:
    profiles: test
    # Mail Config
    mail:
