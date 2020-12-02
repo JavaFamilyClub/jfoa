@@ -32,9 +32,26 @@ dependencies {
    compileOnly "com.itextpdf:itext7-core:${iTextVersion}"
 
    // test
-   testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}")
-   testImplementation("org.junit.jupiter:junit-jupiter-params:${jupiterVersion}")
-   testImplementation("org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}")
+   testImplementation('org.springframework.boot:spring-boot-starter-test') {
+      exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+
+   testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}") {
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+   testImplementation("org.junit.jupiter:junit-jupiter-params:${jupiterVersion}") {
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+
+   testImplementation("org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}") {
+      exclude group: 'org.junit.platform', module: 'junit-platform-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+   testImplementation "org.junit.platform:junit-platform-engine:1.6.2"
+   testImplementation "org.junit.platform:junit-platform-commons:1.6.2"
+   testImplementation 'org.junit.platform:junit-platform-launcher:1.6.2'
 }
 
 test {
