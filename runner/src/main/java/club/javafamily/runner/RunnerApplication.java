@@ -23,10 +23,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication(exclude = {
-   JpaRepositoriesAutoConfiguration.class,
-   HibernateJpaAutoConfiguration.class
-})
+@SpringBootApplication(
+   scanBasePackages = "club.javafamily",
+   exclude = {
+      JpaRepositoriesAutoConfiguration.class,
+      HibernateJpaAutoConfiguration.class
+   }
+)
 @EnableTransactionManagement
 @EnableCaching
 @EnableConfigurationProperties({

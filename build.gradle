@@ -23,25 +23,36 @@ allprojects {
    buildscript {
       ext {
          // all projects variable
+         // Dependencies versions that are not managed by spring's dependency-management
          springBootVersion = '2.1.6.RELEASE'
-         dubboCuratorVersion = '2.13.0'
-         mysqlVersion = '8.0.20'
-         dubboVersion = '2.7.5'
-         mybatisVersion = '2.0.1'
-         swaggerVersion = "2.9.2"
-         quartzVersion = '2.3.0'
-         druidVersion = '1.1.18'
-         jupiterVersion = '5.6.2'
-         poiVersion = '4.1.2'
          shiroVersion = '1.5.3'
+         mysqlVersion = '8.0.20'
+         druidVersion = '1.1.18'
+         poiVersion = '4.1.2'
+         luceneVersion = '7.7.3' // 8+ for jdk11
+         iTextVersion = '7.1.13'
+
+         // tools version
+         urlRewriteFilterversion = '4.0.4'
+         httpClientVersion = '4.5.13'
+         swaggerVersion = "2.9.2"
          jasyptVersion = '3.0.3'
          ognlVersion = '3.2.14'
+
+         // log version
+         jupiterVersion = '5.6.2'
+
+         // web version
          bootstrapVersion = '4.5.2'
          jqueryVersion = '3.5.1'
-         luceneVersion = '7.7.3' // 8+ for jdk11
-         urlRewriteFilterversion = '4.0.4'
-         iTextVersion = '7.1.13'
-         httpClientVersion = '4.5.13'
+
+         // api dependencies version. that require keep consist with spring's dependency-management
+         self4jVersion = '1.7.26'
+         springVersion = '5.1.8.RELEASE'
+         junitEngineVersion = '1.6.2'
+         commonsLang3Version = '3.8.1'
+         jacksonVersion = '2.9.9'
+         tomcatVersion = '9.0.21'
 
          // env
          webModule = project.hasProperty('webModule') ? project.property('webModule') : 'web:angular'

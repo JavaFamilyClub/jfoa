@@ -35,10 +35,11 @@ public final class PDFUtil {
    private PDFUtil() {
    }
 
-   // by JackLi: 字体不能为静态, 需要每次请求都创建新的,
-   // 否则在多次导出时 <code>document.close()</code> 会出检查异常.
    private static byte[] defaultTextFontData;
    private static byte[] defaultBoldFontData;
+
+   // by JackLi: font byte can't reuse.
+   // multi-thread export check <code>document.close()</code> will throw check exception
    private static final ThreadLocal<byte[]> DEFAULT_PDF_TEXT_FONT = new ThreadLocal<>();
    private static final ThreadLocal<byte[]> DEFAULT_PDF_BOLD_FONT = new ThreadLocal<>();
 

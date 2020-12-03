@@ -43,6 +43,7 @@ repositories {
 dependencies {
    // api
    implementation project(":jf-commons")
+   implementation project(":jf-echarts")
 
    // Spring
    implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -128,8 +129,8 @@ dependencies {
       exclude group: 'org.junit.platform', module: 'junit-platform-engine'
       exclude group: 'org.junit.platform', module: 'junit-platform-commons'
    }
-   testImplementation "org.junit.platform:junit-platform-engine:1.6.2"
-   testImplementation "org.junit.platform:junit-platform-commons:1.6.2"
+   testImplementation "org.junit.platform:junit-platform-engine:${junitEngineVersion}"
+   testImplementation "org.junit.platform:junit-platform-commons:${junitEngineVersion}"
 }
 
 test {

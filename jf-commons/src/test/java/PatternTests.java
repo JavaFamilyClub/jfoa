@@ -26,7 +26,8 @@ public class PatternTests {
       Matcher matcher = pattern.matcher("Cell [100,200]");
 
       while(matcher.find()) {
-         String trigger = matcher.group(2); // 0 是全局匹配对象 "Cell [100,200]", 1 是 "100", 2 是 "200"
+         // 0 is global match object "Cell [100,200]", 1 is "100", 2 is "200"
+         String trigger = matcher.group(2);
 
          System.out.println(trigger);
       }

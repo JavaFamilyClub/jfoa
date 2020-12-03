@@ -19,17 +19,17 @@ repositories {
 
 dependencies {
    // spring
-   compileOnly 'org.springframework:spring-core:5.1.8.RELEASE'
-   compileOnly 'org.springframework:spring-expression:5.1.8.RELEASE'
+   compileOnly "org.springframework:spring-core:${springVersion}"
+   compileOnly "org.springframework:spring-expression:${springVersion}"
 
    // apache
-   compileOnly "org.apache.commons:commons-lang3:3.8.1"
+   compileOnly "org.apache.commons:commons-lang3:${commonsLang3Version}"
 
    // jackson
-   compileOnly "com.fasterxml.jackson.core:jackson-databind:2.9.9"
+   compileOnly "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 
    // tomcat
-   compileOnly 'org.apache.tomcat.embed:tomcat-embed-core:9.0.21'
+   compileOnly "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
 
    // poi
    compileOnly "org.apache.poi:poi:${poiVersion}"
@@ -51,8 +51,8 @@ dependencies {
       exclude group: 'org.junit.platform', module: 'junit-platform-engine'
       exclude group: 'org.junit.platform', module: 'junit-platform-commons'
    }
-   testImplementation "org.junit.platform:junit-platform-engine:1.6.2"
-   testImplementation "org.junit.platform:junit-platform-commons:1.6.2"
+   testImplementation "org.junit.platform:junit-platform-engine:${junitEngineVersion}"
+   testImplementation "org.junit.platform:junit-platform-commons:${junitEngineVersion}"
 }
 
 test {
