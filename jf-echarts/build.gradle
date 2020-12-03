@@ -42,3 +42,7 @@ dependencies {
    testImplementation "org.junit.platform:junit-platform-engine:${junitEngineVersion}"
    testImplementation "org.junit.platform:junit-platform-commons:${junitEngineVersion}"
 }
+
+check.dependsOn jacocoTestReport
+
+jar.enabled=true
