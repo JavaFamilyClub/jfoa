@@ -16,7 +16,7 @@ package club.javafamily.echarts;
 
 import org.junit.jupiter.api.Test;
 
-public class ChartModelBuilderServiceTests {
+public class EChartsChartModelBuilderServiceTests {
 
    private ChartModelBuilderService service;
 

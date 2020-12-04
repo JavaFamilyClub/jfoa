@@ -22,7 +22,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -31,11 +30,11 @@ import java.util.stream.IntStream;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@TestPropertySource(properties = {
-   "spring.autoconfigure.exclude=" +
-      "org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration," +
-      "org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration"
-})
+//@TestPropertySource(properties = {
+//   "spring.autoconfigure.exclude=" +
+//      "org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration," +
+//      "org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration"
+//})
 public class ChartModelBuilderServiceTests {
 
    @BeforeAll
