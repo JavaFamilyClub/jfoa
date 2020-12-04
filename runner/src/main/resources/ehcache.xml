@@ -23,6 +23,16 @@
       memoryStoreEvictionPolicy="LRU" />
 
    <cache
+      name="sr-cache"
+      eternal="false"
+      maxElementsInMemory="100"
+      overflowToDisk="false"
+      diskPersistent="false"
+      timeToIdleSeconds="0"
+      timeToLiveSeconds="300"
+      memoryStoreEvictionPolicy="LRU" />
+
+   <cache
       name="controller-cache"
       eternal="false"
       maxElementsInMemory="100"

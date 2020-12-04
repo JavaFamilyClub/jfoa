@@ -22,31 +22,31 @@ import club.javafamily.runner.domain.SubjectRequest;
 import club.javafamily.commons.enums.ResourceEnum;
 import club.javafamily.runner.service.SubjectRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service("subjectRequestService")
+@CacheConfig(cacheNames = "sr-cache")
 public class SubjectRequestServiceImpl implements SubjectRequestService {
 
-   @Autowired
-   public SubjectRequestServiceImpl(SubjectRequestDao subjectRequestDao) {
-      this.subjectRequestDao = subjectRequestDao;
-   }
-
+   @Cacheable(key = "'sr-tableLens'")
    @Transactional(readOnly = true)
    @Override
    public TableLens getTableLens() {
       return subjectRequestDao.getTableLens();
    }
 
+   @Cacheable(key = "'sr-list'")
    @Transactional(readOnly = true)
    @Override
    public List<SubjectRequest> getList() {
       return subjectRequestDao.getAll();
    }
 
+   @Cacheable(key = "'sr-' + #p0")
    @Transactional(readOnly = true)
    @Override
    public SubjectRequest get(Integer id) {
@@ -56,8 +56,14 @@ public class SubjectRequestServiceImpl implements SubjectRequestService {
    @Audit(ResourceEnum.SubjectRequest)
    @Transactional
    @Override
+   @CacheEvict(allEntries = true)
    public Integer insert(@AuditObject("getSubject()") SubjectRequest subjectRequest) {
       return subjectRequestDao.insert(subjectRequest);
+   }
+
+   @Autowired
+   public SubjectRequestServiceImpl(SubjectRequestDao subjectRequestDao) {
+      this.subjectRequestDao = subjectRequestDao;
    }
 
    private final SubjectRequestDao subjectRequestDao;
