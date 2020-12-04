@@ -45,6 +45,7 @@ public class ChartModelBuilderServiceTests {
 
    @Test
    public void notNull() {
+      Assertions.assertTrue(HELPER_SIZE > 0, "No usable chart helper.");
       Assertions.assertNotNull(service, "ChartModelBuilderService inject failed.");
    }
 
@@ -61,15 +62,10 @@ public class ChartModelBuilderServiceTests {
    }
 
    @Autowired
-   public ChartModelBuilderServiceTests(ChartModelBuilderService service,
-                                        List<ChartHelper> chartHelpers)
-   {
-      this.service = service;
-      this.chartHelpers = chartHelpers;
-   }
+   private List<ChartHelper> chartHelpers;
+
+   @Autowired
+   private ChartModelBuilderService service;
 
    private static Integer HELPER_SIZE;
-
-   private final List<ChartHelper> chartHelpers;
-   private final ChartModelBuilderService service;
 }
