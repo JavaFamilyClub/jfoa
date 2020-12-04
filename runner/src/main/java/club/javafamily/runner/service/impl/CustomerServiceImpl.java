@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -185,8 +186,9 @@ public class CustomerServiceImpl implements CustomerService {
    }
 
    @Autowired
-   public CustomerServiceImpl(AmqpService amqpService, CustomerDao customerDao,
-                              RedisClient<RegisterUserInfo> redisClient)
+   public CustomerServiceImpl(CustomerDao customerDao,
+                              @Lazy AmqpService amqpService,
+                              @Lazy RedisClient<RegisterUserInfo> redisClient)
    {
       this.amqpService = amqpService;
       this.customerDao = customerDao;
