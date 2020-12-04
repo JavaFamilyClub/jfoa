@@ -5,8 +5,7 @@ import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.domain.Log;
 import club.javafamily.commons.enums.ActionType;
 import club.javafamily.commons.enums.ResourceEnum;
-import club.javafamily.runner.service.CustomerService;
-import club.javafamily.runner.service.LogService;
+import club.javafamily.runner.service.*;
 import club.javafamily.runner.util.WebMvcUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -29,10 +28,10 @@ public class AuditAspect {
 
   @Autowired
   public AuditAspect(LogService logService,
-                     CustomerService customerService)
+                     UserHandler userHandler)
   {
-    this.logService = logService;
-    this.customerService = customerService;
+     this.logService = logService;
+     this.userHandler = userHandler;
   }
 
   @Pointcut("@annotation(club.javafamily.runner.annotation.Audit) && within(club.javafamily.runner..*)")
@@ -113,11 +112,11 @@ public class AuditAspect {
   }
 
   private String getAuditUser() {
-    return customerService.getAuditUser();
+    return userHandler.getAuditUser();
   }
 
   private final LogService logService;
-  private final CustomerService customerService;
+  private final UserHandler userHandler;
   private final SpelExpressionParser spelParser = new SpelExpressionParser();
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AuditAspect.class);

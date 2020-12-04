@@ -32,7 +32,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,20 +57,6 @@ public class CustomerServiceImpl implements CustomerService {
    @Override
    public Customer getCustomerByAccount(String account) {
       return customerDao.getUserByAccount(account);
-   }
-
-   @Transactional(readOnly = true)
-   @Override
-   public String getAuditUser() {
-      try {
-         Customer principal = getCurrentCustomer();
-
-         return principal.getName() + "(" + principal.getAccount() + ")";
-      } catch (Exception ignore) {
-         LOGGER.debug("Get principal error!", ignore);
-      }
-
-      return SecurityUtil.Anonymous;
    }
 
    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
@@ -187,8 +172,8 @@ public class CustomerServiceImpl implements CustomerService {
 
    @Autowired
    public CustomerServiceImpl(CustomerDao customerDao,
-                              @Lazy AmqpService amqpService,
-                              @Lazy RedisClient<RegisterUserInfo> redisClient)
+                              AmqpService amqpService,
+                              RedisClient<RegisterUserInfo> redisClient)
    {
       this.amqpService = amqpService;
       this.customerDao = customerDao;

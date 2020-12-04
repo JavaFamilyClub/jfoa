@@ -36,8 +36,11 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
 
    @Autowired
-   public RoleServiceImpl(CustomerService customerService, LogService logService, RoleDao roleDao) {
-      this.customerService = customerService;
+   public RoleServiceImpl(UserHandler userHandler,
+                          LogService logService,
+                          RoleDao roleDao)
+   {
+      this.userHandler = userHandler;
       this.logService = logService;
       this.roleDao = roleDao;
    }
@@ -91,7 +94,7 @@ public class RoleServiceImpl implements RoleService {
          Log log = new Log();
          log.setResource(ResourceEnum.Role.getLabel() + ":" + role.getName());
          log.setAction(ActionType.DELETE.getLabel());
-         log.setCustomer(customerService.getAuditUser());
+         log.setCustomer(userHandler.getAuditUser());
          log.setDate(new Date());
          logService.insertLog(log);
       }
@@ -116,7 +119,7 @@ public class RoleServiceImpl implements RoleService {
       roleDao.update(role);
    }
 
-   private final CustomerService customerService;
+   private final UserHandler userHandler;
    private final LogService logService;
    private final RoleDao roleDao;
 }
