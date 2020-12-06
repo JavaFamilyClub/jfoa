@@ -34,11 +34,13 @@ import { ChangePasswordDialog } from "./dialog/change-password-dialog";
 import { UserProfileDialog } from "./dialog/user-profile-dialog";
 import { MODULE_COMPONENTS } from "./index.components";
 import { PortalAppRoutingModule } from "./app-routing.module";
+import { ArticleViewComponent } from './article-view/article-view.component';
 
 @NgModule({
    declarations: [
       PortalAppComponent,
-      ...MODULE_COMPONENTS
+      ...MODULE_COMPONENTS,
+      ArticleViewComponent
    ],
    imports: [
       CommonModule,

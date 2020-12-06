@@ -2,7 +2,12 @@
   <mat-expansion-panel class="rounded-0" hideToggle>
     <mat-expansion-panel-header class="subject-item-view-header">
       <mat-panel-title>
-        {{model.subject}}
+        <span>
+          {{model.subject}}
+
+          <i *ngIf="model.archived"
+             class="icon-section-achieve jfoa-icon-size"></i>
+        </span>
       </mat-panel-title>
       <mat-panel-description>
         {{model.description}}
@@ -35,6 +40,13 @@
         <label>{{'common.createUser' | translate}}: <strong>{{model.createUserName}}</strong></label>
         <label>{{'common.createDate' | translate}}: <strong>{{model.createDate}}</strong></label>
       </div>
+
+      <mat-action-row *ngIf="editable">
+        <button mat-button color="warn" *ngIf="model.deletable"
+                (click)="delete()">Delete</button>
+        <button mat-button color="primary" *ngIf="model.canArchive"
+                (click)="achieve()">Achieve</button>
+      </mat-action-row>
     </ng-template>
 
   </mat-expansion-panel>

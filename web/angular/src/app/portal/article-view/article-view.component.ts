@@ -12,16 +12,18 @@
  * person.
  */
 
-import { SubjectVoteDto } from "./subject-vote-dto";
+import { Component, OnInit } from "@angular/core";
 
-export interface SubjectRequestVo {
-   id: number;
-   subject: string;
-   description: string;
-   createUserName: string;
-   createDate: string;
-   vote: SubjectVoteDto;
-   deletable: boolean;
-   canArchive: boolean;
-   archived: boolean;
+@Component({
+  selector: "article-view",
+  templateUrl: "./article-view.component.html",
+  styleUrls: ["./article-view.component.scss"]
+})
+export class ArticleViewComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
 }

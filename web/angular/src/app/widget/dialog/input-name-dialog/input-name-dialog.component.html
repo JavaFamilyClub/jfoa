@@ -3,7 +3,7 @@
 <mat-dialog-content [formGroup]="form">
   <mat-form-field>
     <mat-label>{{title}}</mat-label>
-    <input matInput placeholder="{{'dialog.inputName.namePh' | translate}}"
+    <input matInput [placeholder]="placeholder"
            [value]="name"
            formControlName="name" defaultFocus>
     <mat-hint *ngIf="!!hint">{{hint}}</mat-hint>

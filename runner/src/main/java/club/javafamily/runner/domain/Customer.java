@@ -164,11 +164,6 @@ public class Customer implements Serializable, Cloneable {
       return customer;
    }
 
-   @JsonIgnore
-   public boolean isAdmin() {
-      return SecurityUtil.Admin.equals(this.account);
-   }
-
    public void autoGenerator() {
       autoGeneratorName();
       autoGeneratorPwd();

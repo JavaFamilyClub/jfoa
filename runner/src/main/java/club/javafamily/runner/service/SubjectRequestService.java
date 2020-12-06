@@ -32,4 +32,17 @@ public interface SubjectRequestService extends TableLensSupport {
     */
    Integer insert(SubjectRequest subjectRequest);
 
+   /**
+    * Update a subject request.
+    */
+   void update(SubjectRequest sr);
+
+   /**
+    * Delete a subject request
+    */
+   void delete(SubjectRequest sr);
+   void delete(Integer id);
+
+   void achieve(int id, String article);
+
 }

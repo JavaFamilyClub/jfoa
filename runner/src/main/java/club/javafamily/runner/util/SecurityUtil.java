@@ -15,8 +15,7 @@
 package club.javafamily.runner.util;
 
 import club.javafamily.commons.enums.PermissionEnum;
-import club.javafamily.runner.domain.Permission;
-import club.javafamily.runner.domain.Role;
+import club.javafamily.runner.domain.*;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
 import javax.servlet.http.HttpServletRequest;
@@ -154,6 +153,10 @@ public final class SecurityUtil {
          Objects.toString(password, ""), account, 1024);
 
       return simpleHash.toHex();
+   }
+
+   public static boolean isAdmin(Customer user) {
+      return user != null && SecurityUtil.Admin.equals(user.getAccount());
    }
 
    public static String generatorRegisterSuccessToken() {

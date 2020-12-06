@@ -22,7 +22,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity(name = "t_subject_request")
-public class SubjectRequest implements Serializable {
+public class SubjectRequest implements Serializable, Cloneable {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer id;
@@ -36,6 +36,8 @@ public class SubjectRequest implements Serializable {
    private Customer customer;
 
    private Date createDate;
+
+   private Boolean archived;
 
    public Integer getId() {
       return id;
@@ -77,6 +79,29 @@ public class SubjectRequest implements Serializable {
       this.createDate = createDate;
    }
 
+   public Boolean isArchived() {
+      // for compatibility
+      return archived != null && archived == true;
+   }
+
+   public void setArchived(Boolean archived) {
+      this.archived = archived;
+   }
+
+   @Override
+   public Object clone() throws CloneNotSupportedException {
+      SubjectRequest clone = new SubjectRequest();
+
+      clone.setId(id);
+      clone.setCustomer(customer);
+      clone.setDescription(description);
+      clone.setSubject(subject);
+      clone.setArchived(archived);
+      clone.setCreateDate(createDate);
+
+      return clone;
+   }
+
    @Override
    public String toString() {
       return "SubjectRequest{" +
@@ -84,6 +109,7 @@ public class SubjectRequest implements Serializable {
          ", subject='" + subject + '\'' +
          ", description='" + description + '\'' +
          ", createDate=" + createDate +
+         ", archived=" + archived +
          '}';
    }
 }

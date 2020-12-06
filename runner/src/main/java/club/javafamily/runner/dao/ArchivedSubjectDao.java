@@ -12,16 +12,17 @@
  * person.
  */
 
-import { SubjectVoteDto } from "./subject-vote-dto";
+package club.javafamily.runner.dao;
 
-export interface SubjectRequestVo {
-   id: number;
-   subject: string;
-   description: string;
-   createUserName: string;
-   createDate: string;
-   vote: SubjectVoteDto;
-   deletable: boolean;
-   canArchive: boolean;
-   archived: boolean;
+import club.javafamily.runner.domain.ArchivedSubject;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class ArchivedSubjectDao extends BaseDao<ArchivedSubject, Integer> {
+
+   @Override
+   public Class<ArchivedSubject> getClazz() {
+      return ArchivedSubject.class;
+   }
+
 }

@@ -19,6 +19,7 @@ public enum ActionType {
   DELETE(2, "Delete"),
   MODIFY(3, "Modify"),
   Login(4, "Login"),
+  Achieve(5, "Achieve")
   ;
 
   private int type;

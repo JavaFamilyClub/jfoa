@@ -29,6 +29,9 @@ public class SubjectRequestVO implements Serializable {
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
    @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = Tool.DEFAULT_TIME_ZONE_STR)
    private Date createDate;
+   private boolean deletable;
+   private boolean canArchive;
+   private boolean archived;
 
    private SubjectRequestVoteDto vote;
 
@@ -80,6 +83,30 @@ public class SubjectRequestVO implements Serializable {
       this.vote = vote;
    }
 
+   public boolean isDeletable() {
+      return deletable;
+   }
+
+   public void setDeletable(boolean deletable) {
+      this.deletable = deletable;
+   }
+
+   public boolean isCanArchive() {
+      return canArchive;
+   }
+
+   public void setCanArchive(boolean canArchive) {
+      this.canArchive = canArchive;
+   }
+
+   public boolean isArchived() {
+      return archived;
+   }
+
+   public void setArchived(boolean archived) {
+      this.archived = archived;
+   }
+
    @Override
    public String toString() {
       return "SubjectRequestVO{" +
@@ -88,7 +115,10 @@ public class SubjectRequestVO implements Serializable {
          ", description='" + description + '\'' +
          ", createUserName='" + createUserName + '\'' +
          ", createDate=" + createDate +
+         ", deletable=" + deletable +
+         ", canArchive=" + canArchive +
          ", vote=" + vote +
+         ", archived=" + archived +
          '}';
    }
 }

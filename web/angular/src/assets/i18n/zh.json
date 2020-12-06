@@ -139,6 +139,11 @@
             "sendFailed": "邮件发送失败, 请稍后再试!"
          }
       },
+      "sr": {
+         "achievedAddr": "实现地址",
+         "achievedAddrRequired": "实现地址是必须的",
+         "achievedAddrPlaceHolder": "请输入实现地址字段"
+      },
       "toolbar": {
          "mailAuthor": "发送邮件给博主",
          "vote": "主题投票"

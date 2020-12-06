@@ -139,6 +139,11 @@
             "sendFailed": "Email Send failed, Please try again later!"
          }
       },
+      "sr": {
+         "achievedAddr": "Achieved Address",
+         "achievedAddrRequired": "Achieved Address is required",
+         "achievedAddrPlaceHolder": "Please Input Achieved Address Field"
+      },
       "toolbar": {
          "mailAuthor": "Mail Author",
          "vote": "Subject to vote"

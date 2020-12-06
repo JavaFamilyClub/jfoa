@@ -65,7 +65,7 @@ public class UsersController {
    public void deleteUser(@ApiParam(value = "customer id") @PathVariable("id") Integer id) {
       Customer dUser = customerService.getCustomer(id);
 
-      if(dUser.isAdmin()) {
+      if(SecurityUtil.isAdmin(dUser)) {
          throw new MessageException(I18nUtil.getString("common.noPermission"));
       }
 

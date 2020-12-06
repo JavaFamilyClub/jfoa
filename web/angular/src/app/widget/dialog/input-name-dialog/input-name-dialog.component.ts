@@ -24,6 +24,7 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class InputNameDialogComponent {
   title: string = this.translate.instant("dialog.inputName.title");
+  placeholder: string = this.translate.instant("dialog.inputName.namePh");
   hint: string;
   name: string;
   validator: ValidatorFn | ValidatorFn[] = [Validators.required];
@@ -38,6 +39,7 @@ export class InputNameDialogComponent {
               @Inject(MAT_DIALOG_DATA) private data: any)
   {
     this.title = data?.title ?? this.title;
+    this.placeholder = data?.placeholder ?? this.placeholder;
     this.hint = data?.hint;
     this.name = data?.name;
     this.validator = data?.validator ?? this.validator;

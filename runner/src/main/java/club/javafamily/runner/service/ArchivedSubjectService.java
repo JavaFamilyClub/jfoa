@@ -12,16 +12,14 @@
  * person.
  */
 
-import { SubjectVoteDto } from "./subject-vote-dto";
+package club.javafamily.runner.service;
 
-export interface SubjectRequestVo {
-   id: number;
-   subject: string;
-   description: string;
-   createUserName: string;
-   createDate: string;
-   vote: SubjectVoteDto;
-   deletable: boolean;
-   canArchive: boolean;
-   archived: boolean;
+import club.javafamily.runner.domain.ArchivedSubject;
+
+public interface ArchivedSubjectService {
+
+   Integer insert(ArchivedSubject archivedSubject);
+
+   void saveOrUpdate(ArchivedSubject archivedSubject);
+
 }

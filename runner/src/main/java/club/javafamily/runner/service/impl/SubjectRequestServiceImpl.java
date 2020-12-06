@@ -14,18 +14,20 @@
 
 package club.javafamily.runner.service.impl;
 
+import club.javafamily.commons.enums.ActionType;
+import club.javafamily.commons.enums.ResourceEnum;
 import club.javafamily.commons.lens.TableLens;
 import club.javafamily.runner.annotation.Audit;
 import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.dao.SubjectRequestDao;
-import club.javafamily.runner.domain.SubjectRequest;
-import club.javafamily.commons.enums.ResourceEnum;
-import club.javafamily.runner.service.SubjectRequestService;
+import club.javafamily.runner.domain.*;
+import club.javafamily.runner.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("subjectRequestService")
@@ -61,10 +63,71 @@ public class SubjectRequestServiceImpl implements SubjectRequestService {
       return subjectRequestDao.insert(subjectRequest);
    }
 
+   @Audit(
+      value = ResourceEnum.SubjectRequest,
+      actionType = ActionType.MODIFY
+   )
+   @Transactional
+   @CacheEvict(allEntries = true)
+   @Override
+   public void update(@AuditObject("getSubject()") SubjectRequest sr) {
+      subjectRequestDao.update(sr);
+   }
+
+   @Audit(
+      value = ResourceEnum.SubjectRequest,
+      actionType = ActionType.DELETE
+   )
+   @Transactional
+   @CacheEvict(allEntries = true)
+   @Override
+   public void delete(@AuditObject("getSubject()") SubjectRequest sr) {
+      subjectRequestDao.delete(sr);
+   }
+
+   @Audit(
+      value = ResourceEnum.SubjectRequest,
+      actionType = ActionType.DELETE
+   )
+   @Transactional
+   @CacheEvict(allEntries = true)
+   @Override
+   public void delete(Integer id) {
+      SubjectRequest sr = get(id);
+      delete(sr);
+   }
+
+   @Audit(
+      value = ResourceEnum.SubjectRequest,
+      actionType = ActionType.Achieve
+   )
+   @Transactional
+   @CacheEvict(allEntries = true)
+   @Override
+   public void achieve(int id, String article) {
+      SubjectRequest sr = this.get(id);
+
+      ArchivedSubject archivedSubject = new ArchivedSubject();
+      archivedSubject.setSubjectRequest(sr);
+      archivedSubject.setUrl(article);
+      archivedSubject.setDate(new Date());
+
+      // insert archived
+      archivedService.insert(archivedSubject);
+
+      // mark subject request archived
+      sr.setArchived(true);
+      this.update(sr);
+   }
+
    @Autowired
-   public SubjectRequestServiceImpl(SubjectRequestDao subjectRequestDao) {
+   public SubjectRequestServiceImpl(SubjectRequestDao subjectRequestDao,
+                                    ArchivedSubjectService archivedService)
+   {
+      this.archivedService = archivedService;
       this.subjectRequestDao = subjectRequestDao;
    }
 
+   private final ArchivedSubjectService archivedService;
    private final SubjectRequestDao subjectRequestDao;
 }

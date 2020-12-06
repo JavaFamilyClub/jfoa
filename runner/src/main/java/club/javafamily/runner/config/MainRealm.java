@@ -58,7 +58,7 @@ public class MainRealm extends AuthorizingRealm {
     // 给该用户设置角色
     Set<Role> roles = user.getRoles();
 
-    if(user.isAdmin()) {
+    if(SecurityUtil.isAdmin(user)) {
       authorizationInfo.addStringPermission(SecurityUtil.ALL_PERMISSION);
     }
 

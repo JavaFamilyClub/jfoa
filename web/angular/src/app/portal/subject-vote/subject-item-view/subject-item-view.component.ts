@@ -12,8 +12,11 @@
  * person.
  */
 
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import { PortalUrlConstants } from "../../../common/constants/url/portal-url-constants";
+import { InputNameDialogComponent } from "../../../widget/dialog/input-name-dialog/input-name-dialog.component";
 import { ModelService } from "../../../widget/services/model.service";
 import { SubjectRequestVo } from "../model/subject-request-vo";
 
@@ -24,8 +27,12 @@ import { SubjectRequestVo } from "../model/subject-request-vo";
 })
 export class SubjectItemViewComponent implements OnInit {
    @Input() model: SubjectRequestVo;
+   @Output() onRefresh = new EventEmitter<void>();
 
-   constructor(private modelService: ModelService) {
+   constructor(private translate: TranslateService,
+               private modelService: ModelService,
+               private dialog: MatDialog)
+   {
    }
 
    ngOnInit(): void {
@@ -61,5 +68,36 @@ export class SubjectItemViewComponent implements OnInit {
                   = !this.model.vote.opposeProcessed;
             }
          });
+   }
+
+   get editable(): boolean {
+      return this.model.deletable || this.model.canArchive;
+   }
+
+   delete(): void {
+      this.modelService.deleteModel(
+         PortalUrlConstants.SUBJECT_REQUEST + "/" + this.model.id)
+         .subscribe(() => {
+            this.onRefresh.emit();
+         });
+   }
+
+   achieve(): void {
+      this.dialog.open(InputNameDialogComponent, {
+         minWidth: "30%",
+         data: {
+            title: this.translate.instant("portal.sr.achievedAddr"),
+            placeholder: this.translate.instant("portal.sr.achievedAddrPlaceHolder"),
+            validatorErrors: {
+               required: this.translate.instant("portal.sr.achievedAddrRequired")
+            }
+         }
+      }).afterClosed().subscribe(result => {
+         this.modelService.putModel(PortalUrlConstants.SUBJECT_REQUEST
+            + "/" + this.model.id + "/" + result).subscribe(() =>
+         {
+            this.onRefresh.emit();
+         });
+      });
    }
 }
