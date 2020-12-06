@@ -15,7 +15,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { PortalAppComponent } from "./app.component";
-import { SubjectVoteComponent } from "./subject-vote/subject-vote.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 
 const appRoutes: Routes = [
@@ -23,26 +22,26 @@ const appRoutes: Routes = [
       path: "",
       component: PortalAppComponent,
       children: [
-          {
-              path: "welcome",
-              component: WelcomeComponent
-          },
-          {
-             path: "subjectVote",
-             loadChildren: () => import("./subject-vote/subject-vote-app.module").then(m => m.SubjectVoteAppModule)
-          },
-          {
-             path: "mailAuthor",
-             loadChildren: () => import("./mail-author/mail-author-app.module").then(m => m.MailAuthorAppModule)
-          },
-          {
-             path: "clientDownload",
-             loadChildren: () => import("./client-download/client-download-app.module").then(m => m.ClientDownloadAppModule)
-          },
-          {
-              path: "**",
-              redirectTo: "welcome"
-          }
+         {
+            path: "welcome",
+            component: WelcomeComponent
+         },
+         {
+            path: "subjectVote",
+            loadChildren: () => import("./subject-vote/subject-vote-app.module").then(m => m.SubjectVoteAppModule)
+         },
+         {
+            path: "mailAuthor",
+            loadChildren: () => import("./mail-author/mail-author-app.module").then(m => m.MailAuthorAppModule)
+         },
+         {
+            path: "clientDownload",
+            loadChildren: () => import("./client-download/client-download-app.module").then(m => m.ClientDownloadAppModule)
+         },
+         {
+            path: "**",
+            redirectTo: "welcome"
+         }
       ]
    }
 ];
