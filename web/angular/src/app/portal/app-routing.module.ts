@@ -15,6 +15,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { PortalAppComponent } from "./app.component";
+import { ArticleViewComponent } from "./article-view/article-view.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 
 const appRoutes: Routes = [
@@ -25,6 +26,10 @@ const appRoutes: Routes = [
          {
             path: "welcome",
             component: WelcomeComponent
+         },
+         {
+            path: "article/:articleUri",
+            component: ArticleViewComponent
          },
          {
             path: "subjectVote",

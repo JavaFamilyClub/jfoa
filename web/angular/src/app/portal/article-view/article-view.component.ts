@@ -12,18 +12,49 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { BaseSubscription } from "../../widget/base/BaseSubscription";
 
 @Component({
-  selector: "article-view",
-  templateUrl: "./article-view.component.html",
-  styleUrls: ["./article-view.component.scss"]
+   selector: "article-view",
+   templateUrl: "./article-view.component.html",
+   styleUrls: ["./article-view.component.scss"]
 })
-export class ArticleViewComponent implements OnInit {
+export class ArticleViewComponent extends BaseSubscription implements OnInit, OnDestroy {
+   private url: string;
+   loaded: boolean = false;
+   @ViewChild("articleContent") articleContent: ElementRef;
 
-  constructor() { }
+   constructor(private route: ActivatedRoute,
+               private renderer: Renderer2)
+   {
+      super();
+   }
 
-  ngOnInit(): void {
-  }
+   ngOnInit(): void {
+      this.subscriptions.add(this.route.paramMap.subscribe(params => {
+         const articleUri = params.get("articleUri");
 
+         if(articleUri !== this.url) {
+            this.hiddenContent();
+            this.url = articleUri;
+            this.articleContent.nativeElement.setAttribute("src", this.url);
+         }
+      }));
+   }
+
+   ngOnDestroy() {
+      super.ngOnDestroy();
+   }
+
+   showContent(): void {
+      this.loaded = true;
+      this.renderer.setStyle(this.articleContent, "display", "block");
+   }
+
+   hiddenContent(): void {
+      this.renderer.setStyle(this.articleContent, "display", "none");
+      this.loaded = false;
+   }
 }
