@@ -2,7 +2,7 @@
   <mat-expansion-panel class="rounded-0" hideToggle>
     <mat-expansion-panel-header class="subject-item-view-header">
       <mat-panel-title>
-        <span>
+        <span title="{{'Achieved' | translate}}">
           {{model.subject}}
 
           <i *ngIf="model.archived"
@@ -43,11 +43,11 @@
 
       <mat-action-row *ngIf="actionVisible">
         <button mat-button color="warn" *ngIf="model.deletable"
-                (click)="delete()">Delete</button>
+                (click)="delete()">{{'Delete' | translate}}</button>
         <button mat-button color="primary" *ngIf="model.canArchive"
-                (click)="achieve()">Achieve</button>
+                (click)="achieve()">{{'Achieve' | translate}}</button>
         <button mat-button color="accent" *ngIf="model.archived"
-                (click)="preview()">Preview</button>
+                (click)="preview()">{{'Preview' | translate}}</button>
       </mat-action-row>
     </ng-template>
 
