@@ -12,26 +12,37 @@
  * person.
  */
 
-export class PortalUrlConstants {
+package club.javafamily.runner.web.portal.model;
 
-   /**
-    * Create Subject Request
-    */
-   public static readonly SUBJECT_REQUEST = "/subject-request";
+import club.javafamily.runner.domain.ArchivedSubject;
 
-   /**
-    * Getting Subject Request List
-    */
-   public static readonly SUBJECT_REQUEST_LIST = "/subject-request/list";
+import java.io.Serializable;
 
-   /**
-    * Getting Subject Request Vote
-    */
-   public static readonly SUBJECT_REQUEST_VOTE = "/public/subject-request/vote/";
+public class ArchivedSubjectModel implements Serializable {
+   private int id;
+   private String url;
 
-   /**
-    * Achieve article uri
-    */
-   public static readonly ACHIEVE_ARTICLE = "/public/achieve/sr/article/";
+   public ArchivedSubjectModel() {
+   }
 
+   public ArchivedSubjectModel(ArchivedSubject archivedSubject) {
+      this.id = archivedSubject.getId();
+      this.url = archivedSubject.getUrl();
+   }
+
+   public int getId() {
+      return id;
+   }
+
+   public void setId(int id) {
+      this.id = id;
+   }
+
+   public String getUrl() {
+      return url;
+   }
+
+   public void setUrl(String url) {
+      this.url = url;
+   }
 }

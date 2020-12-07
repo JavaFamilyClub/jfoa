@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.domain;
 
-import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,13 +23,20 @@ import java.util.Date;
 @Entity(name = "t_archived_sr")
 public class ArchivedSubject implements Serializable {
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue(generator = "pkGenerator")
+   @GenericGenerator(
+      name = "pkGenerator",
+      strategy = "foreign",
+      parameters = {
+         @org.hibernate.annotations.Parameter(name = "property", value = "subjectRequest")
+      }
+   )
    private Integer id;
 
    private String url;
 
-   @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-   @OneToOne(targetEntity = SubjectRequest.class, fetch = FetchType.LAZY)
+   @OneToOne(fetch = FetchType.LAZY)
+   @PrimaryKeyJoinColumn
    private SubjectRequest subjectRequest;
 
    private Date date;

@@ -14,6 +14,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { PortalUrlConstants } from "../../../common/constants/url/portal-url-constants";
 import { InputNameDialogComponent } from "../../../widget/dialog/input-name-dialog/input-name-dialog.component";
@@ -31,6 +32,7 @@ export class SubjectItemViewComponent implements OnInit {
 
    constructor(private translate: TranslateService,
                private modelService: ModelService,
+               private router: Router,
                private dialog: MatDialog)
    {
    }
@@ -70,8 +72,9 @@ export class SubjectItemViewComponent implements OnInit {
          });
    }
 
-   get editable(): boolean {
-      return this.model.deletable || this.model.canArchive;
+   get actionVisible(): boolean {
+      return this.model.deletable || this.model.canArchive
+         || this.model.archived;
    }
 
    delete(): void {
@@ -98,6 +101,19 @@ export class SubjectItemViewComponent implements OnInit {
          {
             this.onRefresh.emit();
          });
+      });
+   }
+
+   preview(): void {
+      this.modelService.getModel(
+         PortalUrlConstants.ACHIEVE_ARTICLE + this.model.id)
+         .subscribe(achievedSr =>
+      {
+         this.router.navigateByUrl(
+            "portal/article/" + encodeURIComponent(achievedSr["url"]),
+            {
+               skipLocationChange: true
+            }).then();
       });
    }
 }

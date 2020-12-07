@@ -29,6 +29,12 @@ public class ArchivedSubjectServiceImpl implements ArchivedSubjectService {
       this.archivedSubjectDao = archivedSubjectDao;
    }
 
+   @Transactional(readOnly = true)
+   @Override
+   public ArchivedSubject get(Integer id) {
+      return archivedSubjectDao.get(id);
+   }
+
    @Transactional
    @Override
    public Integer insert(ArchivedSubject archivedSubject) {

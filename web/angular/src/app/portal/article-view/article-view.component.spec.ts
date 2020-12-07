@@ -13,6 +13,9 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TestUtils } from "../../common/test/test-utils";
 
 import { ArticleViewComponent } from "./article-view.component";
 
@@ -21,7 +24,19 @@ describe("ArticleViewComponent", () => {
   let fixture: ComponentFixture<ArticleViewComponent>;
 
   beforeEach(waitForAsync(() => {
+    let translate = TestUtils.createTranslateService();
+
     TestBed.configureTestingModule({
+      imports: [
+         TranslateModule,
+         RouterTestingModule
+      ],
+      providers: [
+        {
+          provide: TranslateService,
+          useValue: translate
+        }
+      ],
       declarations: [ ArticleViewComponent ]
     })
     .compileComponents();

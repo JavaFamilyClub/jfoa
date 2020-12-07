@@ -18,6 +18,8 @@ import club.javafamily.runner.domain.ArchivedSubject;
 
 public interface ArchivedSubjectService {
 
+   ArchivedSubject get(Integer id);
+
    Integer insert(ArchivedSubject archivedSubject);
 
    void saveOrUpdate(ArchivedSubject archivedSubject);

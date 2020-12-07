@@ -24,7 +24,7 @@ import { BaseSubscription } from "../../widget/base/BaseSubscription";
 export class ArticleViewComponent extends BaseSubscription implements OnInit, OnDestroy {
    private url: string;
    loaded: boolean = false;
-   @ViewChild("articleContent") articleContent: ElementRef;
+   @ViewChild("articleContent", {static: true}) articleContent: ElementRef;
 
    constructor(private route: ActivatedRoute,
                private renderer: Renderer2)
@@ -50,11 +50,11 @@ export class ArticleViewComponent extends BaseSubscription implements OnInit, On
 
    showContent(): void {
       this.loaded = true;
-      this.renderer.setStyle(this.articleContent, "display", "block");
+      this.renderer.setStyle(this.articleContent.nativeElement, "display", "block");
    }
 
    hiddenContent(): void {
-      this.renderer.setStyle(this.articleContent, "display", "none");
+      this.renderer.setStyle(this.articleContent.nativeElement, "display", "none");
       this.loaded = false;
    }
 }
