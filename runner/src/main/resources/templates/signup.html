@@ -38,17 +38,26 @@
         </div>
 
         <div id="verifyCodeGroup" class="form-group">
-          <label class="required-field" for="code" th:text="#{common.verifyCode}">Verification Code</label>
-          <a href="javascript:void(0);" th:title="'Click Change Verification Code'"
-             onclick="changeCode()">
-            <img th:src="@{/public/verification/code}" alt="Verify Code"
-                 class="verifyCode" />
-          </a>
-          <input type="text" class="form-control form-control-danger" id="code"
-                 name="jf-verification-code" required/>
-          <div id="codeError" class="form-control-feedback" style="display: none;" th:text="#{common.verifyCode}">
-            Please enter your verification code.
+          <label class="required-field" for="code" th:text="#{common.verifyCode} + ':'">Verification Code:</label>
+
+          <div class="input-group form-group">
+            <input type="text" id="code" class="form-control"
+                   name="jf-verification-code" required/>
+
+            <div class="input-group-addon">
+              <a href="javascript:void(0);"
+                 th:title="'Click Change Verification Code'"
+                 onclick="changeCode()">
+                <img th:src="@{/public/verification/code}" alt="Verify Code"
+                     class="verifyCode" />
+              </a>
+            </div>
+
+            <div id="codeError" class="form-control-feedback" style="display: none;" th:text="#{common.verifyCode}">
+              Please enter your verification code.
+            </div>
           </div>
+
         </div>
 
         <div th:if="${message ne null}" class="alert-error-message">

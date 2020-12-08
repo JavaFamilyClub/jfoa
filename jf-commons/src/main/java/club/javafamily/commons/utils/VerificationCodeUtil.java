@@ -25,7 +25,7 @@ public abstract class VerificationCodeUtil {
 
    public static final String DEFAULT_CODE_SESSION_KEY = "jf-verification-code";
    private static final int DEFAULT_CODE_WIDTH = 120;
-   private static final int DEFAULT_CODE_HEIGHT = 30;
+   private static final int DEFAULT_CODE_HEIGHT = 38;
    private static final int DEFAULT_CODE_NUMBER_COUNT = 4;
 
    public static String createCode(HttpServletResponse response) throws IOException {
@@ -74,7 +74,7 @@ public abstract class VerificationCodeUtil {
 
       // 5. draw verification code
       int row = 10;
-      int col = 22;
+      int col = Math.round(height * 2.0F / 3);
       // using default font
       g.setFont(new Font(null, Font.BOLD, 20));
 
