@@ -22,6 +22,9 @@ dependencies {
    compileOnly "org.springframework:spring-core:${springVersion}"
    compileOnly "org.springframework:spring-expression:${springVersion}"
 
+   // shiro
+//   compileOnly "org.apache.shiro:shiro-spring:${shiroVersion}"
+
    // apache
    compileOnly "org.apache.commons:commons-lang3:${commonsLang3Version}"
 

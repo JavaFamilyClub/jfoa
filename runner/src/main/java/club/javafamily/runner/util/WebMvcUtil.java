@@ -14,11 +14,19 @@
 
 package club.javafamily.runner.util;
 
+import club.javafamily.commons.utils.VerificationCodeUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.*;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Objects;
 
 public final class WebMvcUtil {
 
@@ -79,5 +87,33 @@ public final class WebMvcUtil {
       }
 
       return ipAddress;
+   }
+
+   public static void writeCode(HttpServletResponse response) throws IOException {
+      String code = VerificationCodeUtil.createCode(response);
+      Session session = SecurityUtils.getSubject().getSession();
+      session.setAttribute(VerificationCodeUtil.DEFAULT_CODE_SESSION_KEY, code);
+   }
+
+   public static boolean verifyCode(ServletRequest request) {
+      return verifyCode(request.getParameter(VerificationCodeUtil.DEFAULT_CODE_SESSION_KEY));
+   }
+
+   public static boolean verifyCode(String code) {
+      Session session = SecurityUtils.getSubject().getSession(false);
+
+      if(session == null || StringUtils.isEmpty(code)) {
+         return false;
+      }
+
+      Object serverC = session.getAttribute(VerificationCodeUtil.DEFAULT_CODE_SESSION_KEY);
+
+      if(!(serverC instanceof String)) {
+         return false;
+      }
+
+      String serverCode = (String) serverC;
+
+      return Objects.equals(serverCode, code);
    }
 }

@@ -23,14 +23,24 @@
           <label class="required-field" for="email" th:text="#{portal.email.Email}">Email</label>
           <input type="text" class="form-control form-control-danger" id="email"
                  name="email" th:field="*{email}" autofocus
-                 th:value="${result != null ? result.data : ''}"/>
+                 th:value="${customer != null ? customer.email : ''}" required/>
           <div id="emialError" class="form-control-feedback" style="display: none;" th:text="#{portal.email.placeholder.email}">
             Please enter your user email.
           </div>
         </div>
 
-        <div th:if="${result ne null}"  class="alert-error-message">
-          <label th:text="${result.message }"></label>
+        <div id="verifyCodeGroup" class="form-group">
+          <label class="required-field" for="code" th:text="#{common.verifyCode}">Verification Code</label>
+          <img src="/public/verification/code" th:src="@{/public/verification/code}" />
+          <input type="text" class="form-control form-control-danger" id="code"
+                 name="code" required/>
+          <div id="codeError" class="form-control-feedback" style="display: none;" th:text="#{common.verifyCode}">
+            Please enter your verification code.
+          </div>
+        </div>
+
+        <div th:if="${message ne null}" class="alert-error-message">
+          <label th:text="${message }"></label>
         </div>
       </div>
       <div class="card-footer">

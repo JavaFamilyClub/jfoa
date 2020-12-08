@@ -18,9 +18,11 @@ import club.javafamily.runner.domain.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @JsonIgnoreProperties
 public class EmailCustomerVO implements CustomerVO {
+   @NotNull(message = "Email is required.")
    @Email(message = "Email Format Error.")
    private String email;
 

@@ -202,6 +202,7 @@
          "sign-out": "Sign out"
       },
       "errorMsg": {
+         "verifyCode": "The Verification code error!",
          "accountNotExist": "The account is not exist!",
          "accountLocked": "The account is locked!",
          "manyAttempts": "Too many attempts, please try again later!",
@@ -212,6 +213,7 @@
       }
    },
    "common": {
+      "verifyCode": "Verification Code",
       "createUser": "Create User",
       "createDate": "Create Date",
       "noPermission": "You do not have permission to perform this operation",

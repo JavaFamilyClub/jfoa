@@ -202,6 +202,7 @@
          "sign-out": "注销"
       },
       "errorMsg": {
+         "verifyCode": "验证码错误!",
          "accountNotExist": "账户不存在!",
          "accountLocked": "账户被锁定!",
          "manyAttempts": "尝试次数太多, 请稍后重试!",
@@ -212,6 +213,7 @@
       }
    },
    "common": {
+      "verifyCode": "验证码",
       "createUser": "创建用户",
       "createDate": "创建日期",
       "noPermission": "您没有权限执行该操作",

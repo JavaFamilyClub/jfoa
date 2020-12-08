@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
+ *
+ * The software and information contained herein are copyrighted and
+ * proprietary to JavaFamily Technology Corp. This software is furnished
+ * pursuant to a written license agreement and may be used, copied,
+ * transmitted, and stored only in accordance with the terms of such
+ * license and with the inclusion of the above copyright notice. Please
+ * refer to the file "COPYRIGHT" for further copyright and licensing
+ * information. This software and information or any other copies
+ * thereof may not be provided or otherwise made available to any other
+ * person.
+ */
+
 package club.javafamily.runner.controller;
 
 import club.javafamily.runner.annotation.Audit;
@@ -9,8 +23,7 @@ import club.javafamily.runner.domain.Customer;
 import club.javafamily.commons.enums.ActionType;
 import club.javafamily.commons.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
-import club.javafamily.runner.util.I18nUtil;
-import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.util.*;
 import club.javafamily.runner.vo.EmailCustomerVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -48,15 +61,11 @@ public class SecurityController {
     Subject currentUser = SecurityUtils.getSubject();
 
     if(!currentUser.isAuthenticated()) {
-      UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
+       UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
 
-      token.setRememberMe(rememberMe);
+       token.setRememberMe(rememberMe);
 
-      try {
-        currentUser.login(token);
-      } catch (AuthenticationException e) {
-        throw e;
-      }
+       currentUser.login(token);
     }
 
     // redirect index page when login success.
@@ -65,9 +74,11 @@ public class SecurityController {
 
   @GetMapping("signup")
   public String gotoSignupPage(ModelMap map) {
-    EmailCustomerVO customerVO = new EmailCustomerVO();
+     if(map.get("customer") == null) {
+        EmailCustomerVO customerVO = new EmailCustomerVO();
 
-    map.put("customer", customerVO);
+        map.put("customer", customerVO);
+     }
 
     return "signup";
   }
@@ -78,6 +89,11 @@ public class SecurityController {
                        HttpServletRequest request,
                        ModelMap map)
   {
+     if(!WebMvcUtil.verifyCode(request)) {
+        map.put("message", I18nUtil.getString("security.errorMsg.verifyCode"));
+        return "signup";
+     }
+
     List<ObjectError> allErrors = bindingResult.getAllErrors();
     StringBuilder sb = new StringBuilder();
 
