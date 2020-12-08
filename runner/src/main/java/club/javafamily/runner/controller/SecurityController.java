@@ -91,6 +91,8 @@ public class SecurityController {
   {
      if(!WebMvcUtil.verifyCode(request)) {
         map.put("message", I18nUtil.getString("security.errorMsg.verifyCode"));
+        map.put("customer", customerVO);
+
         return "signup";
      }
 

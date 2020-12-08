@@ -90,8 +90,11 @@ public final class WebMvcUtil {
    }
 
    public static void writeCode(HttpServletResponse response) throws IOException {
-      String code = VerificationCodeUtil.createCode(response);
+      // get session must before response.getOutputStream/getWriter
       Session session = SecurityUtils.getSubject().getSession();
+
+      String code = VerificationCodeUtil.createCode(response);
+
       session.setAttribute(VerificationCodeUtil.DEFAULT_CODE_SESSION_KEY, code);
    }
 

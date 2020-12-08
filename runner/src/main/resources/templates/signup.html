@@ -8,11 +8,19 @@
   <script src="/webjars/jquery/3.5.1/jquery.js" th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
   <script src="/webjars/bootstrap/4.5.2/js/bootstrap.js" th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.js}"></script>
   <link rel="icon" type="image/x-icon" href="jfoa-icon.ico" th:href="@{jfoa-icon.ico}">
+
+  <script>
+     function changeCode() {
+        const src = "/public/verification/code?t=" + new Date().getTime();
+        $('.verifyCode').attr("src", src);
+     }
+  </script>
+
 </head>
 
 <body>
 <div class="container-fluid login-root">
-  <form action="#" th:action="@{/api/1.0/signup}" th:object="${customer}"  method="post">
+  <form th:action="@{/api/1.0/signup}" th:object="${customer}"  method="post">
     <div class="card">
       <div class="card-header" th:text="#{security.link.sign-up}">
         Sign Up
@@ -31,9 +39,13 @@
 
         <div id="verifyCodeGroup" class="form-group">
           <label class="required-field" for="code" th:text="#{common.verifyCode}">Verification Code</label>
-          <img src="/public/verification/code" th:src="@{/public/verification/code}" />
+          <a href="javascript:void(0);" th:title="'Click Change Verification Code'"
+             onclick="changeCode()">
+            <img th:src="@{/public/verification/code}" alt="Verify Code"
+                 class="verifyCode" />
+          </a>
           <input type="text" class="form-control form-control-danger" id="code"
-                 name="code" required/>
+                 name="jf-verification-code" required/>
           <div id="codeError" class="form-control-feedback" style="display: none;" th:text="#{common.verifyCode}">
             Please enter your verification code.
           </div>

@@ -15,6 +15,7 @@
 package club.javafamily.commons.utils;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -48,6 +49,7 @@ public abstract class VerificationCodeUtil {
       response.setDateHeader("Expires", -1);
       response.setHeader("Cache-Control", "no-cache");
       response.setHeader("Pragma", "no-cache");
+      response.setContentType("image/jpeg");
 
       // 1. create code image
       BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -102,7 +104,9 @@ public abstract class VerificationCodeUtil {
       // store to session
 //      request.getSession().setAttribute("valid", code.toString());
       // 6. write to response
-      ImageIO.write(img, "jpg", response.getOutputStream());
+      ServletOutputStream out = response.getOutputStream();
+      ImageIO.write(img, "jpg", out);
+      out.flush();
 
       return code.toString();
    }

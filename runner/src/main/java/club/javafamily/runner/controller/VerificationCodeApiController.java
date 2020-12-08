@@ -16,25 +16,27 @@ package club.javafamily.runner.controller;
 
 import club.javafamily.runner.util.WebMvcUtil;
 import io.swagger.annotations.*;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Api("Verification Code Api")
-@RestController
+@Controller
 public class VerificationCodeApiController {
 
    @ApiOperation("Getting Verification Code Image")
-   @GetMapping("/public/verification/code")
+   @RequestMapping("/public/verification/code")
    public void getVerificationCode(HttpServletResponse response) throws IOException {
       WebMvcUtil.writeCode(response);
    }
 
    @ApiOperation("Verify User Code")
-   @GetMapping("/public/verification/code/verify/{code}")
+   @RequestMapping("/public/verification/code/verify/{code}")
+   @ResponseBody
    public boolean verifyCode(@ApiParam(value = "User Input Code", required = true)
-                                @PathVariable("code") String code)
+                             @PathVariable("code") String code)
    {
       return WebMvcUtil.verifyCode(code);
    }
