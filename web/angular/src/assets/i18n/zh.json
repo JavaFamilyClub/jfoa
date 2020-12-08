@@ -214,6 +214,7 @@
    },
    "common": {
       "verifyCode": "验证码",
+      "changeVerifyCode": "点击切换验证码",
       "createUser": "创建用户",
       "createDate": "创建日期",
       "noPermission": "您没有权限执行该操作",

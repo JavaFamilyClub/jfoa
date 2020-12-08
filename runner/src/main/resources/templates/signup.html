@@ -46,9 +46,10 @@
 
             <div class="input-group-addon">
               <a href="javascript:void(0);"
-                 th:title="'Click Change Verification Code'"
+                 th:title="#{common.changeVerifyCode}'"
                  onclick="changeCode()">
-                <img th:src="@{/public/verification/code}" alt="Verify Code"
+                <img th:src="@{/public/verification/code}"
+                     th:alt="#{common.verifyCode}"
                      class="verifyCode" />
               </a>
             </div>

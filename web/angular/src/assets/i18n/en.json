@@ -214,6 +214,7 @@
    },
    "common": {
       "verifyCode": "Verification Code",
+      "changeVerifyCode": "Click to Change Verification Code",
       "createUser": "Create User",
       "createDate": "Create Date",
       "noPermission": "You do not have permission to perform this operation",
