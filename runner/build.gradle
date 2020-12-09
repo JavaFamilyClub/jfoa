@@ -146,9 +146,7 @@ processResources {
       !file("$buildDir/resources/main/application.yml").exists()
    }
 
-//   exclude {
-//      "*.sql"
-//   }
+   exclude '**/jfoadb/sql'
 
 //   filesMatching('application.yml') {
 //      String replacement = rootProject.project("${webModule}").projectDir.getCanonicalPath().replace('\\', '/')
