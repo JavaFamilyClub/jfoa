@@ -8,6 +8,7 @@
    "OK": "确定",
    "Ok": "确定",
    "Ip": "IP 地址",
+   "Security": "安全",
    "Votes": "票数",
    "subjectList": "主题列表",
    "Create": "创建",
@@ -165,6 +166,11 @@
          "errorDetail": "错误详情",
          "noExporterError": "导出 {{0}} 时没有找到匹配的导出器",
          "endBeforeStartError": "终止日期必须在开始日期之后."
+      },
+      "security": {
+         "tabs": {
+            "resources": "资源"
+         }
       },
       "client": {
          "ph": {

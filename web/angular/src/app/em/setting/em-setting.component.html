@@ -18,6 +18,12 @@
              translate>em.client.manager</a>
         </mat-list-item>
 
+        <mat-list-item [class.selected]="securityRla.isActive">
+          <a matLine routerLink="security-manager"
+             routerLinkActive #securityRla="routerLinkActive"
+             translate>Security</a>
+        </mat-list-item>
+
         <mat-list-item [class.selected]="userRla.isActive">
           <a matLine routerLink="user-manager"
              routerLinkActive #userRla="routerLinkActive"

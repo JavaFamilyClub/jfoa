@@ -15,63 +15,43 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
-import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatIconModule } from "@angular/material/icon";
-import { MatInputModule } from "@angular/material/input";
-import { MatListModule } from "@angular/material/list";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatTreeModule } from "@angular/material/tree";
 import { TranslateModule } from "@ngx-translate/core";
-import { WidgetModule } from "../../widget/widget.module";
-import { ClientManagerComponent } from "./client-manager/client-manager.component";
-import { EmSettingRoutingModule } from "./em-setting-routing.module";
-import { EmSettingComponent } from "./em-setting.component";
-import { RoleManagerComponent } from "./role-manager/role-manager.component";
-import { EmSecurityManagerModule } from "./security-manager/em-security-manager.module";
-import { UserManagerComponent } from "./user-manager/user-manager.component";
-import { RoleEditViewComponent } from "./role-manager/role-edit-view/role-edit-view.component";
+import { WidgetModule } from "../../../widget/widget.module";
+import { EmSecurityManagerRoutingModule } from "./em-security-manager-routing.module";
+import { ResourcesManagerComponent } from "./resources-manager/resources-manager.component";
+import { SecurityManagerComponent } from "./security-manager.component";
 
 @NgModule({
    declarations: [
-      EmSettingComponent,
-      ClientManagerComponent,
-      UserManagerComponent,
-      RoleManagerComponent,
-      RoleEditViewComponent
+      SecurityManagerComponent,
+      ResourcesManagerComponent
    ],
    imports: [
       CommonModule,
       FormsModule,
       ReactiveFormsModule,
-      EmSettingRoutingModule,
-      MatButtonModule,
+      EmSecurityManagerRoutingModule,
       MatSnackBarModule,
       MatSidenavModule,
-      MatInputModule,
-      MatListModule,
       MatIconModule,
       MatTabsModule,
       MatCardModule,
-      MatSelectModule,
       MatProgressSpinnerModule,
       WidgetModule,
       TranslateModule,
-      MatTreeModule,
-      MatCheckboxModule,
-      MatTableModule,
-      EmSecurityManagerModule
+      MatTreeModule
    ],
    entryComponents: [
    ],
    providers: [
    ]
 })
-export class EmSettingModule {
+export class EmSecurityManagerModule {
 }

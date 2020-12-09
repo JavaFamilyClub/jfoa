@@ -1,0 +1,17 @@
+<div class="security-manager-body w-100 h-100">
+  <div class="w-100 h-100">
+
+    <nav mat-tab-nav-bar mat-align-tabs="center" class="w-100">
+      <a mat-tab-link
+         *ngFor="let link of tabItems"
+         [routerLink]="[link.routerPath]"
+         routerLinkActive #rla="routerLinkActive"
+         [disabled]="!!!link.routerPath"
+         [active]="rla.isActive">
+        {{link.label}}
+      </a>
+    </nav>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

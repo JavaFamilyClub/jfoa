@@ -19,6 +19,8 @@ import { SearchResultResolver } from "../search-result/search-result-resolver.se
 import { SearchResultComponent } from "../search-result/search-result.component";
 import { EmSettingComponent } from "./em-setting.component";
 import { RoleManagerComponent } from "./role-manager/role-manager.component";
+import { ResourcesManagerComponent } from "./security-manager/resources-manager/resources-manager.component";
+import { SecurityManagerComponent } from "./security-manager/security-manager.component";
 import { UserManagerComponent } from "./user-manager/user-manager.component";
 
 const appRoutes: Routes = [
@@ -29,6 +31,10 @@ const appRoutes: Routes = [
          {
             path: "client-manager",
             component: ClientManagerComponent
+         },
+         {
+            path: "security-manager",
+            loadChildren: () => import("./security-manager/em-security-manager.module").then(m => m.EmSecurityManagerModule)
          },
          {
             path: "user-manager",

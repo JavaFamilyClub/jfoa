@@ -5,6 +5,6 @@ module.exports = {
       }
    },
    setupFiles: ["jest-canvas-mock", "<rootDir>/src/setupJest.ts"],
-   coverageDirectory: "<rootDir>/build/coverage/",
+   coverageDirectory: "<rootDir>/../build/coverage/",
    collectCoverage: true
 };

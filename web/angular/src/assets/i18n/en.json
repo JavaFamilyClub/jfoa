@@ -8,6 +8,7 @@
    "OK": "OK",
    "Ok": "Ok",
    "Ip": "Ip",
+   "Security": "Security",
    "Votes": "Votes",
    "subjectList": "Subject List",
    "Create": "Create",
@@ -165,6 +166,11 @@
          "errorDetail": "Error Detail",
          "noExporterError": "No matching exporter was found when exporting {{0}}",
          "endBeforeStartError": "The end date must after start date."
+      },
+      "security": {
+         "tabs": {
+            "resources": "Resources"
+         }
       },
       "client": {
          "ph": {
