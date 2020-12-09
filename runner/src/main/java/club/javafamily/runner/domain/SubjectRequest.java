@@ -35,6 +35,7 @@ public class SubjectRequest implements Serializable, Cloneable {
    @ManyToOne(targetEntity = Customer.class, fetch = FetchType.EAGER)
    private Customer customer;
 
+   @Temporal(TemporalType.TIMESTAMP)
    private Date createDate;
 
    private Boolean archived;

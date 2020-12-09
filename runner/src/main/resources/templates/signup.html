@@ -7,15 +7,8 @@
   <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.5.2/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.css}">
   <script src="/webjars/jquery/3.5.1/jquery.js" th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
   <script src="/webjars/bootstrap/4.5.2/js/bootstrap.js" th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.js}"></script>
+  <script src="/js/common.js" th:src="@{/js/common.js}"></script>
   <link rel="icon" type="image/x-icon" href="jfoa-icon.ico" th:href="@{jfoa-icon.ico}">
-
-  <script>
-     function changeCode() {
-        const src = "/public/verification/code?t=" + new Date().getTime();
-        $('.verifyCode').attr("src", src);
-     }
-  </script>
-
 </head>
 
 <body>
@@ -28,17 +21,20 @@
       <div class="card-body">
 
         <div id="emialGroup" class="form-group">
-          <label class="required-field" for="email" th:text="#{portal.email.Email}">Email</label>
+          <label class="required-field" for="email"
+                 th:text="#{portal.email.Email}">Email</label>
           <input type="text" class="form-control form-control-danger" id="email"
                  name="email" th:field="*{email}" autofocus
                  th:value="${customer != null ? customer.email : ''}" required/>
-          <div id="emialError" class="form-control-feedback" style="display: none;" th:text="#{portal.email.placeholder.email}">
+          <div id="emialError" class="form-control-feedback" style="display: none;"
+               th:text="#{portal.email.placeholder.email}">
             Please enter your user email.
           </div>
         </div>
 
         <div id="verifyCodeGroup" class="form-group">
-          <label class="required-field" for="code" th:text="#{common.verifyCode} + ':'">Verification Code:</label>
+          <label class="required-field" for="code"
+                 th:text="#{common.verifyCode}">Verification Code</label>
 
           <div class="input-group form-group">
             <input type="text" id="code" class="form-control"
@@ -46,15 +42,16 @@
 
             <div class="input-group-addon">
               <a href="javascript:void(0);"
-                 th:title="#{common.changeVerifyCode}'"
+                 th:title="#{common.changeVerifyCode}"
                  onclick="changeCode()">
                 <img th:src="@{/public/verification/code}"
                      th:alt="#{common.verifyCode}"
-                     class="verifyCode" />
+                     id="verifyCode" />
               </a>
             </div>
 
-            <div id="codeError" class="form-control-feedback" style="display: none;" th:text="#{common.verifyCode}">
+            <div id="codeError" class="form-control-feedback" style="display: none;"
+                 th:text="#{common.verifyCode}">
               Please enter your verification code.
             </div>
           </div>

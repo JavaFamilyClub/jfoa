@@ -51,6 +51,7 @@ public class EmailService {
     */
    public void sendSimpleMailMessage(String to, String subject, String content) {
       SimpleMailMessage message = new SimpleMailMessage();
+
       message.setFrom(SENDER);
       message.setTo(to);
       message.setSubject(subject);
@@ -72,12 +73,18 @@ public class EmailService {
       MimeMessage message = mailSender.createMimeMessage();
 
       //true表示需要创建一个multipart message
-      MimeMessageHelper helper = new MimeMessageHelper(message, true);
-      helper.setFrom(SENDER);
-      helper.setTo(to);
-      helper.setSubject(subject);
-      helper.setText(content, true);
-      mailSender.send(message);
+      try {
+         MimeMessageHelper helper = new MimeMessageHelper(message, true);
+         helper.setFrom(SENDER);
+         helper.setTo(to);
+         helper.setSubject(subject);
+         helper.setText(content, true);
+         mailSender.send(message);
+      }
+      catch(MessagingException e) {
+         logger.error("Send mime message error for to({}), subject({}).", to, subject);
+         throw e;
+      }
    }
 
    /**
@@ -94,18 +101,24 @@ public class EmailService {
    {
       MimeMessage message = mailSender.createMimeMessage();
 
-      //true表示需要创建一个multipart message
-      MimeMessageHelper helper = new MimeMessageHelper(message, true);
-      helper.setFrom(SENDER);
-      helper.setTo(to);
-      helper.setSubject(subject);
-      helper.setText(content, true);
+      try {
+         //true表示需要创建一个multipart message
+         MimeMessageHelper helper = new MimeMessageHelper(message, true);
+         helper.setFrom(SENDER);
+         helper.setTo(to);
+         helper.setSubject(subject);
+         helper.setText(content, true);
 
-      FileSystemResource file = new FileSystemResource(new File(filePath));
-      String fileName = file.getFilename();
-      helper.addAttachment(fileName, file);
+         FileSystemResource file = new FileSystemResource(new File(filePath));
+         String fileName = file.getFilename();
+         helper.addAttachment(fileName, file);
 
-      mailSender.send(message);
+         mailSender.send(message);
+      }
+      catch(MessagingException e) {
+         logger.error("Send mime message error for to({}), subject({}), file({}).", to, subject, filePath);
+         throw e;
+      }
    }
 
    /**
@@ -122,19 +135,24 @@ public class EmailService {
    {
       MimeMessage message = mailSender.createMimeMessage();
 
-      //true表示需要创建一个multipart message
-      MimeMessageHelper helper = new MimeMessageHelper(message, true);
-      helper.setFrom(SENDER);
-      helper.setTo(to);
-      helper.setSubject(subject);
-      helper.setText(content, true);
+      try {
+         MimeMessageHelper helper = new MimeMessageHelper(message, true);
+         helper.setFrom(SENDER);
+         helper.setTo(to);
+         helper.setSubject(subject);
+         helper.setText(content, true);
 
-      for (Map.Entry<String, String> entry : rscIdMap.entrySet()) {
-         FileSystemResource file = new FileSystemResource(new File(entry.getValue()));
-         helper.addInline(entry.getKey(), file);
+         for (Map.Entry<String, String> entry : rscIdMap.entrySet()) {
+            FileSystemResource file = new FileSystemResource(new File(entry.getValue()));
+            helper.addInline(entry.getKey(), file);
+         }
+
+         mailSender.send(message);
       }
-
-      mailSender.send(message);
+      catch(MessagingException e) {
+         logger.error("Send mime message with inline resource error for to({}), subject({}).", to, subject);
+         throw e;
+      }
    }
 
    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);

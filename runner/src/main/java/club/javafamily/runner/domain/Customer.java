@@ -43,6 +43,7 @@ public class Customer implements Serializable, Cloneable {
    private boolean active;
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
    @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = Tool.DEFAULT_TIME_ZONE_STR)
+   @Temporal(TemporalType.TIMESTAMP)
    private Date registerDate;
 
    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)

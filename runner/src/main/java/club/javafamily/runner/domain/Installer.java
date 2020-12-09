@@ -35,6 +35,7 @@ public class Installer implements Serializable {
    private String link;
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
    @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = Tool.DEFAULT_TIME_ZONE_STR)
+   @Temporal(TemporalType.TIMESTAMP)
    private Date uploadDate;
 
    public Installer() {

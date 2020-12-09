@@ -39,6 +39,7 @@ public class ArchivedSubject implements Serializable {
    @PrimaryKeyJoinColumn
    private SubjectRequest subjectRequest;
 
+   @Temporal(TemporalType.TIMESTAMP)
    private Date date;
 
    public Integer getId() {

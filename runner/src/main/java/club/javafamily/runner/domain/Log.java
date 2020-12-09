@@ -32,6 +32,7 @@ public class Log implements Serializable {
   @Exportable(description = "执行时间", order = 5)
   @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = Tool.DEFAULT_TIME_ZONE_STR)
+  @Temporal(TemporalType.TIMESTAMP)
   private Date date;
 
   @Exportable(description = "备注", order = 6)

@@ -316,7 +316,12 @@ public class SubjectVoteService {
 
          count = getCachedCount(id, true);
 
-         if(count != null && count < 0) { // == 0 may be cancel op
+         if(count == null) {
+            invalid = true;
+            LOGGER.warn("Vote's support count is null. " +
+               "vote id: {}, count: {}", id, count);
+         }
+         else if(count < 0) { // == 0 may be cancel op
             deleteCachedCount(id, true);
             invalid = true;
             LOGGER.warn("Vote's support count is invalid. " +
@@ -327,7 +332,12 @@ public class SubjectVoteService {
 
          count = getCachedCount(id, false);
 
-         if(count != null && count < 0) {
+         if(count == null) {
+            invalid = true;
+            LOGGER.warn("Vote's oppose count is null. " +
+               "vote id: {}, count: {}", id, count);
+         }
+         else if(count < 0) {
             deleteCachedCount(id, false);
             invalid = true;
 
@@ -347,7 +357,7 @@ public class SubjectVoteService {
       result.put("success", true);
    }
 
-   private static final int CACHED_TIME = 24 * 60 * 60; // one day
+   private static final int CACHED_TIME = 2 * 24 * 60 * 60; // two day. (sync to db every day)
    private static final Integer SUPPORT_FLAG = 1;
    private static final Integer OPPOSE_FLAG = 0;
    private static final String VOTE_CACHE_PREFIX = "sr-vote-";

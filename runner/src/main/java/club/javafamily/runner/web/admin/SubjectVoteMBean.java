@@ -50,5 +50,10 @@ public class SubjectVoteMBean {
       return voteService.countKeys();
    }
 
+   @ManagedAttribute(description = "Cached subject request vote count ids")
+   public Set<Integer> getCachedVoteCountIds() {
+      return voteService.countIds();
+   }
+
    private final SubjectVoteService voteService;
 }
