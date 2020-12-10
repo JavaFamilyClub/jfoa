@@ -83,3 +83,29 @@
 .display-contents {
    display: contents !important;
 }
+
+.content-card-btns-container {
+   display: flex;
+   flex-direction: column;
+   height: calc(100% - 50px);
+   overflow: auto;
+}
+
+.content-card-btns-top-pane {
+   width: 100%;
+   flex-grow: 1;
+   flex-shrink: 1;
+   overflow: auto;
+   height: calc(100% - 66px);
+}
+
+.content-card-btns-bottom {
+   width: 100%;
+   justify-content: flex-start;
+   margin-top: 10px;
+   overflow: hidden;
+}
+
+.content-card-btns-padding {
+   padding: 15px;
+}

@@ -17,6 +17,7 @@ package club.javafamily.runner.web.em.security;
 import club.javafamily.runner.common.model.data.TreeNodeModel;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.enums.ResourceTypeEnum;
+import club.javafamily.runner.util.I18nUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -34,7 +35,7 @@ public class ResourcesManager {
       children.addAll(buildResourceOperatorNode(rootPath));
 
       return TreeNodeModel.build()
-         .setLabel("em.security.tabs.resources")
+         .setLabel(I18nUtil.getString("em.security.tabs.resources"))
          .setValue("*")
          .setPath(rootPath)
          .setChildren(children)

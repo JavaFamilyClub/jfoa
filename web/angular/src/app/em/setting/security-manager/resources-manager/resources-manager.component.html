@@ -2,7 +2,8 @@
   <mat-drawer class="mat-drawer-body"
               mode="side" disableClose opened="true">
     <div class="mat-drawer-first-pane">
-      <mat-tree-view [data]="model.tree" [showRoot]="false"
+      <mat-tree-view [showRoot]="false"
+                     [data]="model.tree"
                      [selectedNodes]="selectNodes"
                      (onSelectNode)="onSelectNodes($event)"></mat-tree-view>
     </div>
@@ -10,13 +11,20 @@
 
   <mat-drawer-content class="mat-drawer-content-pane">
     <ng-container>
-      <div class="resources-manager-permission-body">
-        permissions
-      </div>
+      <div class="content-card-btns-container">
+        <div class="content-card-btns-top-pane content-card-btns-padding">
+          permissions
+        </div>
 
-      <mat-card>
-        buttons
-      </mat-card>
+        <mat-card class="content-card-btns-bottom">
+          <mat-card-content>
+            <button mat-button (click)="apply()"
+                    [disabled]="applyDisabled">{{'Apply' | translate}}</button>
+            <button mat-button (click)="reset()"
+                    [disabled]="applyDisabled">{{'Reset' | translate}}</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </ng-container>
   </mat-drawer-content>
 </mat-drawer-container>

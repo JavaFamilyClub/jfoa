@@ -56,4 +56,15 @@ export class ResourcesManagerComponent implements OnInit {
       this.treeControlService.onSelectNodes(info);
    }
 
+   get applyDisabled(): boolean {
+      return false;
+   }
+
+   apply(): void {
+
+   }
+
+   reset(): void {
+
+   }
 }

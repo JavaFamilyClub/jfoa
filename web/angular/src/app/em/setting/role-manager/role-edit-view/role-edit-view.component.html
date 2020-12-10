@@ -1,5 +1,5 @@
 <div class="role-edit-view-body" *ngIf="!!role">
-  <div class="role-edit-view-first-label role-edit-view-padding">
+  <div class="role-edit-view-first-label content-card-btns-padding">
     <h3 class="role-edit-role-label">
       <p>{{'Role' | translate}}: {{role.name}}</p>
     </h3>
@@ -10,8 +10,8 @@
     </div>
   </div>
 
-  <div class="role-edit-content" *ngIf="!!form" [formGroup]="form">
-    <div class="role-edit-content-pane role-edit-view-padding">
+  <div class="content-card-btns-container" *ngIf="!!form" [formGroup]="form">
+    <div class="content-card-btns-top-pane content-card-btns-padding">
       <mat-form-field>
         <mat-label>{{'Name' | translate}}</mat-label>
         <input matInput placeholder="{{'Name' | translate}}"
@@ -61,7 +61,7 @@
 
     </div>
 
-    <mat-card class="role-edit-content-actions">
+    <mat-card class="content-card-btns-bottom">
       <mat-card-content>
         <button mat-button (click)="apply()"
           [disabled]="applyDisabled">{{'Apply' | translate}}</button>

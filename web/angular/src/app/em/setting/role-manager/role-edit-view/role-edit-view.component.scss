@@ -9,10 +9,6 @@
    height: 50px;
 }
 
-.role-edit-view-padding {
-   padding: 15px;
-}
-
 .role-edit-role-label {
    max-width: 50%;
    flex: 1;
@@ -20,26 +16,4 @@
 
 .role-edit-role-boxs {
    flex: 1;
-}
-
-.role-edit-content {
-   display: flex;
-   flex-direction: column;
-   height: calc(100% - 50px);
-   overflow: auto;
-}
-
-.role-edit-content-pane {
-   width: 100%;
-   flex-grow: 1;
-   flex-shrink: 1;
-   overflow: auto;
-   height: calc(100% - 66px);
-}
-
-.role-edit-content-actions {
-   width: 100%;
-   justify-content: flex-start;
-   margin-top: 10px;
-   overflow: hidden;
 }
