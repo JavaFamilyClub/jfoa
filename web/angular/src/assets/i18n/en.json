@@ -179,6 +179,7 @@
             "browser": "Click browser icon to choose file",
             "link": "Installer Link"
          },
+         "installer": "Installer",
          "manager": "Installer Manager",
          "Clients": "Clients",
          "clientUpload": "Client Upload",

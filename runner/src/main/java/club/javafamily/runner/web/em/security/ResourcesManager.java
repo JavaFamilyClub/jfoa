@@ -31,7 +31,7 @@ public class ResourcesManager {
       children.add(buildPortalNode(rootPath));
       children.add(buildEMNode(rootPath));
 
-      // TODO resource nodes
+      children.addAll(buildResourceOperatorNode(rootPath));
 
       return TreeNodeModel.build()
          .setLabel("em.security.tabs.resources")
@@ -39,6 +39,26 @@ public class ResourcesManager {
          .setPath(rootPath)
          .setChildren(children)
          ;
+   }
+
+   private List<TreeNodeModel> buildResourceOperatorNode(String rootPath) {
+      List<TreeNodeModel> resourcesNodes = new ArrayList<>();
+
+      resourcesNodes.add(buildOperatorNode(rootPath, ResourceEnum.Customer));
+      resourcesNodes.add(buildOperatorNode(rootPath, ResourceEnum.Installer));
+      resourcesNodes.add(buildOperatorNode(rootPath, ResourceEnum.Role));
+
+      return resourcesNodes;
+   }
+
+   private TreeNodeModel buildOperatorNode(String path, ResourceEnum resourceEnum) {
+      String currPath = getPath(path, resourceEnum.name());
+
+      return TreeNodeModel.build()
+         .setLabel(resourceEnum.getLabel())
+         .setValue(resourceEnum.getType() + "")
+         .setPath(currPath)
+         .setType(ResourceTypeEnum.RESOURCE.ordinal() + "");
    }
 
    private TreeNodeModel buildPortalNode(String path) {
@@ -58,7 +78,7 @@ public class ResourcesManager {
    }
 
    private TreeNodeModel buildPageNode(String path, ResourceEnum resourceEnum) {
-      String currPath = getPath(path, ResourceEnum.MailAuthor.name());
+      String currPath = getPath(path, resourceEnum.name());
 
       return TreeNodeModel.build()
          .setLabel(resourceEnum.getLabel())
@@ -77,13 +97,18 @@ public class ResourcesManager {
       String emPath = getPath(path, ResourceEnum.EM.name());
 
       return buildPageNode(path, ResourceEnum.EM)
-         .setChildren(buildEMChildren(emPath))
-         ;
+         .setChildren(buildEMChildren(emPath));
    }
 
    private List<TreeNodeModel> buildEMChildren(String emPath) {
+      List<TreeNodeModel> children = new ArrayList<>();
 
-      // TODO em pages
-      return null;
+      children.add(buildPageNode(emPath, ResourceEnum.EM_Monitor));
+      children.add(buildPageNode(emPath, ResourceEnum.Audit));
+      children.add(buildPageNode(emPath, ResourceEnum.SubjectRequest));
+
+      children.add(buildPageNode(emPath, ResourceEnum.EM_Setting));
+
+      return children;
    }
 }

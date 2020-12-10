@@ -15,26 +15,27 @@
 package club.javafamily.commons.enums;
 
 public enum ActionType {
-  ADD(1, "Add"),
-  DELETE(2, "Delete"),
-  MODIFY(3, "Modify"),
-  Login(4, "Login"),
-  Achieve(5, "Achieve")
-  ;
+   ADD(1, "Add"),
+   DELETE(2, "Delete"),
+   MODIFY(3, "Modify"),
+   Login(4, "Login"),
+   Achieve(5, "Achieve"),
+   Upload(6, "Upload")
+   ;
 
-  private int type;
-  private String label;
+   private int type;
+   private String label;
 
-  ActionType(int type, String label) {
-    this.type = type;
-    this.label = label;
-  }
+   ActionType(int type, String label) {
+      this.type = type;
+      this.label = label;
+   }
 
-  public int getType() {
-    return type;
-  }
+   public int getType() {
+      return type;
+   }
 
-  public String getLabel() {
+   public String getLabel() {
     return label;
   }
 }

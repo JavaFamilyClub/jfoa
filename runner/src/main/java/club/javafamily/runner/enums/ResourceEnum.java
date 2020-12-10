@@ -28,12 +28,12 @@ public enum ResourceEnum {
 
    // ops
    Customer(66, "User"),
-   Password(68, "Password"),
-   Upload_Installer(69, "em.client.uploadInstaller"),
+   Installer(69, "em.client.installer"),
    Role(70, "Role"),
-   SubjectRequest(71, "common.subjectRequest")
+   SubjectRequest(71, "common.subjectRequest"),
 
    // others, no permission control
+   Password(68, "Password")
    ;
 
    private int type;

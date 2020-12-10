@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.service.impl;
 
+import club.javafamily.commons.enums.ActionType;
 import club.javafamily.runner.annotation.Audit;
 import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.dao.InstallerDao;
@@ -37,7 +38,10 @@ public class InstallerServiceImpl implements InstallerService {
       this.installerDao = installerDao;
    }
 
-   @Audit(ResourceEnum.Upload_Installer)
+   @Audit(
+      value = ResourceEnum.Installer,
+      actionType = ActionType.Upload
+   )
    @Transactional
    @Override
    public void save(@AuditObject("getPlatform().getLabel() + '.' + getVersion()") Installer installer) {

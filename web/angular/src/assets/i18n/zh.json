@@ -179,6 +179,7 @@
             "browser": "点击浏览图标去选择文件",
             "link": "安装包链接"
          },
+         "installer": "安装包",
          "manager": "安装包管理",
          "Clients": "已上传客户端",
          "clientUpload": "客户端上传",
