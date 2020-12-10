@@ -19,7 +19,7 @@ import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.commons.enums.ActionType;
-import club.javafamily.commons.enums.ResourceEnum;
+import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;

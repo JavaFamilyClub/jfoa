@@ -8,6 +8,7 @@
    "OK": "确定",
    "Ok": "确定",
    "Ip": "IP 地址",
+   "Portal": "门户",
    "Security": "安全",
    "Votes": "票数",
    "subjectList": "主题列表",
@@ -183,7 +184,8 @@
          "clientUpload": "客户端上传",
          "clientVersion": "客户端版本",
          "downloadLink": "下载链接",
-         "uploadDate": "上传日期"
+         "uploadDate": "上传日期",
+         "uploadInstaller": "上传安装包"
       },
       "user": {
          "manager": "用户管理"

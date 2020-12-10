@@ -21,7 +21,7 @@ import club.javafamily.runner.dao.RoleDao;
 import club.javafamily.runner.domain.Log;
 import club.javafamily.runner.domain.Role;
 import club.javafamily.commons.enums.ActionType;
-import club.javafamily.commons.enums.ResourceEnum;
+import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.*;
 import club.javafamily.runner.util.I18nUtil;
 import org.apache.commons.lang3.ArrayUtils;

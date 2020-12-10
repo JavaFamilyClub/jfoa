@@ -15,7 +15,7 @@
 package club.javafamily.runner.service.impl;
 
 import club.javafamily.commons.enums.ActionType;
-import club.javafamily.commons.enums.ResourceEnum;
+import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.commons.lens.TableLens;
 import club.javafamily.runner.annotation.Audit;
 import club.javafamily.runner.annotation.AuditObject;

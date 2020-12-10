@@ -21,7 +21,7 @@ import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.commons.enums.ActionType;
-import club.javafamily.commons.enums.ResourceEnum;
+import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.*;
 import club.javafamily.runner.vo.EmailCustomerVO;

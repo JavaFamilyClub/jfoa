@@ -19,7 +19,7 @@ import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.dao.InstallerDao;
 import club.javafamily.runner.domain.Installer;
 import club.javafamily.commons.enums.Platform;
-import club.javafamily.commons.enums.ResourceEnum;
+import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.InstallerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -8,6 +8,7 @@
    "OK": "OK",
    "Ok": "Ok",
    "Ip": "Ip",
+   "Portal": "Portal",
    "Security": "Security",
    "Votes": "Votes",
    "subjectList": "Subject List",
@@ -183,7 +184,8 @@
          "clientUpload": "Client Upload",
          "clientVersion": "Client Version",
          "downloadLink": "Download Link",
-         "uploadDate": "Upload Date"
+         "uploadDate": "Upload Date",
+         "uploadInstaller": "Upload Installer"
       },
       "user": {
          "manager": "User Manager"

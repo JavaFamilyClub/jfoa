@@ -12,36 +12,43 @@
  * person.
  */
 
-package club.javafamily.commons.enums;
+package club.javafamily.runner.enums;
+
+import club.javafamily.runner.util.I18nUtil;
 
 public enum ResourceEnum {
-  // pages
-  Portal(1, "Portal"),
-  EM(2, "Enterprise Manager"),
+   // pages
+   Portal(1, "Portal"),
+   MailAuthor(67, "portal.toolbar.mailAuthor"),
 
-  // ops
-  Audit(65, "Audit"),
-  Customer(66, "Customer"),
-  MailAuthor(67, "MailAuthor"),
-  Password(68, "Password"),
-  Upload_Installer(69, "Upload Installer"),
-  Role(70, "Role"),
-  SubjectRequest(71, "Subject Request")
-  ;
+   EM(2, "security.link.em"),
+   EM_Monitor(3, "em.Monitor"),
+   Audit(65, "em.audit.Audit"),
+   EM_Setting(4, "em.Setting"),
 
-  private int type;
-  private String label;
+   // ops
+   Customer(66, "User"),
+   Password(68, "Password"),
+   Upload_Installer(69, "em.client.uploadInstaller"),
+   Role(70, "Role"),
+   SubjectRequest(71, "common.subjectRequest")
 
-  ResourceEnum(int type, String label) {
+   // others, no permission control
+   ;
+
+   private int type;
+   private String label;
+
+   ResourceEnum(int type, String label) {
     this.type = type;
     this.label = label;
-  }
+   }
 
-  public int getType() {
+   public int getType() {
     return type;
-  }
+   }
 
-  public String getLabel() {
-    return label;
-  }
+   public String getLabel() {
+    return I18nUtil.getString(label);
+   }
 }

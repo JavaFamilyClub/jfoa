@@ -117,7 +117,7 @@ public final class SecurityUtil {
          permissions.add(getOperatorPermission(ADMIN));
       }
 
-      return permissions.stream().collect(Collectors.joining(SUBPART_DIVIDER_TOKEN));
+      return String.join(SUBPART_DIVIDER_TOKEN, permissions);
    }
 
    public static String getOperatorPermission(PermissionEnum permission) {

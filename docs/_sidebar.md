@@ -1,9 +1,14 @@
 - Getting started
    - [Quick start](quickstart.md "Quick start")
-   - [OAuth 2.0 Login](oAuth.md "OAuth 2.0 Login")
 
 - Technical Selection
    - [TechnicalSelection](TechnicalSelection.md)
+
+- Authentication
+   - [OAuth 2.0 Login](oAuth.md "OAuth 2.0 Login") 
+
+- Authorization
+   -  [Authorization Design](authorization_design.md "Authorization Design")
 
 - Customization
    - [Configuration](configuration.md)

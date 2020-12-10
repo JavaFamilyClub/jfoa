@@ -12,30 +12,12 @@
  * person.
  */
 
-package club.javafamily.runner.annotation;
+package club.javafamily.runner.enums;
 
-import club.javafamily.commons.enums.ActionType;
-import club.javafamily.runner.enums.ResourceEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.lang.annotation.*;
-
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-public @interface Audit {
-
-   /**
-    * resource
-    */
-   ResourceEnum value();
-
-   /**
-    * op object name
-    */
-   String objectName() default "";
-
-   /**
-    * op
-    */
-   ActionType actionType() default ActionType.ADD;
+@JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
+public enum ResourceTypeEnum {
+   PAGE,
+   RESOURCE
 }

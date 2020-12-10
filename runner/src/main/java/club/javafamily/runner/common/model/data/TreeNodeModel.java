@@ -61,7 +61,7 @@ public class TreeNodeModel {
    }
 
    public boolean isLeaf() {
-      return leaf;
+      return leaf || children == null || children.size() < 1;
    }
 
    public TreeNodeModel setLeaf(boolean leaf) {
