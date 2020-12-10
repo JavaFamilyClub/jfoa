@@ -1,14 +1,22 @@
-<mat-drawer-container class="mat-drawer-container-body" autosize>
+<mat-drawer-container class="mat-drawer-container-body" autosize *ngIf="!!model">
   <mat-drawer class="mat-drawer-body"
               mode="side" disableClose opened="true">
     <div class="mat-drawer-first-pane">
-      Tree view
+      <mat-tree-view [data]="model.tree" [showRoot]="false"
+                     [selectedNodes]="selectNodes"
+                     (onSelectNode)="onSelectNodes($event)"></mat-tree-view>
     </div>
   </mat-drawer>
 
   <mat-drawer-content class="mat-drawer-content-pane">
     <ng-container>
-      setting view
+      <div class="resources-manager-permission-body">
+        permissions
+      </div>
+
+      <mat-card>
+        buttons
+      </mat-card>
     </ng-container>
   </mat-drawer-content>
 </mat-drawer-container>

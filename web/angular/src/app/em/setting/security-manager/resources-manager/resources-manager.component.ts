@@ -13,17 +13,47 @@
  */
 
 import { Component, OnInit } from "@angular/core";
+import { EmUrlConstants } from "../../../../common/constants/url/em-url-constants";
+import { TreeControlService } from "../../../../common/services/tree-control-service";
+import { ModelService } from "../../../../widget/services/model.service";
+import { MatTreeSelectedInfo } from "../../../../widget/tree/model/mat-tree-selected-info";
+import { TreeNodeModel } from "../../../../widget/tree/model/tree-node-model";
+import { ResourcesManagerModel } from "./resources-manager-model";
 
 @Component({
-  selector: "resources-manager",
-  templateUrl: "./resources-manager.component.html",
-  styleUrls: ["./resources-manager.component.scss"]
+   selector: "resources-manager",
+   templateUrl: "./resources-manager.component.html",
+   styleUrls: ["./resources-manager.component.scss"],
+   providers: [
+      TreeControlService
+   ]
 })
 export class ResourcesManagerComponent implements OnInit {
+   model: ResourcesManagerModel;
 
-  constructor() { }
+   constructor(private modelService: ModelService,
+               private treeControlService: TreeControlService)
+   {
+      this.refresh();
+   }
 
-  ngOnInit(): void {
-  }
+   ngOnInit(): void {
+   }
+
+   refresh(): void {
+      this.modelService.getModel<ResourcesManagerModel>(
+         EmUrlConstants.SECURITY_RESOURCES).subscribe(model =>
+      {
+         this.model = model;
+      });
+   }
+
+   get selectNodes(): TreeNodeModel[] {
+      return this.treeControlService.selectNodes;
+   }
+
+   onSelectNodes(info: MatTreeSelectedInfo): void {
+      this.treeControlService.onSelectNodes(info);
+   }
 
 }
