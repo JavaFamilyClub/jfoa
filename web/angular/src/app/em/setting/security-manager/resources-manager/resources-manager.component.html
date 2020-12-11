@@ -10,7 +10,7 @@
   </mat-drawer>
 
   <mat-drawer-content class="mat-drawer-content-pane">
-    <ng-container>
+    <ng-container *ngIf="!!permission">
       <div class="content-card-btns-container">
         <div class="content-card-btns-top-pane content-card-btns-padding">
           permissions

@@ -16,7 +16,6 @@ package club.javafamily.runner.web.em.security;
 
 import club.javafamily.runner.common.model.data.TreeNodeModel;
 import club.javafamily.runner.enums.ResourceEnum;
-import club.javafamily.runner.enums.ResourceTypeEnum;
 import club.javafamily.runner.util.I18nUtil;
 import org.springframework.stereotype.Component;
 
@@ -45,27 +44,18 @@ public class ResourcesManager {
    private List<TreeNodeModel> buildResourceOperatorNode(String rootPath) {
       List<TreeNodeModel> resourcesNodes = new ArrayList<>();
 
-      resourcesNodes.add(buildOperatorNode(rootPath, ResourceEnum.Customer));
-      resourcesNodes.add(buildOperatorNode(rootPath, ResourceEnum.Installer));
-      resourcesNodes.add(buildOperatorNode(rootPath, ResourceEnum.Role));
+      resourcesNodes.add(buildNode(rootPath, ResourceEnum.Customer));
+      resourcesNodes.add(buildNode(rootPath, ResourceEnum.Installer));
+      resourcesNodes.add(buildNode(rootPath, ResourceEnum.Role));
+      resourcesNodes.add(buildNode(rootPath, ResourceEnum.Subject_Request));
 
       return resourcesNodes;
    }
 
-   private TreeNodeModel buildOperatorNode(String path, ResourceEnum resourceEnum) {
-      String currPath = getPath(path, resourceEnum.name());
-
-      return TreeNodeModel.build()
-         .setLabel(resourceEnum.getLabel())
-         .setValue(resourceEnum.getType() + "")
-         .setPath(currPath)
-         .setType(ResourceTypeEnum.RESOURCE.ordinal() + "");
-   }
-
    private TreeNodeModel buildPortalNode(String path) {
-      String portalPath = getPath(path, ResourceEnum.Portal.name());
+      String portalPath = getPath(path, ResourceEnum.PAGE_Portal.name());
 
-      return buildPageNode(path, ResourceEnum.Portal)
+      return buildNode(path, ResourceEnum.PAGE_Portal)
          .setChildren(buildPortalChildren(portalPath))
          ;
    }
@@ -73,19 +63,18 @@ public class ResourcesManager {
    private List<TreeNodeModel> buildPortalChildren(String path) {
       List<TreeNodeModel> children = new ArrayList<>();
 
-      children.add(buildPageNode(path, ResourceEnum.MailAuthor));
+      children.add(buildNode(path, ResourceEnum.PAGE_MailAuthor));
 
       return children;
    }
 
-   private TreeNodeModel buildPageNode(String path, ResourceEnum resourceEnum) {
+   private TreeNodeModel buildNode(String path, ResourceEnum resourceEnum) {
       String currPath = getPath(path, resourceEnum.name());
 
       return TreeNodeModel.build()
          .setLabel(resourceEnum.getLabel())
-         .setValue(resourceEnum.getType() + "")
-         .setPath(currPath)
-         .setType(ResourceTypeEnum.PAGE.ordinal() + "");
+         .setValue(resourceEnum.getId() + "")
+         .setPath(currPath);
    }
 
    private String getPath(String basePath, String pathSegment) {
@@ -95,20 +84,21 @@ public class ResourcesManager {
    }
 
    private TreeNodeModel buildEMNode(String path) {
-      String emPath = getPath(path, ResourceEnum.EM.name());
+      String emPath = getPath(path, ResourceEnum.PAGE_EM.name());
 
-      return buildPageNode(path, ResourceEnum.EM)
+      return buildNode(path, ResourceEnum.PAGE_EM)
          .setChildren(buildEMChildren(emPath));
    }
 
    private List<TreeNodeModel> buildEMChildren(String emPath) {
       List<TreeNodeModel> children = new ArrayList<>();
 
-      children.add(buildPageNode(emPath, ResourceEnum.EM_Monitor));
-      children.add(buildPageNode(emPath, ResourceEnum.Audit));
-      children.add(buildPageNode(emPath, ResourceEnum.SubjectRequest));
+      children.add(buildNode(emPath, ResourceEnum.PAGE_EM_Monitor));
+      children.add(buildNode(emPath, ResourceEnum.PAGE_Audit));
+      children.add(buildNode(emPath, ResourceEnum.PAGE_Subject_Request));
 
-      children.add(buildPageNode(emPath, ResourceEnum.EM_Setting));
+      children.add(buildNode(emPath, ResourceEnum.PAGE_EM_Setting));
+      children.add(buildNode(emPath, ResourceEnum.PAGE_Installer));
 
       return children;
    }

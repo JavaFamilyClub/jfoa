@@ -18,37 +18,53 @@ import club.javafamily.runner.util.I18nUtil;
 
 public enum ResourceEnum {
    // pages
-   Portal(1, "Portal"),
-   MailAuthor(67, "portal.toolbar.mailAuthor"),
+   PAGE_Portal(1, "Portal"),
+   PAGE_MailAuthor(2 | PAGE_Portal.id, "portal.toolbar.mailAuthor"),
 
-   EM(2, "security.link.em"),
-   EM_Monitor(3, "em.Monitor"),
-   Audit(65, "em.audit.Audit"),
-   EM_Setting(4, "em.Setting"),
+   PAGE_EM(4096, "security.link.em"),
+
+   PAGE_EM_Monitor(8192 | PAGE_EM.id, "em.Monitor"),
+   PAGE_Audit(16384 | PAGE_EM_Monitor.id, "em.audit.Audit"),
+   PAGE_Subject_Request(32768 | PAGE_EM_Monitor.id, "common.subjectRequest"),
+
+   PAGE_EM_Setting(0x100000, "em.Setting"),
+   PAGE_Installer(0x200000 | PAGE_EM_Setting.id, "em.client.installer"),
 
    // ops
-   Customer(66, "User"),
-   Installer(69, "em.client.installer"),
-   Role(70, "Role"),
-   SubjectRequest(71, "common.subjectRequest"),
+   Customer(0x6000000, "User"), // 100663296
+   Installer(0x6000001, "em.client.installer"),
+   Role(0x6000002, "Role"),
+   Subject_Request(0x6000003, "common.subjectRequest"),
 
    // others, no permission control
-   Password(68, "Password")
+   Password(0x8000000, "Password")
    ;
 
-   private int type;
+   private int id;
    private String label;
+   private String permissionFlag;
 
-   ResourceEnum(int type, String label) {
-    this.type = type;
+   ResourceEnum(int id, String label) {
+    this.id = id;
     this.label = label;
+    this.permissionFlag = this.name();
    }
 
-   public int getType() {
-    return type;
+   ResourceEnum(int id, String label, String permissionFlag) {
+      this.id = id;
+      this.label = label;
+      this.permissionFlag = permissionFlag;
+   }
+
+   public int getId() {
+    return id;
    }
 
    public String getLabel() {
     return I18nUtil.getString(label);
+   }
+
+   public String getPermissionFlag() {
+      return permissionFlag;
    }
 }

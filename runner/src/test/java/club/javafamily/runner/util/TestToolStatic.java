@@ -2,6 +2,7 @@ package club.javafamily.runner.util;
 
 import club.javafamily.commons.enums.ChartType;
 import club.javafamily.commons.utils.Tool;
+import club.javafamily.runner.enums.ResourceEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -47,6 +48,11 @@ public class TestToolStatic {
       TimeZone timeZone = TimeZone.getTimeZone(Tool.DEFAULT_TIME_ZONE_STR);
 
       Assertions.assertNotNull(timeZone, "Default time zone is null");
+   }
+
+   @Test
+   public void enumTests() {
+      Assertions.assertEquals(ResourceEnum.PAGE_EM.getPermissionFlag(), ResourceEnum.PAGE_EM.name(), "ResourceEnum.getPermissionFlag error.");
    }
 
    private static final Logger LOGGER = LoggerFactory.getLogger(TestToolStatic.class);

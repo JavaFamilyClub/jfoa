@@ -55,7 +55,7 @@ public class SubjectRequestServiceImpl implements SubjectRequestService {
       return subjectRequestDao.get(id);
    }
 
-   @Audit(ResourceEnum.SubjectRequest)
+   @Audit(ResourceEnum.Subject_Request)
    @Transactional
    @Override
    @CacheEvict(allEntries = true)
@@ -64,7 +64,7 @@ public class SubjectRequestServiceImpl implements SubjectRequestService {
    }
 
    @Audit(
-      value = ResourceEnum.SubjectRequest,
+      value = ResourceEnum.Subject_Request,
       actionType = ActionType.MODIFY
    )
    @Transactional
@@ -75,7 +75,7 @@ public class SubjectRequestServiceImpl implements SubjectRequestService {
    }
 
    @Audit(
-      value = ResourceEnum.SubjectRequest,
+      value = ResourceEnum.Subject_Request,
       actionType = ActionType.DELETE
    )
    @Transactional
@@ -86,7 +86,7 @@ public class SubjectRequestServiceImpl implements SubjectRequestService {
    }
 
    @Audit(
-      value = ResourceEnum.SubjectRequest,
+      value = ResourceEnum.Subject_Request,
       actionType = ActionType.DELETE
    )
    @Transactional
@@ -98,7 +98,7 @@ public class SubjectRequestServiceImpl implements SubjectRequestService {
    }
 
    @Audit(
-      value = ResourceEnum.SubjectRequest,
+      value = ResourceEnum.Subject_Request,
       actionType = ActionType.Achieve
    )
    @Transactional

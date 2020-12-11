@@ -19,56 +19,68 @@ import { TreeNodeModel } from "../model/tree-node-model";
 import { MainNestedTreeControl } from "./main-nested-tree-control";
 
 @Component({
-  selector: "mat-tree-view",
-  templateUrl: "./mat-tree-view.component.html",
-  styleUrls: ["./mat-tree-view.component.scss"]
+   selector: "mat-tree-view",
+   templateUrl: "./mat-tree-view.component.html",
+   styleUrls: ["./mat-tree-view.component.scss"]
 })
 export class MatTreeViewComponent implements OnInit {
-  _data: TreeNodeModel;
-  _selectedNodes: TreeNodeModel[];
-  @Input() showRoot = true;
+   _data: TreeNodeModel;
+   _selectedNodes: TreeNodeModel[];
+   @Input() showRoot = true;
+   @Input() multipleSelect = false;
 
-  @Input() set data(data: TreeNodeModel) {
-    this._data = data;
+   @Input() set data(data: TreeNodeModel) {
+      this._data = data;
 
-    this.dataSource.data = this.showRoot ? [data] : data.children;
-  }
+      this.dataSource.data = this.showRoot ? [data] : data.children;
+   }
 
-  @Input() set selectedNodes(selectedNodes: TreeNodeModel[]) {
-    this._selectedNodes = selectedNodes;
+   @Input() set selectedNodes(selectedNodes: TreeNodeModel[]) {
+      this._selectedNodes = selectedNodes;
 
-    selectedNodes?.forEach(node => {
-      this.treeControl.expand(node);
-    });
-  }
+      selectedNodes?.forEach(node => {
+         this.treeControl.expand(node);
+      });
+   }
 
-  get selectedNodes(): TreeNodeModel[] {
-    return this._selectedNodes;
-  }
+   get selectedNodes(): TreeNodeModel[] {
+      return this._selectedNodes;
+   }
 
-  @Output() onSelectNode = new EventEmitter<MatTreeSelectedInfo>();
+   @Output() onSelectNode = new EventEmitter<MatTreeSelectedInfo>();
 
-  treeControl = new MainNestedTreeControl(node => node.children);
-  dataSource = new MatTreeNestedDataSource<TreeNodeModel>();
+   treeControl = new MainNestedTreeControl(node => node.children);
+   dataSource = new MatTreeNestedDataSource<TreeNodeModel>();
 
-  constructor() {
-  }
+   constructor() {
+   }
 
-  ngOnInit(): void {
-  }
+   ngOnInit(): void {
+   }
 
-  hasChild = (_: number, node: TreeNodeModel) => !!node.children && node.children.length > 0;
+   hasChild = (_: number, node: TreeNodeModel) => !!node.children && node.children.length > 0;
 
-  selectNode(event: MouseEvent, node: TreeNodeModel): void {
-    // TODO multi select
-    this.onSelectNode.emit({
-      event,
-      nodes: [node]
-    });
-  }
+   selectNode(event: MouseEvent, node: TreeNodeModel): void {
+      if(!this.multipleSelect || !event.ctrlKey) {
+         this.onSelectNode.emit({
+            event,
+            nodes: [node]
+         });
 
-  isSelected(node: TreeNodeModel): boolean {
-    return this.selectedNodes?.some(n => n === node);
-  }
+         return;
+      }
 
+      let nodes = this._selectedNodes?.slice() || [];
+
+      nodes.push(node);
+
+      this.onSelectNode.emit({
+         event,
+         nodes
+      });
+   }
+
+   isSelected(node: TreeNodeModel): boolean {
+      return this.selectedNodes?.some(n => n === node);
+   }
 }

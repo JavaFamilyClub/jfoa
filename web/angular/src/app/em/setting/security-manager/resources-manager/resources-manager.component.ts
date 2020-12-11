@@ -12,6 +12,7 @@
  * person.
  */
 
+import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { EmUrlConstants } from "../../../../common/constants/url/em-url-constants";
 import { TreeControlService } from "../../../../common/services/tree-control-service";
@@ -19,6 +20,7 @@ import { ModelService } from "../../../../widget/services/model.service";
 import { MatTreeSelectedInfo } from "../../../../widget/tree/model/mat-tree-selected-info";
 import { TreeNodeModel } from "../../../../widget/tree/model/tree-node-model";
 import { ResourcesManagerModel } from "./resources-manager-model";
+import { ResourcesManagerPermissionModel } from "./resources-manager-permission-model";
 
 @Component({
    selector: "resources-manager",
@@ -30,6 +32,7 @@ import { ResourcesManagerModel } from "./resources-manager-model";
 })
 export class ResourcesManagerComponent implements OnInit {
    model: ResourcesManagerModel;
+   permission: ResourcesManagerPermissionModel;
 
    constructor(private modelService: ModelService,
                private treeControlService: TreeControlService)
@@ -54,6 +57,23 @@ export class ResourcesManagerComponent implements OnInit {
 
    onSelectNodes(info: MatTreeSelectedInfo): void {
       this.treeControlService.onSelectNodes(info);
+
+      let nodes = info.nodes;
+
+      if(nodes?.length !== 1) {
+         return;
+      }
+
+      const currentNode = nodes[0];
+
+      let params = new HttpParams()
+         .set("resourceId", currentNode.value);
+
+      this.modelService.getModel<ResourcesManagerPermissionModel>(
+         EmUrlConstants.SECURITY_RESOURCES_PERMISSION, params).subscribe(permission =>
+      {
+         this.permission = permission;
+      });
    }
 
    get applyDisabled(): boolean {
