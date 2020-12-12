@@ -20,48 +20,9 @@ import java.util.Date;
 
 public class DateRangeFilterInfo extends DaoFilterInfo<Date> {
 
-   public DateRangeFilterInfo() {
-   }
-
-   public DateRangeFilterInfo(String key, Date value) {
-      this.key = key;
-      this.value = value;
-   }
-
    public DateRangeFilterInfo(String key, Date value, OperatorEnum operator) {
-      this.key = key;
-      this.value = value;
-      this.operator = operator;
-   }
-
-   @Override
-   public String getKey() {
-      return key;
-   }
-
-   public void setKey(String key) {
-      this.key = key;
-   }
-
-   @Override
-   public Date getValue() {
-      return value;
-   }
-
-   public void setValue(Date value) {
+      super(key, operator);
       this.value = value;
    }
 
-   @Override
-   public OperatorEnum getOperator() {
-      return operator;
-   }
-
-   public void setOperator(OperatorEnum operator) {
-      this.operator = operator;
-   }
-
-   private String key;
-   private Date value;
-   private OperatorEnum operator;
 }

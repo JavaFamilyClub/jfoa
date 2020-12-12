@@ -14,10 +14,17 @@
 
 package club.javafamily.runner.web.em.security;
 
+import club.javafamily.commons.enums.PermissionEnum;
+import club.javafamily.runner.domain.Permission;
+import club.javafamily.runner.domain.Role;
+import club.javafamily.runner.service.PermissionService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.em.model.ResourcesManagerModel;
+import club.javafamily.runner.web.em.model.ResourcesManagerPermissionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
 
 @RestController
 @RequestMapping(SecurityUtil.API_VERSION)
@@ -32,10 +39,48 @@ public class SecurityResourcesController {
       return model;
    }
 
+   @GetMapping("/security/resources/permission/{id}")
+   public ResourcesManagerPermissionModel getResourcesPermissionModel(
+      @PathVariable("id") Integer resourceId)
+   {
+      ResourcesManagerPermissionModel model
+         = new ResourcesManagerPermissionModel(resourceId);
+
+      List<Permission> permissions = permissionService
+         .getPermissionsByResource(resourceId);
+
+      Map<Role, EnumSet<PermissionEnum>> map = new HashMap<>();
+
+      for(Permission permission : permissions) {
+         for(Role role : permission.getRoles()) {
+            EnumSet<PermissionEnum> permissionEnums
+               = SecurityUtil.parsePermissionOperator(permission.getOperator());
+
+            map.compute(role, (k, oldValue) -> {
+               if(oldValue == null) {
+                  return permissionEnums;
+               }
+
+               oldValue.addAll(permissionEnums);
+
+               return oldValue;
+            });
+         }
+      }
+
+      model.setMap(map);
+
+      return model;
+   }
+
    @Autowired
-   public SecurityResourcesController(ResourcesManager resourcesManager) {
+   public SecurityResourcesController(PermissionService permissionService,
+                                      ResourcesManager resourcesManager)
+   {
+      this.permissionService = permissionService;
       this.resourcesManager = resourcesManager;
    }
 
+   private final PermissionService permissionService;
    private final ResourcesManager resourcesManager;
 }

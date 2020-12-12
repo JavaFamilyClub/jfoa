@@ -87,5 +87,5 @@ export class EmUrlConstants {
    /**
     * Getting security resources edit permission model
     */
-   public static readonly SECURITY_RESOURCES_PERMISSION = "/security/resources/permission";
+   public static readonly SECURITY_RESOURCES_PERMISSION = "/security/resources/permission/";
 }

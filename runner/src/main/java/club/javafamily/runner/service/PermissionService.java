@@ -12,7 +12,13 @@
  * person.
  */
 
-export interface ResourcesManagerPermissionModel {
-   id: number;
-   resourceLabel: string;
+package club.javafamily.runner.service;
+
+import club.javafamily.runner.domain.Permission;
+
+import java.util.List;
+
+public interface PermissionService {
+
+   List<Permission> getPermissionsByResource(int id);
 }

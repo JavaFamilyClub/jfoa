@@ -18,7 +18,7 @@ import java.util.List;
 
 public interface Filter<T extends FilterInfo<R>, R> {
 
-  List<T> filters();
+   List<T> filters();
 
    default boolean accept(FilterInfo<T> filterInfo) {
       return filterInfo != null;

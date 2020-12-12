@@ -12,7 +12,14 @@
  * person.
  */
 
-export interface ResourcesManagerPermissionModel {
-   id: number;
-   resourceLabel: string;
+package club.javafamily.runner.common.filter;
+
+import java.util.List;
+
+public class EqualsFilter <T extends Comparable<T>> extends DaoFilter<T> {
+
+   @Override
+   public void buildFilters(List<DaoFilterInfo<T>> filterInfos) {
+
+   }
 }

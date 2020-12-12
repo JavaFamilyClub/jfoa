@@ -80,44 +80,52 @@ public final class SecurityUtil {
    }
 
    public static String getOperatorPermission(Integer operator) {
+      EnumSet<PermissionEnum> enums = parsePermissionOperator(operator);
+
+      return enums.stream()
+         .map(SecurityUtil::getOperatorPermission)
+         .collect(Collectors.joining(SUBPART_DIVIDER_TOKEN));
+   }
+
+   public static EnumSet<PermissionEnum> parsePermissionOperator(Integer operator) {
       if(operator == null) {
-         return "";
+         return EnumSet.noneOf(PermissionEnum.class);
       }
 
       int permission = operator;
-      List<String> permissions = new ArrayList<>();
+      List<PermissionEnum> permissions = new ArrayList<>();
 
       if(READ.getPermission()
          == (permission & READ.getPermission()))
       {
-         permissions.add(getOperatorPermission(READ));
+         permissions.add(READ);
       }
 
       if(WRITE.getPermission()
          == (permission & WRITE.getPermission()))
       {
-         permissions.add(getOperatorPermission(WRITE));
+         permissions.add(WRITE);
       }
 
       if(DELETE.getPermission()
          == (permission & DELETE.getPermission()))
       {
-         permissions.add(getOperatorPermission(DELETE));
+         permissions.add(DELETE);
       }
 
       if(ACCESS.getPermission()
          == (permission & ACCESS.getPermission()))
       {
-         permissions.add(getOperatorPermission(ACCESS));
+         permissions.add(ACCESS);
       }
 
       if(ADMIN.getPermission()
          == (permission & ADMIN.getPermission()))
       {
-         permissions.add(getOperatorPermission(ADMIN));
+         permissions.add(ADMIN);
       }
 
-      return String.join(SUBPART_DIVIDER_TOKEN, permissions);
+      return EnumSet.copyOf(permissions);
    }
 
    public static String getOperatorPermission(PermissionEnum permission) {

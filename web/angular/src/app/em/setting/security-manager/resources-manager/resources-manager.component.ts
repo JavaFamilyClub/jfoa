@@ -66,11 +66,9 @@ export class ResourcesManagerComponent implements OnInit {
 
       const currentNode = nodes[0];
 
-      let params = new HttpParams()
-         .set("resourceId", currentNode.value);
-
       this.modelService.getModel<ResourcesManagerPermissionModel>(
-         EmUrlConstants.SECURITY_RESOURCES_PERMISSION, params).subscribe(permission =>
+         EmUrlConstants.SECURITY_RESOURCES_PERMISSION + currentNode.value)
+         .subscribe(permission =>
       {
          this.permission = permission;
       });

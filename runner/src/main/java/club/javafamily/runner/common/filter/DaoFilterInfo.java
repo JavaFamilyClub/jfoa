@@ -14,7 +14,49 @@
 
 package club.javafamily.runner.common.filter;
 
+import club.javafamily.commons.enums.OperatorEnum;
+
 @SuppressWarnings("rawtypes")
 public abstract class DaoFilterInfo<T extends Comparable> implements FilterInfo<T> {
 
+   protected DaoFilterInfo(String key, OperatorEnum operator) {
+      this.key = key;
+      this.operator = operator;
+   }
+
+   @Override
+   public boolean valid() {
+      return getKey() != null;
+   }
+
+   @Override
+   public String getKey() {
+      return key;
+   }
+
+   public void setKey(String key) {
+      this.key = key;
+   }
+
+   @Override
+   public T getValue() {
+      return value;
+   }
+
+   public void setValue(T value) {
+      this.value = value;
+   }
+
+   @Override
+   public OperatorEnum getOperator() {
+      return operator;
+   }
+
+   public void setOperator(OperatorEnum operator) {
+      this.operator = operator;
+   }
+
+   protected String key;
+   protected OperatorEnum operator;
+   protected T value;
 }

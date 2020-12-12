@@ -12,7 +12,14 @@
  * person.
  */
 
-export interface ResourcesManagerPermissionModel {
-   id: number;
-   resourceLabel: string;
+package club.javafamily.runner.common.filter;
+
+import club.javafamily.commons.enums.OperatorEnum;
+
+public class EqualsFilterInfo <T extends Comparable> extends DaoFilterInfo<T> {
+
+   public EqualsFilterInfo(String key) {
+      super(key, OperatorEnum.EQUAL);
+   }
+
 }

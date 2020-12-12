@@ -21,18 +21,14 @@ import java.util.*;
 public class DateRangeFilter extends DaoFilter<Date> {
 
    @Override
-   public List<DaoFilterInfo<Date>> filters() {
-      List<DaoFilterInfo<Date>> filters = new ArrayList<>();
-
+   public void buildFilters(List<DaoFilterInfo<Date>> filterInfos) {
       if(this.startDate != null) {
-         filters.add(new DateRangeFilterInfo(DATE_RANGE_FIELD, startDate, OperatorEnum.GREATER_THAN_OR_EQUAL));
+         filterInfos.add(new DateRangeFilterInfo(DATE_RANGE_FIELD, startDate, OperatorEnum.GREATER_THAN_OR_EQUAL));
       }
 
       if(this.endDate != null) {
-         filters.add(new DateRangeFilterInfo(DATE_RANGE_FIELD, endDate, OperatorEnum.LESS_THAN_OR_EQUAL));
+         filterInfos.add(new DateRangeFilterInfo(DATE_RANGE_FIELD, endDate, OperatorEnum.LESS_THAN_OR_EQUAL));
       }
-
-      return filters;
    }
 
    public Date getStartDate() {

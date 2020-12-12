@@ -14,5 +14,18 @@
 
 package club.javafamily.runner.common.filter;
 
-public abstract class DaoFilter<T extends Comparable<T>> implements Filter<DaoFilterInfo<T>, T> {
+import java.util.List;
+
+public class DaoFilter<T extends Comparable<T>> extends BaseFilter<DaoFilterInfo<T>, T> {
+   @Override
+   public void buildFilters(List<DaoFilterInfo<T>> filterInfos) {
+      // no op
+   }
+
+   public DaoFilter() {
+   }
+
+   public DaoFilter(List<DaoFilterInfo<T>> filterInfos) {
+      this.filterInfos = filterInfos;
+   }
 }
