@@ -13,7 +13,16 @@
     <ng-container *ngIf="!!permission">
       <div class="content-card-btns-container">
         <div class="content-card-btns-top-pane content-card-btns-padding">
-          permissions
+          <div>
+            <h4>{{"Resource" | translate}}: {{permission.resourceLabel}}</h4>
+
+            <mat-card class="content-card-btns-padding">
+              <mat-card-content>
+                <mat-table-view [cols]="cols"
+                                [data]="permission.data"></mat-table-view>
+              </mat-card-content>
+            </mat-card>
+          </div>
         </div>
 
         <mat-card class="content-card-btns-bottom">

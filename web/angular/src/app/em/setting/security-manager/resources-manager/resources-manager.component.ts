@@ -14,8 +14,11 @@
 
 import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { EmUrlConstants } from "../../../../common/constants/url/em-url-constants";
 import { TreeControlService } from "../../../../common/services/tree-control-service";
+import { Tool } from "../../../../common/util/tool";
+import { MatColumnIno } from "../../../../widget/mat-table-view/mat-column-ino";
 import { ModelService } from "../../../../widget/services/model.service";
 import { MatTreeSelectedInfo } from "../../../../widget/tree/model/mat-tree-selected-info";
 import { TreeNodeModel } from "../../../../widget/tree/model/tree-node-model";
@@ -33,8 +36,10 @@ import { ResourcesManagerPermissionModel } from "./resources-manager-permission-
 export class ResourcesManagerComponent implements OnInit {
    model: ResourcesManagerModel;
    permission: ResourcesManagerPermissionModel;
+   oldPermission: ResourcesManagerPermissionModel;
 
    constructor(private modelService: ModelService,
+               private translate: TranslateService,
                private treeControlService: TreeControlService)
    {
       this.refresh();
@@ -70,8 +75,44 @@ export class ResourcesManagerComponent implements OnInit {
          EmUrlConstants.SECURITY_RESOURCES_PERMISSION + currentNode.value)
          .subscribe(permission =>
       {
+         this.oldPermission = Tool.clone(this.permission);
          this.permission = permission;
       });
+   }
+
+   get cols(): MatColumnIno[] {
+      return [
+         {
+            isCheckbox: true,
+            checkboxHandle: () => {
+
+            }
+         },
+         {
+            label: this.translate.instant("Type"),
+            name: "type"
+         },
+         {
+            label: this.translate.instant("Name"),
+            name: "name"
+         },
+         {
+            label: this.translate.instant("Read"),
+            name: "read"
+         },
+         {
+            label: this.translate.instant("Write"),
+            name: "write"
+         },
+         {
+            label: this.translate.instant("Delete"),
+            name: "delete"
+         },
+         {
+            label: this.translate.instant("Access"),
+            name: "access"
+         }
+      ];
    }
 
    get applyDisabled(): boolean {

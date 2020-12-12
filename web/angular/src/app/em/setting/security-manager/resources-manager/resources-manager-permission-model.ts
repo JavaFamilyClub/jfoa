@@ -15,4 +15,5 @@
 export interface ResourcesManagerPermissionModel {
    id: number;
    resourceLabel: string;
+   data: any[];
 }

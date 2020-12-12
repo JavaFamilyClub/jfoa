@@ -13,11 +13,13 @@
  */
 
 export interface MatColumnIno {
-   label: string;
-   name: string;
+   label?: string;
+   name?: string;
    valueFunc?: (elem: any, prop: string) => string;
    btnElement?: {
       label: string;
       action: (elem: any) => void;
    };
+   isCheckbox?: boolean;
+   checkboxHandle?: () => void;
 }

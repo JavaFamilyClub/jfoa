@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class ResourcesManagerPermissionModel {
    private int id;
-   private String resource;
+   private String resourceLabel;
    private Map<Role, EnumSet<PermissionEnum>> map;
 
    public ResourcesManagerPermissionModel() {
@@ -32,12 +32,12 @@ public class ResourcesManagerPermissionModel {
       this.id = id;
    }
 
-   public String getResource() {
-      return resource;
+   public String getResourceLabel() {
+      return resourceLabel;
    }
 
-   public void setResource(String resource) {
-      this.resource = resource;
+   public void setResourceLabel(String resourceLabel) {
+      this.resourceLabel = resourceLabel;
    }
 
    public int getId() {

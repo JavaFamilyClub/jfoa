@@ -56,6 +56,16 @@ public enum ResourceEnum {
       this.permissionFlag = permissionFlag;
    }
 
+   public static ResourceEnum parse(int id) {
+      for(ResourceEnum resourceEnum : ResourceEnum.values()) {
+         if(resourceEnum.id == id) {
+            return resourceEnum;
+         }
+      }
+
+      return null;
+   }
+
    public int getId() {
     return id;
    }

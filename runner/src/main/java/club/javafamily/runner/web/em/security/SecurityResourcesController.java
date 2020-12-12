@@ -17,10 +17,13 @@ package club.javafamily.runner.web.em.security;
 import club.javafamily.commons.enums.PermissionEnum;
 import club.javafamily.runner.domain.Permission;
 import club.javafamily.runner.domain.Role;
+import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.PermissionService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.em.model.ResourcesManagerModel;
 import club.javafamily.runner.web.em.model.ResourcesManagerPermissionModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,8 +46,16 @@ public class SecurityResourcesController {
    public ResourcesManagerPermissionModel getResourcesPermissionModel(
       @PathVariable("id") Integer resourceId)
    {
+      ResourceEnum resource = ResourceEnum.parse(resourceId);
+
+      if(resource == null) {
+         LOGGER.info("Resource is not found: {}", resourceId);
+         return null;
+      }
+
       ResourcesManagerPermissionModel model
          = new ResourcesManagerPermissionModel(resourceId);
+      model.setResourceLabel(resource.getLabel());
 
       List<Permission> permissions = permissionService
          .getPermissionsByResource(resourceId);
@@ -83,4 +94,6 @@ public class SecurityResourcesController {
 
    private final PermissionService permissionService;
    private final ResourcesManager resourcesManager;
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(SecurityResourcesController.class);
 }
