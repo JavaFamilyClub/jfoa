@@ -323,4 +323,16 @@ export namespace Tool {
     export function requestPrefix(): string {
         return Tool.isInstaller() ? INSTALLER_API_VERSION : API_VERSION;
     }
+
+   /**
+    * Check control + left
+    * if mac: command + left, else control + left
+    */
+    export function pressControlKey(event: MouseEvent): boolean {
+       if(Tool.isMac()) {
+         return event.metaKey;
+       }
+
+      return event.ctrlKey;
+    }
 }

@@ -14,6 +14,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { Tool } from "../../../common/util/tool";
 import { MatTreeSelectedInfo } from "../model/mat-tree-selected-info";
 import { TreeNodeModel } from "../model/tree-node-model";
 import { MainNestedTreeControl } from "./main-nested-tree-control";
@@ -26,8 +27,9 @@ import { MainNestedTreeControl } from "./main-nested-tree-control";
 export class MatTreeViewComponent implements OnInit {
    _data: TreeNodeModel;
    _selectedNodes: TreeNodeModel[];
-   @Input() showRoot = true;
+   @Input() showRoot = false;
    @Input() multipleSelect = false;
+   @Input() onlyLeafSelect = false;
 
    @Input() set data(data: TreeNodeModel) {
       this._data = data;
@@ -61,7 +63,11 @@ export class MatTreeViewComponent implements OnInit {
    hasChild = (_: number, node: TreeNodeModel) => !!node.children && node.children.length > 0;
 
    selectNode(event: MouseEvent, node: TreeNodeModel): void {
-      if(!this.multipleSelect || !event.ctrlKey) {
+      if(this.onlyLeafSelect && !node.leaf) {
+         return;
+      }
+
+      if(!this.multipleSelect || !Tool.pressControlKey(event)) {
          this.onSelectNode.emit({
             event,
             nodes: [node]
@@ -70,9 +76,11 @@ export class MatTreeViewComponent implements OnInit {
          return;
       }
 
-      let nodes = this._selectedNodes?.slice() || [];
+      let nodes = this._selectedNodes || [];
 
       nodes.push(node);
+
+      console.log(nodes);
 
       this.onSelectNode.emit({
          event,

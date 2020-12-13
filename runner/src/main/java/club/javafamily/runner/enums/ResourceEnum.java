@@ -17,6 +17,8 @@ package club.javafamily.runner.enums;
 import club.javafamily.runner.util.I18nUtil;
 
 public enum ResourceEnum {
+   Unknown(0, "unknown"),
+
    // pages
    PAGE_Portal(1, "Portal"),
    PAGE_MailAuthor(2 | PAGE_Portal.id, "portal.toolbar.mailAuthor"),
@@ -56,9 +58,13 @@ public enum ResourceEnum {
       this.permissionFlag = permissionFlag;
    }
 
-   public static ResourceEnum parse(int id) {
+   public static ResourceEnum parse(Integer id) {
+      if(id == null) {
+         return null;
+      }
+
       for(ResourceEnum resourceEnum : ResourceEnum.values()) {
-         if(resourceEnum.id == id) {
+         if(id.equals(resourceEnum.id)) {
             return resourceEnum;
          }
       }

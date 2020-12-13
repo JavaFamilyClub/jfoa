@@ -14,16 +14,12 @@
 
 package club.javafamily.runner.web.em.model;
 
-import club.javafamily.commons.enums.PermissionEnum;
-import club.javafamily.runner.domain.Role;
-
-import java.util.EnumSet;
-import java.util.Map;
+import java.util.List;
 
 public class ResourcesManagerPermissionModel {
    private int id;
    private String resourceLabel;
-   private Map<Role, EnumSet<PermissionEnum>> map;
+   private List<ResourceItemSettingModel> items;
 
    public ResourcesManagerPermissionModel() {
    }
@@ -48,11 +44,11 @@ public class ResourcesManagerPermissionModel {
       this.id = id;
    }
 
-   public Map<Role, EnumSet<PermissionEnum>> getMap() {
-      return map;
+   public List<ResourceItemSettingModel> getItems() {
+      return items;
    }
 
-   public void setMap(Map<Role, EnumSet<PermissionEnum>> map) {
-      this.map = map;
+   public void setItems(List<ResourceItemSettingModel> items) {
+      this.items = items;
    }
 }

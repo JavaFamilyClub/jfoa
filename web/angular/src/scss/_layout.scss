@@ -109,3 +109,15 @@
 .content-card-btns-padding {
    padding: 15px;
 }
+
+.mat-dialog-header {
+   height: $dialog-title-height;
+}
+
+.mat-dialog-content {
+   height: calc(100% - #{$dialog-title-height} - #{$dialog-footer-height});
+}
+
+.mat-dialog-footer {
+   height: $dialog-footer-height;
+}

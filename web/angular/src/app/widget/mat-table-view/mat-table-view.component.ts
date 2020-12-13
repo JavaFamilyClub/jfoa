@@ -25,6 +25,7 @@ import { MatColumnIno } from "./mat-column-ino";
   styleUrls: ["./mat-table-view.component.scss"]
 })
 export class MatTableView <T> implements OnInit {
+   @Input() clickToSelect = true;
    @Input() selectedItems: T[] = [];
    @Input() set data(dataSource: T[]) {
       this._dataSource = new MatTableDataSource(dataSource);
@@ -42,6 +43,7 @@ export class MatTableView <T> implements OnInit {
    }
 
    @Output() onRowSelected = new EventEmitter<T>();
+   @Output() onRowUnSelected = new EventEmitter<T>();
    @ViewChild(MatSort, {static: true}) sort: MatSort;
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -68,7 +70,34 @@ export class MatTableView <T> implements OnInit {
       return this.selectedItems.some(it => Tool.isEquals(it, item));
    }
 
-   selectRow(row: T): void {
+   cellChecked(item: T, col: MatColumnIno, value: boolean): void {
+      if(col.headerCheckbox) {
+         this.toggleElement(item);
+      }
+      else {
+         item[col.name] = value;
+      }
+   }
+
+   toggleElement(item: T): void {
+      if(this.isSelected(item)) {
+         this.onRowUnSelected.emit(item);
+      }
+      else {
+         this.onRowSelected.emit(item);
+      }
+   }
+
+   selectRow(row: T, event?: MouseEvent): void {
+      if(!this.clickToSelect) {
+         return;
+      }
+
+      if(!!event) {
+         event.stopPropagation();
+         event.preventDefault();
+      }
+
       this.onRowSelected.emit(row);
    }
 

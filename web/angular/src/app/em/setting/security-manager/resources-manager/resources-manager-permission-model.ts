@@ -12,8 +12,10 @@
  * person.
  */
 
+import { ResourceItemSettingModel } from "./resource-item-setting-model";
+
 export interface ResourcesManagerPermissionModel {
    id: number;
    resourceLabel: string;
-   data: any[];
+   items: ResourceItemSettingModel[];
 }

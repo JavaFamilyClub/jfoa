@@ -32,12 +32,19 @@ public class PermissionServiceImpl implements PermissionService {
    @Transactional(readOnly = true)
    @Override
    public List<Permission> getPermissionsByResource(int id) {
-      DaoFilter<Integer> filter = getPermissionByResourceFilter(id);
+      DaoFilter<Integer> filter
+         = PermissionServiceImpl.getPermissionByResourceFilter(id);
 
       return permissionDao.getAll(filter);
    }
 
-   private <T extends Comparable<T>> DaoFilter<T> getPermissionByResourceFilter(T value) {
+   @Transactional
+   @Override
+   public Integer insert(Permission permission) {
+      return permissionDao.insert(permission);
+   }
+
+   public static  <T extends Comparable<T>> DaoFilter<T> getPermissionByResourceFilter(T value) {
       EqualsFilterInfo<T> filterInfo = new EqualsFilterInfo<>("resource");
       filterInfo.setValue(value);
 

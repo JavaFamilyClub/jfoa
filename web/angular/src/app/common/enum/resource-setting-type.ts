@@ -12,15 +12,8 @@
  * person.
  */
 
-package club.javafamily.runner.service;
-
-import club.javafamily.runner.domain.Permission;
-
-import java.util.List;
-
-public interface PermissionService {
-
-   List<Permission> getPermissionsByResource(int id);
-
-   Integer insert(Permission permission);
+export enum ResourceSettingType {
+   User,
+   Role,
+   Group
 }

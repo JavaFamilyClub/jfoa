@@ -14,23 +14,25 @@
 
 package club.javafamily.runner.service.impl;
 
+import club.javafamily.commons.enums.*;
 import club.javafamily.runner.annotation.Audit;
 import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.dao.RoleDao;
-import club.javafamily.runner.domain.Log;
-import club.javafamily.runner.domain.Role;
-import club.javafamily.commons.enums.ActionType;
+import club.javafamily.runner.domain.*;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.*;
 import club.javafamily.runner.util.I18nUtil;
+import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.web.em.model.ResourceItemSettingModel;
 import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
@@ -49,6 +51,49 @@ public class RoleServiceImpl implements RoleService {
    @Override
    public List<Role> getRoles() {
       return roleDao.getAll();
+   }
+
+   @Transactional(readOnly = true)
+   @Override
+   public List<ResourceItemSettingModel> getRolesByResource(Integer resourceId) {
+      ResourceEnum resource = ResourceEnum.parse(resourceId);
+
+      if(resource == null || resource == ResourceEnum.Unknown) {
+         LOGGER.info("Resource is not found: {}", resourceId);
+         return null;
+      }
+
+      List<Role> roles = getRoles();
+      Map<Integer, ResourceItemSettingModel> map = new HashMap<>(); // role id
+
+      for(Role role : roles) {
+         for(Permission permission : role.getPermissions()) {
+            if(!Objects.equals(permission.getResource(), resourceId)) {
+               continue;
+            }
+
+            EnumSet<PermissionEnum> permissionEnums
+               = SecurityUtil.parsePermissionOperator(permission.getOperator());
+
+            map.computeIfAbsent(role.getId(), (k) -> {
+               ResourceItemSettingModel item = new ResourceItemSettingModel();
+
+               item.setId(permission.getId());
+               item.setRoleId(role.getId());
+               item.setName(role.getName());
+
+               item.setType(ResourceSettingType.Role);
+               item.setRead(permissionEnums.contains(PermissionEnum.READ));
+               item.setWrite(permissionEnums.contains(PermissionEnum.WRITE));
+               item.setDelete(permissionEnums.contains(PermissionEnum.DELETE));
+               item.setAccess(permissionEnums.contains(PermissionEnum.ACCESS));
+
+               return item;
+            });
+         }
+      }
+
+      return new ArrayList<>(map.values());
    }
 
    @Transactional(readOnly = true)
@@ -119,7 +164,31 @@ public class RoleServiceImpl implements RoleService {
       roleDao.update(role);
    }
 
+   @Transactional
+   @Override
+   public void insertPermission(Integer roleId, Permission permission) {
+      Role role = getRole(roleId);
+
+      if(roleId == null) {
+         LOGGER.info("Role is not found: {}", roleId);
+         return;
+      }
+
+      Set<Permission> permissions = role.getPermissions();
+
+      if(permissions == null) {
+         permissions = new HashSet<>();
+         role.setPermissions(permissions);
+      }
+
+      permissions.add(permission);
+
+      updateRole(role);
+   }
+
    private final UserHandler userHandler;
    private final LogService logService;
    private final RoleDao roleDao;
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(RoleServiceImpl.class);
 }

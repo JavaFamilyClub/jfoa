@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.web.em.role;
 
+import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.common.model.data.TreeNodeModel;
 import club.javafamily.runner.domain.Role;
@@ -51,24 +52,24 @@ public class RoleController {
    public RoleManagerModel getRolesTreeModel() {
       List<Role> roles = roleService.getRoles();
 
-      return new RoleManagerModel(buildTree(roles));
+      return new RoleManagerModel(buildTree(roles, "/"));
    }
 
-   private TreeNodeModel buildTree(List<Role> roles) {
+   public TreeNodeModel buildTree(List<Role> roles, String path) {
       return TreeNodeModel.build()
          .setLabel(I18nUtil.getString("Roles"))
          .setTooltip(I18nUtil.getString("Roles"))
-         .setPath("/")
+         .setPath(path)
          .setChildren(roles.stream()
-            .map(this::buildTreeNode)
+            .map(role -> this.buildTreeNode(role, path))
             .collect(Collectors.toList()));
    }
 
-   private TreeNodeModel buildTreeNode(Role role) {
+   private TreeNodeModel buildTreeNode(Role role, String basePath) {
       return TreeNodeModel.build()
          .setLabel(role.getName())
          .setTooltip(role.getName())
-         .setPath("/" + role.getName())
+         .setPath(Tool.getTreePath(basePath, role.getName()))
          .setLeaf(true)
          .setData(RoleVO.buildFromDomain(role));
    }

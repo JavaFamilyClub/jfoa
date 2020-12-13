@@ -12,16 +12,19 @@
  * person.
  */
 
-import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import { EmUrlConstants } from "../../../../common/constants/url/em-url-constants";
+import { ResourceSettingType } from "../../../../common/enum/resource-setting-type";
 import { TreeControlService } from "../../../../common/services/tree-control-service";
 import { Tool } from "../../../../common/util/tool";
 import { MatColumnIno } from "../../../../widget/mat-table-view/mat-column-ino";
 import { ModelService } from "../../../../widget/services/model.service";
 import { MatTreeSelectedInfo } from "../../../../widget/tree/model/mat-tree-selected-info";
 import { TreeNodeModel } from "../../../../widget/tree/model/tree-node-model";
+import { ResourceItemsDialog } from "../../../dialog/resource-items-dialog/resource-items-dialog";
+import { ResourceItemSettingModel } from "./resource-item-setting-model";
 import { ResourcesManagerModel } from "./resources-manager-model";
 import { ResourcesManagerPermissionModel } from "./resources-manager-permission-model";
 
@@ -37,8 +40,10 @@ export class ResourcesManagerComponent implements OnInit {
    model: ResourcesManagerModel;
    permission: ResourcesManagerPermissionModel;
    oldPermission: ResourcesManagerPermissionModel;
+   selectedItems: ResourceItemSettingModel[] = [];
 
-   constructor(private modelService: ModelService,
+   constructor(private dialog: MatDialog,
+               private modelService: ModelService,
                private translate: TranslateService,
                private treeControlService: TreeControlService)
    {
@@ -63,7 +68,12 @@ export class ResourcesManagerComponent implements OnInit {
    onSelectNodes(info: MatTreeSelectedInfo): void {
       this.treeControlService.onSelectNodes(info);
 
-      let nodes = info.nodes;
+      this.selectedItems = [];
+      this.refreshPermission();
+   }
+
+   refreshPermission(): void {
+      let nodes = this.selectNodes;
 
       if(nodes?.length !== 1) {
          return;
@@ -74,17 +84,19 @@ export class ResourcesManagerComponent implements OnInit {
       this.modelService.getModel<ResourcesManagerPermissionModel>(
          EmUrlConstants.SECURITY_RESOURCES_PERMISSION + currentNode.value)
          .subscribe(permission =>
-      {
-         this.oldPermission = Tool.clone(this.permission);
-         this.permission = permission;
-      });
+         {
+            this.oldPermission = Tool.clone(permission);
+            this.permission = permission;
+         });
    }
 
    get cols(): MatColumnIno[] {
       return [
          {
-            isCheckbox: true,
-            checkboxHandle: () => {
+            headerCheckbox: true,
+            cellCheckbox: true,
+            name: "headerCheckbox",
+            headerCheckboxHandle: (value: boolean) => {
 
             }
          },
@@ -97,33 +109,84 @@ export class ResourcesManagerComponent implements OnInit {
             name: "name"
          },
          {
+            cellCheckbox: true,
             label: this.translate.instant("Read"),
             name: "read"
          },
          {
+            cellCheckbox: true,
             label: this.translate.instant("Write"),
             name: "write"
          },
          {
+            cellCheckbox: true,
             label: this.translate.instant("Delete"),
             name: "delete"
          },
          {
+            cellCheckbox: true,
             label: this.translate.instant("Access"),
             name: "access"
          }
       ];
    }
 
-   get applyDisabled(): boolean {
-      return false;
+   get noChanged(): boolean {
+      return Tool.isEquals(this.permission, this.oldPermission);
    }
 
    apply(): void {
-
+      this.modelService.putModel(EmUrlConstants.SECURITY_RESOURCES_PERMISSION, this.permission)
+         .subscribe(() =>
+      {
+         this.refreshPermission();
+      });
    }
 
    reset(): void {
-
+      this.permission = Tool.clone(this.oldPermission);
    }
+
+   add(): void {
+      this.dialog.open(ResourceItemsDialog, {
+         height: "45vh",
+         minWidth: "30%"
+      }).afterClosed().subscribe((items: TreeNodeModel[]) => {
+         const newItems: ResourceItemSettingModel[] = [];
+
+         for(let item of items) {
+            newItems.push({
+               roleId: item.data.id,
+               type: ResourceSettingType.Role,
+               name: item.data.name,
+               read: false,
+               write: false,
+               delete: false,
+               access: false
+            });
+         }
+
+         this.permission.items = this.permission.items.concat(newItems);
+      });
+   }
+
+   selectItem(item: ResourceItemSettingModel): void {
+      this.selectedItems.push(item);
+   }
+
+   onRowUnSelected(item: ResourceItemSettingModel): void {
+      this.selectedItems = this.selectedItems.filter(i => i != item);
+   }
+
+   deleteSelected(): void {
+      let currentItems = Tool.clone(this.permission.items);
+
+      this.selectedItems.forEach(item => {
+         currentItems = currentItems.filter(it => !Tool.isEquals(it, item));
+      });
+
+      this.permission.items = currentItems;
+      this.selectedItems = [];
+   }
+
 }

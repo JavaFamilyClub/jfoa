@@ -2,7 +2,8 @@
   <mat-drawer class="role-manager-tree-container"
               mode="side" disableClose opened="true">
     <div class="role-manager-tree-view">
-      <mat-tree-view [data]="model.root" [selectedNodes]="selectedNodes"
+      <mat-tree-view [showRoot]="true"
+                     [data]="model.root" [selectedNodes]="selectedNodes"
                      (onSelectNode)="selectNode($event)"></mat-tree-view>
     </div>
 

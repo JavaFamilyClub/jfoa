@@ -12,15 +12,15 @@
  * person.
  */
 
-package club.javafamily.runner.service;
+import { ResourceSettingType } from "../../../../common/enum/resource-setting-type";
 
-import club.javafamily.runner.domain.Permission;
-
-import java.util.List;
-
-public interface PermissionService {
-
-   List<Permission> getPermissionsByResource(int id);
-
-   Integer insert(Permission permission);
+export interface ResourceItemSettingModel {
+   id?: number;
+   roleId: number;
+   type: ResourceSettingType;
+   name: string;
+   read: boolean;
+   write: boolean;
+   delete: boolean;
+   access: boolean;
 }

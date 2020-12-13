@@ -14,13 +14,17 @@
 
 package club.javafamily.runner.service;
 
+import club.javafamily.runner.domain.Permission;
 import club.javafamily.runner.domain.Role;
+import club.javafamily.runner.web.em.model.ResourceItemSettingModel;
 
 import java.util.List;
 
 public interface RoleService {
 
    List<Role> getRoles();
+
+   List<ResourceItemSettingModel> getRolesByResource(Integer resourceId);
 
    Role getRole(Integer id);
 
@@ -33,5 +37,7 @@ public interface RoleService {
    Integer addRole(Role role);
 
    void updateRole(Role role);
+
+   void insertPermission(Integer roleId, Permission permission);
 
 }

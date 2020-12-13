@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.web.em.security;
 
+import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.common.model.data.TreeNodeModel;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.util.I18nUtil;
@@ -78,9 +79,7 @@ public class ResourcesManager {
    }
 
    private String getPath(String basePath, String pathSegment) {
-      return basePath != null && !basePath.endsWith("/")
-         ? basePath + "/" + pathSegment
-         : Objects.toString(basePath, "") + pathSegment;
+      return Tool.getTreePath(basePath, pathSegment);
    }
 
    private TreeNodeModel buildEMNode(String path) {

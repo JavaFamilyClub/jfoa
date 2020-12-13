@@ -73,7 +73,7 @@ export class ModelService {
     }
 
     // post
-    sendModel<T>(controller: string, model: any, params?: HttpParams): Observable<HttpResponse<T>> {
+    sendModel<T>(controller: string, model?: any, params?: HttpParams): Observable<HttpResponse<T>> {
         return this.http.post<T>(this.baseHref + controller, model, {
             headers: this.headers,
             observe: "response",

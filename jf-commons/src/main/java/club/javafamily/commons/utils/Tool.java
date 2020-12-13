@@ -319,8 +319,12 @@ public class Tool {
 
          return bytes;
       }
-      finally {
-      }
+   }
+
+   public static String getTreePath(String basePath, String pathSegment) {
+      return basePath != null && !basePath.endsWith("/")
+         ? basePath + "/" + pathSegment
+         : Objects.toString(basePath, "") + pathSegment;
    }
 
    private static final String CACHE_DIR = "/cache";

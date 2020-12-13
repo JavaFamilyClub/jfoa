@@ -12,15 +12,13 @@
  * person.
  */
 
-package club.javafamily.runner.service;
+package club.javafamily.commons.enums;
 
-import club.javafamily.runner.domain.Permission;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.util.List;
-
-public interface PermissionService {
-
-   List<Permission> getPermissionsByResource(int id);
-
-   Integer insert(Permission permission);
+@JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
+public enum ResourceSettingType {
+   User,
+   Role,
+   Group
 }

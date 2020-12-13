@@ -125,7 +125,9 @@ public final class SecurityUtil {
          permissions.add(ADMIN);
       }
 
-      return EnumSet.copyOf(permissions);
+      return permissions.isEmpty()
+         ? EnumSet.noneOf(PermissionEnum.class)
+         : EnumSet.copyOf(permissions);
    }
 
    public static String getOperatorPermission(PermissionEnum permission) {

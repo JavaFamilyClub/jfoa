@@ -14,17 +14,20 @@
 
 package club.javafamily.runner.web.em.security;
 
-import club.javafamily.commons.enums.PermissionEnum;
+import club.javafamily.commons.enums.ResourceSettingType;
+import club.javafamily.runner.common.model.data.TreeNodeModel;
 import club.javafamily.runner.domain.Permission;
 import club.javafamily.runner.domain.Role;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.PermissionService;
+import club.javafamily.runner.service.RoleService;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.web.em.model.ResourcesManagerModel;
-import club.javafamily.runner.web.em.model.ResourcesManagerPermissionModel;
+import club.javafamily.runner.web.em.model.*;
+import club.javafamily.runner.web.em.role.RoleController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -48,7 +51,7 @@ public class SecurityResourcesController {
    {
       ResourceEnum resource = ResourceEnum.parse(resourceId);
 
-      if(resource == null) {
+      if(resource == null || resource == ResourceEnum.Unknown) {
          LOGGER.info("Resource is not found: {}", resourceId);
          return null;
       }
@@ -56,42 +59,94 @@ public class SecurityResourcesController {
       ResourcesManagerPermissionModel model
          = new ResourcesManagerPermissionModel(resourceId);
       model.setResourceLabel(resource.getLabel());
-
-      List<Permission> permissions = permissionService
-         .getPermissionsByResource(resourceId);
-
-      Map<Role, EnumSet<PermissionEnum>> map = new HashMap<>();
-
-      for(Permission permission : permissions) {
-         for(Role role : permission.getRoles()) {
-            EnumSet<PermissionEnum> permissionEnums
-               = SecurityUtil.parsePermissionOperator(permission.getOperator());
-
-            map.compute(role, (k, oldValue) -> {
-               if(oldValue == null) {
-                  return permissionEnums;
-               }
-
-               oldValue.addAll(permissionEnums);
-
-               return oldValue;
-            });
-         }
-      }
-
-      model.setMap(map);
+      model.setItems(roleService.getRolesByResource(resourceId));
 
       return model;
    }
 
+   @PostMapping("/security/resources/permission/{id}/{roleId}")
+   public void setResourcesPermission(@PathVariable("id") Integer resourceId,
+                                      @PathVariable("roleId") Integer roleId)
+   {
+      if(roleId == null) {
+         LOGGER.info("Role is not found: {}", roleId);
+         return;
+      }
+
+      Permission permission = new Permission();
+      permission.setResource(resourceId);
+
+      roleService.insertPermission(roleId, permission);
+   }
+
+   @PutMapping("/security/resources/permission")
+   public void updateResourcesPermissionModel(
+      @RequestBody ResourcesManagerPermissionModel model)
+   {
+      int resourceId = model.getId();
+
+      ResourceEnum resource = ResourceEnum.parse(resourceId);
+
+      if(resource == null || resource == ResourceEnum.Unknown) {
+         LOGGER.info("Resource is not found: {}", resourceId);
+         return;
+      }
+
+      ResourcesManagerPermissionModel resourcesPermissionModel
+         = getResourcesPermissionModel(model.getId());
+
+      List<ResourceItemSettingModel> oldItems = resourcesPermissionModel.getItems();
+      List<ResourceItemSettingModel> items = model.getItems();
+
+      if(CollectionUtils.isEmpty(oldItems)) {
+         // add
+         for(ResourceItemSettingModel item : items) {
+            Integer roleId = item.getRoleId();
+
+            // role
+            if(roleId != null && item.getType() == ResourceSettingType.Role) {
+               Permission permission = new Permission();
+               permission.setResource(resourceId);
+               permission.setOperator(item.buildPermissionOperator());
+
+               roleService.insertPermission(roleId, permission);
+            }
+         }
+      }
+      else if(CollectionUtils.isEmpty(items)) {
+         // TODO delete
+      }
+      else {
+         // TODO mixed operation
+      }
+   }
+
+   @GetMapping("/security/resources/permission/tree")
+   public TreeNodeModel getResourceTree() {
+      List<Role> roles = roleService.getRoles();
+      String rolePath = "/roles";
+      TreeNodeModel roleNode = roleController.buildTree(roles, rolePath);
+
+      return TreeNodeModel.build()
+         .setLabel("root")
+         .setPath(rolePath)
+         .setChildren(Collections.singletonList(roleNode))
+         ;
+   }
+
    @Autowired
-   public SecurityResourcesController(PermissionService permissionService,
+   public SecurityResourcesController(RoleController roleController, RoleService roleService,
+                                      PermissionService permissionService,
                                       ResourcesManager resourcesManager)
    {
+      this.roleController = roleController;
+      this.roleService = roleService;
       this.permissionService = permissionService;
       this.resourcesManager = resourcesManager;
    }
 
+   private final RoleController roleController;
+   private final RoleService roleService;
    private final PermissionService permissionService;
    private final ResourcesManager resourcesManager;
 

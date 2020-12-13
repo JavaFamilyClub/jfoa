@@ -1,10 +1,7 @@
 package club.javafamily.runner.domain;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity(name = "t_permission")
 public class Permission implements Serializable {
@@ -18,10 +15,6 @@ public class Permission implements Serializable {
 
    @Column
    private Integer operator;
-
-   @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-   @ManyToMany(targetEntity = Role.class, fetch = FetchType.LAZY)
-   private Set<Role> roles;
 
    public Integer getId() {
       return id;
@@ -45,14 +38,6 @@ public class Permission implements Serializable {
 
    public void setOperator(Integer operator) {
       this.operator = operator;
-   }
-
-   public Set<Role> getRoles() {
-      return roles;
-   }
-
-   public void setRoles(Set<Role> roles) {
-      this.roles = roles;
    }
 
    @Override
