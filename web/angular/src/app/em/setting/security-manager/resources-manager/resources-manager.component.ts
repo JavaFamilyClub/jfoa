@@ -170,7 +170,7 @@ export class ResourcesManagerComponent implements OnInit {
             title: this.translate.instant("em.security.dialog.addPermission"),
             isDisabledNode: (node): boolean => {
                return this.permission?.items.some(
-                  item => item.roleId == node.data.id)
+                  item => item.roleId == node.data.id);
             }
          }
       }).afterClosed().subscribe((selectNodes: TreeNodeModel[]) => {
