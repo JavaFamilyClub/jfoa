@@ -5,7 +5,8 @@
       <ng-container *ngFor="let col of cols" [matColumnDef]="col.name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <ng-container *ngIf="col.headerCheckbox; else textHeader">
-            <mat-checkbox (change)="col.headerCheckboxHandle($event)"
+            <mat-checkbox (ngModelChange)="col.headerCheckboxHandle($event)"
+                          [ngModel]="col.headerCheckboxChecked()"
             ></mat-checkbox>
           </ng-container>
 

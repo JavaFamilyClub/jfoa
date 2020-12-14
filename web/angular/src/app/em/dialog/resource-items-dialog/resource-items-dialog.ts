@@ -12,8 +12,8 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
-import { MatDialogRef } from "@angular/material/dialog";
+import { Component, Inject, OnInit } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
 import { TreeControlService } from "../../../common/services/tree-control-service";
 import { ModelService } from "../../../widget/services/model.service";
@@ -29,17 +29,25 @@ import { TreeNodeModel } from "../../../widget/tree/model/tree-node-model";
    ]
 })
 export class ResourceItemsDialog implements OnInit {
+   private treeUrl: string;
+   title: string;
    tree: TreeNodeModel;
+   isDisabledNode: (node: TreeNodeModel) => boolean;
 
    constructor(private modelService: ModelService,
                private treeControl: TreeControlService,
+               @Inject(MAT_DIALOG_DATA) private data: any,
                private dialogRef: MatDialogRef<ResourceItemsDialog>)
    {
+      this.treeUrl = data.treeUrl;
+      this.title = data.title;
+      this.isDisabledNode = !!data.isDisabledNode
+         ? data.isDisabledNode : (n) => false;
    }
 
    ngOnInit(): void {
-      this.modelService.getModel<TreeNodeModel>(
-         EmUrlConstants.SECURITY_RESOURCES_PERMISSION_TREE).subscribe(tree =>
+      this.modelService.getModel<TreeNodeModel>(this.treeUrl)
+         .subscribe(tree =>
       {
          this.tree = tree;
       });

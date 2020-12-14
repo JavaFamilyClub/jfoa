@@ -103,6 +103,10 @@ export class ResourcesManagerComponent implements OnInit {
                else {
                   this.resetSelectedItems();
                }
+            },
+            headerCheckboxChecked: () => {
+               return !Tool.isEmpty(this.selectedItems)
+                  && this.selectedItems === this.permission.items;
             }
          },
          {
@@ -160,15 +164,27 @@ export class ResourcesManagerComponent implements OnInit {
    add(): void {
       this.dialog.open(ResourceItemsDialog, {
          height: "45vh",
-         minWidth: "30%"
-      }).afterClosed().subscribe((items: TreeNodeModel[]) => {
+         minWidth: "30%",
+         data: {
+            treeUrl: EmUrlConstants.SECURITY_RESOURCES_PERMISSION_TREE,
+            title: this.translate.instant("em.security.dialog.addPermission"),
+            isDisabledNode: (node): boolean => {
+               return this.permission?.items.some(
+                  item => item.roleId == node.data.id)
+            }
+         }
+      }).afterClosed().subscribe((selectNodes: TreeNodeModel[]) => {
+         if(Tool.isEmpty(selectNodes)) {
+            return;
+         }
+
          const newItems: ResourceItemSettingModel[] = [];
 
-         for(let item of items) {
+         for(let node of selectNodes) {
             newItems.push({
-               roleId: item.data.id,
+               roleId: node.data.id,
                type: ResourceSettingType.Role,
-               name: item.data.name,
+               name: node.data.name,
                read: false,
                write: false,
                delete: false,

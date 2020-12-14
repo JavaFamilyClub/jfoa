@@ -158,4 +158,10 @@
   .mat-tree-node.mat-active, ul.mat-active {
     background: rgba(0, 0, 0, 0.12);
   }
+
+   .mat-tree-node.mat-disabled {
+      cursor: not-allowed;
+      //pointer-events: none;
+      background: rgba(0, 0, 0, 0.05);
+   }
 }

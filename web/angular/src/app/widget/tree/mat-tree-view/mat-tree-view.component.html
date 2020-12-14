@@ -5,6 +5,7 @@
   <!-- This is the tree node template for leaf nodes -->
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle
     [class.mat-active]="isSelected(node)"
+    [class.mat-disabled]="isDisabledNode(node)"
     (click)="selectNode($event, node)">
     <li class="mat-tree-node">
       <!-- use a disabled button to provide padding for tree leaf -->

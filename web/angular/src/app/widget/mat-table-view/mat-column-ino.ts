@@ -22,5 +22,6 @@ export interface MatColumnIno {
    };
    headerCheckbox?: boolean;
    headerCheckboxHandle?: (value) => void;
+   headerCheckboxChecked?: () => boolean;
    cellCheckbox?: boolean;
 }

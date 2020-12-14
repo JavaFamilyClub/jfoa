@@ -27,6 +27,7 @@ import { MainNestedTreeControl } from "./main-nested-tree-control";
 export class MatTreeViewComponent implements OnInit {
    _data: TreeNodeModel;
    _selectedNodes: TreeNodeModel[];
+   @Input() isDisabledNode: (node: TreeNodeModel) => boolean = (n) => false;
    @Input() showRoot = false;
    @Input() multipleSelect = false;
    @Input() onlyLeafSelect = false;
@@ -64,7 +65,9 @@ export class MatTreeViewComponent implements OnInit {
    hasChild = (_: number, node: TreeNodeModel) => !!node.children && node.children.length > 0;
 
    selectNode(event: MouseEvent, node: TreeNodeModel): void {
-      if(this.onlyLeafSelect && !node.leaf) {
+      if(this.onlyLeafSelect && !node.leaf
+         || !!this.isDisabled && this.isDisabled(node))
+      {
          return;
       }
 
@@ -97,5 +100,9 @@ export class MatTreeViewComponent implements OnInit {
       if(this.dbClickExpand) {
          this.treeControl.expand(node);
       }
+   }
+
+   isDisabled(node: TreeNodeModel): boolean {
+      return this.isDisabledNode(node);
    }
 }
