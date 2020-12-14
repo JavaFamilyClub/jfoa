@@ -22,8 +22,7 @@ import club.javafamily.runner.dao.RoleDao;
 import club.javafamily.runner.domain.*;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.*;
-import club.javafamily.runner.util.I18nUtil;
-import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.util.*;
 import club.javafamily.runner.web.em.model.ResourceItemSettingModel;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
@@ -99,10 +98,16 @@ public class RoleServiceImpl implements RoleService {
    @Transactional(readOnly = true)
    @Override
    public Role getRole(Integer id) {
-      return roleDao.get(id);
+      Role role = roleDao.get(id);
+
+      if(role == null) {
+         LOGGER.info("Role is not found: {}", id);
+      }
+
+      return role;
    }
 
-   @Transactional
+   @Transactional(readOnly = true)
    @Override
    public Role getRoleByName(String name) {
       return roleDao.getByName(name);
@@ -170,20 +175,74 @@ public class RoleServiceImpl implements RoleService {
       Role role = getRole(roleId);
 
       if(roleId == null) {
-         LOGGER.info("Role is not found: {}", roleId);
          return;
       }
 
-      Set<Permission> permissions = role.getPermissions();
+      Log log = createLog(role);
 
-      if(permissions == null) {
-         permissions = new HashSet<>();
-         role.setPermissions(permissions);
+      try {
+         Set<Permission> permissions = role.getPermissions();
+
+         if(permissions == null) {
+            permissions = new HashSet<>();
+            role.setPermissions(permissions);
+         }
+
+         permissions.add(permission);
+
+         updateRole(role);
+      }
+      catch(Exception e) {
+         log.setMessage("Failed: " + e.getMessage());
+
+         throw e;
+      }
+      finally {
+         logService.insertLog(log);
+      }
+   }
+
+   private Log createLog(Role role) {
+      Log log = new Log();
+
+      try {
+         log.setAction(ActionType.Authorization.getLabel());
+         log.setDate(new Date());
+         log.setResource(ResourceEnum.Role.getLabel() + ":" + role.getName());
+         log.setCustomer(userHandler.getAuditUser());
+         log.setIp(WebMvcUtil.getIP());
+      }
+      catch(Exception ex) {
+         LOGGER.error("Create Log obj error", ex);
       }
 
-      permissions.add(permission);
+      return log;
+   }
 
-      updateRole(role);
+   @Transactional
+   @Override
+   public void clearPermission(Integer roleId) {
+      Role role = getRole(roleId);
+
+      if(roleId == null) {
+         return;
+      }
+
+      Log log = createLog(role);
+
+      try {
+         role.clearPermissions();
+
+         updateRole(role);
+      }
+      catch (Exception e) {
+         log.fillErrorMessage(e);
+
+         throw e;
+      }
+      finally {
+         logService.insertLog(log);
+      }
    }
 
    private final UserHandler userHandler;

@@ -31,12 +31,14 @@ public enum ResourceEnum {
 
    PAGE_EM_Setting(0x100000, "em.Setting"),
    PAGE_Installer(0x200000 | PAGE_EM_Setting.id, "em.client.installer"),
+   PAGE_Security(0x400000 | PAGE_EM_Setting.id, "em.security.securityManagement"),
 
    // ops
    Customer(0x6000000, "User"), // 100663296
    Installer(0x6000001, "em.client.installer"),
    Role(0x6000002, "Role"),
    Subject_Request(0x6000003, "common.subjectRequest"),
+   Permission(0x6000004, "Permission"),
 
    // others, no permission control
    Password(0x8000000, "Password")

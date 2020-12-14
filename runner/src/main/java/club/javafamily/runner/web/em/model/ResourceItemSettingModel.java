@@ -16,6 +16,9 @@ package club.javafamily.runner.web.em.model;
 
 import club.javafamily.commons.enums.PermissionEnum;
 import club.javafamily.commons.enums.ResourceSettingType;
+import club.javafamily.runner.domain.Permission;
+
+import java.util.Objects;
 
 public class ResourceItemSettingModel {
    private Integer id; // permission id
@@ -27,6 +30,9 @@ public class ResourceItemSettingModel {
    private boolean delete;
    private boolean access;
    private boolean admin;
+
+   public ResourceItemSettingModel() {
+   }
 
    public Integer getId() {
       return id;
@@ -92,6 +98,18 @@ public class ResourceItemSettingModel {
       this.access = access;
    }
 
+   public boolean isAdmin() {
+      return admin;
+   }
+
+   public void setAdmin(boolean admin) {
+      this.admin = admin;
+   }
+
+   public Permission convertPermissionEntity(int resource) {
+      return new Permission(id, resource, buildPermissionOperator());
+   }
+
    public Integer buildPermissionOperator() {
       int operator = 0;
 
@@ -116,5 +134,42 @@ public class ResourceItemSettingModel {
       }
 
       return operator;
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if(this == o) {
+         return true;
+      }
+
+      if(o == null || getClass() != o.getClass()) {
+         return false;
+      }
+
+      ResourceItemSettingModel that = (ResourceItemSettingModel) o;
+
+      if(!Objects.equals(id, that.id)) {
+         return false;
+      }
+
+      if(!roleId.equals(that.roleId)) {
+         return false;
+      }
+
+      if(type != that.type) {
+         return false;
+      }
+
+      return name.equals(that.name);
+   }
+
+   @Override
+   public int hashCode() {
+      int result = id != null ? id.hashCode() : 0;
+      result = 31 * result + roleId.hashCode();
+      result = 31 * result + type.hashCode();
+      result = 31 * result + name.hashCode();
+
+      return result;
    }
 }

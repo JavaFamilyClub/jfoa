@@ -20,7 +20,8 @@ public enum ActionType {
    MODIFY(3, "Modify"),
    Login(4, "Login"),
    Achieve(5, "Achieve"),
-   Upload(6, "Upload")
+   Upload(6, "Upload"),
+   Authorization(7, "authorization")
    ;
 
    private int type;

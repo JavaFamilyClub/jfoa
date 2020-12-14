@@ -2,6 +2,7 @@ package club.javafamily.runner.aspect;
 
 import club.javafamily.runner.annotation.Audit;
 import club.javafamily.runner.annotation.AuditObject;
+import club.javafamily.runner.common.model.data.CommonsKVModel;
 import club.javafamily.runner.domain.Log;
 import club.javafamily.commons.enums.ActionType;
 import club.javafamily.runner.enums.ResourceEnum;
@@ -20,104 +21,107 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Configuration
 @Aspect
 public class AuditAspect {
 
-  @Autowired
-  public AuditAspect(LogService logService,
-                     UserHandler userHandler)
-  {
-     this.logService = logService;
-     this.userHandler = userHandler;
-  }
+   @Autowired
+   public AuditAspect(LogService logService,
+                      UserHandler userHandler)
+   {
+      this.logService = logService;
+      this.userHandler = userHandler;
+   }
 
-  @Pointcut("@annotation(club.javafamily.runner.annotation.Audit) && within(club.javafamily.runner..*)")
-  public void audit() {
-  }
+   @Pointcut("@annotation(club.javafamily.runner.annotation.Audit) && within(club.javafamily.runner..*)")
+   public void audit() {
+   }
 
-  @Around("audit()")
-  public Object recordLog(ProceedingJoinPoint pjp) throws Throwable {
-    Log log = null;
+   @Around("audit()")
+   public Object recordLog(ProceedingJoinPoint pjp) throws Throwable {
+      Log log = null;
 
-    try {
-      MethodSignature signature = (MethodSignature) pjp.getSignature();
-      Audit annotation = signature.getMethod().getAnnotation(Audit.class);
-      ResourceEnum resource = annotation.value();
-      ActionType actionType = annotation.actionType();
-      String objectName = annotation.objectName();
+      try {
+         MethodSignature signature = (MethodSignature) pjp.getSignature();
+         Audit annotation = signature.getMethod().getAnnotation(Audit.class);
+         ResourceEnum resource = annotation.value();
+         ActionType actionType = annotation.actionType();
+         String objectName = annotation.objectName();
 
-      Annotation[][] paramAnnotations
-         = signature.getMethod().getParameterAnnotations();
+         Annotation[][] paramAnnotations
+            = signature.getMethod().getParameterAnnotations();
+         List<CommonsKVModel<Integer, String>> objectNames = new ArrayList<>();
 
-      for(int i = 0; i < paramAnnotations.length; i++) {
-        for(int j = 0; j < paramAnnotations[i].length; j++) {
-          if(StringUtils.isEmpty(objectName)
-             && paramAnnotations[i][j] instanceof AuditObject)
-          {
-            AuditObject auditObject = (AuditObject) paramAnnotations[i][j];
-            Object arg = pjp.getArgs()[i];
+         for(int i = 0; i < paramAnnotations.length; i++) {
+            for(int j = 0; j < paramAnnotations[i].length; j++) {
+               if(paramAnnotations[i][j] instanceof AuditObject) {
+                  AuditObject auditObject = (AuditObject) paramAnnotations[i][j];
+                  Object arg = pjp.getArgs()[i];
 
-            if(auditObject.value().isEmpty()) {
-              objectName = String.valueOf(arg);
+                  if(auditObject.value().isEmpty()) {
+                     objectName = String.valueOf(arg);
+                  }
+                  else {
+                     StandardEvaluationContext context = new StandardEvaluationContext(arg);
+                     Expression expr = spelParser.parseExpression(auditObject.value());
+                     objectName = expr.getValue(context, String.class);
+                  }
+
+                  objectNames.add(new CommonsKVModel<>(auditObject.order(), objectName));
+               }
             }
-            else {
-              StandardEvaluationContext context = new StandardEvaluationContext(arg);
-              Expression expr = spelParser.parseExpression(auditObject.value());
-              objectName = expr.getValue(context, String.class);
-            }
+         }
 
-            break;
-          }
-        }
+         if(objectNames.size() > 1) {
+            objectNames.sort(Comparator.comparingInt(CommonsKVModel::getKey));
+            objectName = objectNames.stream()
+               .map(CommonsKVModel::getValue)
+               .collect(Collectors.joining("/"));
+         }
 
-        if(StringUtils.hasText(objectName)) {
-          break;
-        }
-      }
-
-      log = new Log();
-      log.setDate(new Date());
+         log = new Log();
+         log.setDate(new Date());
 //      log.setCustomer(getAuditUser());// set in insert log for login action
-      log.setResource(resource.getLabel() + ": " + objectName);
-      log.setAction(actionType.getLabel());
-      log.setIp(WebMvcUtil.getIP());
-    }
-    catch (Exception ignore) {
-      LOGGER.warn("Build Log Failed!");
-    }
-
-    Object result;
-
-    try {
-      result = pjp.proceed();
-    }
-    catch(Throwable throwable) {
-      if(log != null) {
-        log.setMessage("Execute Failed: " + throwable.getMessage());
+         log.setResource(resource.getLabel() + ": " + objectName);
+         log.setAction(actionType.getLabel());
+         log.setIp(WebMvcUtil.getIP());
+      }
+      catch (Exception ignore) {
+         LOGGER.warn("Build Log Failed!");
       }
 
-      throw throwable;
-    }
-    finally {
-      if(log != null) {
-        log.setCustomer(getAuditUser());
-        logService.insertLog(log);
+      Object result;
+
+      try {
+         result = pjp.proceed();
       }
-    }
+      catch(Throwable throwable) {
+         if(log != null) {
+            log.setMessage("Execute Failed: " + throwable.getMessage());
+         }
 
-    return result;
-  }
+         throw throwable;
+      }
+      finally {
+         if(log != null) {
+            log.setCustomer(getAuditUser());
+            logService.insertLog(log);
+         }
+      }
 
-  private String getAuditUser() {
-    return userHandler.getAuditUser();
-  }
+      return result;
+   }
 
-  private final LogService logService;
-  private final UserHandler userHandler;
-  private final SpelExpressionParser spelParser = new SpelExpressionParser();
+   private String getAuditUser() {
+      return userHandler.getAuditUser();
+   }
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AuditAspect.class);
+   private final LogService logService;
+   private final UserHandler userHandler;
+   private final SpelExpressionParser spelParser = new SpelExpressionParser();
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(AuditAspect.class);
 }

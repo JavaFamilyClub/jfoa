@@ -15,7 +15,6 @@
 import { ResourceSettingType } from "../../../../common/enum/resource-setting-type";
 
 export interface ResourceItemSettingModel {
-   id?: number;
    roleId: number;
    type: ResourceSettingType;
    name: string;
@@ -23,4 +22,7 @@ export interface ResourceItemSettingModel {
    write: boolean;
    delete: boolean;
    access: boolean;
+   admin: boolean;
+
+   id?: number;
 }

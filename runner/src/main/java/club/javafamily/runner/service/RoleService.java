@@ -40,4 +40,6 @@ public interface RoleService {
 
    void insertPermission(Integer roleId, Permission permission);
 
+   void clearPermission(Integer roleId);
+
 }

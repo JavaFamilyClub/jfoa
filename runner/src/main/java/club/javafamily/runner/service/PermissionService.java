@@ -23,4 +23,6 @@ public interface PermissionService {
    List<Permission> getPermissionsByResource(int id);
 
    Integer insert(Permission permission);
+
+   void update(String auditObjectName, Permission permission);
 }

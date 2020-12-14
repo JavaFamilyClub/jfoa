@@ -30,6 +30,7 @@ export class MatTreeViewComponent implements OnInit {
    @Input() showRoot = false;
    @Input() multipleSelect = false;
    @Input() onlyLeafSelect = false;
+   @Input() dbClickExpand = true;
 
    @Input() set data(data: TreeNodeModel) {
       this._data = data;
@@ -90,5 +91,11 @@ export class MatTreeViewComponent implements OnInit {
 
    isSelected(node: TreeNodeModel): boolean {
       return this.selectedNodes?.some(n => n === node);
+   }
+
+   dbClickFolder(node: any): void {
+      if(this.dbClickExpand) {
+         this.treeControl.expand(node);
+      }
    }
 }

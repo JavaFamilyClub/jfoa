@@ -108,6 +108,12 @@ public class Role implements Serializable {
     this.permissions = permissions;
   }
 
+  public void clearPermissions() {
+     if(permissions != null) {
+        permissions.clear();
+     }
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o){

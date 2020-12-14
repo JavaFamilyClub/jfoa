@@ -25,4 +25,6 @@ public @interface AuditObject {
     * object name provider spel expression
     */
    String value() default "";
+
+   int order() default -1;
 }

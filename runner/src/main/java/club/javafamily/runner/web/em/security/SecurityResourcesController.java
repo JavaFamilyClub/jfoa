@@ -27,7 +27,6 @@ import club.javafamily.runner.web.em.role.RoleController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -92,32 +91,71 @@ public class SecurityResourcesController {
          return;
       }
 
+      List<ResourceItemSettingModel> add = new ArrayList<>();
+      List<ResourceItemSettingModel> delete = new ArrayList<>();
+      List<ResourceItemSettingModel> update = new ArrayList<>();
+
+      checkItemsStatus(model, add, delete, update);
+
+      updateItems(resourceId, add, delete, update);
+   }
+
+   private void checkItemsStatus(ResourcesManagerPermissionModel model,
+                                 List<ResourceItemSettingModel> add,
+                                 List<ResourceItemSettingModel> delete,
+                                 List<ResourceItemSettingModel> update)
+   {
       ResourcesManagerPermissionModel resourcesPermissionModel
          = getResourcesPermissionModel(model.getId());
 
       List<ResourceItemSettingModel> oldItems = resourcesPermissionModel.getItems();
       List<ResourceItemSettingModel> items = model.getItems();
 
-      if(CollectionUtils.isEmpty(oldItems)) {
-         // add
-         for(ResourceItemSettingModel item : items) {
-            Integer roleId = item.getRoleId();
-
-            // role
-            if(roleId != null && item.getType() == ResourceSettingType.Role) {
-               Permission permission = new Permission();
-               permission.setResource(resourceId);
-               permission.setOperator(item.buildPermissionOperator());
-
-               roleService.insertPermission(roleId, permission);
-            }
+      // check add, update
+      for(ResourceItemSettingModel item : items) {
+         if(!oldItems.contains(item)) {
+            add.add(item);
+         }
+         else {
+            update.add(item);
          }
       }
-      else if(CollectionUtils.isEmpty(items)) {
-         // TODO delete
+
+      // check delete
+      for(ResourceItemSettingModel oldItem : oldItems) {
+         if(!items.contains(oldItem)) {
+            delete.add(oldItem);
+         }
       }
-      else {
-         // TODO mixed operation
+   }
+
+   private void updateItems(int resourceId,
+                            List<ResourceItemSettingModel> add,
+                            List<ResourceItemSettingModel> delete,
+                            List<ResourceItemSettingModel> update)
+   {
+      for(ResourceItemSettingModel addItem : add) {
+         Integer roleId = addItem.getRoleId();
+
+         // role
+         if(roleId != null && addItem.getType() == ResourceSettingType.Role) {
+            Permission permission = addItem.convertPermissionEntity(resourceId);
+
+            roleService.insertPermission(roleId, permission);
+         }
+      }
+
+      for(ResourceItemSettingModel deleteItem : delete) {
+         Integer roleId = deleteItem.getRoleId();
+
+         // role
+         if(roleId != null && deleteItem.getType() == ResourceSettingType.Role) {
+            roleService.clearPermission(deleteItem.getRoleId());
+         }
+      }
+
+      for(ResourceItemSettingModel updateItem : update) {
+         permissionService.update(updateItem.convertPermissionEntity(resourceId));
       }
    }
 

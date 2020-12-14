@@ -14,10 +14,14 @@
 
 package club.javafamily.runner.service.impl;
 
+import club.javafamily.commons.enums.ActionType;
+import club.javafamily.runner.annotation.Audit;
+import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.common.filter.DaoFilter;
 import club.javafamily.runner.common.filter.EqualsFilterInfo;
 import club.javafamily.runner.dao.PermissionDao;
 import club.javafamily.runner.domain.Permission;
+import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +46,17 @@ public class PermissionServiceImpl implements PermissionService {
    @Override
    public Integer insert(Permission permission) {
       return permissionDao.insert(permission);
+   }
+
+   @Audit(
+      value = ResourceEnum.Permission,
+      actionType = ActionType.MODIFY
+   )
+   @Transactional
+   @Override
+   public void update(@AuditObject(order = 1) String auditObjectName,
+                      @AuditObject(value = "displayOperator()", order = 2) Permission permission) {
+      permissionDao.update(permission);
    }
 
    public static  <T extends Comparable<T>> DaoFilter<T> getPermissionByResourceFilter(T value) {

@@ -68,7 +68,7 @@ export class ResourcesManagerComponent implements OnInit {
    onSelectNodes(info: MatTreeSelectedInfo): void {
       this.treeControlService.onSelectNodes(info);
 
-      this.selectedItems = [];
+      this.resetSelectedItems();
       this.refreshPermission();
    }
 
@@ -97,7 +97,12 @@ export class ResourcesManagerComponent implements OnInit {
             cellCheckbox: true,
             name: "headerCheckbox",
             headerCheckboxHandle: (value: boolean) => {
-
+               if(value) {
+                  this.selectedItems = this.permission.items;
+               }
+               else {
+                  this.resetSelectedItems();
+               }
             }
          },
          {
@@ -127,6 +132,11 @@ export class ResourcesManagerComponent implements OnInit {
             cellCheckbox: true,
             label: this.translate.instant("Access"),
             name: "access"
+         },
+         {
+            cellCheckbox: true,
+            label: this.translate.instant("Admin"),
+            name: "admin"
          }
       ];
    }
@@ -162,7 +172,8 @@ export class ResourcesManagerComponent implements OnInit {
                read: false,
                write: false,
                delete: false,
-               access: false
+               access: false,
+               admin: false
             });
          }
 
@@ -186,6 +197,10 @@ export class ResourcesManagerComponent implements OnInit {
       });
 
       this.permission.items = currentItems;
+      this.resetSelectedItems();
+   }
+
+   resetSelectedItems(): void {
       this.selectedItems = [];
    }
 

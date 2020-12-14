@@ -22,6 +22,8 @@
    "Achieved": "已完成",
    "Preview": "预览",
    "sysAdmin": "系统管理员",
+   "Admin": "管理员",
+   "authorization": "授权",
    "Description": "描述",
    "Name": "名称",
    "Read": "读",
@@ -172,6 +174,7 @@
          "endBeforeStartError": "终止日期必须在开始日期之后."
       },
       "security": {
+         "securityManagement": "安全管理",
          "tabs": {
             "resources": "资源"
          },

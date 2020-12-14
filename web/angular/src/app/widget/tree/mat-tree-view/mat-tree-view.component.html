@@ -12,13 +12,14 @@
       {{node.label}}
     </li>
   </mat-tree-node>
-  <!-- root node, e.g. Roles -->
+  <!-- folder node, e.g. Roles -->
   <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild"
                         (click)="selectNode($event, node)">
     <li>
-      <div class="mat-tree-node"
+      <div class="mat-tree-node" (dblclick)="dbClickFolder(node)"
            [class.mat-active]="isSelected(node)">
         <button mat-icon-button matTreeNodeToggle
+                [title]="('Toggle' | translate) + ' ' + node.label"
                 [attr.aria-label]="('Toggle' | translate) + ' ' + node.label">
           <mat-icon [class.icon-arrow-down]="treeControl.isExpanded(node)"
                     [class.icon-arrow-right]="!treeControl.isExpanded(node)"></mat-icon>
