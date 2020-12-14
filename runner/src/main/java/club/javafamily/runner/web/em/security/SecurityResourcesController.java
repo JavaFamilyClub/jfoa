@@ -155,7 +155,8 @@ public class SecurityResourcesController {
       }
 
       for(ResourceItemSettingModel updateItem : update) {
-         permissionService.update(updateItem.convertPermissionEntity(resourceId));
+         permissionService.update(
+            updateItem.getName(), updateItem.convertPermissionEntity(resourceId));
       }
    }
 
