@@ -23,7 +23,7 @@ import { MatColumnIno } from "../../../../widget/mat-table-view/mat-column-ino";
 import { ModelService } from "../../../../widget/services/model.service";
 import { MatTreeSelectedInfo } from "../../../../widget/tree/model/mat-tree-selected-info";
 import { TreeNodeModel } from "../../../../widget/tree/model/tree-node-model";
-import { ResourceItemsDialog } from "../../../dialog/resource-items-dialog/resource-items-dialog";
+import { BaseTreeSelectDialog } from "../../../dialog/base-tree-select-dialog/base-tree-select-dialog";
 import { ResourceItemSettingModel } from "./resource-item-setting-model";
 import { ResourcesManagerModel } from "./resources-manager-model";
 import { ResourcesManagerPermissionModel } from "./resources-manager-permission-model";
@@ -162,7 +162,7 @@ export class ResourcesManagerComponent implements OnInit {
    }
 
    add(): void {
-      this.dialog.open(ResourceItemsDialog, {
+      this.dialog.open(BaseTreeSelectDialog, {
          height: "45vh",
          minWidth: "30%",
          data: {

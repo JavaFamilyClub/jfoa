@@ -15,9 +15,10 @@
   </mat-tree-node>
   <!-- folder node, e.g. Roles -->
   <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild"
+                        (dblclick)="dbClickFolder(node, $event)"
                         (click)="selectNode($event, node)">
     <li>
-      <div class="mat-tree-node" (dblclick)="dbClickFolder(node)"
+      <div class="mat-tree-node"
            [class.mat-active]="isSelected(node)">
         <button mat-icon-button matTreeNodeToggle
                 [title]="('Toggle' | translate) + ' ' + node.label"

@@ -14,21 +14,20 @@
 
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
 import { TreeControlService } from "../../../common/services/tree-control-service";
 import { ModelService } from "../../../widget/services/model.service";
 import { MatTreeSelectedInfo } from "../../../widget/tree/model/mat-tree-selected-info";
 import { TreeNodeModel } from "../../../widget/tree/model/tree-node-model";
 
 @Component({
-   selector: "resource-items-dialog",
-   templateUrl: "./resource-items-dialog.html",
-   styleUrls: ["./resource-items-dialog.scss"],
+   selector: "base-tree-select-dialog",
+   templateUrl: "./base-tree-select-dialog.html",
+   styleUrls: ["./base-tree-select-dialog.scss"],
    providers: [
       TreeControlService
    ]
 })
-export class ResourceItemsDialog implements OnInit {
+export class BaseTreeSelectDialog implements OnInit {
    private treeUrl: string;
    title: string;
    tree: TreeNodeModel;
@@ -37,7 +36,7 @@ export class ResourceItemsDialog implements OnInit {
    constructor(private modelService: ModelService,
                private treeControl: TreeControlService,
                @Inject(MAT_DIALOG_DATA) private data: any,
-               private dialogRef: MatDialogRef<ResourceItemsDialog>)
+               private dialogRef: MatDialogRef<BaseTreeSelectDialog>)
    {
       this.treeUrl = data.treeUrl;
       this.title = data.title;

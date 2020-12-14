@@ -20,8 +20,8 @@
  */
 
 import { Type } from "@angular/core";
+import { BaseTreeSelectDialog } from "./dialog/base-tree-select-dialog/base-tree-select-dialog";
 import { NotifyAllDialog } from "./dialog/notify-all-dialog";
-import { ResourceItemsDialog } from "./dialog/resource-items-dialog/resource-items-dialog";
 import { EmTitleBarComponent } from "./title-bar/em-title-bar.component";
 import { EmToolBarComponent } from "./tool-bar/em-tool-bar.component";
 
@@ -29,5 +29,5 @@ export const MODULE_COMPONENTS: Type<any>[] = [
    EmTitleBarComponent,
    EmToolBarComponent,
    NotifyAllDialog,
-   ResourceItemsDialog
+   BaseTreeSelectDialog
 ];

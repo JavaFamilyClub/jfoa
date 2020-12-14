@@ -84,8 +84,6 @@ export class MatTreeViewComponent implements OnInit {
 
       nodes.push(node);
 
-      console.log(nodes);
-
       this.onSelectNode.emit({
          event,
          nodes
@@ -96,9 +94,11 @@ export class MatTreeViewComponent implements OnInit {
       return this.selectedNodes?.some(n => n === node);
    }
 
-   dbClickFolder(node: any): void {
+   dbClickFolder(node: any, event: MouseEvent): void {
       if(this.dbClickExpand) {
-         this.treeControl.expand(node);
+         event.stopPropagation();
+         event.stopPropagation();
+         this.treeControl.toggle(node);
       }
    }
 
