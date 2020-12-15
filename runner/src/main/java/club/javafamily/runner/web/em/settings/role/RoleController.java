@@ -14,10 +14,13 @@
 
 package club.javafamily.runner.web.em.settings.role;
 
+import club.javafamily.commons.enums.ResourceSettingType;
 import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.common.model.data.TreeNodeModel;
+import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.domain.Role;
+import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.service.RoleService;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;
@@ -35,11 +38,6 @@ import java.util.stream.Collectors;
 @RequestMapping(SecurityUtil.API_VERSION)
 @Api("Role Manager")
 public class RoleController {
-
-   @Autowired
-   public RoleController(RoleService roleService) {
-      this.roleService = roleService;
-   }
 
    @RequiresUser
    @ApiOperation(
@@ -113,6 +111,16 @@ public class RoleController {
 
       RoleEditViewModel model = RoleEditViewModel.buildFromDomain(role);
 
+      List<Customer> users = userService.getCustomerByRole(id);
+
+      if(users != null) {
+         List<AssignedToItem> items = users.stream()
+            .map(user -> new AssignedToItem(user.getName(), ResourceSettingType.User))
+            .collect(Collectors.toList());
+
+         model.setAssignedToModel(new RoleAssignedToModel(items));
+      }
+
       return model;
    }
 
@@ -143,5 +151,14 @@ public class RoleController {
       roleService.updateRole(role);
    }
 
+   @Autowired
+   public RoleController(RoleService roleService,
+                         CustomerService userService)
+   {
+      this.userService = userService;
+      this.roleService = roleService;
+   }
+
    private final RoleService roleService;
+   private final CustomerService userService;
 }

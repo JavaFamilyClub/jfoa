@@ -27,10 +27,13 @@ public interface CustomerService {
 
    /**
     * get user by name
-    *
-    * @return
     */
    Customer getCustomerByAccount(String account);
+
+   /**
+    * get user by role.
+    */
+   List<Customer> getCustomerByRole(Integer roleId);
 
    /**
     * get current

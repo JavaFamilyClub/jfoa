@@ -14,7 +14,9 @@
 
 import { Component, Input, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { Tool } from "../../../../../common/util/tool";
 import { MatColumnIno } from "../../../../../widget/mat-table-view/mat-column-ino";
+import { AssignedToItem } from "./assigned-to-item";
 import { RoleAssignedToModel } from "./role-assigned-to-model";
 
 @Component({
@@ -24,6 +26,7 @@ import { RoleAssignedToModel } from "./role-assigned-to-model";
 })
 export class RoleAssignedToCardComponent implements OnInit {
    @Input() model: RoleAssignedToModel;
+   selectedItems: AssignedToItem[] = [];
 
    constructor(private translate: TranslateService)
    {
@@ -40,16 +43,16 @@ export class RoleAssignedToCardComponent implements OnInit {
             name: "headerCheckbox",
             headerCheckboxHandle: (value: boolean) => {
                if(value) {
-                  // this.selectedItems = this.permission.items;
+                  this.selectedItems = this.model.items;
                }
                else {
-                  // this.resetSelectedItems();
+                  this.resetSelectedItems();
                }
+            },
+            headerCheckboxChecked: () => {
+               return !Tool.isEmpty(this.selectedItems)
+                  && this.selectedItems === this.model.items;
             }
-            // headerCheckboxChecked: () => {
-            //    return !Tool.isEmpty(this.selectedItems)
-            //       && this.selectedItems === this.permission.items;
-            // }
          },
          {
             label: this.translate.instant("Type"),
@@ -62,4 +65,7 @@ export class RoleAssignedToCardComponent implements OnInit {
       ];
    }
 
+   private resetSelectedItems(): void {
+      this.selectedItems = [];
+   }
 }

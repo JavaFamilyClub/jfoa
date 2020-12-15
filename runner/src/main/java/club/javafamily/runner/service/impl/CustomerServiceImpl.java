@@ -23,6 +23,7 @@ import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.dao.CustomerDao;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.commons.enums.*;
+import club.javafamily.runner.domain.Role;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
@@ -38,7 +39,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static club.javafamily.runner.util.SecurityUtil.REGISTERED_USER_STORE_PREFIX;
 
@@ -58,6 +60,25 @@ public class CustomerServiceImpl implements CustomerService {
    @Override
    public Customer getCustomerByAccount(String account) {
       return customerDao.getUserByAccount(account);
+   }
+
+   @Transactional(readOnly = true)
+   @Override
+   public List<Customer> getCustomerByRole(Integer roleId) {
+      List<Customer> users = getCustomers();
+
+      return users.stream()
+         .filter(user -> {
+            Set<Role> roles = user.getRoles();
+
+            if(roles == null) {
+               return false;
+            }
+
+            return roles.stream().anyMatch(
+               role -> Objects.equals(role.getId(), roleId));
+         })
+         .collect(Collectors.toList());
    }
 
    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)

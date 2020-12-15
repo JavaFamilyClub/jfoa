@@ -1,8 +1,10 @@
 <mat-card>
   <mat-card-title>{{'em.role.assignedTo' | translate}}</mat-card-title>
 
-  <mat-card-content>
-    <mat-table-view [cols]="cols"></mat-table-view>
+  <mat-card-content *ngIf="!!model">
+    <mat-table-view [cols]="cols" [data]="model.items"
+                    [selectedItems]="selectedItems" [clickToSelect]="false"
+    ></mat-table-view>
   </mat-card-content>
 
   <mat-card-actions>

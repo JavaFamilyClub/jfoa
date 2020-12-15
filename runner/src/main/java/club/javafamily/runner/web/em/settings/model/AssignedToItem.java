@@ -17,8 +17,16 @@ package club.javafamily.runner.web.em.settings.model;
 import club.javafamily.commons.enums.ResourceSettingType;
 
 public class AssignedToItem {
-   private ResourceSettingType type;
    private String name;
+   private ResourceSettingType type;
+
+   public AssignedToItem() {
+   }
+
+   public AssignedToItem(String name, ResourceSettingType type) {
+      this.name = name;
+      this.type = type;
+   }
 
    public ResourceSettingType getType() {
       return type;

@@ -19,6 +19,13 @@ import java.util.List;
 public class RoleAssignedToModel {
    private List<AssignedToItem> items;
 
+   public RoleAssignedToModel() {
+   }
+
+   public RoleAssignedToModel(List<AssignedToItem> items) {
+      this.items = items;
+   }
+
    public List<AssignedToItem> getItems() {
       return items;
    }
