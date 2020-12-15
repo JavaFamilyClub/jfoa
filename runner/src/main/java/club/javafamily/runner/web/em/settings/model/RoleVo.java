@@ -12,22 +12,22 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.model;
+package club.javafamily.runner.web.em.settings.model;
 
 import club.javafamily.runner.domain.Role;
 
 import java.io.Serializable;
 
-public class RoleVO implements Serializable {
-   private Integer id;
-   private String name;
-   private String description;
-   private boolean defaultRole;
-   private boolean administrator;
+public class RoleVo implements Serializable {
+   protected Integer id;
+   protected String name;
+   protected String description;
+   protected boolean defaultRole;
+   protected boolean administrator;
 
-   public static RoleVO buildFromDomain(Role role) {
+   public static RoleVo buildFromDomain(Role role) {
       assert role != null;
-      RoleVO vo = new RoleVO();
+      RoleVo vo = new RoleVo();
 
       vo.setId(role.getId());
       vo.setName(role.getName());
@@ -36,6 +36,13 @@ public class RoleVO implements Serializable {
       vo.setDefaultRole(role.isDefaultRole());
 
       return vo;
+   }
+
+   public void updateDomain(Role role) {
+      role.setName(this.name);
+      role.setDefaultRole(this.defaultRole);
+      role.setDefaultRole(this.defaultRole);
+      role.setAdministrator(this.administrator);
    }
 
    public Integer getId() {
@@ -80,7 +87,7 @@ public class RoleVO implements Serializable {
 
    @Override
    public String toString() {
-      return "RoleVO{" +
+      return "RoleEditViewModel{" +
          "id=" + id +
          ", name='" + name + '\'' +
          ", description='" + description + '\'' +

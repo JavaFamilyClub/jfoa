@@ -12,17 +12,8 @@
  * person.
  */
 
-export interface MatColumnIno {
-   label?: string;
-   name: string;
-   valueFunc?: (elem: any, prop: string) => string;
-   iconFunc?: (elem: any) => string;
-   btnElement?: {
-      label: string;
-      action: (elem: any) => void;
-   };
-   headerCheckbox?: boolean;
-   headerCheckboxHandle?: (value) => void;
-   headerCheckboxChecked?: () => boolean;
-   cellCheckbox?: boolean;
+import { AssignedToItem } from "./assigned-to-item";
+
+export interface RoleAssignedToModel {
+   items: AssignedToItem[];
 }

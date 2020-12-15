@@ -12,35 +12,36 @@
  * person.
  */
 
-package club.javafamily.runner.service;
+package club.javafamily.runner.web.em.settings.model;
 
-import club.javafamily.runner.domain.Permission;
 import club.javafamily.runner.domain.Role;
-import club.javafamily.runner.web.em.settings.model.ResourceItemSettingModel;
-import club.javafamily.runner.web.em.settings.model.RoleVo;
 
-import java.util.List;
+public class RoleEditViewModel {
 
-public interface RoleService {
+   private RoleVo role;
+   private RoleAssignedToModel assignedToModel;
 
-   List<Role> getRoles();
+   public static RoleEditViewModel buildFromDomain(Role role) {
+      RoleEditViewModel model = new RoleEditViewModel();
 
-   List<ResourceItemSettingModel> getRolesByResource(Integer resourceId);
+      model.role = RoleVo.buildFromDomain(role);
 
-   Role getRole(Integer id);
+      return model;
+   }
 
-   Role getRoleByName(String name);
+   public RoleVo getRole() {
+      return role;
+   }
 
-   void deleteRole(Role role);
+   public void setRole(RoleVo role) {
+      this.role = role;
+   }
 
-   void deleteRoles(Integer[] ids);
+   public RoleAssignedToModel getAssignedToModel() {
+      return assignedToModel;
+   }
 
-   Integer addRole(Role role);
-
-   void updateRole(Role role);
-
-   void insertPermission(Integer roleId, Permission permission);
-
-   void clearPermission(Integer roleId);
-
+   public void setAssignedToModel(RoleAssignedToModel assignedToModel) {
+      this.assignedToModel = assignedToModel;
+   }
 }

@@ -12,15 +12,15 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.user;
+package club.javafamily.runner.web.em.settings.user;
 
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.web.em.model.CustomerVO;
-import club.javafamily.runner.web.em.model.UserManagerModel;
+import club.javafamily.runner.web.em.settings.model.CustomerVO;
+import club.javafamily.runner.web.em.settings.model.UserManagerModel;
 import io.swagger.annotations.*;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;

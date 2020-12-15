@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.role;
+package club.javafamily.runner.web.em.settings.role;
 
 import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.common.MessageException;
@@ -21,8 +21,7 @@ import club.javafamily.runner.domain.Role;
 import club.javafamily.runner.service.RoleService;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.web.em.model.RoleManagerModel;
-import club.javafamily.runner.web.em.model.RoleVO;
+import club.javafamily.runner.web.em.settings.model.*;
 import io.swagger.annotations.*;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +70,7 @@ public class RoleController {
          .setTooltip(role.getName())
          .setPath(Tool.getTreePath(basePath, role.getName()))
          .setLeaf(true)
-         .setData(RoleVO.buildFromDomain(role));
+         .setData(RoleVo.buildFromDomain(role));
    }
 
    @RequiresUser
@@ -82,39 +81,6 @@ public class RoleController {
    @DeleteMapping("/role/{ids}")
    public void deleteRole(@ApiParam(name = "role ids", required = true, example = "2,3") @PathVariable("ids") Integer[] ids) {
       roleService.deleteRoles(ids);
-   }
-
-   @RequiresUser
-   @ApiOperation(
-      value = "Get Role",
-      httpMethod = "GET",
-      response = Role.class
-   )
-   @GetMapping("/role/{id}")
-   public RoleVO getRole(@ApiParam(name = "Role id", required = true, example = "3") @PathVariable("id") int id) {
-      Role role = roleService.getRole(id);
-
-      return RoleVO.buildFromDomain(role);
-   }
-
-   @RequiresUser
-   @ApiOperation(
-      value = "Update Role",
-      httpMethod = "PUT"
-   )
-   @PutMapping("/role/{id}")
-   public void updateRole(@ApiParam(name = "Role id", required = true, example = "3") @PathVariable("id") int id,
-                          @RequestBody Role role)
-   {
-      if(role == null || role.getId() == null) {
-         throw new MessageException(I18nUtil.getString("em.role.updateEmpty"));
-      }
-
-      if(!Objects.equals(role.getId(), id)) {
-         throw new MessageException(I18nUtil.getString("em.role.updateNotMatch", id, role.getId()));
-      }
-
-      roleService.updateRole(role);
    }
 
    @RequiresUser
@@ -133,6 +99,48 @@ public class RoleController {
       Role addRole = new Role(roleName);
 
       return roleService.addRole(addRole);
+   }
+
+   @RequiresUser
+   @ApiOperation(
+      value = "Get Role Edit Model",
+      httpMethod = "GET",
+      response = RoleEditViewModel.class
+   )
+   @GetMapping("/role/{id}")
+   public RoleEditViewModel getRoleEditViewModel(@ApiParam(name = "Role id", required = true, example = "3") @PathVariable("id") int id) {
+      Role role = roleService.getRole(id);
+
+      RoleEditViewModel model = RoleEditViewModel.buildFromDomain(role);
+
+      return model;
+   }
+
+   @RequiresUser
+   @ApiOperation(
+      value = "Update Role",
+      httpMethod = "PUT"
+   )
+   @PutMapping("/role/{id}")
+   public void updateRole(@ApiParam(name = "Role id", required = true, example = "3") @PathVariable("id") int id,
+                          @RequestBody RoleEditViewModel roleEditModel)
+   {
+      if(roleEditModel == null || roleEditModel.getRole() == null
+         || roleEditModel.getRole().getId() == null)
+      {
+         throw new MessageException(I18nUtil.getString("em.role.updateEmpty"));
+      }
+
+      RoleVo roleModel = roleEditModel.getRole();
+
+      if(!Objects.equals(roleModel.getId(), id)) {
+         throw new MessageException(I18nUtil.getString("em.role.updateNotMatch", id, roleModel.getId()));
+      }
+
+      // update role info
+      Role role = roleService.getRole(id);
+      roleModel.updateDomain(role);
+      roleService.updateRole(role);
    }
 
    private final RoleService roleService;

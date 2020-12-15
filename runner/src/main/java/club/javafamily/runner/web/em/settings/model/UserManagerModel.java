@@ -12,17 +12,31 @@
  * person.
  */
 
-export interface MatColumnIno {
-   label?: string;
-   name: string;
-   valueFunc?: (elem: any, prop: string) => string;
-   iconFunc?: (elem: any) => string;
-   btnElement?: {
-      label: string;
-      action: (elem: any) => void;
-   };
-   headerCheckbox?: boolean;
-   headerCheckboxHandle?: (value) => void;
-   headerCheckboxChecked?: () => boolean;
-   cellCheckbox?: boolean;
+package club.javafamily.runner.web.em.settings.model;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.util.List;
+
+@ApiModel("User Manager Model")
+public class UserManagerModel {
+
+   public UserManagerModel() {
+   }
+
+   public UserManagerModel(List<CustomerVO> users) {
+      this.users = users;
+   }
+
+   public List<CustomerVO> getUsers() {
+      return users;
+   }
+
+   public void setUsers(List<CustomerVO> users) {
+      this.users = users;
+   }
+
+   @ApiModelProperty("User List")
+   private List<CustomerVO> users;
 }

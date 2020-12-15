@@ -12,43 +12,18 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.model;
+package club.javafamily.runner.web.em.settings.model;
 
 import java.util.List;
 
-public class ResourcesManagerPermissionModel {
-   private int id;
-   private String resourceLabel;
-   private List<ResourceItemSettingModel> items;
+public class RoleAssignedToModel {
+   private List<AssignedToItem> items;
 
-   public ResourcesManagerPermissionModel() {
-   }
-
-   public ResourcesManagerPermissionModel(int id) {
-      this.id = id;
-   }
-
-   public String getResourceLabel() {
-      return resourceLabel;
-   }
-
-   public void setResourceLabel(String resourceLabel) {
-      this.resourceLabel = resourceLabel;
-   }
-
-   public int getId() {
-      return id;
-   }
-
-   public void setId(int id) {
-      this.id = id;
-   }
-
-   public List<ResourceItemSettingModel> getItems() {
+   public List<AssignedToItem> getItems() {
       return items;
    }
 
-   public void setItems(List<ResourceItemSettingModel> items) {
+   public void setItems(List<AssignedToItem> items) {
       this.items = items;
    }
 }

@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.model;
+package club.javafamily.runner.web.em.settings.model;
 
 import club.javafamily.commons.enums.PermissionEnum;
 import club.javafamily.commons.enums.ResourceSettingType;

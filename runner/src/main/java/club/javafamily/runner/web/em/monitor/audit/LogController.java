@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.audit;
+package club.javafamily.runner.web.em.monitor.audit;
 
 import club.javafamily.runner.common.filter.DateRangeFilter;
 import club.javafamily.runner.domain.Log;

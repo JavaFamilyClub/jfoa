@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.security;
+package club.javafamily.runner.web.em.settings.security;
 
 import club.javafamily.commons.enums.ResourceSettingType;
 import club.javafamily.runner.common.model.data.TreeNodeModel;
@@ -22,8 +22,8 @@ import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.PermissionService;
 import club.javafamily.runner.service.RoleService;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.web.em.model.*;
-import club.javafamily.runner.web.em.role.RoleController;
+import club.javafamily.runner.web.em.settings.model.*;
+import club.javafamily.runner.web.em.settings.role.RoleController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

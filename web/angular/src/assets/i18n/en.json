@@ -203,6 +203,7 @@
       "role": {
          "name": "Role Name",
          "manager": "Role Manager",
+         "assignedTo": "Assigned to",
          "existError": "Role {{0}} has exist",
          "idRoleNotExist": "Role has not exist that id is {{0}}",
          "addRole": "Add Role",

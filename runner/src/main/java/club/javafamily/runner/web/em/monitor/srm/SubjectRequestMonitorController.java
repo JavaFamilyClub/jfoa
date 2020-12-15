@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.srm;
+package club.javafamily.runner.web.em.monitor.srm;
 
 import club.javafamily.commons.utils.EnumUtil;
 import club.javafamily.runner.domain.SubjectRequest;
@@ -20,7 +20,7 @@ import club.javafamily.commons.enums.ChartType;
 import club.javafamily.runner.service.SubjectRequestService;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.web.em.model.SubjectRequestMonitorModel;
+import club.javafamily.runner.web.em.monitor.model.SubjectRequestMonitorModel;
 import club.javafamily.echarts.model.EChartModel;
 import club.javafamily.runner.web.widget.echarts.EChartService;
 import org.springframework.beans.factory.annotation.Autowired;

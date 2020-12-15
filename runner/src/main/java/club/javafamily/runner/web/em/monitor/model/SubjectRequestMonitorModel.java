@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.model;
+package club.javafamily.runner.web.em.monitor.model;
 
 import club.javafamily.echarts.model.EChartModel;
 

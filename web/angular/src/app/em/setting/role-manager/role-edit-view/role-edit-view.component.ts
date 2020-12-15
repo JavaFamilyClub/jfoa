@@ -18,6 +18,7 @@ import { EmUrlConstants } from "../../../../common/constants/url/em-url-constant
 import { Tool } from "../../../../common/util/tool";
 import { Role } from "../../../../domain/role";
 import { ModelService } from "../../../../widget/services/model.service";
+import { RoleEditViewModel } from "./role-edit-view-model";
 
 @Component({
    selector: "role-edit-view",
@@ -36,8 +37,8 @@ export class RoleEditViewComponent implements OnInit {
       return this._roleId;
    }
 
-   role: Role;
-   oldRole: Role;
+   model: RoleEditViewModel;
+   oldModel: RoleEditViewModel;
    form: FormGroup;
 
    constructor(private modelService: ModelService,
@@ -53,9 +54,11 @@ export class RoleEditViewComponent implements OnInit {
          return;
       }
 
-      this.modelService.getModel<Role>(EmUrlConstants.ROLE + this.roleId).subscribe(role => {
-         this.role = role;
-         this.oldRole = Tool.clone(role);
+      this.modelService.getModel<RoleEditViewModel>(EmUrlConstants.ROLE + this.roleId)
+         .subscribe(model =>
+      {
+         this.model = model;
+         this.oldModel = Tool.clone(model);
          this.initForm();
       });
    }
@@ -72,17 +75,21 @@ export class RoleEditViewComponent implements OnInit {
 
    apply(): void {
       this.modelService.putModel(EmUrlConstants.ROLE + this.roleId,
-         this.role).subscribe(() =>
+         this.model).subscribe(() =>
       {
         this.refresh();
       });
    }
 
+   get role(): Role {
+      return this.model?.role;
+   }
+
    get applyDisabled(): boolean {
-      return Tool.isEquals(this.role, this.oldRole);
+      return Tool.isEquals(this.model, this.oldModel);
    }
 
    reset(): void {
-      this.role = Tool.clone(this.oldRole);
+      this.model = Tool.clone(this.oldModel);
    }
 }

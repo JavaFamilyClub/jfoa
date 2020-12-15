@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.installer;
+package club.javafamily.runner.web.em.settings.installer;
 
 import club.javafamily.runner.domain.Installer;
 import club.javafamily.runner.service.InstallerService;

@@ -203,6 +203,7 @@
       "role": {
          "name": "角色名称",
          "manager": "角色管理",
+         "assignedTo": "分配给",
          "existError": "角色 {{0}} 已经存在",
          "idRoleNotExist": "编号为 {{0}} 的角色不存在",
          "addRole": "添加角色",

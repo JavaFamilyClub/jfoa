@@ -1,4 +1,4 @@
-<div class="role-edit-view-body" *ngIf="!!role">
+<div class="role-edit-view-body" *ngIf="!!model">
   <div class="role-edit-view-first-label content-card-btns-padding">
     <h3 class="role-edit-role-label">
       <p>{{'Role' | translate}}: {{role.name}}</p>
@@ -28,36 +28,7 @@
                   [ngModelOptions]="{standalone: true}"></textarea>
       </mat-form-field>
 
-      <mat-card>
-        <mat-card-title>{{'Permission' | translate}}</mat-card-title>
-
-        <mat-card-content>
-          <table class="mat-table">
-            <tr>
-              <th>
-                <mat-checkbox></mat-checkbox>
-              </th>
-              <th>{{'Type' | translate}}</th>
-              <th>{{'Name' | translate}}</th>
-            </tr>
-
-            <tr *ngFor="let per of role.permissions">
-              <td>
-                <mat-checkbox></mat-checkbox>
-              </td>
-              <td>
-
-              </td>
-              <td></td>
-            </tr>
-          </table>
-        </mat-card-content>
-
-        <mat-card-actions>
-          <button mat-button>{{'Add' | translate}}</button>
-          <button mat-button>{{'Delete' | translate}}</button>
-        </mat-card-actions>
-      </mat-card>
+      <role-assigned-to-card [model]="model.assignedToModel"></role-assigned-to-card>
 
     </div>
 

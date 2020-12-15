@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.security;
+package club.javafamily.runner.web.em.settings.security;
 
 import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.common.model.data.TreeNodeModel;
@@ -98,6 +98,7 @@ public class ResourcesManager {
 
       children.add(buildNode(emPath, ResourceEnum.PAGE_EM_Setting));
       children.add(buildNode(emPath, ResourceEnum.PAGE_Installer));
+      children.add(buildNode(emPath, ResourceEnum.PAGE_Security));
 
       return children;
    }

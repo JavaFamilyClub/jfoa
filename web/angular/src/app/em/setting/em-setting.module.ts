@@ -37,6 +37,7 @@ import { RoleManagerComponent } from "./role-manager/role-manager.component";
 import { EmSecurityManagerModule } from "./security-manager/em-security-manager.module";
 import { UserManagerComponent } from "./user-manager/user-manager.component";
 import { RoleEditViewComponent } from "./role-manager/role-edit-view/role-edit-view.component";
+import { RoleAssignedToCardComponent } from './role-manager/role-edit-view/role-assigned-to-card/role-assigned-to-card.component';
 
 @NgModule({
    declarations: [
@@ -44,7 +45,8 @@ import { RoleEditViewComponent } from "./role-manager/role-edit-view/role-edit-v
       ClientManagerComponent,
       UserManagerComponent,
       RoleManagerComponent,
-      RoleEditViewComponent
+      RoleEditViewComponent,
+      RoleAssignedToCardComponent
    ],
    imports: [
       CommonModule,

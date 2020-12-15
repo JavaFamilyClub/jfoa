@@ -23,7 +23,7 @@ import club.javafamily.runner.domain.*;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.*;
 import club.javafamily.runner.util.*;
-import club.javafamily.runner.web.em.model.ResourceItemSettingModel;
+import club.javafamily.runner.web.em.settings.model.ResourceItemSettingModel;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

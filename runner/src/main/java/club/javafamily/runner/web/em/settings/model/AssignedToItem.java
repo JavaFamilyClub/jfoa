@@ -12,17 +12,27 @@
  * person.
  */
 
-export interface MatColumnIno {
-   label?: string;
-   name: string;
-   valueFunc?: (elem: any, prop: string) => string;
-   iconFunc?: (elem: any) => string;
-   btnElement?: {
-      label: string;
-      action: (elem: any) => void;
-   };
-   headerCheckbox?: boolean;
-   headerCheckboxHandle?: (value) => void;
-   headerCheckboxChecked?: () => boolean;
-   cellCheckbox?: boolean;
+package club.javafamily.runner.web.em.settings.model;
+
+import club.javafamily.commons.enums.ResourceSettingType;
+
+public class AssignedToItem {
+   private ResourceSettingType type;
+   private String name;
+
+   public ResourceSettingType getType() {
+      return type;
+   }
+
+   public void setType(ResourceSettingType type) {
+      this.type = type;
+   }
+
+   public String getName() {
+      return name;
+   }
+
+   public void setName(String name) {
+      this.name = name;
+   }
 }

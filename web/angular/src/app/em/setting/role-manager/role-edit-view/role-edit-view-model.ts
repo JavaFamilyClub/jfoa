@@ -12,17 +12,10 @@
  * person.
  */
 
-export interface MatColumnIno {
-   label?: string;
-   name: string;
-   valueFunc?: (elem: any, prop: string) => string;
-   iconFunc?: (elem: any) => string;
-   btnElement?: {
-      label: string;
-      action: (elem: any) => void;
-   };
-   headerCheckbox?: boolean;
-   headerCheckboxHandle?: (value) => void;
-   headerCheckboxChecked?: () => boolean;
-   cellCheckbox?: boolean;
+import { Role } from "../../../../domain/role";
+import { RoleAssignedToModel } from "./role-assigned-to-card/role-assigned-to-model";
+
+export interface RoleEditViewModel {
+   role: Role;
+   assignedToModel: RoleAssignedToModel;
 }

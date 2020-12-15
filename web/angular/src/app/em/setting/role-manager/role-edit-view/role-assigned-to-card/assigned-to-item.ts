@@ -12,32 +12,9 @@
  * person.
  */
 
-package club.javafamily.runner.web.em.model;
+import { ResourceSettingType } from "../../../../../common/enum/resource-setting-type";
 
-import club.javafamily.runner.domain.Customer;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import java.util.List;
-
-@ApiModel("User Manager Model")
-public class UserManagerModel {
-
-   public UserManagerModel() {
-   }
-
-   public UserManagerModel(List<CustomerVO> users) {
-      this.users = users;
-   }
-
-   public List<CustomerVO> getUsers() {
-      return users;
-   }
-
-   public void setUsers(List<CustomerVO> users) {
-      this.users = users;
-   }
-
-   @ApiModelProperty("User List")
-   private List<CustomerVO> users;
+export interface AssignedToItem {
+   type: ResourceSettingType;
+   name: string;
 }
