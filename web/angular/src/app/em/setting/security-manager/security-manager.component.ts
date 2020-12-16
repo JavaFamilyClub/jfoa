@@ -14,8 +14,21 @@
 
 import { Component, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { ContextHelp } from "../../../common/annotation/context-help";
+import { Searchable } from "../../../common/annotation/searchable";
 import { TabItem } from "../model/tab-item";
 
+@ContextHelp({
+   route: "/em/setting/security-manager",
+   link: "EmSecurityManager"
+})
+@Searchable({
+   title: "Security Manager",
+   route: "/em/setting/security-manager",
+   keywords: [
+      "security manager", "permission"
+   ]
+})
 @Component({
   selector: "security-manager",
   templateUrl: "./security-manager.component.html",

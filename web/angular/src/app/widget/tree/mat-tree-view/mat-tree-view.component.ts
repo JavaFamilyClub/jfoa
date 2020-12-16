@@ -27,6 +27,7 @@ import { MainNestedTreeControl } from "./main-nested-tree-control";
 export class MatTreeViewComponent implements OnInit {
    _data: TreeNodeModel;
    _selectedNodes: TreeNodeModel[];
+   @Input() expandFirst = true;
    @Input() isDisabledNode: (node: TreeNodeModel) => boolean = (n) => false;
    @Input() showRoot = false;
    @Input() multipleSelect = false;
@@ -60,6 +61,9 @@ export class MatTreeViewComponent implements OnInit {
    }
 
    ngOnInit(): void {
+      if(this.expandFirst && !Tool.isEmpty(this.dataSource.data)) {
+         this.treeControl.expand(this.dataSource.data[0])
+      }
    }
 
    hasChild = (_: number, node: TreeNodeModel) => !!node.children && node.children.length > 0;

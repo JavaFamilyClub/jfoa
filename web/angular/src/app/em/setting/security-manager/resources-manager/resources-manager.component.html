@@ -2,7 +2,7 @@
   <mat-drawer class="mat-drawer-body"
               mode="side" disableClose opened="true">
     <div class="mat-drawer-first-pane">
-      <mat-tree-view [showRoot]="false"
+      <mat-tree-view [showRoot]="false" [expandFirst]="false"
                      [data]="model.tree"
                      [selectedNodes]="selectNodes"
                      (onSelectNode)="onSelectNodes($event)"></mat-tree-view>
