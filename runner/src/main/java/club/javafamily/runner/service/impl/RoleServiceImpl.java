@@ -86,6 +86,7 @@ public class RoleServiceImpl implements RoleService {
                item.setWrite(permissionEnums.contains(PermissionEnum.WRITE));
                item.setDelete(permissionEnums.contains(PermissionEnum.DELETE));
                item.setAccess(permissionEnums.contains(PermissionEnum.ACCESS));
+               item.setAdmin(permissionEnums.contains(PermissionEnum.ADMIN));
 
                return item;
             });
