@@ -28,7 +28,7 @@ const appRoutes: Routes = [
             component: WelcomeComponent
          },
          {
-            path: "article/:articleUri",
+            path: "article/:articleId",
             component: ArticleViewComponent
          },
          {

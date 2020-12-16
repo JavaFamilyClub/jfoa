@@ -14,7 +14,9 @@
 
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { PortalUrlConstants } from "../../common/constants/url/portal-url-constants";
 import { BaseSubscription } from "../../widget/base/BaseSubscription";
+import { ModelService } from "../../widget/services/model.service";
 
 @Component({
    selector: "article-view",
@@ -26,21 +28,29 @@ export class ArticleViewComponent extends BaseSubscription implements OnInit, On
    loaded: boolean = false;
    @ViewChild("articleContent", {static: true}) articleContent: ElementRef;
 
-   constructor(private route: ActivatedRoute,
-               private renderer: Renderer2)
+   constructor(private renderer: Renderer2,
+               private route: ActivatedRoute,
+               private modelService: ModelService)
    {
       super();
    }
 
    ngOnInit(): void {
       this.subscriptions.add(this.route.paramMap.subscribe(params => {
-         const articleUri = params.get("articleUri");
+         const articleId = params.get("articleId");
 
-         if(articleUri !== this.url) {
-            this.hiddenContent();
-            this.url = articleUri;
-            this.articleContent.nativeElement.setAttribute("src", this.url);
-         }
+         this.modelService.getModel(PortalUrlConstants.ACHIEVE_ARTICLE + articleId)
+            .subscribe(achievedSr =>
+         {
+            const articleUri = achievedSr?.["url"];
+
+            if(!!articleUri && articleUri !== this.url) {
+               this.hiddenContent();
+               this.url = articleUri;
+               this.articleContent.nativeElement.setAttribute("src", this.url);
+            }
+         });
+
       }));
    }
 

@@ -106,18 +106,25 @@ public class SubjectRequestServiceImpl implements SubjectRequestService {
    @Override
    public void achieve(int id, String article) {
       SubjectRequest sr = this.get(id);
+      ArchivedSubject archivedSubject = archivedService.get(id);
 
-      ArchivedSubject archivedSubject = new ArchivedSubject();
-      archivedSubject.setSubjectRequest(sr);
+      if(archivedSubject == null) {
+         archivedSubject = new ArchivedSubject();
+
+         archivedSubject.setSubjectRequest(sr);
+         archivedSubject.setDate(new Date());
+      }
+
       archivedSubject.setUrl(article);
-      archivedSubject.setDate(new Date());
 
       // insert archived
-      archivedService.insert(archivedSubject);
+      archivedService.saveOrUpdate(archivedSubject);
 
       // mark subject request archived
-      sr.setArchived(true);
-      this.update(sr);
+      if(!sr.isArchived()) {
+         sr.setArchived(true);
+         this.update(sr);
+      }
    }
 
    @Autowired

@@ -86,34 +86,38 @@ export class SubjectItemViewComponent implements OnInit {
    }
 
    achieve(): void {
-      this.dialog.open(InputNameDialogComponent, {
-         minWidth: "30%",
-         data: {
-            title: this.translate.instant("portal.sr.achievedAddr"),
-            placeholder: this.translate.instant("portal.sr.achievedAddrPlaceHolder"),
-            validatorErrors: {
-               required: this.translate.instant("portal.sr.achievedAddrRequired")
+      this.modelService.getModel(PortalUrlConstants.ACHIEVE_ARTICLE + this.model.id)
+         .subscribe(achievedSr =>
+      {
+         const articleUri = achievedSr?.["url"];
+
+         this.dialog.open(InputNameDialogComponent, {
+            minWidth: "30%",
+            data: {
+               name: articleUri,
+               title: this.translate.instant("portal.sr.achievedAddr"),
+               placeholder: this.translate.instant("portal.sr.achievedAddrPlaceHolder"),
+               validatorErrors: {
+                  required: this.translate.instant("portal.sr.achievedAddrRequired")
+               }
             }
-         }
-      }).afterClosed().subscribe(result => {
-         this.modelService.putModel(PortalUrlConstants.SUBJECT_REQUEST
-            + "/" + this.model.id + "/" + result).subscribe(() =>
-         {
-            this.onRefresh.emit();
+         }).afterClosed().subscribe(result => {
+            if(result != articleUri) {
+               this.modelService.putModel(PortalUrlConstants.SUBJECT_REQUEST
+                  + "/" + this.model.id + "/" + result).subscribe(() =>
+               {
+                  this.onRefresh.emit();
+               });
+            }
          });
+
       });
    }
 
    preview(): void {
-      this.modelService.getModel(
-         PortalUrlConstants.ACHIEVE_ARTICLE + this.model.id)
-         .subscribe(achievedSr =>
-      {
-         this.router.navigateByUrl(
-            "portal/article/" + encodeURIComponent(achievedSr["url"]),
-            {
-               skipLocationChange: true
-            }).then();
-      });
+      this.router.navigateByUrl("portal/article/" + this.model.id,
+         {
+            skipLocationChange: true
+         }).then();
    }
 }

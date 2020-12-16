@@ -29,6 +29,10 @@ public class AchievedSubjectController {
    public ArchivedSubjectModel getAchievedSubjectBySr(@PathVariable("srId") int srId) {
       ArchivedSubject archivedSubject = archivedService.get(srId);
 
+      if(archivedSubject == null) {
+         return null;
+      }
+
       return new ArchivedSubjectModel(archivedSubject);
    }
 

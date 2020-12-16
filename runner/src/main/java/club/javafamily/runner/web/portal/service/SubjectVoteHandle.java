@@ -63,8 +63,7 @@ public class SubjectVoteHandle {
       boolean deletable = !subjectRequest.isArchived()
          && (Objects.equals(getUserAccount(currUser), getUserAccount(srUser))
          || SecurityUtil.isAdmin(currUser));
-      boolean canArchive = !subjectRequest.isArchived()
-         && SecurityUtil.isAdmin(currUser);
+      boolean canArchive = SecurityUtil.isAdmin(currUser);
 
       vo.setId(id);
       vo.setCreateDate(subjectRequest.getCreateDate());
