@@ -62,7 +62,7 @@ export class MatTreeViewComponent implements OnInit {
 
    ngOnInit(): void {
       if(this.expandFirst && !Tool.isEmpty(this.dataSource.data)) {
-         this.treeControl.expand(this.dataSource.data[0])
+         this.treeControl.expand(this.dataSource.data[0]);
       }
    }
 

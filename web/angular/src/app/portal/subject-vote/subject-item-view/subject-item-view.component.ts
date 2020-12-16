@@ -114,7 +114,12 @@ export class SubjectItemViewComponent implements OnInit {
       });
    }
 
-   preview(): void {
+   preview(event?: MouseEvent): void {
+      if(!!event) {
+         event.stopPropagation();
+         event.preventDefault();
+      }
+
       this.router.navigateByUrl("portal/article/" + this.model.id,
          {
             skipLocationChange: true

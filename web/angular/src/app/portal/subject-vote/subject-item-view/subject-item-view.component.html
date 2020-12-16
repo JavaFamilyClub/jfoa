@@ -2,7 +2,7 @@
   <mat-expansion-panel class="rounded-0" hideToggle>
     <mat-expansion-panel-header class="subject-item-view-header">
       <mat-panel-title>
-        <span title="{{'Achieved' | translate}}">
+        <span title="{{'Achieved' | translate}}" (click)="preview($event)">
           {{model.subject}}
 
           <i *ngIf="model.archived"
