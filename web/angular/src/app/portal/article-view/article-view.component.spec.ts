@@ -20,35 +20,40 @@ import { TestUtils } from "../../common/test/test-utils";
 import { ArticleViewComponent } from "./article-view.component";
 
 describe("ArticleViewComponent", () => {
-  let component: ArticleViewComponent;
-  let fixture: ComponentFixture<ArticleViewComponent>;
+   let component: ArticleViewComponent;
+   let fixture: ComponentFixture<ArticleViewComponent>;
 
-  beforeEach(waitForAsync(() => {
-    let translate = TestUtils.createTranslateService();
+   beforeEach(waitForAsync(() => {
+      let translate = TestUtils.createTranslateService();
+      let modelService = TestUtils.createModelService();
 
-    TestBed.configureTestingModule({
-      imports: [
-         TranslateModule,
-         RouterTestingModule
-      ],
-      providers: [
-        {
-          provide: TranslateService,
-          useValue: translate
-        }
-      ],
-      declarations: [ ArticleViewComponent ]
-    })
-    .compileComponents();
-  }));
+      TestBed.configureTestingModule({
+         imports: [
+            TranslateModule,
+            RouterTestingModule
+         ],
+         providers: [
+            {
+               provide: TranslateService,
+               useValue: translate
+            },
+            {
+               provide: modelService,
+               useValue: modelService
+            }
+         ],
+         declarations: [ ArticleViewComponent ]
+      })
+         .compileComponents();
+   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ArticleViewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+   beforeEach(() => {
+      fixture = TestBed.createComponent(ArticleViewComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+   });
 
-  it("should create", () => {
-    expect(component).toBeTruthy();
-  });
+   it("should create", () => {
+      expect(component).toBeTruthy();
+   });
 });
