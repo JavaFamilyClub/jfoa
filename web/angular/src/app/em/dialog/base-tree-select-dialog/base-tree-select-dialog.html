@@ -1,7 +1,8 @@
 <h1 mat-dialog-title class="mat-dialog-title">{{title}}</h1>
 
 <div mat-dialog-content *ngIf="!!tree" class="mat-dialog-content">
-  <mat-tree-view [data]="tree" [selectedNodes]="selectedTreeNodes"
+  <mat-tree-view [showRoot]="showRoot"
+                 [data]="tree" [selectedNodes]="selectedTreeNodes"
                  [onlyLeafSelect]="true" [multipleSelect]="true"
                  [isDisabledNode]="isDisabledNode"
                  (onSelectNode)="onSelectNode($event)"></mat-tree-view>

@@ -81,6 +81,7 @@ export class RoleAssignedToCardComponent implements OnInit {
          data: {
             treeUrl: EmUrlConstants.USERS_TREE,
             title: this.translate.instant("em.user.dialog.addUser"),
+            showRoot: true,
             isDisabledNode: (node): boolean => {
                return this.model?.items.some(
                   item => item.id == node.data.id);

@@ -49,7 +49,7 @@ public class Role implements Serializable {
   @Column
   private boolean administrator;
 
-  @Cascade({org.hibernate.annotations.CascadeType.DELETE})
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   @OneToMany(targetEntity = Permission.class, fetch = FetchType.LAZY)
   private Set<Permission> permissions;
 

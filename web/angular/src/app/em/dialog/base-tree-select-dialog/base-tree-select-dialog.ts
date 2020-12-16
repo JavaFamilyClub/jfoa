@@ -12,7 +12,7 @@
  * person.
  */
 
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, Input, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TreeControlService } from "../../../common/services/tree-control-service";
 import { ModelService } from "../../../widget/services/model.service";
@@ -32,6 +32,7 @@ export class BaseTreeSelectDialog implements OnInit {
    title: string;
    tree: TreeNodeModel;
    isDisabledNode: (node: TreeNodeModel) => boolean;
+   showRoot = false;
 
    constructor(private modelService: ModelService,
                private treeControl: TreeControlService,
@@ -42,6 +43,7 @@ export class BaseTreeSelectDialog implements OnInit {
       this.title = data.title;
       this.isDisabledNode = !!data.isDisabledNode
          ? data.isDisabledNode : (n) => false;
+      this.showRoot = !!data.showRoot;
    }
 
    ngOnInit(): void {
