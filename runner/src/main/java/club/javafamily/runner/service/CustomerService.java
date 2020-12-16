@@ -15,6 +15,7 @@
 package club.javafamily.runner.service;
 
 import club.javafamily.runner.domain.Customer;
+import club.javafamily.runner.domain.Role;
 import club.javafamily.runner.vo.CustomerVO;
 
 import java.util.List;
@@ -62,7 +63,17 @@ public interface CustomerService {
     *
     * @param user
     */
-   Customer updateCustomer(Customer user);
+   void updateCustomer(Customer user);
+
+   /**
+    * add role for user.
+    */
+   void addRole(Integer id, Role role);
+
+   /**
+    * delete role for user.
+    */
+   void deleteRole(Integer id, Integer roleId);
 
    /**
     * delete a user

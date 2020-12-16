@@ -22,6 +22,10 @@ public class UserHandler {
       return SecurityUtil.Anonymous;
    }
 
+   public static String getDisplayLabel(Customer user) {
+      return user.getName() + "(" + user.getAccount() + ")";
+   }
+
    @Autowired
    public UserHandler(CustomerService userService) {
       this.userService = userService;

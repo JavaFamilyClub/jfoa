@@ -45,6 +45,11 @@ export class EmUrlConstants {
    public static readonly USERS = "/users";
 
    /**
+    * Getting users tree
+    */
+   public static readonly USERS_TREE = "/users/tree";
+
+   /**
     * User api
     */
    public static readonly USER = "/user";

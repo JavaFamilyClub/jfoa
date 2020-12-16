@@ -18,13 +18,15 @@ import java.util.*;
 
 public class TreeNodeModel {
 
+   public static final String ROOT_PATH = "/";
+
    private String label;
    private String value;
    private List<TreeNodeModel> children = new ArrayList<>();
    private boolean leaf;
    private String tooltip;
    private boolean expanded;
-   private String type;
+   private Object type;
    private String path;
    private Object Data;
 
@@ -87,11 +89,11 @@ public class TreeNodeModel {
       return this;
    }
 
-   public String getType() {
+   public Object getType() {
       return type;
    }
 
-   public TreeNodeModel setType(String type) {
+   public TreeNodeModel setType(Object type) {
       this.type = type;
       return this;
    }

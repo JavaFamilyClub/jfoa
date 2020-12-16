@@ -13,9 +13,13 @@
  */
 
 import { Component, Input, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
+import { EmUrlConstants } from "../../../../../common/constants/url/em-url-constants";
 import { Tool } from "../../../../../common/util/tool";
 import { MatColumnIno } from "../../../../../widget/mat-table-view/mat-column-ino";
+import { TreeNodeModel } from "../../../../../widget/tree/model/tree-node-model";
+import { BaseTreeSelectDialog } from "../../../../dialog/base-tree-select-dialog/base-tree-select-dialog";
 import { AssignedToItem } from "./assigned-to-item";
 import { RoleAssignedToModel } from "./role-assigned-to-model";
 
@@ -28,7 +32,8 @@ export class RoleAssignedToCardComponent implements OnInit {
    @Input() model: RoleAssignedToModel;
    selectedItems: AssignedToItem[] = [];
 
-   constructor(private translate: TranslateService)
+   constructor(private dialog: MatDialog,
+               private translate: TranslateService)
    {
    }
 
@@ -60,12 +65,62 @@ export class RoleAssignedToCardComponent implements OnInit {
          },
          {
             label: this.translate.instant("Name"),
-            name: "name"
+            name: "label"
          }
       ];
    }
 
    private resetSelectedItems(): void {
       this.selectedItems = [];
+   }
+
+   openAddUserDialog(): void {
+      this.dialog.open(BaseTreeSelectDialog, {
+         height: "45vh",
+         minWidth: "30%",
+         data: {
+            treeUrl: EmUrlConstants.USERS_TREE,
+            title: this.translate.instant("em.user.dialog.addUser"),
+            isDisabledNode: (node): boolean => {
+               return this.model?.items.some(
+                  item => item.id == node.data.id);
+            }
+         }
+      }).afterClosed().subscribe((selectNodes: TreeNodeModel[]) => {
+         if(Tool.isEmpty(selectNodes)) {
+            return;
+         }
+
+         const newItems: AssignedToItem[] = [];
+
+         for(let node of selectNodes) {
+            newItems.push({
+               id: node.data.id,
+               label: node.label,
+               type: node.type
+            });
+         }
+
+         this.model.items = this.model.items.concat(newItems);
+      });
+   }
+
+   deleteSelectedUser(): void {
+      let currentItems = Tool.clone(this.model.items);
+
+      this.selectedItems.forEach(item => {
+         currentItems = currentItems.filter(it => !Tool.isEquals(it, item));
+      });
+
+      this.model.items = currentItems;
+      this.resetSelectedItems();
+   }
+
+   selectItem(item: AssignedToItem): void {
+      this.selectedItems.push(item);
+   }
+
+   onRowUnSelected(item: AssignedToItem): void {
+      this.selectedItems = this.selectedItems.filter(i => i != item);
    }
 }

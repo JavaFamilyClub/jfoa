@@ -160,10 +160,46 @@ public class CustomerServiceImpl implements CustomerService {
       }
    )
    @Override
-   public Customer updateCustomer(@AuditObject("getName()") Customer user) {
+   public void updateCustomer(@AuditObject("getName()") Customer user) {
       customerDao.update(user);
+   }
 
-      return customerDao.get(user.getId());
+   // TODO cache and audit
+   @Transactional
+   @CacheEvict(allEntries = true)
+   @Override
+   public void addRole(Integer id, Role role) {
+      Objects.requireNonNull(role.getId(), "Insert a non-persistent role for user");
+      Customer customer = getCustomer(id);
+      Set<Role> roles = customer.getRoles();
+
+      if(!roles.contains(role)) {
+         roles.add(role);
+         updateCustomer(customer);
+      }
+   }
+
+   // TODO cache and audit
+   @Transactional
+   @CacheEvict(allEntries = true)
+   @Override
+   public void deleteRole(Integer id, Integer roleId) {
+      if(id == null || roleId == null) {
+         LOGGER.warn("user id {} or role id {} is null.", id, roleId);
+         return;
+      }
+
+      Customer customer = getCustomer(id);
+      Set<Role> roles = customer.getRoles();
+
+      for(Role role : roles) {
+         if(Objects.equals(role.getId(), roleId)) {
+            roles.remove(role);
+            break;
+         }
+      }
+
+      updateCustomer(customer);
    }
 
    @Audit(value = ResourceEnum.Customer,

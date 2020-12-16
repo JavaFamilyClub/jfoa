@@ -19,7 +19,7 @@ export interface TreeNodeModel {
   leaf: boolean;
   tooltip: string; // tooltip
   expanded: boolean;
-  type: string;
+  type: any;
   path: string;
   data: any;
 }

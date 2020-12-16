@@ -3,12 +3,15 @@
 
   <mat-card-content *ngIf="!!model">
     <mat-table-view [cols]="cols" [data]="model.items"
-                    [selectedItems]="selectedItems" [clickToSelect]="false"
+                    [selectedItems]="selectedItems"
+                    [clickToSelect]="false"
+                    (onRowUnSelected)="onRowUnSelected($event)"
+                    (onRowSelected)="selectItem($event)"
     ></mat-table-view>
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-button>{{'Add' | translate}}</button>
-    <button mat-button>{{'Delete' | translate}}</button>
+    <button mat-button (click)="openAddUserDialog()">{{'Add' | translate}}</button>
+    <button mat-button (click)="deleteSelectedUser()">{{'Delete' | translate}}</button>
   </mat-card-actions>
 </mat-card>

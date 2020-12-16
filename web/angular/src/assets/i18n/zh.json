@@ -50,6 +50,7 @@
    "Resource": "资源",
    "Action": "行为",
    "User": "用户",
+   "Users": "用户",
    "Date": "日期",
    "Search": "搜索",
    "Delete": "删除",
@@ -198,7 +199,10 @@
          "uploadInstaller": "上传安装包"
       },
       "user": {
-         "manager": "用户管理"
+         "manager": "用户管理",
+         "dialog": {
+            "addUser": "添加用户"
+         }
       },
       "role": {
          "name": "角色名称",

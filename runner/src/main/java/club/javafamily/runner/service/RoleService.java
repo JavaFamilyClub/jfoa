@@ -16,8 +16,7 @@ package club.javafamily.runner.service;
 
 import club.javafamily.runner.domain.Permission;
 import club.javafamily.runner.domain.Role;
-import club.javafamily.runner.web.em.settings.model.ResourceItemSettingModel;
-import club.javafamily.runner.web.em.settings.model.RoleVo;
+import club.javafamily.runner.web.em.settings.model.*;
 
 import java.util.List;
 
@@ -38,6 +37,8 @@ public interface RoleService {
    Integer addRole(Role role);
 
    void updateRole(Role role);
+
+   void updateRole(RoleEditViewModel model);
 
    void insertPermission(Integer roleId, Permission permission);
 

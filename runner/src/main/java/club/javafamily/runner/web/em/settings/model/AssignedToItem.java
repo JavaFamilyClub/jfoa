@@ -17,15 +17,25 @@ package club.javafamily.runner.web.em.settings.model;
 import club.javafamily.commons.enums.ResourceSettingType;
 
 public class AssignedToItem {
-   private String name;
+   private Integer id;
+   private String label;
    private ResourceSettingType type;
 
    public AssignedToItem() {
    }
 
-   public AssignedToItem(String name, ResourceSettingType type) {
-      this.name = name;
+   public AssignedToItem(Integer id, String label, ResourceSettingType type) {
+      this.id = id;
+      this.label = label;
       this.type = type;
+   }
+
+   public Integer getId() {
+      return id;
+   }
+
+   public void setId(Integer id) {
+      this.id = id;
    }
 
    public ResourceSettingType getType() {
@@ -36,11 +46,11 @@ public class AssignedToItem {
       this.type = type;
    }
 
-   public String getName() {
-      return name;
+   public String getLabel() {
+      return label;
    }
 
-   public void setName(String name) {
-      this.name = name;
+   public void setLabel(String label) {
+      this.label = label;
    }
 }

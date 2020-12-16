@@ -15,6 +15,7 @@
 import { ResourceSettingType } from "../../../../../common/enum/resource-setting-type";
 
 export interface AssignedToItem {
+   id: number;
    type: ResourceSettingType;
-   name: string;
+   label: string;
 }

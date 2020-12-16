@@ -50,6 +50,7 @@
    "Resource": "Resource",
    "Action": "Action",
    "User": "User",
+   "Users": "Users",
    "Date": "Date",
    "Search": "Search",
    "Delete": "Delete",
@@ -198,7 +199,10 @@
          "uploadInstaller": "Upload Installer"
       },
       "user": {
-         "manager": "User Manager"
+         "manager": "User Manager",
+         "dialog": {
+            "addUser": "Add User"
+         }
       },
       "role": {
          "name": "Role Name",

@@ -49,7 +49,7 @@ public class Role implements Serializable {
   @Column
   private boolean administrator;
 
-  @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+  @Cascade({org.hibernate.annotations.CascadeType.DELETE})
   @OneToMany(targetEntity = Permission.class, fetch = FetchType.LAZY)
   private Set<Permission> permissions;
 
@@ -116,11 +116,11 @@ public class Role implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o){
+    if(this == o){
       return true;
     }
 
-    if (o == null || getClass() != o.getClass()) {
+    if(o == null || getClass() != o.getClass()) {
       return false;
     }
 

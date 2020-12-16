@@ -14,9 +14,12 @@
 
 package club.javafamily.runner.web.em.settings.user;
 
+import club.javafamily.commons.enums.ResourceSettingType;
 import club.javafamily.runner.common.MessageException;
+import club.javafamily.runner.common.model.data.TreeNodeModel;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.service.CustomerService;
+import club.javafamily.runner.service.UserHandler;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.web.em.settings.model.CustomerVO;
@@ -54,6 +57,36 @@ public class UsersController {
          .collect(Collectors.toList());
 
       return new UserManagerModel(voList);
+   }
+
+   @RequiresUser
+   @ApiOperation(
+      value = "Get users tree",
+      httpMethod = "GET",
+      response = TreeNodeModel.class
+   )
+   @GetMapping("/users/tree")
+   public TreeNodeModel getUsersTree() {
+      List<Customer> users = customerService.getCustomers();
+
+      List<TreeNodeModel> children = users.stream()
+         .map(this::buildUserNode)
+         .collect(Collectors.toList());
+
+      return TreeNodeModel.build()
+         .setLabel(I18nUtil.getString("Users"))
+         .setPath(TreeNodeModel.ROOT_PATH)
+         .setChildren(children)
+         .setType(ResourceSettingType.User);
+   }
+
+   private TreeNodeModel buildUserNode(Customer user) {
+      return TreeNodeModel.build()
+         .setLabel(UserHandler.getDisplayLabel(user))
+         .setValue(user.getId() + "")
+         .setData(CustomerVO.buildFromDomain(user))
+         .setPath(TreeNodeModel.ROOT_PATH + "/" + user.getId())
+         .setType(ResourceSettingType.User);
    }
 
    @RequiresUser

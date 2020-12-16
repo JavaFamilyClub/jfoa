@@ -23,7 +23,7 @@ import club.javafamily.runner.domain.*;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.*;
 import club.javafamily.runner.util.*;
-import club.javafamily.runner.web.em.settings.model.ResourceItemSettingModel;
+import club.javafamily.runner.web.em.settings.model.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -167,6 +167,35 @@ public class RoleServiceImpl implements RoleService {
    @Override
    public void updateRole(@AuditObject("getName()") Role role) {
       roleDao.update(role);
+   }
+
+   @Audit(
+      value = ResourceEnum.Role,
+      actionType = ActionType.MODIFY
+   )
+   @Transactional
+   @Override
+   public void updateRole(@AuditObject("getRole().getName()") RoleEditViewModel model) {
+      RoleVo roleModel = model.getRole();
+
+      if(roleModel.getId() == null) {
+         LOGGER.warn("Role not found.");
+         return;
+      }
+
+      Integer id = roleModel.getId();
+
+      Role role = getRole(id);
+
+      // update role info
+      roleModel.updateDomain(role);
+
+      // update role users
+      RoleAssignedToModel assignedToModel = model.getAssignedToModel();
+
+      // TODO update assignedTo model
+
+      updateRole(role);
    }
 
    @Transactional
