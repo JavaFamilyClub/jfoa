@@ -13,6 +13,11 @@
           <ng-template #textHeader>{{col.label}}</ng-template>
         </th>
         <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="col.iconFunc">
+            <mat-icon class="jfoa jfoa-icon-size-h-left"
+                      [fontIcon]="col.iconFunc(element[col.name])"></mat-icon>
+          </ng-container>
+
           <ng-container *ngIf="col.cellCheckbox">
             <mat-checkbox [ngModel]="col.headerCheckbox ? isSelected(element) : element[col.name]"
                           (ngModelChange)="cellChecked(element, col, $event)"
@@ -24,7 +29,7 @@
               >{{col.btnElement.label}}</button>
           </ng-container>
 
-          <ng-container *ngIf="!!!col.btnElement && !!!col.cellCheckbox">
+          <ng-container *ngIf="!!!col.btnElement && !!!col.cellCheckbox && !!!col.onlyIcon">
             {{col.valueFunc ? col.valueFunc(element, col.name) : element[col.name]}}
           </ng-container>
         </td>

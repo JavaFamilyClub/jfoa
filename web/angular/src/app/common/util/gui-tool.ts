@@ -22,6 +22,7 @@ import { isString, isBoolean, isNumber, isArray } from "util";
 import { Dimension } from "../data/dimension";
 import { TreeNodeModel } from "../../widget/tree/model/tree-node-model";
 import { Gender } from "../enum/gender";
+import { ResourceSettingType } from "../enum/resource-setting-type";
 import { UserType } from "../enum/user-type";
 import { Tool } from "./tool";
 import { NetTool } from "./net-tool";
@@ -780,4 +781,16 @@ export namespace GuiTool {
       }
    }
 
+   export function getResourceSettingIcon(type: number): string {
+      switch(type) {
+         case ResourceSettingType.User:
+            return "icon-account";
+         case ResourceSettingType.Role:
+            return "icon-role";
+         case ResourceSettingType.Group:
+            return "icon-group";
+         default:
+            return null;
+      }
+   }
 }

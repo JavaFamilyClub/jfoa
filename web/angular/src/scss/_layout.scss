@@ -4,6 +4,11 @@
    margin-right: 5px;
 }
 
+.jfoa-icon-size-h-left {
+   @extend .jfoa-icon-size;
+   text-align: left !important;
+}
+
 .title-bar-container {
    height: $title-bar-height;
    width: 100%;

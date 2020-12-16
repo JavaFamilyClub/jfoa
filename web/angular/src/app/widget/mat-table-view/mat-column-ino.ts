@@ -16,7 +16,8 @@ export interface MatColumnIno {
    label?: string;
    name: string;
    valueFunc?: (elem: any, prop: string) => string;
-   iconFunc?: (elem: any) => string;
+   iconFunc?: (value: any) => string;
+   onlyIcon?: boolean;
    btnElement?: {
       label: string;
       action: (elem: any) => void;

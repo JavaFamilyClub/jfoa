@@ -18,6 +18,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { EmUrlConstants } from "../../../../common/constants/url/em-url-constants";
 import { ResourceSettingType } from "../../../../common/enum/resource-setting-type";
 import { TreeControlService } from "../../../../common/services/tree-control-service";
+import { GuiTool } from "../../../../common/util/gui-tool";
 import { Tool } from "../../../../common/util/tool";
 import { MatColumnIno } from "../../../../widget/mat-table-view/mat-column-ino";
 import { ModelService } from "../../../../widget/services/model.service";
@@ -111,7 +112,11 @@ export class ResourcesManagerComponent implements OnInit {
          },
          {
             label: this.translate.instant("Type"),
-            name: "type"
+            name: "type",
+            onlyIcon: true,
+            iconFunc: type => {
+               return GuiTool.getResourceSettingIcon(type);
+            }
          },
          {
             label: this.translate.instant("Name"),

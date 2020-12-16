@@ -1,4 +1,4 @@
-$jfoa-font-cache-buster: "8m2ypw729fyhn7e2b8k1u6uqfc";
+$jfoa-font-cache-buster: "xxkpjdj00ebf2qbfxapz89xper";
 
 $icon-account: "\ea01";
 $icon-alarm: "\ea02";
@@ -12,23 +12,25 @@ $icon-en2zh: "\ea09";
 $icon-export_import: "\ea0a";
 $icon-export: "\ea0b";
 $icon-file-select: "\ea0c";
-$icon-help: "\ea0d";
-$icon-home: "\ea0e";
-$icon-like: "\ea0f";
-$icon-logout: "\ea10";
-$icon-mail-send: "\ea11";
-$icon-mail-write: "\ea12";
-$icon-menu-off: "\ea13";
-$icon-menu-on: "\ea14";
-$icon-monitor: "\ea15";
-$icon-notify: "\ea16";
-$icon-pressing: "\ea17";
-$icon-refresh: "\ea18";
-$icon-search: "\ea19";
-$icon-section-achieve: "\ea1a";
-$icon-setting: "\ea1b";
-$icon-volume_up: "\ea1c";
-$icon-zh2en: "\ea1d";
+$icon-group: "\ea0d";
+$icon-help: "\ea0e";
+$icon-home: "\ea0f";
+$icon-like: "\ea10";
+$icon-logout: "\ea11";
+$icon-mail-send: "\ea12";
+$icon-mail-write: "\ea13";
+$icon-menu-off: "\ea14";
+$icon-menu-on: "\ea15";
+$icon-monitor: "\ea16";
+$icon-notify: "\ea17";
+$icon-pressing: "\ea18";
+$icon-refresh: "\ea19";
+$icon-role: "\ea1a";
+$icon-search: "\ea1b";
+$icon-section-achieve: "\ea1c";
+$icon-setting: "\ea1d";
+$icon-volume_up: "\ea1e";
+$icon-zh2en: "\ea1f";
 
 $jfoa-base-map: (
   icon-account: $icon-account,
@@ -43,6 +45,7 @@ $jfoa-base-map: (
   icon-export_import: $icon-export_import,
   icon-export: $icon-export,
   icon-file-select: $icon-file-select,
+  icon-group: $icon-group,
   icon-help: $icon-help,
   icon-home: $icon-home,
   icon-like: $icon-like,
@@ -55,6 +58,7 @@ $jfoa-base-map: (
   icon-notify: $icon-notify,
   icon-pressing: $icon-pressing,
   icon-refresh: $icon-refresh,
+  icon-role: $icon-role,
   icon-search: $icon-search,
   icon-section-achieve: $icon-section-achieve,
   icon-setting: $icon-setting,
