@@ -16,6 +16,7 @@ import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { TestUtils } from "../../common/test/test-utils";
+import { ModelService } from "../../widget/services/model.service";
 
 import { ArticleViewComponent } from "./article-view.component";
 
@@ -38,7 +39,7 @@ describe("ArticleViewComponent", () => {
                useValue: translate
             },
             {
-               provide: modelService,
+               provide: ModelService,
                useValue: modelService
             }
          ],
