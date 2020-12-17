@@ -16,6 +16,7 @@ package club.javafamily.runner.util;
 
 import club.javafamily.commons.enums.PermissionEnum;
 import club.javafamily.runner.domain.*;
+import club.javafamily.runner.enums.ResourceEnum;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,7 +71,7 @@ public final class SecurityUtil {
 
       sb.append(PART_DIVIDER_TOKEN);
 
-      sb.append(permission.getResource());
+      sb.append(ResourceEnum.parse(permission.getResource()).getPermissionFlag());
 
       sb.append(PART_DIVIDER_TOKEN);
 
