@@ -12,24 +12,16 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
-import { Searchable } from "../../../common/annotation/searchable";
-import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
-import { ModelService } from "../../../widget/services/model.service";
+import { Component, OnInit } from '@angular/core';
+import { EmUrlConstants } from "../../../../common/constants/url/em-url-constants";
+import { ModelService } from "../../../../widget/services/model.service";
 
-@Searchable({
-   title: "System Monitor",
-   route: "/em/monitor/system-monitor",
-   keywords: [
-      "system"
-   ]
-})
 @Component({
-   selector: "system-monitor",
-   templateUrl: "./system-monitor.component.html",
-   styleUrls: ["./system-monitor.component.scss"]
+   selector: 'system-summary-view',
+   templateUrl: './system-summary-view.component.html',
+   styleUrls: ['./system-summary-view.component.scss']
 })
-export class SystemMonitorComponent implements OnInit {
+export class SystemSummaryViewComponent implements OnInit {
    model: any;
 
    constructor(private modelService: ModelService) { }

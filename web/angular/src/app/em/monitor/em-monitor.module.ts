@@ -34,14 +34,13 @@ import { AuditView } from "./audit/audit-view.component";
 import { EmMonitorRoutingModule } from "./em-monitor-routing.module";
 import { EmMonitorComponent } from "./em-monitor.component";
 import { SubjectRequestMonitor } from "./subject-request-monitor/subject-request-monitor.component";
-import { SystemMonitorComponent } from './system-monitor/system-monitor.component';
+import { EmSystemMonitorModule } from "./system-monitor/em-system-monitor.module";
 
 @NgModule({
    declarations: [
       EmMonitorComponent,
       AuditView,
-      SubjectRequestMonitor,
-      SystemMonitorComponent,
+      SubjectRequestMonitor
    ],
    imports: [
       CommonModule,
@@ -62,7 +61,8 @@ import { SystemMonitorComponent } from './system-monitor/system-monitor.componen
       MatDatepickerModule,
       MatMomentDateModule,
       TranslateModule,
-      WidgetModule
+      WidgetModule,
+      EmSystemMonitorModule
    ],
    entryComponents: [
    ],

@@ -1,3 +1,8 @@
-<div>
-  System Monitor.
-</div>
+<nav mat-tab-nav-bar mat-align-tabs="center">
+  <a mat-tab-link
+     routerLink="./summary"
+     routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">{{'Summary' | translate}}</a>
+</nav>
+
+<router-outlet></router-outlet>

@@ -28,7 +28,7 @@ const appRoutes: Routes = [
       children: [
          {
             path: "system-monitor",
-            component: SystemMonitorComponent
+            loadChildren: () => import("./system-monitor/em-system-monitor.module").then(m => m.EmSystemMonitorModule)
          },
          {
             path: "subject-request",
