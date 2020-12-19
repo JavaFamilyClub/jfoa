@@ -19,12 +19,17 @@ import { SearchResultComponent } from "../search-result/search-result.component"
 import { AuditView } from "./audit/audit-view.component";
 import { EmMonitorComponent } from "./em-monitor.component";
 import { SubjectRequestMonitor } from "./subject-request-monitor/subject-request-monitor.component";
+import { SystemMonitorComponent } from "./system-monitor/system-monitor.component";
 
 const appRoutes: Routes = [
    {
       path: "",
       component: EmMonitorComponent,
       children: [
+         {
+            path: "system-monitor",
+            component: SystemMonitorComponent
+         },
          {
             path: "subject-request",
             component: SubjectRequestMonitor
@@ -43,7 +48,7 @@ const appRoutes: Routes = [
          },
          {
             path: "**",
-            redirectTo: "subject-request"
+            redirectTo: "system-monitor"
          }
       ]
    }

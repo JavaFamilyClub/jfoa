@@ -99,4 +99,9 @@ export class EmUrlConstants {
     */
    public static readonly SECURITY_RESOURCES_PERMISSION_TREE = "/security/resources/permission/tree";
 
+   /**
+    * Getting em system monitor model
+    */
+   public static readonly MONITOR_SYSTEM = "/em/monitor/system";
+
 }

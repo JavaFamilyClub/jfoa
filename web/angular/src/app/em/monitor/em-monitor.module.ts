@@ -34,12 +34,14 @@ import { AuditView } from "./audit/audit-view.component";
 import { EmMonitorRoutingModule } from "./em-monitor-routing.module";
 import { EmMonitorComponent } from "./em-monitor.component";
 import { SubjectRequestMonitor } from "./subject-request-monitor/subject-request-monitor.component";
+import { SystemMonitorComponent } from './system-monitor/system-monitor.component';
 
 @NgModule({
    declarations: [
       EmMonitorComponent,
       AuditView,
       SubjectRequestMonitor,
+      SystemMonitorComponent,
    ],
    imports: [
       CommonModule,
