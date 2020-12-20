@@ -18,10 +18,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Observable, Subscription, timer as observableTimer } from "rxjs";
 import { Searchable } from "../../../../common/annotation/searchable";
 import { EmUrlConstants } from "../../../../common/constants/url/em-url-constants";
-import { ComponentTool } from "../../../../common/util/component-tool";
-import { I18nUtil } from "../../../../common/util/i18n-util";
 import { DownloadService } from "../../../../download/download.service";
-import { BaseSubscription } from "../../../../widget/base/BaseSubscription";
 import { MatMessageDialog } from "../../../../widget/dialog/mat-message-dialog";
 import { MatMsgModel } from "../../../../widget/dialog/mat-msg-model";
 import { ModelService } from "../../../../widget/services/model.service";
@@ -67,19 +64,11 @@ export class SystemSummaryViewComponent implements OnInit, OnDestroy {
             }
 
             this.stopRefreshBeat();
-            let errMsg = error?.message ?? error;
-
-            if(!!errMsg) {
-               errMsg += ("\n" + this.translate.instant("em.system.summary.reConnectMsg"));
-            }
-            else {
-               errMsg = this.translate.instant("em.system.summary.reConnectMsg");
-            }
 
             this.dialog.open(MatMessageDialog, {
                data: {
                   title: this.translate.instant("Confirm"),
-                  message: errMsg,
+                  message: this.translate.instant("em.system.summary.reConnectMsg"),
                   confirm: true
                } as MatMsgModel
             }).afterClosed().subscribe(result => {
