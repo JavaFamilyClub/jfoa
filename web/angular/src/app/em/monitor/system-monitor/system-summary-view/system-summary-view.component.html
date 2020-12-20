@@ -25,10 +25,16 @@
     <section class="flex-row">
       <section class="flex">
         <div class="server-status-container">
-          <button mat-raised-button (click)="downThreadDump()">Get Thread Dump</button>
-          <button mat-raised-button>Get Heap Dump</button>
+          <button mat-raised-button (click)="downThreadDump()"
+            >{{'em.system.summary.getThreadDump' | translate}}</button>
+          <button mat-raised-button (click)="gc()"
+            >{{'em.system.summary.GC' | translate}}</button>
         </div>
       </section>
     </section>
   </div>
+
+  <mat-grid-list cols="2">
+
+  </mat-grid-list>
 </div>

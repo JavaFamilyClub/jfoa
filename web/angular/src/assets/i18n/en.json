@@ -174,6 +174,9 @@
             "serverUptime": "Server Uptime",
             "cpuPercent": "CPU Percent",
             "memoryPercent": "Memory Percent",
+            "getThreadDump": "Get Thread Dump",
+            "GC": "GC",
+            "gcRunMsg": "This is merely a recommendation that the JVM perform gc, not necessarily immediately.",
             "reConnectMsg": "Connect server error. re-connect?"
          }
       },

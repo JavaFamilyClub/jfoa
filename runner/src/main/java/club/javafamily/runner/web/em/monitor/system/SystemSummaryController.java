@@ -79,5 +79,10 @@ public class SystemSummaryController {
       }
    }
 
+   @GetMapping("/em/monitor/system/gc")
+   public void gc() {
+      System.gc();
+   }
+
    private final ServerMBean serverMBean;
 }

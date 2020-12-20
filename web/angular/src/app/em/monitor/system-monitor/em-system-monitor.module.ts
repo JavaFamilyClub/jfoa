@@ -17,6 +17,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatGridListModule } from "@angular/material/grid-list";
 import { MatTabsModule } from "@angular/material/tabs";
 import { TranslateModule } from "@ngx-translate/core";
 import { WidgetModule } from "../../../widget/widget.module";
@@ -38,7 +39,8 @@ import { SystemSummaryViewComponent } from "./system-summary-view/system-summary
       WidgetModule,
       MatTabsModule,
       MatCardModule,
-      MatButtonModule
+      MatButtonModule,
+      MatGridListModule
    ],
    entryComponents: [
    ],

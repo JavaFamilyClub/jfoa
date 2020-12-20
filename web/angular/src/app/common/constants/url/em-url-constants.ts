@@ -109,4 +109,14 @@ export class EmUrlConstants {
     */
    public static readonly MONITOR_SYSTEM_THREAD_DUMP = "/em/monitor/system/thread-dump";
 
+   /**
+    * Download heap dump
+    */
+   public static readonly MONITOR_SYSTEM_HEAP_DUMP = "/em/monitor/system/heap-dump";
+
+   /**
+    * Download heap dump
+    */
+   public static readonly MONITOR_SYSTEM_GC = "/em/monitor/system/gc";
+
 }

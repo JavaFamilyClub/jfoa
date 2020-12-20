@@ -14,6 +14,7 @@
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable, Subscription, timer as observableTimer } from "rxjs";
 import { Searchable } from "../../../../common/annotation/searchable";
@@ -46,6 +47,7 @@ export class SystemSummaryViewComponent implements OnInit, OnDestroy {
    private reconnectCount = 0;
 
    constructor(private dialog: MatDialog,
+               private snackBar: MatSnackBar,
                private modelService: ModelService,
                private translate: TranslateService,
                private downloadService: DownloadService)
@@ -107,5 +109,12 @@ export class SystemSummaryViewComponent implements OnInit, OnDestroy {
 
    downThreadDump(): void {
       this.downloadService.download(EmUrlConstants.MONITOR_SYSTEM_THREAD_DUMP);
+   }
+
+   gc(): void {
+      this.modelService.getModel(EmUrlConstants.MONITOR_SYSTEM_GC).subscribe(() => {
+         this.snackBar.open(this.translate.instant("em.system.summary.gcRunMsg"),
+            this.translate.instant("Close"));
+      });
    }
 }
