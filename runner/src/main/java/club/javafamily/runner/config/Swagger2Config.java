@@ -43,7 +43,7 @@ public class Swagger2Config {
          .title("JavaFamily OA APIs")
          .version("0.1.0")
          .description("JavaFamily OA RESTful APIs")
-         .contact(new Contact("JavaFamily", Tool.USER_DOCUMENT_URI, "javafamily.club@outlook.com"))
+         .contact(new Contact(Tool.PROJECT_MAIN, Tool.USER_DOCUMENT_URI, "javafamily.club@outlook.com"))
          .build();
    }
 }

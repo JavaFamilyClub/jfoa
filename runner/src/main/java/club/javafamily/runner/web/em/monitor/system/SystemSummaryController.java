@@ -14,18 +14,27 @@
 
 package club.javafamily.runner.web.em.monitor.system;
 
-import club.javafamily.runner.util.I18nUtil;
-import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.commons.utils.ExportUtil;
+import club.javafamily.commons.utils.Tool;
+import club.javafamily.runner.util.*;
+import club.javafamily.runner.web.admin.ServerMBean;
 import club.javafamily.runner.web.em.monitor.model.SystemMonitorSummaryModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStreamWriter;
+import java.lang.management.*;
 import java.util.Date;
 
 @RestController
 @RequestMapping(SecurityUtil.API_VERSION)
 public class SystemSummaryController {
+
+   @Autowired
+   public SystemSummaryController(ServerMBean serverMBean) {
+      this.serverMBean = serverMBean;
+   }
 
    @GetMapping("/em/monitor/system/summary")
    public SystemMonitorSummaryModel getSummaryModel() {
@@ -37,7 +46,38 @@ public class SystemSummaryController {
       long uptime = runtimeMXBean.getUptime();
       model.setServerStartUpTime(I18nUtil.parseTime(uptime));
 
+      model.setCpuLoadPercent(serverMBean.cpuUsagePercent());
+      model.setMemoryPercent(serverMBean.memoryPercent());
+
       return model;
    }
 
+   @GetMapping("/em/monitor/system/thread-dump")
+   public void downLoadThreadDump(HttpServletResponse response) {
+      String fileName = Tool.PROJECT_MAIN + "-thread";
+
+      try {
+         fileName = fileName + "-" + WebMvcUtil.getIP().replaceAll("\\.", "-");
+      }
+      catch(Exception ignore) {
+      }
+
+      fileName += ".txt";
+      ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+      ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(true, true);
+
+      ExportUtil.writeDownloadHeader(response, fileName);
+
+      try(OutputStreamWriter out = new OutputStreamWriter(response.getOutputStream())) {
+         for(ThreadInfo threadInfo : threadInfos) {
+            out.write("---------------------------------------------------------------\n");
+            out.write(threadInfo.toString());
+         }
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+   private final ServerMBean serverMBean;
 }

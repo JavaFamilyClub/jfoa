@@ -23,6 +23,24 @@ public class SystemMonitorSummaryModel {
    @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = Tool.DEFAULT_TIME_ZONE_STR)
    private Date serverTime;
    private String serverStartUpTime;
+   private int cpuLoadPercent;
+   private int memoryPercent;
+
+   public int getMemoryPercent() {
+      return memoryPercent;
+   }
+
+   public void setMemoryPercent(int memoryPercent) {
+      this.memoryPercent = memoryPercent;
+   }
+
+   public int getCpuLoadPercent() {
+      return cpuLoadPercent;
+   }
+
+   public void setCpuLoadPercent(int cpuLoadPercent) {
+      this.cpuLoadPercent = cpuLoadPercent;
+   }
 
    public Date getServerTime() {
       return serverTime;

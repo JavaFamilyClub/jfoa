@@ -10,6 +10,14 @@
             <th>{{'em.system.summary.serverUptime' | translate}}:</th>
             <td>{{model.serverStartUpTime}}</td>
           </tr>
+
+          <tr>
+            <th>{{'em.system.summary.cpuPercent' | translate}}:</th>
+            <td>{{model.cpuLoadPercent}} %</td>
+
+            <th>{{'em.system.summary.memoryPercent' | translate}}:</th>
+            <td>{{model.memoryPercent}} %</td>
+          </tr>
         </table>
       </div>
     </section>
@@ -17,7 +25,7 @@
     <section class="flex-row">
       <section class="flex">
         <div class="server-status-container">
-          <button mat-raised-button>Get Thread Dump</button>
+          <button mat-raised-button (click)="downThreadDump()">Get Thread Dump</button>
           <button mat-raised-button>Get Heap Dump</button>
         </div>
       </section>

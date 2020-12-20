@@ -327,6 +327,10 @@ public class Tool {
          : Objects.toString(basePath, "") + pathSegment;
    }
 
+   public static double getPercent(double total, double part) {
+      return 100.0D * part / total;
+   }
+
    private static final String CACHE_DIR = "/cache";
    public static SecureRandom getSecureRandom() {
       return secureRandom;

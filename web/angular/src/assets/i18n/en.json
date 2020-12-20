@@ -171,7 +171,9 @@
       "system": {
          "summary": {
             "serverTime": "Server Time",
-            "serverUptime": "Server Uptime"
+            "serverUptime": "Server Uptime",
+            "cpuPercent": "CPU Percent",
+            "memoryPercent": "Memory Percent"
          }
       },
       "audit": {

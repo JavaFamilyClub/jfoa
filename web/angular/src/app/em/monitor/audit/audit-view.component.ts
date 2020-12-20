@@ -139,8 +139,7 @@ export class AuditView implements OnInit {
             .set("endDate", (this.filter?.endDate?.getTime() ?? -1) + "")
          ;
 
-         const url = GuiTool.appendParams(
-            Tool.API_VERSION + EmUrlConstants.AUDIT_EXPORT, params);
+         const url = GuiTool.appendParams(EmUrlConstants.AUDIT_EXPORT, params);
 
          this.downloadService.download(url);
        });

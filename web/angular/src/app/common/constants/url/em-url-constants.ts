@@ -104,4 +104,9 @@ export class EmUrlConstants {
     */
    public static readonly MONITOR_SYSTEM_SUMMARY = "/em/monitor/system/summary";
 
+   /**
+    * Download thread dump
+    */
+   public static readonly MONITOR_SYSTEM_THREAD_DUMP = "/em/monitor/system/thread-dump";
+
 }

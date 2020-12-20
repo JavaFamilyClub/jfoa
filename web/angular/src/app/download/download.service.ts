@@ -14,6 +14,7 @@
 
 import { Injectable, OnDestroy } from "@angular/core";
 import { Observable, Subject } from "rxjs";
+import { Tool } from "../common/util/tool";
 
 @Injectable()
 export class DownloadService implements OnDestroy {
@@ -28,6 +29,6 @@ export class DownloadService implements OnDestroy {
    }
 
    download(url: string): void {
-      this._url.next(url);
+      this._url.next(Tool.API_VERSION + url);
    }
 }

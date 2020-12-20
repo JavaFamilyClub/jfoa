@@ -15,4 +15,6 @@
 export interface SystemMonitorSummaryModel {
    serverTime: string;
    serverStartUpTime: string;
+   cpuLoadPercent: number;
+   memoryPercent: number;
 }
