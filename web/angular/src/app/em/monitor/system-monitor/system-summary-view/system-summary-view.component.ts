@@ -12,7 +12,7 @@
  * person.
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslateService } from "@ngx-translate/core";
@@ -36,9 +36,9 @@ const HEARTBEAT_INTERVAL_TIME: number = 1000;
    ]
 })
 @Component({
-   selector: 'system-summary-view',
-   templateUrl: './system-summary-view.component.html',
-   styleUrls: ['./system-summary-view.component.scss']
+   selector: "system-summary-view",
+   templateUrl: "./system-summary-view.component.html",
+   styleUrls: ["./system-summary-view.component.scss"]
 })
 export class SystemSummaryViewComponent implements OnInit, OnDestroy {
    model: SystemMonitorSummaryModel;
