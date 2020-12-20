@@ -52,13 +52,13 @@ export class ModelService {
         this._errorHandler = handler;
     }
 
-    getModel<T>(controller: string, params?: HttpParams): Observable<T> {
+    getModel<T>(controller: string, params?: HttpParams, handleError = true): Observable<T> {
         const options = {
             headers: this.headers,
             params: params
         };
         return this.http.get<T>(this.baseHref + controller, options).pipe(
-            catchError((error) => this.handleError<T>(error))
+            catchError((error) => this.handleError<T>(error, handleError))
         );
     }
 
@@ -106,7 +106,7 @@ export class ModelService {
         );
     }
 
-    private handleError<T>(res: HttpErrorResponse): Observable<T> {
+    private handleError<T>(res: HttpErrorResponse, handleError = true): Observable<T> {
         let error;
 
         try {
@@ -118,7 +118,7 @@ export class ModelService {
         let errMsg = (!!error && !!error.message) ? error.message :
             !!res.status ? `${res.status} - ${res.statusText}` : "Server Error";
 
-        if(!!errMsg && (!error || !this.errorHandler || !this.errorHandler(error))) {
+        if(!!handleError && !!errMsg && (!error || !this.errorHandler || !this.errorHandler(error))) {
             ComponentTool.showMessageDialog(this.modalService, "Error", errMsg).then(() => {});
         }
 

@@ -173,7 +173,8 @@
             "serverTime": "服务器时间",
             "serverUptime": "服务器启动时间",
             "cpuPercent": "CPU 使用率",
-            "memoryPercent": "内存使用率"
+            "memoryPercent": "内存使用率",
+            "reConnectMsg": "服务连接失败, 重新连接?"
          }
       },
       "audit": {

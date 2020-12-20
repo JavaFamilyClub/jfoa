@@ -173,7 +173,8 @@
             "serverTime": "Server Time",
             "serverUptime": "Server Uptime",
             "cpuPercent": "CPU Percent",
-            "memoryPercent": "Memory Percent"
+            "memoryPercent": "Memory Percent",
+            "reConnectMsg": "Connect server error. re-connect?"
          }
       },
       "audit": {
