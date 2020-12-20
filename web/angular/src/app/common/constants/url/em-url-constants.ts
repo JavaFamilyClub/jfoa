@@ -102,6 +102,6 @@ export class EmUrlConstants {
    /**
     * Getting em system monitor model
     */
-   public static readonly MONITOR_SYSTEM = "/em/monitor/system";
+   public static readonly MONITOR_SYSTEM_SUMMARY = "/em/monitor/system/summary";
 
 }

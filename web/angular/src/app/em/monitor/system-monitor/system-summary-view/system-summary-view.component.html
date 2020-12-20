@@ -1,14 +1,26 @@
-<div class="w-100 h-100">
-  <div class="server-summary-body">
-      <table>
-        <tr>
-          <th>Server Time:</th>
-          <td>xxx</td>
+<div class="w-100 h-100 system-summary-body">
+  <div class="system-summary-title flex-row" *ngIf="model">
+    <section class="flex">
+      <div class="system-summary-table">
+        <table cellpadding="5">
+          <tr>
+            <th>{{'em.system.summary.serverTime' | translate}}:</th>
+            <td>{{model.serverTime}}</td>
 
-          <th>Server Uptime:</th>
-          <td>xxx</td>
-        </tr>
-      </table>
+            <th>{{'em.system.summary.serverUptime' | translate}}:</th>
+            <td>{{model.serverStartUpTime}}</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="flex-row">
+      <section class="flex">
+        <div class="server-status-container">
+          <button mat-raised-button>Get Thread Dump</button>
+          <button mat-raised-button>Get Heap Dump</button>
+        </div>
+      </section>
+    </section>
   </div>
-
 </div>

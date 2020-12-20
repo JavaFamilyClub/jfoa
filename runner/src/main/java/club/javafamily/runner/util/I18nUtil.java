@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.util;
 
+import club.javafamily.commons.utils.DateTool;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.context.i18n.LocaleContextHolder;
 
@@ -80,6 +81,54 @@ public final class I18nUtil {
       bundles.put(cacheKey, bundle);
 
       return bundle;
+   }
+
+   public static String parseTime(long timestamp) {
+      return parseTime(timestamp, true, false);
+   }
+
+   public static String parseTime(long timestamp, boolean force,
+                                  boolean includeSeconds)
+   {
+      int[] parts = DateTool.parseTime(timestamp);
+      StringBuilder sb = new StringBuilder();
+
+      if(parts[0] > 0 || force) {
+         force = true;
+         sb.append(parts[0]);
+
+         sb.append(" ");
+         sb.append(I18nUtil.getString("common.Day"));
+         sb.append(" ");
+      }
+
+      if(parts[1] > 0 || force) {
+         force = true;
+         sb.append(parts[1]);
+
+         sb.append(" ");
+         sb.append(I18nUtil.getString("common.Hour"));
+         sb.append(" ");
+      }
+
+      if(parts[2] > 0 || force) {
+         force = true;
+         sb.append(parts[2]);
+
+         sb.append(" ");
+         sb.append(I18nUtil.getString("common.Minute"));
+         sb.append(" ");
+      }
+
+      if(includeSeconds && (parts[3] > 0 || force)) {
+         sb.append(parts[3]);
+
+         sb.append(" ");
+         sb.append(I18nUtil.getString("common.Seconds"));
+         sb.append(" ");
+      }
+
+      return sb.toString().trim();
    }
 
 }

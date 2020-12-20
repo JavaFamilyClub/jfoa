@@ -12,6 +12,7 @@
  * person.
  */
 
-export interface SystemMonitorModel {
-   serverStartUpTime: number;
+export interface SystemMonitorSummaryModel {
+   serverTime: string;
+   serverStartUpTime: string;
 }

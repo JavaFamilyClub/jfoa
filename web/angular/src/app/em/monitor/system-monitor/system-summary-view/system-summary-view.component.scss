@@ -1,0 +1,30 @@
+.flex {
+   flex: 1 1 auto;
+}
+
+.flex-row {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   align-items: center;
+}
+
+.system-summary-body {
+   padding: 16px;
+}
+
+.system-summary-table {
+   flex-grow: 0;
+   flex-shrink: 0;
+}
+
+.server-status-container {
+   display: flex;
+   flex: 1;
+   flex-direction: row;
+   flex-wrap: wrap;
+
+   button {
+      margin: 6px;
+   }
+}

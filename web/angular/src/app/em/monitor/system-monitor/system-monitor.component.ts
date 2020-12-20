@@ -14,8 +14,6 @@
 
 import { Component, OnInit } from "@angular/core";
 import { Searchable } from "../../../common/annotation/searchable";
-import { EmUrlConstants } from "../../../common/constants/url/em-url-constants";
-import { ModelService } from "../../../widget/services/model.service";
 
 @Searchable({
    title: "System Monitor",
@@ -30,16 +28,10 @@ import { ModelService } from "../../../widget/services/model.service";
    styleUrls: ["./system-monitor.component.scss"]
 })
 export class SystemMonitorComponent implements OnInit {
-   model: any;
 
-   constructor(private modelService: ModelService) { }
+   constructor() { }
 
    ngOnInit(): void {
    }
 
-   refresh(): void {
-      this.modelService.getModel(EmUrlConstants.MONITOR_SYSTEM).subscribe(model => {
-         this.model = model;
-      });
-   }
 }

@@ -168,6 +168,12 @@
       "Monitoring": "Monitoring",
       "Setting": "Setting",
       "writeNotify": "Write Notification",
+      "system": {
+         "summary": {
+            "serverTime": "Server Time",
+            "serverUptime": "Server Uptime"
+         }
+      },
       "audit": {
          "Audit": "Audit",
          "fromDate": "From Date",
@@ -248,7 +254,11 @@
       "subjectRequest": "Subject Request",
       "subjectRequestSupport": "Subject Request-Support",
       "subjectRequestOppose": "Subject Request-Oppose",
-      "subjectRequestManager": "Subject Request Manager"
+      "subjectRequestManager": "Subject Request Manager",
+      "Day": "Day",
+      "Hour": "Hour",
+      "Minute": "Minus",
+      "Seconds": "Second"
    },
    "dialog": {
       "inputName": {

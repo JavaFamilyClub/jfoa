@@ -168,6 +168,12 @@
       "Monitoring": "监控",
       "Setting": "设置",
       "writeNotify": "书写通告",
+      "system": {
+         "summary": {
+            "serverTime": "服务器时间",
+            "serverUptime": "服务器启动时间"
+         }
+      },
       "audit": {
          "Audit": "记录",
          "fromDate": "开始日期",
@@ -248,7 +254,11 @@
       "subjectRequest": "主题请求",
       "subjectRequestSupport": "主题请求-支持",
       "subjectRequestOppose": "主题请求-反对",
-      "subjectRequestManager": "主题请求管理"
+      "subjectRequestManager": "主题请求管理",
+      "Day": "天",
+      "Hour": "时",
+      "Minute": "分",
+      "Seconds": "秒"
    },
    "dialog": {
       "inputName": {
