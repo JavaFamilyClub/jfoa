@@ -3,6 +3,18 @@
      routerLink="./summary"
      routerLinkActive #rla="routerLinkActive"
      [active]="rla.isActive">{{'Summary' | translate}}</a>
+
+  <a mat-tab-link
+     routerLink="./jvm"
+     [disabled]="true"
+     routerLinkActive #jvmRla="routerLinkActive"
+     [active]="jvmRla.isActive">JVM</a>
+
+  <a mat-tab-link
+     routerLink="./thread"
+     [disabled]="true"
+     routerLinkActive #threadRla="routerLinkActive"
+     [active]="threadRla.isActive">Thread</a>
 </nav>
 
 <router-outlet></router-outlet>
