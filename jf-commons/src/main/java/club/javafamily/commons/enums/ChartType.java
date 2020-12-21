@@ -16,5 +16,6 @@ package club.javafamily.commons.enums;
 
 public enum ChartType {
    bar,
-   pie
+   pie,
+   line
 }

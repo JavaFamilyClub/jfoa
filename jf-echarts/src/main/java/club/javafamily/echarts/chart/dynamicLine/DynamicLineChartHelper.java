@@ -16,18 +16,33 @@ package club.javafamily.echarts.chart.dynamicLine;
 
 import club.javafamily.commons.enums.ChartType;
 import club.javafamily.echarts.chart.ChartHelper;
-import club.javafamily.echarts.info.ObjectInfo;
+import club.javafamily.echarts.info.*;
+import club.javafamily.echarts.info.dynamicLine.DynamicLineAxisInfo;
+import club.javafamily.echarts.info.dynamicLine.DynamicLineBindingInfo;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
 
 @Component
 public class DynamicLineChartHelper implements ChartHelper {
    @Override
    public boolean isAccept(ChartType type, ObjectInfo bindingInfo) {
-      return false;
+      return type == ChartType.line && bindingInfo != null;
    }
 
    @Override
    public ObjectInfo buildDefaultBindingInfo(String title) {
-      return null;
+      DynamicLineBindingInfo info = new DynamicLineBindingInfo();
+
+      info.setTooltip(new TooltipInfo(TooltipInfo.AXIS_TRIGGER));
+      info.setTitleInfo(new TitleInfo(title));
+      info.setxAxisInfo(Collections.singletonList(
+         new DefaultAxisInfo(AxisInfo.DEFAULT_X_AXIS_TYPE)));
+
+      info.setyAxisInfo(Collections.singletonList(
+         new DynamicLineAxisInfo(AxisInfo.DEFAULT_Y_AXIS_TYPE,
+            new Object[]{0, "100%"})));
+
+      return info;
    }
 }

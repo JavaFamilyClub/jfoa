@@ -15,8 +15,7 @@
 package club.javafamily.echarts.chart.dssbar;
 
 import club.javafamily.commons.enums.ChartType;
-import club.javafamily.echarts.info.ObjectInfo;
-import club.javafamily.echarts.info.LegendInfo;
+import club.javafamily.echarts.info.*;
 import club.javafamily.echarts.info.dssbar.DataSetSimpleBarBindingInfo;
 import club.javafamily.echarts.info.dssbar.DataSetSimpleBarAxisInfo;
 import club.javafamily.echarts.chart.ChartHelper;
@@ -46,9 +45,11 @@ public class DataSetSimpleBarChartHelper implements ChartHelper {
       DataSetSimpleBarBindingInfo bindingInfo = new DataSetSimpleBarBindingInfo();
 
       bindingInfo.setxAxisInfo(
-         Collections.singletonList(new DataSetSimpleBarAxisInfo("category")));
+         Collections.singletonList(
+            new DataSetSimpleBarAxisInfo(AxisInfo.DEFAULT_X_AXIS_TYPE)));
       bindingInfo.setyAxisInfo(
-         Collections.singletonList(new DataSetSimpleBarAxisInfo("value")));
+         Collections.singletonList(
+            new DataSetSimpleBarAxisInfo(AxisInfo.DEFAULT_Y_AXIS_TYPE)));
 
       bindingInfo.setLegend(defaultLegendInfo());
 

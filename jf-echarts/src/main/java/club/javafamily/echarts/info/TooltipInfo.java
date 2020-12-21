@@ -15,10 +15,17 @@
 package club.javafamily.echarts.info;
 
 public class TooltipInfo {
+
+   public static final String AXIS_TRIGGER = "axis";
+
    private String trigger;
    private String formatter;
 
    public TooltipInfo() {
+   }
+
+   public TooltipInfo(String trigger) {
+      this.trigger = trigger;
    }
 
    public TooltipInfo(String trigger, String formatter) {

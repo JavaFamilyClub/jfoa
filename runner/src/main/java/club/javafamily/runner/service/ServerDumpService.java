@@ -14,10 +14,15 @@
 
 package club.javafamily.runner.service;
 
+import club.javafamily.commons.cell.Cell;
+import club.javafamily.commons.cell.CellValueType;
+import club.javafamily.commons.lens.DefaultTableLens;
+import club.javafamily.commons.lens.TableLens;
 import club.javafamily.runner.admin.ServerMBean;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.properties.MainServerProperties;
 import club.javafamily.runner.tasks.internal.ServerDumpInfo;
+import club.javafamily.runner.util.I18nUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +62,54 @@ public class ServerDumpService {
    public List<ServerDumpInfo> getServerDump() {
       return redisClient.getFixedListAllValues(
          SYSTEM_MONITOR_KEY, serverProperties.getDumpCount());
+   }
+
+   /**
+    * Getting CPU Usage tableLens.
+    */
+   public TableLens cpuUsageTableLens() {
+      List<ServerDumpInfo> serverDump = getServerDump();
+      DefaultTableLens tableLens = new DefaultTableLens(serverDump.size() + 1, 2);
+
+      int row = 0;
+
+      tableLens.setObject(row, 0, new Cell(I18nUtil.getString("Date")));
+      tableLens.setObject(row, 1, new Cell(
+         I18nUtil.getString("em.system.summary.cpuPercent")));
+
+      for(ServerDumpInfo dumpInfo : serverDump) {
+         row++;
+         tableLens.setObject(
+            row, 0, new Cell(dumpInfo.getDate(), CellValueType.DATE));
+         tableLens.setObject(
+            row, 1, new Cell(dumpInfo.getCpuUsage(), CellValueType.INTEGER));
+      }
+
+      return tableLens;
+   }
+
+   /**
+    * Getting Memory Usage tableLens.
+    */
+   public TableLens memoryUsageTableLens() {
+      List<ServerDumpInfo> serverDump = getServerDump();
+      DefaultTableLens tableLens = new DefaultTableLens(serverDump.size() + 1, 2);
+
+      int row = 0;
+
+      tableLens.setObject(row, 0, new Cell(I18nUtil.getString("Date")));
+      tableLens.setObject(row, 1, new Cell(
+         I18nUtil.getString("em.system.summary.memoryPercent")));
+
+      for(ServerDumpInfo dumpInfo : serverDump) {
+         row++;
+         tableLens.setObject(
+            row, 0, new Cell(dumpInfo.getDate(), CellValueType.DATE));
+         tableLens.setObject(
+            row, 1, new Cell(dumpInfo.getMemoryUsage(), CellValueType.INTEGER));
+      }
+
+      return tableLens;
    }
 
    public static final String SYSTEM_MONITOR_KEY = "jfoa-server-dump";

@@ -12,15 +12,9 @@
  * person.
  */
 
-package club.javafamily.echarts.info;
+package club.javafamily.echarts.info.dynamicLine;
 
-public interface AxisInfo {
-   String getType();
+import club.javafamily.echarts.info.BaseBindingInfo;
 
-   default String getBindingColumn() {
-      return null;
-   }
-
-   String DEFAULT_X_AXIS_TYPE = "category";
-   String DEFAULT_Y_AXIS_TYPE = "value";
+public class DynamicLineBindingInfo  extends BaseBindingInfo {
 }
