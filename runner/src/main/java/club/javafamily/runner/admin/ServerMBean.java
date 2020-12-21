@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.admin;
+package club.javafamily.runner.admin;
 
 import club.javafamily.commons.utils.Tool;
 import com.sun.management.OperatingSystemMXBean;

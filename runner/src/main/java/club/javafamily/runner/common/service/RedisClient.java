@@ -162,19 +162,43 @@ public class RedisClient <T extends Serializable> {
       return op.size(key);
    }
 
+   public void pushFixedList(String key, T value, long count) {
+      pushFixedList(key, value, count, INVALID_EXPIRE_TIME);
+   }
+
    /**
     * push value and maintain a fixed list.
     * @param key list key
     * @param value will push's value
     * @param count fixed list size.
     */
-   public void pushFixedList(String key, T value, long count) {
+   public void pushFixedList(String key, T value, long count, long seconds) {
       ListOperations<String, T> op = listOperator();
       Long size = op.rightPush(key, value);
 
       if(size != null && size > count) {
          op.trim(key, size - count, size);
       }
+
+      if(seconds > 0) {
+         redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
+      }
+   }
+
+   /**
+    * Getting all fixedList's values.
+    * @devNote Effects are equivalent to {@link #getListAllValues} now,
+    * but this will no longer be equivalent
+    * if the fixed List is not <code>trim</code> every after <code>rpush</code>.
+    */
+   public List<T> getFixedListAllValues(String key, long count) {
+      Long size = listSize(key);
+
+      if(size == null || size < count) {
+         return lrange(key, 0, -1);
+      }
+
+      return lrange(key, size - count, size);
    }
 
    private ValueOperations<String, T> stringOperator() {

@@ -14,6 +14,7 @@
 
 package club.javafamily.runner;
 
+import club.javafamily.runner.properties.MainServerProperties;
 import club.javafamily.runner.properties.OAuthProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -35,7 +36,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableCaching
 @EnableScheduling
 @EnableConfigurationProperties({
-   OAuthProperties.class
+   OAuthProperties.class,
+   MainServerProperties.class
 })
 public class RunnerApplication {
 

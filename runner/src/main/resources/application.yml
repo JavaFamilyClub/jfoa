@@ -18,6 +18,10 @@ jfoa:
       waitTasksComplete: true
       prefix: "jfoa-"
 
+   server:
+      dump-interval: 60000
+      dump-count: 60
+
    http:
       maxTotalConnect: 100
       maxConnectPerRoute: 40

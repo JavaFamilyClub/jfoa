@@ -14,15 +14,32 @@
 
 package club.javafamily.runner.tasks.internal;
 
+import club.javafamily.runner.service.ServerDumpService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+/**
+ * For em monitor. dump server info to redis every seconds.
+ * and only store recent 60 items default, config by {@code jfoa.server.dump-interval}
+ */
 @Component
-public class SystemMonitor {
+public class DumpServerJob {
 
-   @Scheduled(initialDelay = 30000L, fixedRate = 60000L)
-   public void systemMonitor() {
-      // TODO record system and push to redis.
+   @Autowired
+   public DumpServerJob(ServerDumpService serverMonitorService) {
+      this.serverMonitorService = serverMonitorService;
+
+      LOGGER.info("System monitor job initialized.");
    }
 
+   @Scheduled(initialDelay = 30000L, fixedRateString = "${jfoa.server.dump-interval}")
+   public void systemMonitor() {
+      serverMonitorService.dumpServerProperties();
+   }
+
+   private final ServerDumpService serverMonitorService;
+   private static final Logger LOGGER = LoggerFactory.getLogger(DumpServerJob.class);
 }

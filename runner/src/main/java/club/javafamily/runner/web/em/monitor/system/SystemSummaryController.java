@@ -17,7 +17,7 @@ package club.javafamily.runner.web.em.monitor.system;
 import club.javafamily.commons.utils.ExportUtil;
 import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.util.*;
-import club.javafamily.runner.web.admin.ServerMBean;
+import club.javafamily.runner.admin.ServerMBean;
 import club.javafamily.runner.web.em.monitor.model.SystemMonitorSummaryModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.admin;
+package club.javafamily.runner.admin;
 
 import club.javafamily.runner.web.portal.service.SubjectVoteService;
 import org.springframework.jmx.export.annotation.*;
