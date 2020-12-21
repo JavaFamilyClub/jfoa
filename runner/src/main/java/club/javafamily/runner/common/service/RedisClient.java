@@ -1,13 +1,25 @@
+/*
+ * Copyright (c) 2019, JavaFamily Technology Corp, All Rights Reserved.
+ *
+ * The software and information contained herein are copyrighted and
+ * proprietary to JavaFamily Technology Corp. This software is furnished
+ * pursuant to a written license agreement and may be used, copied,
+ * transmitted, and stored only in accordance with the terms of such
+ * license and with the inclusion of the above copyright notice. Please
+ * refer to the file "COPYRIGHT" for further copyright and licensing
+ * information. This software and information or any other copies
+ * thereof may not be provided or otherwise made available to any other
+ * person.
+ */
+
 package club.javafamily.runner.common.service;
 
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -21,7 +33,7 @@ public class RedisClient <T extends Serializable> {
    }
 
    public void set(String key, T value, long seconds) {
-      ValueOperations<String, T> opsForValue = getValueOperations();
+      ValueOperations<String, T> opsForValue = stringOperator();
 
       if(seconds > 0) {
          opsForValue.set(key, value, seconds, TimeUnit.SECONDS);
@@ -32,7 +44,7 @@ public class RedisClient <T extends Serializable> {
    }
 
    public T get(String key) {
-      return getValueOperations().get(key);
+      return stringOperator().get(key);
    }
 
    public Long incr(String key) {
@@ -46,7 +58,7 @@ public class RedisClient <T extends Serializable> {
     * @return the value after incremented.
     */
    public Long incr(String key, long seconds) {
-      Long newValue = getValueOperations().increment(key);
+      Long newValue = stringOperator().increment(key);
 
       if(seconds > 0) {
          redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
@@ -66,7 +78,7 @@ public class RedisClient <T extends Serializable> {
     * @return the value after decremented.
     */
    public Long decr(String key, long seconds) {
-      Long newValue = getValueOperations().decrement(key);
+      Long newValue = stringOperator().decrement(key);
 
       if(seconds > 0) {
          redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
@@ -106,8 +118,71 @@ public class RedisClient <T extends Serializable> {
       return redisTemplate.delete(keys);
    }
 
-   private ValueOperations<String, T> getValueOperations() {
+   /**
+    * lpush to list
+    */
+   public Long leftPush(String key, T value) {
+      ListOperations<String, T> op = listOperator();
+
+      return op.leftPush(key, value);
+   }
+
+   /**
+    * rpush to list
+    */
+   public Long rightPush(String key, T value) {
+      ListOperations<String, T> op = listOperator();
+
+      return op.rightPush(key, value);
+   }
+
+   /**
+    * get all list's values.
+    */
+   public List<T> getListAllValues(String key) {
+      return lrange(key, 0, -1);
+   }
+
+   /**
+    * lrange get list's values by range.
+    */
+   public List<T> lrange(String key, long start, long end) {
+      ListOperations<String, T> op = listOperator();
+
+      return op.range(key, start, end);
+   }
+
+   /**
+    * get list size
+    * <code>lLen key</code>
+    */
+   public Long listSize(String key) {
+      ListOperations<String, T> op = listOperator();
+
+      return op.size(key);
+   }
+
+   /**
+    * push value and maintain a fixed list.
+    * @param key list key
+    * @param value will push's value
+    * @param count fixed list size.
+    */
+   public void pushFixedList(String key, T value, long count) {
+      ListOperations<String, T> op = listOperator();
+      Long size = op.rightPush(key, value);
+
+      if(size != null && size > count) {
+         op.trim(key, size - count, size);
+      }
+   }
+
+   private ValueOperations<String, T> stringOperator() {
       return redisTemplate.opsForValue();
+   }
+
+   private ListOperations<String, T> listOperator() {
+      return redisTemplate.opsForList();
    }
 
    private static final int INVALID_EXPIRE_TIME = -1;
