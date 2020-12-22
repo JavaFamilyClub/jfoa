@@ -18,6 +18,8 @@ public class DefaultAxisInfo implements AxisInfo {
 
    protected String type;
    protected String bindingColumn;
+   protected int bindingColIndex = -1;
+   protected boolean axisBindingEnabled;
 
    public DefaultAxisInfo() {
    }
@@ -42,5 +44,23 @@ public class DefaultAxisInfo implements AxisInfo {
 
    public void setBindingColumn(String bindingColumn) {
       this.bindingColumn = bindingColumn;
+   }
+
+   @Override
+   public int getBindingColIndex() {
+      return bindingColIndex;
+   }
+
+   public void setBindingColIndex(int bindingColIndex) {
+      this.bindingColIndex = bindingColIndex;
+   }
+
+   @Override
+   public boolean isAxisBindingEnabled() {
+      return axisBindingEnabled;
+   }
+
+   public void setAxisBindingEnabled(boolean axisBindingEnabled) {
+      this.axisBindingEnabled = axisBindingEnabled;
    }
 }

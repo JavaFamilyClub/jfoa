@@ -327,6 +327,10 @@ public class Tool {
          : Objects.toString(basePath, "") + pathSegment;
    }
 
+   public static int unboxingNumber(Integer number, int defaultNumber) {
+      return number != null ? number : defaultNumber;
+   }
+
    public static double getPercent(double total, double part) {
       return 100.0D * part / total;
    }

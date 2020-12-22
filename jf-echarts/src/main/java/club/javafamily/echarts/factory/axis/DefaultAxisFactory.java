@@ -16,6 +16,7 @@ package club.javafamily.echarts.factory.axis;
 
 import club.javafamily.commons.enums.ChartType;
 import club.javafamily.commons.lens.TableLens;
+import club.javafamily.commons.utils.Tool;
 import club.javafamily.echarts.model.EChartAxis;
 import club.javafamily.echarts.info.AxisInfo;
 import club.javafamily.echarts.info.ObjectInfo;
@@ -27,7 +28,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * xAxis: {type: 'category'},
+ * xAxis: {type: 'category', [data: [...]]},
  * yAxis: {type: 'value'}
  */
 @Component
@@ -40,6 +41,30 @@ public class DefaultAxisFactory extends ChartAxisFactory {
                                  ChartType type,
                                  Map<String, Object> params)
    {
+      List<AxisInfo> list = getAxisInfos(bindingInfo, params);
+
+      if(list == null) {
+         return null;
+      }
+
+      return list.stream()
+         .map(axis -> {
+            EChartAxis chartAxis = new EChartAxis(axis.getType());
+
+            if(!axis.isAxisBindingEnabled()) {
+               return chartAxis;
+            }
+
+            int colIndex = axis.getBindingColIndex(lens);
+
+            chartAxis.setData(lens.getColData(colIndex));
+
+            return chartAxis;
+         })
+         .collect(Collectors.toList());
+   }
+
+   protected List<AxisInfo> getAxisInfos(ObjectInfo bindingInfo, Map<String, Object> params) {
       List<AxisInfo> list;
       boolean isY = Boolean.TRUE.equals(params.get("isY"));
 
@@ -50,13 +75,7 @@ public class DefaultAxisFactory extends ChartAxisFactory {
          list = bindingInfo.getXAxis();
       }
 
-      if(list == null) {
-         return null;
-      }
-
-      return list.stream()
-         .map(axis -> new EChartAxis(axis.getType()))
-         .collect(Collectors.toList());
+      return list;
    }
 
 }

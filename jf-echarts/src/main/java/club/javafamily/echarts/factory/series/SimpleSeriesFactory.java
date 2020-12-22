@@ -40,7 +40,7 @@ public class SimpleSeriesFactory extends ChartSeriesFactory {
       LegendInfo legend = bindingInfo.getLegend();
       List<EChartSeries> series = new ArrayList<>();
 
-      if(lens.isEmpty()) {
+      if(lens.isEmptyData()) {
          LOGGER.info("Empty lens data.");
          return series;
       }

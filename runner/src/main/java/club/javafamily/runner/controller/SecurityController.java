@@ -71,7 +71,7 @@ public class SecurityController {
          currentUser.login(token);
       }
 
-      SavedRequest savedRequest= WebUtils.getSavedRequest(request);
+      SavedRequest savedRequest = WebUtils.getSavedRequest(request);
 
       if(savedRequest != null && StringUtils.hasText(savedRequest.getRequestUrl())) {
          String requestUrl = savedRequest.getRequestUrl();

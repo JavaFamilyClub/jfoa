@@ -34,6 +34,11 @@ public class EChartSeries {
    private Double animationDelay;
 
    public EChartSeries() {
+      this(null, null);
+   }
+
+   public EChartSeries(ChartType type) {
+      this(type, null);
    }
 
    public EChartSeries(ChartType type, String seriesLayoutBy) {

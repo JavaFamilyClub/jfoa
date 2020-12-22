@@ -12,6 +12,10 @@ jfoa:
          client-id: ${DEV_JF_GITHUB_CLIENT_ID}
          client-secrets: ${DEV_JF_GITHUB_CLIENT_SECRETS}
 
+   server:
+      dump-interval: 60000
+      dump-count: 60
+
 spring:
    # Mail Config
    mail:

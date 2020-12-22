@@ -14,13 +14,38 @@
 
 package club.javafamily.echarts.info;
 
+import club.javafamily.commons.lens.TableLens;
+import club.javafamily.commons.utils.Tool;
+
 public interface AxisInfo {
    String getType();
+
+   String DEFAULT_X_AXIS_TYPE = "category";
+   String DEFAULT_Y_AXIS_TYPE = "value";
 
    default String getBindingColumn() {
       return null;
    }
 
-   String DEFAULT_X_AXIS_TYPE = "category";
-   String DEFAULT_Y_AXIS_TYPE = "value";
+   default int getBindingColIndex() {
+      return -1;
+   }
+
+   default boolean isAxisBindingEnabled() {
+      return false;
+   }
+
+   default int getBindingColIndex(TableLens lens) {
+      int colIndex = getBindingColIndex();
+
+      if(colIndex < 0) {
+         colIndex = Tool.unboxingNumber(lens.getColumnIndex(getBindingColumn()), -1);
+      }
+
+      if(colIndex < 0) {
+         throw new IllegalStateException("Invalid column index. column: " + getBindingColumn());
+      }
+
+      return colIndex;
+   }
 }

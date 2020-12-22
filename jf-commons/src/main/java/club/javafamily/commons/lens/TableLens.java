@@ -19,6 +19,7 @@ import club.javafamily.commons.utils.ExportUtil;
 import org.springframework.util.StringUtils;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * TableLens interface
@@ -48,10 +49,17 @@ public interface TableLens {
    }
 
    /**
+    * Check is empty data lens.
+    */
+   default boolean isEmptyData() {
+      return getDataRowCount() < 1;
+   }
+
+   /**
     * Check is empty lens.
     */
    default boolean isEmpty() {
-      return getDataRowCount() < 1;
+      return getRowCount() < 1;
    }
 
    default int getHeaderRowCount() {
@@ -121,6 +129,23 @@ public interface TableLens {
       }
 
       return null;
+   }
+
+   /**
+    * Getting col data.
+    */
+   default java.util.List<Object> getColData(int colIndex) {
+      if(colIndex < 0 || colIndex >= getColCount()) {
+         return null;
+      }
+
+      java.util.List<Object> data = new ArrayList<>();
+
+      for(int i = getHeaderRowCount(); i < getRowCount(); i++) {
+         data.add(getObject(i, colIndex).getValue());
+      }
+
+      return data;
    }
 
 }

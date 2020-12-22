@@ -12,9 +12,28 @@
  * person.
  */
 
-package club.javafamily.echarts.info.dynamicLine;
+package club.javafamily.echarts.info.line;
 
-import club.javafamily.echarts.info.BaseBindingInfo;
+import club.javafamily.echarts.info.DefaultAxisInfo;
 
-public class DynamicLineBindingInfo  extends BaseBindingInfo {
+public class BasicLineAxisInfo extends DefaultAxisInfo {
+
+   public BasicLineAxisInfo(String type) {
+      super(type);
+   }
+
+   public BasicLineAxisInfo(String type, Object[] boundaryGap) {
+      super(type);
+      this.boundaryGap = boundaryGap;
+   }
+
+   public Object[] getBoundaryGap() {
+      return boundaryGap;
+   }
+
+   public void setBoundaryGap(Object[] boundaryGap) {
+      this.boundaryGap = boundaryGap;
+   }
+
+   private Object[] boundaryGap;
 }

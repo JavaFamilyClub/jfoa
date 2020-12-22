@@ -19,7 +19,7 @@ import java.util.List;
 public class EChartAxis {
 
    private String type;
-   private List<String> data;
+   private List<Object> data;
    private EChartAxisTick axisTick;
 
    public EChartAxis() {
@@ -37,11 +37,11 @@ public class EChartAxis {
       this.type = type;
    }
 
-   public List<String> getData() {
+   public List<Object> getData() {
       return data;
    }
 
-   public void setData(List<String> data) {
+   public void setData(List<Object> data) {
       this.data = data;
    }
 

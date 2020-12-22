@@ -12,19 +12,19 @@
  * person.
  */
 
-package club.javafamily.echarts.chart.dynamicLine;
+package club.javafamily.echarts.chart.line;
 
 import club.javafamily.commons.enums.ChartType;
 import club.javafamily.echarts.chart.ChartHelper;
 import club.javafamily.echarts.info.*;
-import club.javafamily.echarts.info.dynamicLine.DynamicLineAxisInfo;
-import club.javafamily.echarts.info.dynamicLine.DynamicLineBindingInfo;
+import club.javafamily.echarts.info.line.BasicLineAxisInfo;
+import club.javafamily.echarts.info.line.BasicLineBindingInfo;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 
 @Component
-public class DynamicLineChartHelper implements ChartHelper {
+public class BasicLineChartHelper implements ChartHelper {
    @Override
    public boolean isAccept(ChartType type, ObjectInfo bindingInfo) {
       return type == ChartType.line && bindingInfo != null;
@@ -32,16 +32,19 @@ public class DynamicLineChartHelper implements ChartHelper {
 
    @Override
    public ObjectInfo buildDefaultBindingInfo(String title) {
-      DynamicLineBindingInfo info = new DynamicLineBindingInfo();
+      BasicLineBindingInfo info = new BasicLineBindingInfo();
 
       info.setTooltip(new TooltipInfo(TooltipInfo.AXIS_TRIGGER));
       info.setTitleInfo(new TitleInfo(title));
-      info.setxAxisInfo(Collections.singletonList(
-         new DefaultAxisInfo(AxisInfo.DEFAULT_X_AXIS_TYPE)));
+      DefaultAxisInfo xAxisInfo = new DefaultAxisInfo(AxisInfo.DEFAULT_X_AXIS_TYPE);
+      xAxisInfo.setAxisBindingEnabled(true);
+      xAxisInfo.setBindingColIndex(0);
+      info.setxAxisInfo(Collections.singletonList(xAxisInfo));
 
-      info.setyAxisInfo(Collections.singletonList(
-         new DynamicLineAxisInfo(AxisInfo.DEFAULT_Y_AXIS_TYPE,
-            new Object[]{0, "100%"})));
+      BasicLineAxisInfo yAxisInfo = new BasicLineAxisInfo(AxisInfo.DEFAULT_Y_AXIS_TYPE,
+         new Object[]{0, "100%"});
+      yAxisInfo.setBindingColIndex(1);
+      info.setyAxisInfo(Collections.singletonList(yAxisInfo));
 
       return info;
    }
