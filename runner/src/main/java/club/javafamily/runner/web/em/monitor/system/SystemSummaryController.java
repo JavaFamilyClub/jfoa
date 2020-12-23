@@ -16,15 +16,16 @@ package club.javafamily.runner.web.em.monitor.system;
 
 import club.javafamily.commons.utils.ExportUtil;
 import club.javafamily.commons.utils.Tool;
+import club.javafamily.echarts.model.EChartModel;
 import club.javafamily.runner.service.ServerDumpService;
-import club.javafamily.runner.util.*;
+import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.util.WebMvcUtil;
 import club.javafamily.runner.web.em.monitor.model.SystemMonitorSummaryModel;
+import club.javafamily.runner.web.widget.echarts.EChartsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.lang.management.*;
 import java.util.Date;
 
 @RestController
@@ -32,8 +33,11 @@ import java.util.Date;
 public class SystemSummaryController {
 
    @Autowired
-   public SystemSummaryController(ServerDumpService serverDumpService) {
+   public SystemSummaryController(ServerDumpService serverDumpService,
+                                  EChartsService chartModelService)
+   {
       this.serverDumpService = serverDumpService;
+      this.chartModelService = chartModelService;
    }
 
    @GetMapping("/em/monitor/system/summary")
@@ -44,6 +48,15 @@ public class SystemSummaryController {
       model.setServerStartUpTime(serverDumpService.serverUptime());
       model.setCpuLoadPercent(serverDumpService.cpuUsagePercent());
       model.setMemoryPercent(serverDumpService.memoryPercent());
+      model.setHeapPercent(serverDumpService.heapPercent());
+
+      EChartModel heapMemoryChart =
+         chartModelService.buildLineChart(serverDumpService.heapUsageMBTableLens());
+      EChartModel threadCountChart =
+         chartModelService.buildLineChart(serverDumpService.liveThreadTableLens());
+
+      model.setHeapMemoryChart(heapMemoryChart);
+      model.setThreadCountChart(threadCountChart);
 
       return model;
    }
@@ -71,4 +84,5 @@ public class SystemSummaryController {
    }
 
    private final ServerDumpService serverDumpService;
+   private final EChartsService chartModelService;
 }

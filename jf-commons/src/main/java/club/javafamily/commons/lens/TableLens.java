@@ -15,7 +15,6 @@
 package club.javafamily.commons.lens;
 
 import club.javafamily.commons.cell.Cell;
-import club.javafamily.commons.utils.ExportUtil;
 import org.springframework.util.StringUtils;
 
 import java.awt.*;
@@ -75,7 +74,7 @@ public interface TableLens {
       int checkLength = Math.min(getRowCount(), 50); // max check 50 rows
 
       for(int i = 0; i < checkLength; i++) {
-         String value = ExportUtil.toString(getObject(i, col));
+         String value = LensTool.toString(getObject(i, col));
 
          if(value.length() > max) {
             max = value.length();
@@ -142,7 +141,7 @@ public interface TableLens {
       java.util.List<Object> data = new ArrayList<>();
 
       for(int i = getHeaderRowCount(); i < getRowCount(); i++) {
-         data.add(getObject(i, colIndex).getValue());
+         data.add(LensTool.toString(getObject(i, colIndex)));
       }
 
       return data;

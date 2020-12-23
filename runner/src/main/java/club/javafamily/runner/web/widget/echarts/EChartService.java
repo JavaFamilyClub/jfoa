@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.web.widget.echarts;
 
+import club.javafamily.echarts.ChartModelBuilderService;
 import club.javafamily.echarts.model.*;
 import club.javafamily.runner.domain.SubjectRequest;
 import club.javafamily.commons.enums.ChartType;
@@ -24,6 +25,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/**
+ * we will using {@link ChartModelBuilderService} or {@link EChartsService} replace.
+ */
+@Deprecated
 @Service
 public class EChartService {
 

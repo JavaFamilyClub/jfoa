@@ -24,8 +24,10 @@ import club.javafamily.echarts.factory.series.SimpleDataSeriesFactory;
 import club.javafamily.echarts.factory.tooltip.DefaultTooltipFactory;
 import club.javafamily.echarts.info.ObjectInfo;
 import club.javafamily.echarts.model.EChartOption;
+import club.javafamily.echarts.model.EChartTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 
@@ -42,11 +44,22 @@ public class BasicLineChartModelBuilder implements ChartModelBuilder {
    }
 
    @Override
+   public boolean isMatch(ChartType type, ObjectInfo bindingInfo) {
+      return type == ChartType.line && bindingInfo != null;
+   }
+
+   @Override
    public EChartOption buildOptions(TableLens lens, ObjectInfo bindingInfo,
                                     ChartHelper chartHelper, ChartType type,
                                     Map<String, Object> params)
    {
       EChartOption options = new EChartOption();
+
+      if(bindingInfo.getTitleInfo() != null
+         && StringUtils.hasText(bindingInfo.getTitleInfo().getTitle()))
+      {
+         options.setTitle(new EChartTitle(bindingInfo.getTitleInfo().getTitle()));
+      }
 
       options.setTooltip(tooltipFactory.build(lens, bindingInfo, chartHelper, type, params));
       options.setxAxis(axisFactory.build(lens, bindingInfo, chartHelper, type, params));

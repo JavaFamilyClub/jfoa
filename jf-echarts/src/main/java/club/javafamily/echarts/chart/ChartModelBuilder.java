@@ -24,6 +24,12 @@ import java.util.Map;
 
 public interface ChartModelBuilder extends ChartObjectFactory<EChartModel> {
 
+   default boolean isAccept(ChartType type, ObjectInfo bindingInfo, ChartHelper chartHelper) {
+      return isMatch(type, bindingInfo);
+   }
+
+   boolean isMatch(ChartType type, ObjectInfo bindingInfo);
+
    default EChartModel build(TableLens lens, ObjectInfo bindingInfo,
                              ChartHelper chartHelper,
                              ChartType type, Map<String, Object> params)
@@ -46,7 +52,7 @@ public interface ChartModelBuilder extends ChartObjectFactory<EChartModel> {
       ChartFormatInfo format = bindingInfo.getFormat();
 
       if(format == null || format.getBounds() == null) {
-         return null;
+         return new EChartInitOptions(600D, 400D);
       }
 
       double width = format.getBounds().width;

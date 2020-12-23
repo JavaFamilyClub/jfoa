@@ -46,6 +46,11 @@ public class CustomizedPieChartModelBuilder implements ChartModelBuilder {
    }
 
    @Override
+   public boolean isMatch(ChartType type, ObjectInfo bindingInfo) {
+      return type == ChartType.pie && bindingInfo != null;
+   }
+
+   @Override
    public EChartOption buildOptions(TableLens lens, ObjectInfo bindingInfo,
                                     ChartHelper chartHelper, ChartType type,
                                     Map<String, Object> params)

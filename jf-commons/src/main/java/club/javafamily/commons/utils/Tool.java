@@ -26,8 +26,10 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class Tool {
    public static final String PROJECT_MAIN = "JavaFamily";
@@ -333,6 +335,26 @@ public class Tool {
 
    public static double getPercent(double total, double part) {
       return 100.0D * part / total;
+   }
+
+   public static String toString(Object obj) {
+      if(obj instanceof Number) {
+         return obj.toString();
+      }
+      else if(obj instanceof Date) {
+         DateTimeFormatter df = DateTimeFormatter.ofPattern(Tool.DEFAULT_DATETIME_FORMAT)
+            .withZone(Tool.DEFAULT_TIME_ZONE.toZoneId());
+         return df.format(((Date) obj).toInstant());
+      }
+      else if(obj instanceof Object[]) {
+         return Arrays.stream((Object[]) obj)
+            .map(Tool::toString)
+            .collect(Collectors.joining(","));
+
+      }
+      else {
+         return Objects.toString(obj, "");
+      }
    }
 
    private static final String CACHE_DIR = "/cache";

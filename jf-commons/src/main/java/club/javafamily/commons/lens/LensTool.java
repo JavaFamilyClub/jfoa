@@ -1,6 +1,9 @@
 package club.javafamily.commons.lens;
 
 import club.javafamily.commons.annotation.TableLensColumn;
+import club.javafamily.commons.cell.Cell;
+import club.javafamily.commons.cell.CellValueType;
+import club.javafamily.commons.utils.Tool;
 import org.springframework.expression.Expression;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
@@ -9,6 +12,8 @@ import org.springframework.util.StringUtils;
 
 import java.awt.*;
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.*;
 
@@ -82,6 +87,25 @@ public class LensTool {
       value = expr.getValue(context, column.valueType());
 
       return value;
+   }
+
+   public static String toString(Cell cell) {
+      if(cell == null || cell.getValue() == null) {
+         return "";
+      }
+
+      Object data = cell.getValue();
+      CellValueType type = cell.getType();
+
+      switch(type) {
+         case DATE:
+            Date date = (Date) data;
+            return DateTimeFormatter.ofPattern(Tool.DEFAULT_DATETIME_FORMAT)
+               .format(LocalDateTime.ofInstant(date.toInstant(),
+                  Tool.DEFAULT_TIME_ZONE.toZoneId()));
+         default:
+            return data.toString();
+      }
    }
 
    private static final SpelExpressionParser spelParser = new SpelExpressionParser();

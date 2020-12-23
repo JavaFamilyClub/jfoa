@@ -26,7 +26,7 @@ import { ModelService } from "../../../../widget/services/model.service";
 import { SystemMonitorSummaryModel } from "../model/system-monitor-summary-model";
 
 const HEARTBEAT_DELAY_TIME: number = 0;
-const HEARTBEAT_INTERVAL_TIME: number = 1000;
+const HEARTBEAT_INTERVAL_TIME: number = 5000;
 
 @Searchable({
    title: "System Monitor Summary",

@@ -1,10 +1,11 @@
 package club.javafamily.runner.common.service.impl;
 
+import club.javafamily.commons.enums.ExportType;
 import club.javafamily.commons.lens.ExportTableLens;
+import club.javafamily.commons.lens.LensTool;
 import club.javafamily.commons.utils.ExportUtil;
 import club.javafamily.commons.utils.PDFUtil;
 import club.javafamily.runner.common.service.Exporter;
-import club.javafamily.commons.enums.ExportType;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.geom.PageSize;
@@ -104,7 +105,7 @@ public class PDFExporter implements Exporter {
 
       // <code>Paragraph</code> 代表一个段落, 传入字符串就可以写入一个文本段落到 Document,
       // 传入 <code>Cell</code> 就会画一个 cell.
-      Paragraph text = new Paragraph(ExportUtil.toString(cell));
+      Paragraph text = new Paragraph(LensTool.toString(cell));
       text.setFont(pdfFont);
 
       // create cell

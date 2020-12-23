@@ -14,7 +14,7 @@
 
 package club.javafamily.commons.cell;
 
-import club.javafamily.commons.utils.ExportUtil;
+import club.javafamily.commons.lens.LensTool;
 
 /**
  * Database Cell
@@ -53,6 +53,6 @@ public class Cell {
 
    @Override
    public String toString() {
-      return ExportUtil.toString(this);
+      return LensTool.toString(this);
    }
 }

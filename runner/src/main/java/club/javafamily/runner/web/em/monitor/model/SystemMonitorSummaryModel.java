@@ -26,23 +26,9 @@ public class SystemMonitorSummaryModel {
    private String serverStartUpTime;
    private int cpuLoadPercent;
    private int memoryPercent;
+   private long heapPercent;
    private EChartModel heapMemoryChart;
-
-   public int getMemoryPercent() {
-      return memoryPercent;
-   }
-
-   public void setMemoryPercent(int memoryPercent) {
-      this.memoryPercent = memoryPercent;
-   }
-
-   public int getCpuLoadPercent() {
-      return cpuLoadPercent;
-   }
-
-   public void setCpuLoadPercent(int cpuLoadPercent) {
-      this.cpuLoadPercent = cpuLoadPercent;
-   }
+   private EChartModel threadCountChart;
 
    public Date getServerTime() {
       return serverTime;
@@ -58,5 +44,45 @@ public class SystemMonitorSummaryModel {
 
    public void setServerStartUpTime(String serverStartUpTime) {
       this.serverStartUpTime = serverStartUpTime;
+   }
+
+   public int getCpuLoadPercent() {
+      return cpuLoadPercent;
+   }
+
+   public void setCpuLoadPercent(int cpuLoadPercent) {
+      this.cpuLoadPercent = cpuLoadPercent;
+   }
+
+   public int getMemoryPercent() {
+      return memoryPercent;
+   }
+
+   public void setMemoryPercent(int memoryPercent) {
+      this.memoryPercent = memoryPercent;
+   }
+
+   public long getHeapPercent() {
+      return heapPercent;
+   }
+
+   public void setHeapPercent(long heapPercent) {
+      this.heapPercent = heapPercent;
+   }
+
+   public EChartModel getHeapMemoryChart() {
+      return heapMemoryChart;
+   }
+
+   public void setHeapMemoryChart(EChartModel heapMemoryChart) {
+      this.heapMemoryChart = heapMemoryChart;
+   }
+
+   public EChartModel getThreadCountChart() {
+      return threadCountChart;
+   }
+
+   public void setThreadCountChart(EChartModel threadCountChart) {
+      this.threadCountChart = threadCountChart;
    }
 }

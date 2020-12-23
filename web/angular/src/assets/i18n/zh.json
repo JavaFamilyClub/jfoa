@@ -176,6 +176,7 @@
             "liveThreadCount": "活动线程数",
             "memoryUsedMB": "已使用内存 (MB)",
             "memoryPercent": "内存使用率 (%)",
+            "heapUsedMB": "已使用堆内存 (MB)",
             "getThreadDump": "获取线程转储",
             "GC": "GC",
             "gcRunMsg": "这仅仅只是建议 JVM 执行垃圾回收, 并不一定是立即执行的.",

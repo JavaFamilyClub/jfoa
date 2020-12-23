@@ -24,10 +24,15 @@ public class DefaultTableLens implements TableLens, EditableTableLens {
    public DefaultTableLens(int rowCount, int colCount) {
       this.rowCount = rowCount;
       this.colCount = colCount;
+      reset();
    }
 
    @Override
    public void reset() {
+      if(rowCount <=0 && colCount <= 0) {
+         return;
+      }
+
       if(colCount > 0) {
          this.data = new Cell[rowCount][colCount];
       }

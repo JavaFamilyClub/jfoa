@@ -14,6 +14,7 @@
 
 import { Component, Input, OnInit } from "@angular/core";
 import { EChartOption } from "echarts";
+import { Tool } from "../../common/util/tool";
 import { ModelService } from "../services/model.service";
 import { EChartModel } from "./model/echart-model";
 
@@ -23,10 +24,19 @@ import { EChartModel } from "./model/echart-model";
   styleUrls: ["./echarts-chart.component.scss"]
 })
 export class EchartsChartComponent implements OnInit {
-  @Input() chartModel: EChartModel;
+  _chartModel: EChartModel;
   @Input() url: string;
 
   constructor(private modelService: ModelService) {
+  }
+
+  @Input() set chartModel(chartModel: EChartModel) {
+     Tool.trimObjectByNull(chartModel);
+     this._chartModel = chartModel;
+  }
+
+  get chartModel(): EChartModel {
+     return this._chartModel;
   }
 
   ngOnInit(): void {
@@ -39,6 +49,7 @@ export class EchartsChartComponent implements OnInit {
     }
 
     this.modelService.getModel<EChartModel>(this.url).subscribe(model => {
+       Tool.trimObjectByNull(model);
       this.chartModel = model;
     });
   }

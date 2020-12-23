@@ -56,10 +56,11 @@ public class ServerDumpService {
       int threadCount = serverMBean.threadCount();
       long gcTotalCount = serverMBean.gcTotalCount();
       long gcTotalTime = serverMBean.gcTotalTime();
+      long heapUsageMB = serverMBean.heapUsageMB();
       Date date = new Date();
 
       ServerDumpInfo info = new ServerDumpInfo(date, cpuUsage, memoryUsagePercent,
-         memoryUsageMB, threadCount, gcTotalCount, gcTotalTime);
+         memoryUsageMB, threadCount, gcTotalCount, gcTotalTime, heapUsageMB);
 
       redisClient.pushFixedList(SYSTEM_MONITOR_KEY, info,
          serverProperties.getDumpCount(), SYSTEM_MONITOR_EXPIRED_TIME);
@@ -75,6 +76,10 @@ public class ServerDumpService {
 
    public String serverUptime() {
       return serverMBean.serverUptime();
+   }
+
+   public long heapPercent() {
+      return serverMBean.heapPercent();
    }
 
    public ThreadInfo[] dumpAllThreads() {
@@ -101,6 +106,14 @@ public class ServerDumpService {
    public List<ServerDumpInfo> getServerDump() {
       return redisClient.getFixedListAllValues(
          SYSTEM_MONITOR_KEY, serverProperties.getDumpCount());
+   }
+
+   /**
+    * Getting Memory Usage MB tableLens.
+    */
+   public TableLens heapUsageMBTableLens() {
+      return buildTableLens(ServerDumpInfo::getHeapUsageMB,
+         I18nUtil.getString("em.system.summary.heapUsedMB"));
    }
 
    /**

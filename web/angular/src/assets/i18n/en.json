@@ -176,6 +176,7 @@
             "liveThreadCount": "Live Thread Count",
             "memoryUsedMB": "Memory Used (MB)",
             "memoryPercent": "Memory Percent (%)",
+            "heapUsedMB": "Heap Memory Usage (MB)",
             "getThreadDump": "Get Thread Dump",
             "GC": "GC",
             "gcRunMsg": "This is merely a recommendation that the JVM perform gc, not necessarily immediately.",

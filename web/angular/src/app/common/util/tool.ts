@@ -46,6 +46,7 @@ export namespace Tool {
     export const unescapeHTML: (string) => string = require("lodash/unescape");
     export const union: <T>(...arr: T[]) => T[] = require("lodash/union");
     export const orderBy = require("lodash/orderBy");
+    export const pickBy = require("lodash/pickBy");
 
     // correct typing of first parameter - varargs isn"t possible in typescript
     export const intersectionWith: <T>(obj: T[], vals: T[], comparator: (v1: T, v2: T) => boolean) => T[] = require("lodash/intersectionWith");
@@ -334,5 +335,28 @@ export namespace Tool {
        }
 
       return event.ctrlKey;
+    }
+
+    export function trimObjectByNull(obj: any): void {
+       if(typeof obj !== "object") {
+          return;
+       }
+
+       const keys = Object.keys(obj);
+
+       keys.forEach(key => {
+          const val = obj[key];
+
+          if(val === undefined || val === null) {
+             delete obj[key];
+          }
+          else if (typeof val === "object") {
+             Tool.trimObjectByNull(obj[key]);
+
+             if (Object.keys(obj[key]).length < 1) {
+                delete obj[key];
+             }
+          }
+       });
     }
 }

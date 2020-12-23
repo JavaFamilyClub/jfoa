@@ -14,18 +14,35 @@
 
 package club.javafamily.runner.web.widget.echarts;
 
+import club.javafamily.commons.enums.ChartType;
+import club.javafamily.commons.lens.TableLens;
+import club.javafamily.commons.utils.Tool;
 import club.javafamily.echarts.ChartModelBuilderService;
+import club.javafamily.echarts.chart.line.BasicLineChartHelper;
+import club.javafamily.echarts.info.ObjectInfo;
+import club.javafamily.echarts.model.EChartModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EChartsService {
 
+   public EChartModel buildLineChart(TableLens lens) {
+      String title = Tool.toString(lens.getObject(0, 1).getValue());
+      ObjectInfo bindingInfo = lineChartHelper.buildDefaultBindingInfo(title);
+
+      return chartModelBuilder.build(ChartType.line, lens,
+         bindingInfo, lineChartHelper);
+   }
 
    @Autowired
-   public EChartsService(ChartModelBuilderService chartModelBuilder) {
+   public EChartsService(ChartModelBuilderService chartModelBuilder,
+                         BasicLineChartHelper lineChartHelper)
+   {
       this.chartModelBuilder = chartModelBuilder;
+      this.lineChartHelper = lineChartHelper;
    }
 
    private final ChartModelBuilderService chartModelBuilder;
+   private final BasicLineChartHelper lineChartHelper;
 }

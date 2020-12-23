@@ -25,14 +25,16 @@ public class ServerDumpInfo implements Serializable {
    private int threadCount;
    private long gcTotalCount;
    private long gcTotalTime;
+   private long heapUsageMB;
 
    public ServerDumpInfo() {
    }
 
-   public ServerDumpInfo(Date date, int cpuUsage, int memoryUsagePercent,
-                         long memoryUsageMB, int threadCount,
-                         long gcTotalCount, long gcTotalTime)
-   {
+   public ServerDumpInfo(Date date, int cpuUsage,
+                         int memoryUsagePercent, long memoryUsageMB,
+                         int threadCount,
+                         long gcTotalCount, long gcTotalTime,
+                         long heapUsageMB) {
       this.date = date;
       this.cpuUsage = cpuUsage;
       this.memoryUsagePercent = memoryUsagePercent;
@@ -40,6 +42,15 @@ public class ServerDumpInfo implements Serializable {
       this.threadCount = threadCount;
       this.gcTotalCount = gcTotalCount;
       this.gcTotalTime = gcTotalTime;
+      this.heapUsageMB = heapUsageMB;
+   }
+
+   public long getHeapUsageMB() {
+      return heapUsageMB;
+   }
+
+   public void setHeapUsageMB(long heapUsageMB) {
+      this.heapUsageMB = heapUsageMB;
    }
 
    public long getGcTotalCount() {

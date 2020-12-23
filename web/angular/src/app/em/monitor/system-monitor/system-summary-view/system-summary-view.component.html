@@ -1,5 +1,5 @@
-<div class="w-100 h-100 system-summary-body">
-  <div class="system-summary-title flex-row" *ngIf="model">
+<div class="w-100 h-100 system-summary-body" *ngIf="model">
+  <div class="system-summary-title flex-row">
     <section class="flex">
       <div class="system-summary-table">
         <table cellpadding="5">
@@ -34,7 +34,13 @@
     </section>
   </div>
 
-  <mat-grid-list cols="2">
+  <mat-grid-list cols="2" rowHeight="4:3">
+    <mat-grid-tile>
+      <echarts-chart [chartModel]="model.heapMemoryChart"></echarts-chart>
+    </mat-grid-tile>
 
+    <mat-grid-tile>
+      <echarts-chart [chartModel]="model.threadCountChart"></echarts-chart>
+    </mat-grid-tile>
   </mat-grid-list>
 </div>
