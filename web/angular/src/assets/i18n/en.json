@@ -172,8 +172,10 @@
          "summary": {
             "serverTime": "Server Time",
             "serverUptime": "Server Uptime",
-            "cpuPercent": "CPU Percent",
-            "memoryPercent": "Memory Percent",
+            "cpuPercent": "CPU Percent (%)",
+            "liveThreadCount": "Live Thread Count",
+            "memoryUsedMB": "Memory Used (MB)",
+            "memoryPercent": "Memory Percent (%)",
             "getThreadDump": "Get Thread Dump",
             "GC": "GC",
             "gcRunMsg": "This is merely a recommendation that the JVM perform gc, not necessarily immediately.",

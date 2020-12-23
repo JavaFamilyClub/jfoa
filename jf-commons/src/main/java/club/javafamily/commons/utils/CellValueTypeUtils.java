@@ -24,6 +24,9 @@ public final class CellValueTypeUtils {
       if(obj instanceof Integer) {
          return CellValueType.INTEGER;
       }
+      if(obj instanceof Long) {
+         return CellValueType.LONG;
+      }
       else if(obj instanceof Double) {
          return CellValueType.DOUBLE;
       }
@@ -42,7 +45,7 @@ public final class CellValueTypeUtils {
    }
 
    public static boolean isNumber(CellValueType type) {
-      return type == CellValueType.INTEGER || type == CellValueType.DOUBLE
-         || type == CellValueType.FLOAT;
+      return type == CellValueType.INTEGER || type == CellValueType.LONG
+         || type == CellValueType.DOUBLE || type == CellValueType.FLOAT;
    }
 }

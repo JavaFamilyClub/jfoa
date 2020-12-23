@@ -15,12 +15,14 @@
 package club.javafamily.runner.admin;
 
 import club.javafamily.commons.utils.Tool;
+import club.javafamily.runner.util.I18nUtil;
 import com.sun.management.OperatingSystemMXBean;
-import org.springframework.jmx.export.annotation.ManagedAttribute;
-import org.springframework.jmx.export.annotation.ManagedResource;
+import org.springframework.jmx.export.annotation.*;
 import org.springframework.stereotype.Component;
 
-import java.lang.management.ManagementFactory;
+import java.lang.management.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * System MBean
@@ -29,8 +31,23 @@ import java.lang.management.ManagementFactory;
 @ManagedResource
 public class ServerMBean {
 
+   private final Runtime runtime = Runtime.getRuntime();
+   private final ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+   private final RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
+   private final ClassLoadingMXBean classLoadingMXBean = ManagementFactory.getClassLoadingMXBean();
    private final OperatingSystemMXBean operatingSystemMXBean
       = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+   private final List<GarbageCollectorMXBean> gcMXBeans
+      = ManagementFactory.getGarbageCollectorMXBeans();
+
+   private static final int BYTE_TO_MB = 1024 * 1024;
+
+   private long usedMemory() {
+      long totalMemory = operatingSystemMXBean.getTotalPhysicalMemorySize();
+      long freeMemory = operatingSystemMXBean.getFreePhysicalMemorySize();
+
+      return totalMemory - freeMemory;
+   }
 
    @ManagedAttribute(description = "Server Memory Usage Percent")
    public int memoryPercent() {
@@ -41,9 +58,77 @@ public class ServerMBean {
       return (int) memoryPercent;
    }
 
+   @ManagedAttribute(description = "Used memory, in MB")
+   public long memoryUsageMB() {
+      long used = usedMemory();
+
+      return Math.round(1.0D * used / BYTE_TO_MB);
+   }
+
+   @ManagedAttribute(description = "Server Heap Usage Percent")
+   public int heapPercent() {
+      long totalMemory = runtime.totalMemory();
+      long freeMemory = runtime.freeMemory();
+      double memoryPercent = Tool.getPercent(totalMemory, totalMemory - freeMemory);
+
+      return (int) memoryPercent;
+   }
+
+   @ManagedAttribute(description = "Used heap memory, in MB")
+   public long heapUsageMB() {
+      long totalMemory = runtime.totalMemory();
+      long freeMemory = runtime.freeMemory();
+      long used = totalMemory - freeMemory;
+
+      return Math.round(1.0D * used / BYTE_TO_MB);
+   }
+
+   @ManagedAttribute(description = "Total heap memory, in MB")
+   public long heapTotalMB() {
+      long totalMemory = runtime.totalMemory();
+
+      return Math.round(1.0D * totalMemory / BYTE_TO_MB);
+   }
+
    @ManagedAttribute(description = "CPU Memory Usage Percent")
    public int cpuUsagePercent() {
       return (int) (100 * operatingSystemMXBean.getSystemCpuLoad());
+   }
+
+   @ManagedAttribute(description = "Live threads count including both daemon and non-daemon threads")
+   public int threadCount() {
+      return threadMXBean.getThreadCount();
+   }
+
+   @ManagedAttribute(description = "Current loaded class count")
+   public int currentLoadedClassCount() {
+      return classLoadingMXBean.getLoadedClassCount();
+   }
+
+   @ManagedAttribute(description = "All gc total count")
+   public long gcTotalCount() {
+      return gcMXBeans.stream()
+         .collect(Collectors.summarizingLong(GarbageCollectorMXBean::getCollectionCount))
+         .getSum();
+   }
+
+   @ManagedAttribute(description = "All gc total time milliseconds")
+   public long gcTotalTime() {
+      return gcMXBeans.stream()
+         .collect(Collectors.summarizingLong(GarbageCollectorMXBean::getCollectionTime))
+         .getSum();
+   }
+
+   @ManagedAttribute(description = "Server uptime")
+   public String serverUptime() {
+      long uptime = runtimeMXBean.getUptime();
+
+      return I18nUtil.parseTime(uptime);
+   }
+
+   @ManagedOperation(description = "dump all threads")
+   public ThreadInfo[] dumpAllThreads(boolean lockedMonitors, boolean lockedSynchronizers) {
+      return threadMXBean.dumpAllThreads(lockedMonitors, lockedSynchronizers);
    }
 
 }

@@ -16,14 +16,14 @@ package club.javafamily.runner.web.em.monitor.system;
 
 import club.javafamily.commons.utils.ExportUtil;
 import club.javafamily.commons.utils.Tool;
+import club.javafamily.runner.service.ServerDumpService;
 import club.javafamily.runner.util.*;
-import club.javafamily.runner.admin.ServerMBean;
 import club.javafamily.runner.web.em.monitor.model.SystemMonitorSummaryModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.lang.management.*;
 import java.util.Date;
 
@@ -32,8 +32,8 @@ import java.util.Date;
 public class SystemSummaryController {
 
    @Autowired
-   public SystemSummaryController(ServerMBean serverMBean) {
-      this.serverMBean = serverMBean;
+   public SystemSummaryController(ServerDumpService serverDumpService) {
+      this.serverDumpService = serverDumpService;
    }
 
    @GetMapping("/em/monitor/system/summary")
@@ -41,19 +41,15 @@ public class SystemSummaryController {
       SystemMonitorSummaryModel model = new SystemMonitorSummaryModel();
 
       model.setServerTime(new Date());
-
-      RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
-      long uptime = runtimeMXBean.getUptime();
-      model.setServerStartUpTime(I18nUtil.parseTime(uptime));
-
-      model.setCpuLoadPercent(serverMBean.cpuUsagePercent());
-      model.setMemoryPercent(serverMBean.memoryPercent());
+      model.setServerStartUpTime(serverDumpService.serverUptime());
+      model.setCpuLoadPercent(serverDumpService.cpuUsagePercent());
+      model.setMemoryPercent(serverDumpService.memoryPercent());
 
       return model;
    }
 
    @GetMapping("/em/monitor/system/thread-dump")
-   public void downLoadThreadDump(HttpServletResponse response) {
+   public void downLoadThreadDump(HttpServletResponse response) throws Exception {
       String fileName = Tool.PROJECT_MAIN + "-thread";
 
       try {
@@ -63,20 +59,10 @@ public class SystemSummaryController {
       }
 
       fileName += ".txt";
-      ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
-      ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(true, true);
 
       ExportUtil.writeDownloadHeader(response, fileName);
 
-      try(OutputStreamWriter out = new OutputStreamWriter(response.getOutputStream())) {
-         for(ThreadInfo threadInfo : threadInfos) {
-            out.write("---------------------------------------------------------------\n");
-            out.write(threadInfo.toString());
-         }
-      }
-      catch(Exception e) {
-         e.printStackTrace();
-      }
+      serverDumpService.writeThreadDump(response.getOutputStream());
    }
 
    @GetMapping("/em/monitor/system/gc")
@@ -84,5 +70,5 @@ public class SystemSummaryController {
       System.gc();
    }
 
-   private final ServerMBean serverMBean;
+   private final ServerDumpService serverDumpService;
 }

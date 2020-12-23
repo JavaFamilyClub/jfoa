@@ -26,8 +26,12 @@ import club.javafamily.runner.util.I18nUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.management.ThreadInfo;
 import java.util.Date;
 import java.util.List;
+import java.util.function.*;
 
 @Service
 public class ServerDumpService {
@@ -47,13 +51,48 @@ public class ServerDumpService {
     */
    public void dumpServerProperties() {
       int cpuUsage = serverMBean.cpuUsagePercent();
-      int memoryUsage = serverMBean.memoryPercent();
+      int memoryUsagePercent = serverMBean.memoryPercent();
+      long memoryUsageMB = serverMBean.memoryUsageMB();
+      int threadCount = serverMBean.threadCount();
+      long gcTotalCount = serverMBean.gcTotalCount();
+      long gcTotalTime = serverMBean.gcTotalTime();
       Date date = new Date();
 
-      ServerDumpInfo info = new ServerDumpInfo(date, cpuUsage, memoryUsage);
+      ServerDumpInfo info = new ServerDumpInfo(date, cpuUsage, memoryUsagePercent,
+         memoryUsageMB, threadCount, gcTotalCount, gcTotalTime);
 
       redisClient.pushFixedList(SYSTEM_MONITOR_KEY, info,
          serverProperties.getDumpCount(), SYSTEM_MONITOR_EXPIRED_TIME);
+   }
+
+   public int cpuUsagePercent() {
+      return serverMBean.cpuUsagePercent();
+   }
+
+   public int memoryPercent() {
+      return serverMBean.memoryPercent();
+   }
+
+   public String serverUptime() {
+      return serverMBean.serverUptime();
+   }
+
+   public ThreadInfo[] dumpAllThreads() {
+      return serverMBean.dumpAllThreads(true, true);
+   }
+
+   public void writeThreadDump(OutputStream outStream) {
+      ThreadInfo[] threadInfos = dumpAllThreads();
+
+      try(OutputStreamWriter out = new OutputStreamWriter(outStream)) {
+         for(ThreadInfo threadInfo : threadInfos) {
+            out.write("\n---------------------------------------------------------------\n");
+            out.write(threadInfo.toString());
+         }
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+      }
    }
 
    /**
@@ -65,48 +104,54 @@ public class ServerDumpService {
    }
 
    /**
-    * Getting CPU Usage tableLens.
+    * Getting Memory Usage MB tableLens.
     */
-   public TableLens cpuUsageTableLens() {
-      List<ServerDumpInfo> serverDump = getServerDump();
-      DefaultTableLens tableLens = new DefaultTableLens(serverDump.size() + 1, 2);
-
-      int row = 0;
-
-      tableLens.setObject(row, 0, new Cell(I18nUtil.getString("Date")));
-      tableLens.setObject(row, 1, new Cell(
-         I18nUtil.getString("em.system.summary.cpuPercent")));
-
-      for(ServerDumpInfo dumpInfo : serverDump) {
-         row++;
-         tableLens.setObject(
-            row, 0, new Cell(dumpInfo.getDate(), CellValueType.DATE));
-         tableLens.setObject(
-            row, 1, new Cell(dumpInfo.getCpuUsage(), CellValueType.INTEGER));
-      }
-
-      return tableLens;
+   public TableLens memoryUsageMBTableLens() {
+      return buildTableLens(ServerDumpInfo::getMemoryUsageMB,
+         I18nUtil.getString("em.system.summary.memoryUsedMB"));
    }
 
    /**
-    * Getting Memory Usage tableLens.
+    * Getting Memory Usage MB tableLens.
     */
-   public TableLens memoryUsageTableLens() {
+   public TableLens liveThreadTableLens() {
+      return buildTableLens(ServerDumpInfo::getThreadCount,
+         I18nUtil.getString("em.system.summary.liveThreadCount"));
+   }
+
+   /**
+    * Getting CPU Usage tableLens.
+    */
+   public TableLens cpuUsageTableLens() {
+      return buildTableLens(ServerDumpInfo::getCpuUsage,
+         I18nUtil.getString("em.system.summary.cpuPercent"));
+   }
+
+   /**
+    * Getting Memory Usage Percent tableLens.
+    */
+   public TableLens memoryPercentUsageTableLens() {
+      return buildTableLens(ServerDumpInfo::getMemoryUsagePercent,
+         I18nUtil.getString("em.system.summary.memoryPercent"));
+   }
+
+   private TableLens buildTableLens(Function<ServerDumpInfo, Number> valueProcessor,
+                                    String yLabel)
+   {
       List<ServerDumpInfo> serverDump = getServerDump();
       DefaultTableLens tableLens = new DefaultTableLens(serverDump.size() + 1, 2);
 
       int row = 0;
 
       tableLens.setObject(row, 0, new Cell(I18nUtil.getString("Date")));
-      tableLens.setObject(row, 1, new Cell(
-         I18nUtil.getString("em.system.summary.memoryPercent")));
+      tableLens.setObject(row, 1, new Cell(yLabel));
 
       for(ServerDumpInfo dumpInfo : serverDump) {
          row++;
          tableLens.setObject(
             row, 0, new Cell(dumpInfo.getDate(), CellValueType.DATE));
          tableLens.setObject(
-            row, 1, new Cell(dumpInfo.getMemoryUsage(), CellValueType.INTEGER));
+            row, 1, new Cell(valueProcessor.apply(dumpInfo), CellValueType.LONG));
       }
 
       return tableLens;

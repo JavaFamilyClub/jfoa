@@ -15,6 +15,7 @@
 package club.javafamily.runner.web.em.monitor.model;
 
 import club.javafamily.commons.utils.Tool;
+import club.javafamily.echarts.model.EChartModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
@@ -25,6 +26,7 @@ public class SystemMonitorSummaryModel {
    private String serverStartUpTime;
    private int cpuLoadPercent;
    private int memoryPercent;
+   private EChartModel heapMemoryChart;
 
    public int getMemoryPercent() {
       return memoryPercent;

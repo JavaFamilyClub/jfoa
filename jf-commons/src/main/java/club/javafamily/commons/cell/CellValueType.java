@@ -17,6 +17,7 @@ package club.javafamily.commons.cell;
 public enum CellValueType {
    STRING,
    INTEGER,
+   LONG,
    DOUBLE,
    FLOAT,
    DATE,

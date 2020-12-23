@@ -20,15 +20,58 @@ import java.util.Date;
 public class ServerDumpInfo implements Serializable {
    private Date date;
    private int cpuUsage;
-   private int memoryUsage;
+   private int memoryUsagePercent;
+   private long memoryUsageMB;
+   private int threadCount;
+   private long gcTotalCount;
+   private long gcTotalTime;
 
    public ServerDumpInfo() {
    }
 
-   public ServerDumpInfo(Date date, int cpuUsage, int memoryUsage) {
+   public ServerDumpInfo(Date date, int cpuUsage, int memoryUsagePercent,
+                         long memoryUsageMB, int threadCount,
+                         long gcTotalCount, long gcTotalTime)
+   {
       this.date = date;
       this.cpuUsage = cpuUsage;
-      this.memoryUsage = memoryUsage;
+      this.memoryUsagePercent = memoryUsagePercent;
+      this.memoryUsageMB = memoryUsageMB;
+      this.threadCount = threadCount;
+      this.gcTotalCount = gcTotalCount;
+      this.gcTotalTime = gcTotalTime;
+   }
+
+   public long getGcTotalCount() {
+      return gcTotalCount;
+   }
+
+   public void setGcTotalCount(long gcTotalCount) {
+      this.gcTotalCount = gcTotalCount;
+   }
+
+   public long getGcTotalTime() {
+      return gcTotalTime;
+   }
+
+   public void setGcTotalTime(long gcTotalTime) {
+      this.gcTotalTime = gcTotalTime;
+   }
+
+   public long getMemoryUsageMB() {
+      return memoryUsageMB;
+   }
+
+   public void setMemoryUsageMB(long memoryUsageMB) {
+      this.memoryUsageMB = memoryUsageMB;
+   }
+
+   public int getThreadCount() {
+      return threadCount;
+   }
+
+   public void setThreadCount(int threadCount) {
+      this.threadCount = threadCount;
    }
 
    public Date getDate() {
@@ -47,20 +90,24 @@ public class ServerDumpInfo implements Serializable {
       this.cpuUsage = cpuUsage;
    }
 
-   public int getMemoryUsage() {
-      return memoryUsage;
+   public int getMemoryUsagePercent() {
+      return memoryUsagePercent;
    }
 
-   public void setMemoryUsage(int memoryUsage) {
-      this.memoryUsage = memoryUsage;
+   public void setMemoryUsagePercent(int memoryUsagePercent) {
+      this.memoryUsagePercent = memoryUsagePercent;
    }
 
    @Override
    public String toString() {
-      return "SystemMonitorInfo{" +
+      return "ServerDumpInfo{" +
          "date=" + date +
          ", cpuUsage=" + cpuUsage +
-         ", memoryUsage=" + memoryUsage +
+         ", memoryUsagePercent=" + memoryUsagePercent +
+         ", memoryUsageMB=" + memoryUsageMB +
+         ", threadCount=" + threadCount +
+         ", gcTotalCount=" + gcTotalCount +
+         ", gcTotalTime=" + gcTotalTime +
          '}';
    }
 }
