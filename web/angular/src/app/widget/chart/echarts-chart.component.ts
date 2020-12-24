@@ -23,7 +23,6 @@ import { EChartModel } from "./model/echart-model";
    styleUrls: ["./echarts-chart.component.scss"]
 })
 export class EchartsChartComponent implements OnInit {
-   // @ViewChild("chartContainer", { static: true }) container;
    _chartModel: EChartModel;
    @Input() url: string;
    @Input() autoAdaptSize = true;
@@ -54,7 +53,9 @@ export class EchartsChartComponent implements OnInit {
    }
 
    private fixChartSize(chartModel: EChartModel): void {
-      if(!this.autoAdaptSize || !!chartModel?.initOpts?.height || !!!this.hostRef?.nativeElement) {
+      if(!this.autoAdaptSize || !!!chartModel || !!chartModel.initOpts?.height
+         || !!!this.hostRef?.nativeElement)
+      {
          return;
       }
 
