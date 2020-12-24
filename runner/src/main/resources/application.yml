@@ -19,7 +19,7 @@ jfoa:
       prefix: "jfoa-"
 
    server:
-      dump-interval: 60000
+      dump-interval: 1000
       dump-count: 60
 
    http:

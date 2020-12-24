@@ -18,7 +18,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "jfoa.server")
 public class MainServerProperties {
-   private long dumpInterval = 60000L;
+   private long dumpInterval = 1000L;
    private int dumpCount = 60;
 
    public long getDumpInterval() {
