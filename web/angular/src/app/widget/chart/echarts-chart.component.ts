@@ -28,6 +28,8 @@ export class EchartsChartComponent implements OnInit {
    @Input() autoAdaptSize = true;
    @Input() hPadding = 20;
    @Input() vPadding = 10;
+   _loading = true;
+   loadingTimer: any;
 
    constructor(private modelService: ModelService,
                private readonly hostRef: ElementRef)
@@ -91,6 +93,16 @@ export class EchartsChartComponent implements OnInit {
    }
 
    get loading(): boolean {
-      return !!!this.chartModel;
+      if(!!!this.chartModel) {
+         return true;
+      }
+
+      if(!!!this.loadingTimer) {
+         this.loadingTimer = setTimeout(() => {
+            this._loading = false;
+         }, 500);
+      }
+
+      return this._loading;
    }
 }
