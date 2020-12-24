@@ -31,6 +31,6 @@
    }
 }
 
-mat-grid-tile .mat-grid-tile {
+::ng-deep mat-grid-tile, .mat-grid-tile {
    background: white;
 }
