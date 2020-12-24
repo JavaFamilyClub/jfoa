@@ -1,4 +1,4 @@
-<div #summaryPageContainer class="w-100 h-100 system-summary-body"
+<div #summaryContainer class="w-100 h-100 system-summary-body"
      (window:resize)="calcGridCols()">
   <ng-container *ngIf="model">
     <div class="system-summary-title flex-row">
@@ -46,7 +46,7 @@
       </section>
     </div>
 
-    <mat-grid-list [cols]="cols" rowHeight="4:3" gutterSize="5" class="mt-3">
+    <mat-grid-list [cols]="cols" rowHeight="2:1" gutterSize="5" class="mt-3">
       <mat-grid-tile>
         <echarts-chart [chartModel]="heapMemoryChart"></echarts-chart>
       </mat-grid-tile>

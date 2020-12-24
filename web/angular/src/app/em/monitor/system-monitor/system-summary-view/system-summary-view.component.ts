@@ -45,7 +45,7 @@ const CHART_MIN_WIDTH = 800;
    styleUrls: ["./system-summary-view.component.scss"]
 })
 export class SystemSummaryViewComponent implements OnInit, OnDestroy {
-   @ViewChild("summaryPageContainer", { static: true }) pageContainer;
+   @ViewChild("summaryContainer", { static: true }) container;
    model: SystemMonitorSummaryModel;
    heapMemoryChart: EChartModel;
    threadCountChart: EChartModel;
@@ -112,8 +112,8 @@ export class SystemSummaryViewComponent implements OnInit, OnDestroy {
    }
 
    calcGridCols() {
-      if(!!this.pageContainer) {
-         const bounds = this.pageContainer.nativeElement.getBoundingClientRect();
+      if(!!this.container) {
+         const bounds = this.container.nativeElement.getBoundingClientRect();
          this.cols = bounds && bounds.width < CHART_MIN_WIDTH ? 1 : 2;
       }
    }

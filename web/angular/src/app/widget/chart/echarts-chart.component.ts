@@ -31,7 +31,7 @@ export class EchartsChartComponent implements OnInit {
   }
 
   @Input() set chartModel(chartModel: EChartModel) {
-     Tool.trimObjectByNull(chartModel?.options);
+     Tool.trimObjectByNull(chartModel);
      this._chartModel = chartModel;
   }
 
@@ -49,7 +49,7 @@ export class EchartsChartComponent implements OnInit {
     }
 
     this.modelService.getModel<EChartModel>(this.url).subscribe(model => {
-       Tool.trimObjectByNull(model?.options);
+       Tool.trimObjectByNull(model);
       this.chartModel = model;
     });
   }
