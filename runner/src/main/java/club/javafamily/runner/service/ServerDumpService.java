@@ -164,7 +164,7 @@ public class ServerDumpService {
       for(ServerDumpInfo dumpInfo : serverDump) {
          row++;
          tableLens.setObject(
-            row, 0, new Cell(dumpInfo.getDate(), CellValueType.DATE));
+            row, 0, new Cell(dumpInfo.getDate(), CellValueType.TIME));
          tableLens.setObject(
             row, 1, new Cell(valueProcessor.apply(dumpInfo), CellValueType.LONG));
       }

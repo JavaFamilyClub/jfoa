@@ -12,49 +12,84 @@
  * person.
  */
 
-import { Component, Input, OnInit } from "@angular/core";
-import { EChartOption } from "echarts";
+import { Component, ElementRef, Input, OnInit } from "@angular/core";
 import { Tool } from "../../common/util/tool";
 import { ModelService } from "../services/model.service";
 import { EChartModel } from "./model/echart-model";
 
 @Component({
-  selector: "echarts-chart",
-  templateUrl: "./echarts-chart.component.html",
-  styleUrls: ["./echarts-chart.component.scss"]
+   selector: "echarts-chart",
+   templateUrl: "./echarts-chart.component.html",
+   styleUrls: ["./echarts-chart.component.scss"]
 })
 export class EchartsChartComponent implements OnInit {
-  _chartModel: EChartModel;
-  @Input() url: string;
+   // @ViewChild("chartContainer", { static: true }) container;
+   _chartModel: EChartModel;
+   @Input() url: string;
+   @Input() autoAdaptSize = true;
+   @Input() hPadding = 20;
+   @Input() vPadding = 10;
 
-  constructor(private modelService: ModelService) {
-  }
+   constructor(private modelService: ModelService,
+               private readonly hostRef: ElementRef)
+   {
+   }
 
-  @Input() set chartModel(chartModel: EChartModel) {
-     Tool.trimObjectByNull(chartModel);
-     this._chartModel = chartModel;
-  }
+   @Input() set chartModel(chartModel: EChartModel) {
+      this.fixChartModel(chartModel);
+      this._chartModel = chartModel;
+   }
 
-  get chartModel(): EChartModel {
-     return this._chartModel;
-  }
+   get chartModel(): EChartModel {
+      return this._chartModel;
+   }
 
-  ngOnInit(): void {
-    this.refresh();
-  }
+   /**
+    * 1. auto apply bounds
+    * 2. trim null properties
+    */
+   private fixChartModel(chartModel: EChartModel): void {
+      this.fixChartSize(chartModel);
+      Tool.trimObjectByNull(chartModel);
+   }
 
-  refresh(): void {
-    if(!this.url) {
-      return;
-    }
+   private fixChartSize(chartModel: EChartModel): void {
+      if(!this.autoAdaptSize || !!chartModel?.initOpts?.height || !!!this.hostRef?.nativeElement) {
+         return;
+      }
 
-    this.modelService.getModel<EChartModel>(this.url).subscribe(model => {
-       Tool.trimObjectByNull(model);
-      this.chartModel = model;
-    });
-  }
+      // const clientHeight = this.hostRef.nativeElement.clientHeight - this.vPadding;
+      // const clientWidth = this.hostRef.nativeElement.clientWidth - this.hPadding;
 
-  get loading(): boolean {
-     return !!!this.chartModel;
-  }
+      const bounds = this.hostRef.nativeElement.getBoundingClientRect();
+
+      if(!!!bounds) {
+         return;
+      }
+
+      const clientHeight = bounds.height - this.vPadding;
+      const clientWidth = bounds.width - this.hPadding;
+
+      chartModel.initOpts.height = clientHeight;
+      chartModel.initOpts.width = clientWidth;
+   }
+
+   ngOnInit(): void {
+      this.refresh();
+   }
+
+   refresh(): void {
+      if(!this.url) {
+         return;
+      }
+
+      this.modelService.getModel<EChartModel>(this.url).subscribe(model => {
+         this.fixChartModel(model);
+         this.chartModel = model;
+      });
+   }
+
+   get loading(): boolean {
+      return !!!this.chartModel;
+   }
 }

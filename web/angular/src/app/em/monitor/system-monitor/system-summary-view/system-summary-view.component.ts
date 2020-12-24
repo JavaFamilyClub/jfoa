@@ -30,7 +30,7 @@ const HEARTBEAT_DELAY_TIME: number = 0;
 const CHART_HEARTBEAT_DELAY_TIME: number = 200;
 const PROPERTIES_HEARTBEAT_INTERVAL_TIME: number = 1000;
 const CHART_HEARTBEAT_INTERVAL_TIME: number = 5000;
-const CHART_MIN_WIDTH = 800;
+const CHART_MIN_WIDTH = 1000;
 
 @Searchable({
    title: "System Monitor Summary",

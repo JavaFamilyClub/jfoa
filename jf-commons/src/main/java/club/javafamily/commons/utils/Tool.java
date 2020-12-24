@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 
 public class Tool {
    public static final String PROJECT_MAIN = "JavaFamily";
+   public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
    public static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
    public static final String DEFAULT_TIME_ZONE_STR = "GMT+08:00";
    public static final TimeZone DEFAULT_TIME_ZONE = TimeZone.getTimeZone(DEFAULT_TIME_ZONE_STR);

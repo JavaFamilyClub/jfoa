@@ -20,6 +20,7 @@ public enum CellValueType {
    LONG,
    DOUBLE,
    FLOAT,
+   TIME,
    DATE,
    ARRAY
 }

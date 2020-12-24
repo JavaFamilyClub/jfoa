@@ -98,6 +98,12 @@ public class LensTool {
       CellValueType type = cell.getType();
 
       switch(type) {
+         case TIME:
+            Date time = (Date) data;
+            return DateTimeFormatter.ofPattern(Tool.DEFAULT_TIME_FORMAT)
+               .format(LocalDateTime.ofInstant(time.toInstant(),
+                  Tool.DEFAULT_TIME_ZONE.toZoneId()));
+
          case DATE:
             Date date = (Date) data;
             return DateTimeFormatter.ofPattern(Tool.DEFAULT_DATETIME_FORMAT)
