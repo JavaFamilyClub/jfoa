@@ -119,4 +119,24 @@ export class EmUrlConstants {
     */
    public static readonly MONITOR_SYSTEM_GC = "/em/monitor/system/gc";
 
+   /**
+    * Getting em system monitor heap chart model
+    */
+   public static readonly SYSTEM_SUMMARY_HEAP_CHART = "/em/monitor/system/summary/chart/heap";
+
+   /**
+    * Getting em system monitor thread chart model
+    */
+   public static readonly SYSTEM_SUMMARY_THREAD_CHART = "/em/monitor/system/summary/chart/thread";
+
+   /**
+    * Getting em system monitor disk memory chart model
+    */
+   public static readonly SYSTEM_SUMMARY_MEMORY_CHART = "/em/monitor/system/summary/chart/memory";
+
+   /**
+    * Getting em system monitor cpu chart model
+    */
+   public static readonly SYSTEM_SUMMARY_CPU_CHART = "/em/monitor/system/summary/chart/cpu";
+
 }

@@ -52,7 +52,8 @@ public interface ChartModelBuilder extends ChartObjectFactory<EChartModel> {
       ChartFormatInfo format = bindingInfo.getFormat();
 
       if(format == null || format.getBounds() == null) {
-         return new EChartInitOptions(600D, 400D);
+//         return new EChartInitOptions(600D, 400D);
+         return new EChartInitOptions();
       }
 
       double width = format.getBounds().width;

@@ -338,7 +338,7 @@ export namespace Tool {
     }
 
     export function trimObjectByNull(obj: any): void {
-       if(typeof obj !== "object") {
+       if(typeof obj !== "object" || obj === null) {
           return;
        }
 

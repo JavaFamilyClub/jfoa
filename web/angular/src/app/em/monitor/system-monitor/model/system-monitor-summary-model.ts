@@ -12,14 +12,10 @@
  * person.
  */
 
-import { EChartModel } from "../../../../widget/chart/model/echart-model";
-
 export interface SystemMonitorSummaryModel {
    serverTime: string;
    serverStartUpTime: string;
    cpuLoadPercent: number;
    memoryPercent: number;
-   heapMemoryChart: EChartModel;
-   threadCountChart: EChartModel;
-
+   heapPercent: number;
 }

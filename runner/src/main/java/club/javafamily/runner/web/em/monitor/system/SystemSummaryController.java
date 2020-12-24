@@ -50,15 +50,27 @@ public class SystemSummaryController {
       model.setMemoryPercent(serverDumpService.memoryPercent());
       model.setHeapPercent(serverDumpService.heapPercent());
 
-      EChartModel heapMemoryChart =
-         chartModelService.buildLineChart(serverDumpService.heapUsageMBTableLens());
-      EChartModel threadCountChart =
-         chartModelService.buildLineChart(serverDumpService.liveThreadTableLens());
-
-      model.setHeapMemoryChart(heapMemoryChart);
-      model.setThreadCountChart(threadCountChart);
-
       return model;
+   }
+
+   @GetMapping("/em/monitor/system/summary/chart/heap")
+   public EChartModel getHeapChart() {
+      return chartModelService.buildLineChart(serverDumpService.heapUsageMBTableLens());
+   }
+
+   @GetMapping("/em/monitor/system/summary/chart/thread")
+   public EChartModel getThreadChart() {
+      return chartModelService.buildLineChart(serverDumpService.liveThreadTableLens());
+   }
+
+   @GetMapping("/em/monitor/system/summary/chart/memory")
+   public EChartModel getMemoryChart() {
+      return chartModelService.buildLineChart(serverDumpService.memoryUsageMBTableLens());
+   }
+
+   @GetMapping("/em/monitor/system/summary/chart/cpu")
+   public EChartModel getCpuChart() {
+      return chartModelService.buildLineChart(serverDumpService.cpuUsageTableLens());
    }
 
    @GetMapping("/em/monitor/system/thread-dump")

@@ -12,7 +12,7 @@
  * person.
  */
 
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslateService } from "@ngx-translate/core";
@@ -20,19 +20,23 @@ import { Observable, Subscription, timer as observableTimer } from "rxjs";
 import { Searchable } from "../../../../common/annotation/searchable";
 import { EmUrlConstants } from "../../../../common/constants/url/em-url-constants";
 import { DownloadService } from "../../../../download/download.service";
+import { EChartModel } from "../../../../widget/chart/model/echart-model";
 import { MatMessageDialog } from "../../../../widget/dialog/mat-message-dialog";
 import { MatMsgModel } from "../../../../widget/dialog/mat-msg-model";
 import { ModelService } from "../../../../widget/services/model.service";
 import { SystemMonitorSummaryModel } from "../model/system-monitor-summary-model";
 
 const HEARTBEAT_DELAY_TIME: number = 0;
-const HEARTBEAT_INTERVAL_TIME: number = 5000;
+const CHART_HEARTBEAT_DELAY_TIME: number = 200;
+const PROPERTIES_HEARTBEAT_INTERVAL_TIME: number = 1000;
+const CHART_HEARTBEAT_INTERVAL_TIME: number = 5000;
+const CHART_MIN_WIDTH = 800;
 
 @Searchable({
    title: "System Monitor Summary",
    route: "/em/monitor/system-monitor/summary",
    keywords: [
-      "system summary"
+      "system summary", "server summary"
    ]
 })
 @Component({
@@ -41,10 +45,17 @@ const HEARTBEAT_INTERVAL_TIME: number = 5000;
    styleUrls: ["./system-summary-view.component.scss"]
 })
 export class SystemSummaryViewComponent implements OnInit, OnDestroy {
+   @ViewChild("summaryPageContainer", { static: true }) pageContainer;
    model: SystemMonitorSummaryModel;
-   private refreshBeat: Observable<number>;
+   heapMemoryChart: EChartModel;
+   threadCountChart: EChartModel;
+   memoryUsageChart: EChartModel;
+   cpuUsageChart: EChartModel;
+   private propertiesRefreshBeat: Observable<number>;
+   private chartRefreshBeat: Observable<number>;
    private refreshSubjection: Subscription;
    private reconnectCount = 0;
+   cols = 2;
 
    constructor(private dialog: MatDialog,
                private snackBar: MatSnackBar,
@@ -55,10 +66,13 @@ export class SystemSummaryViewComponent implements OnInit, OnDestroy {
    }
 
    private init() {
-      this.refreshBeat = observableTimer(HEARTBEAT_DELAY_TIME, HEARTBEAT_INTERVAL_TIME);
+      this.propertiesRefreshBeat =
+         observableTimer(HEARTBEAT_DELAY_TIME, PROPERTIES_HEARTBEAT_INTERVAL_TIME);
+      this.chartRefreshBeat =
+         observableTimer(CHART_HEARTBEAT_DELAY_TIME, CHART_HEARTBEAT_INTERVAL_TIME);
 
-      this.refreshSubjection = this.refreshBeat.subscribe(() => {
-         this.refresh((error => {
+      this.refreshSubjection = this.propertiesRefreshBeat.subscribe(() => {
+         this.refreshProperties((error => {
             this.reconnectCount++;
 
             if(this.reconnectCount < 3) {
@@ -82,14 +96,26 @@ export class SystemSummaryViewComponent implements OnInit, OnDestroy {
             this.reconnectCount = 0;
          });
       });
+
+      this.refreshSubjection.add(this.chartRefreshBeat.subscribe(() => {
+         this.refreshChart();
+      }));
    }
 
    ngOnInit(): void {
       this.init();
+      this.calcGridCols();
    }
 
    ngOnDestroy(): void {
       this.stopRefreshBeat();
+   }
+
+   calcGridCols() {
+      if(!!this.pageContainer) {
+         const bounds = this.pageContainer.nativeElement.getBoundingClientRect();
+         this.cols = bounds && bounds.width < CHART_MIN_WIDTH ? 1 : 2;
+      }
    }
 
    private stopRefreshBeat(): void {
@@ -99,12 +125,50 @@ export class SystemSummaryViewComponent implements OnInit, OnDestroy {
       }
    }
 
-   refresh(errorHandle: (error) => void, complete: () => void): void {
+   refreshProperties(errorHandle: (error) => void, complete: () => void): void {
       this.modelService.getModel<SystemMonitorSummaryModel>(
          EmUrlConstants.MONITOR_SYSTEM_SUMMARY, null, false).subscribe(model =>
       {
          this.model = model;
       }, errorHandle, complete);
+   }
+
+   refreshChart(): void {
+      this.modelService.getModel<EChartModel>(
+         EmUrlConstants.SYSTEM_SUMMARY_HEAP_CHART, null, false)
+         .subscribe(heapChart =>
+      {
+         this.heapMemoryChart = heapChart;
+      }, error => {
+         console.error("get heap chart model error:", error);
+      });
+
+      this.modelService.getModel<EChartModel>(
+         EmUrlConstants.SYSTEM_SUMMARY_THREAD_CHART, null, false)
+         .subscribe(threadChart =>
+      {
+         this.threadCountChart = threadChart;
+      }, error => {
+         console.error("get thread chart model error:", error);
+      });
+
+      this.modelService.getModel<EChartModel>(
+         EmUrlConstants.SYSTEM_SUMMARY_MEMORY_CHART, null, false)
+         .subscribe(memoryChart =>
+      {
+         this.memoryUsageChart = memoryChart;
+      }, error => {
+         console.error("get memory chart model error:", error);
+      });
+
+      this.modelService.getModel<EChartModel>(
+         EmUrlConstants.SYSTEM_SUMMARY_CPU_CHART, null, false)
+         .subscribe(cpuChart =>
+      {
+         this.cpuUsageChart = cpuChart;
+      }, error => {
+         console.error("get cpu chart model error:", error);
+      });
    }
 
    downThreadDump(): void {

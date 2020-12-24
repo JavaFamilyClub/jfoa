@@ -1,46 +1,67 @@
-<div class="w-100 h-100 system-summary-body" *ngIf="model">
-  <div class="system-summary-title flex-row">
-    <section class="flex">
-      <div class="system-summary-table">
-        <table cellpadding="5">
-          <tr>
-            <th>{{'em.system.summary.serverTime' | translate}}:</th>
-            <td>{{model.serverTime}}</td>
-
-            <th>{{'em.system.summary.serverUptime' | translate}}:</th>
-            <td>{{model.serverStartUpTime}}</td>
-          </tr>
-
-          <tr>
-            <th>{{'em.system.summary.cpuPercent' | translate}}:</th>
-            <td>{{model.cpuLoadPercent}} %</td>
-
-            <th>{{'em.system.summary.memoryPercent' | translate}}:</th>
-            <td>{{model.memoryPercent}} %</td>
-          </tr>
-        </table>
-      </div>
-    </section>
-
-    <section class="flex-row">
+<div #summaryPageContainer class="w-100 h-100 system-summary-body"
+     (window:resize)="calcGridCols()">
+  <ng-container *ngIf="model">
+    <div class="system-summary-title flex-row">
       <section class="flex">
-        <div class="server-status-container">
-          <button mat-raised-button (click)="downThreadDump()"
-            >{{'em.system.summary.getThreadDump' | translate}}</button>
-          <button mat-raised-button (click)="gc()"
-            >{{'em.system.summary.GC' | translate}}</button>
+        <div class="system-summary-table">
+          <table cellpadding="5">
+            <tr>
+              <th>{{'em.system.summary.serverTime' | translate}}:</th>
+              <td>{{model.serverTime}}</td>
+
+              <th>{{'em.system.summary.serverUptime' | translate}}:</th>
+              <td>{{model.serverStartUpTime}}</td>
+            </tr>
+
+            <tr>
+              <th>{{'em.system.summary.cpuPercent' | translate}}:</th>
+              <td>{{model.cpuLoadPercent}} %</td>
+
+              <th>{{'em.system.summary.memoryPercent' | translate}}:</th>
+              <td>{{model.memoryPercent}} %</td>
+            </tr>
+
+            <tr>
+              <th>{{'em.system.summary.heapPercent' | translate}}:</th>
+              <td>{{model.heapPercent}} %</td>
+
+              <th></th>
+              <td></td>
+            </tr>
+          </table>
         </div>
       </section>
-    </section>
-  </div>
 
-  <mat-grid-list cols="2" rowHeight="4:3">
-    <mat-grid-tile>
-      <echarts-chart [chartModel]="model.heapMemoryChart"></echarts-chart>
-    </mat-grid-tile>
+      <section class="flex-row">
+        <section class="flex">
+          <div class="server-status-container">
+            <button mat-raised-button (click)="downThreadDump()"
+            >{{'em.system.summary.getThreadDump' | translate}}</button>
+            <button mat-raised-button (click)="gc()"
+            >{{'em.system.summary.GC' | translate}}</button>
+            <button mat-raised-button (click)="refreshChart()"
+            >{{'Refresh' | translate}}</button>
+          </div>
+        </section>
+      </section>
+    </div>
 
-    <mat-grid-tile>
-      <echarts-chart [chartModel]="model.threadCountChart"></echarts-chart>
-    </mat-grid-tile>
-  </mat-grid-list>
+    <mat-grid-list [cols]="cols" rowHeight="4:3" gutterSize="5" class="mt-3">
+      <mat-grid-tile>
+        <echarts-chart [chartModel]="heapMemoryChart"></echarts-chart>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <echarts-chart [chartModel]="threadCountChart"></echarts-chart>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <echarts-chart [chartModel]="memoryUsageChart"></echarts-chart>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <echarts-chart [chartModel]="cpuUsageChart"></echarts-chart>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </ng-container>
 </div>

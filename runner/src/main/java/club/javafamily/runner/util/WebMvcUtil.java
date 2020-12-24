@@ -17,6 +17,9 @@ package club.javafamily.runner.util;
 import club.javafamily.commons.utils.VerificationCodeUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.*;
 
@@ -34,6 +37,7 @@ public final class WebMvcUtil {
    private static final String LOCALHOST = "127.0.0.1";
    private static final String LOCALHOST_IPV6 = "0:0:0:0:0:0:0:1";
    private static final String SEPARATOR = ",";
+   private static final String CURRENT_IP_KEY = "jfoa-session-ip-key";
 
    public static boolean isLocalhost(String ip) {
       return LOCALHOST.equals(ip) || LOCALHOST_IPV6.equals(ip);
@@ -48,6 +52,36 @@ public final class WebMvcUtil {
    }
 
    public static String getIP() {
+      Subject subject = SecurityUtils.getSubject();
+      String ip;
+      Session session = null;
+      session = subject.getSession(false);
+
+      if(session != null) {
+         ip = (String) session.getAttribute(CURRENT_IP_KEY);
+
+         if(StringUtils.hasText(ip)) {
+            return ip;
+         }
+      }
+
+      ip = doGetIp();
+
+      if(session == null) {
+         session = subject.getSession();
+      }
+
+      if(session != null && StringUtils.hasText(ip)) {
+         session.setAttribute(CURRENT_IP_KEY, ip);
+      }
+      else {
+         LOGGER.warn("Cache current ip error, ip: {}, session is null? {}", ip, session == null);
+      }
+
+      return ip;
+   }
+
+   private static String doGetIp() {
       HttpServletRequest request = getRequest();
       String ipAddress;
 
@@ -119,4 +153,6 @@ public final class WebMvcUtil {
 
       return Objects.equals(serverCode, code);
    }
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(WebMvcUtil.class);
 }

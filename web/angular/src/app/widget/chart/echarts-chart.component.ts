@@ -31,7 +31,7 @@ export class EchartsChartComponent implements OnInit {
   }
 
   @Input() set chartModel(chartModel: EChartModel) {
-     Tool.trimObjectByNull(chartModel);
+     Tool.trimObjectByNull(chartModel?.options);
      this._chartModel = chartModel;
   }
 
@@ -49,61 +49,12 @@ export class EchartsChartComponent implements OnInit {
     }
 
     this.modelService.getModel<EChartModel>(this.url).subscribe(model => {
-       Tool.trimObjectByNull(model);
+       Tool.trimObjectByNull(model?.options);
       this.chartModel = model;
     });
   }
 
-  get initOpts(): any {
-    return {
-      width: "500",
-      height: "500",
-      renderer: "svg"
-    };
+  get loading(): boolean {
+     return !!!this.chartModel;
   }
-
-  get options(): EChartOption {
-    return {
-      color: ["red", "green"],
-      legend: {},
-      tooltip: {},
-      dataset: {
-        source: [
-          ["product", "2012", "2013", "2014", "2015"],
-          ["Support", 41, 30, 65, 53],
-          ["Like", 86, 92, 85, 83]
-        ]
-      },
-      xAxis: [
-        {
-          type: "category",
-          axisTick: null,
-          data: null
-        }
-      ],
-      yAxis: [
-        {
-          type: "value",
-          axisTick: null,
-          data: null
-        }
-      ],
-      series: [
-        // 这几个系列会在第一个直角坐标系中，每个系列对应到 dataset 的每一行。
-        {
-          type: "bar",
-          seriesLayoutBy: "row",
-          name: null,
-          data: null
-        },
-        {
-          type: "bar",
-          seriesLayoutBy: "row",
-          name: null,
-          data: null
-        }
-      ]
-    };
-  }
-
 }

@@ -57,10 +57,12 @@ public class ServerDumpService {
       long gcTotalCount = serverMBean.gcTotalCount();
       long gcTotalTime = serverMBean.gcTotalTime();
       long heapUsageMB = serverMBean.heapUsageMB();
+      int currentLoadedClassCount = serverMBean.currentLoadedClassCount();
       Date date = new Date();
 
       ServerDumpInfo info = new ServerDumpInfo(date, cpuUsage, memoryUsagePercent,
-         memoryUsageMB, threadCount, gcTotalCount, gcTotalTime, heapUsageMB);
+         memoryUsageMB, threadCount, gcTotalCount, gcTotalTime, heapUsageMB,
+         currentLoadedClassCount);
 
       redisClient.pushFixedList(SYSTEM_MONITOR_KEY, info,
          serverProperties.getDumpCount(), SYSTEM_MONITOR_EXPIRED_TIME);
@@ -119,14 +121,6 @@ public class ServerDumpService {
    /**
     * Getting Memory Usage MB tableLens.
     */
-   public TableLens memoryUsageMBTableLens() {
-      return buildTableLens(ServerDumpInfo::getMemoryUsageMB,
-         I18nUtil.getString("em.system.summary.memoryUsedMB"));
-   }
-
-   /**
-    * Getting Memory Usage MB tableLens.
-    */
    public TableLens liveThreadTableLens() {
       return buildTableLens(ServerDumpInfo::getThreadCount,
          I18nUtil.getString("em.system.summary.liveThreadCount"));
@@ -146,6 +140,14 @@ public class ServerDumpService {
    public TableLens memoryPercentUsageTableLens() {
       return buildTableLens(ServerDumpInfo::getMemoryUsagePercent,
          I18nUtil.getString("em.system.summary.memoryPercent"));
+   }
+
+   /**
+    * Getting Memory Usage MB tableLens.
+    */
+   public TableLens memoryUsageMBTableLens() {
+      return buildTableLens(ServerDumpInfo::getMemoryUsageMB,
+         I18nUtil.getString("em.system.summary.memoryUsedMB"));
    }
 
    private TableLens buildTableLens(Function<ServerDumpInfo, Number> valueProcessor,

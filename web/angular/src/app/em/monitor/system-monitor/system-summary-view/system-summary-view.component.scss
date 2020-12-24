@@ -11,6 +11,8 @@
 
 .system-summary-body {
    padding: 16px;
+   overflow-x: hidden;
+   overflow-y: auto;
 }
 
 .system-summary-table {
