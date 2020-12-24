@@ -33,7 +33,9 @@ import java.util.List;
 public class SubjectRequestMonitorController {
 
    @Autowired
-   public SubjectRequestMonitorController(SubjectRequestService subjectRequestService, EChartService chartService) {
+   public SubjectRequestMonitorController(SubjectRequestService subjectRequestService,
+                                          EChartService chartService)
+   {
       this.subjectRequestService = subjectRequestService;
       this.chartService = chartService;
    }

@@ -12,7 +12,7 @@
  * person.
  */
 
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewChecked, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslateService } from "@ngx-translate/core";
@@ -44,7 +44,7 @@ const CHART_MIN_WIDTH = 800;
    templateUrl: "./system-summary-view.component.html",
    styleUrls: ["./system-summary-view.component.scss"]
 })
-export class SystemSummaryViewComponent implements OnInit, OnDestroy {
+export class SystemSummaryViewComponent implements OnInit, OnDestroy, AfterViewChecked {
    @ViewChild("summaryContainer", { static: true }) container;
    model: SystemMonitorSummaryModel;
    heapMemoryChart: EChartModel;
@@ -104,6 +104,9 @@ export class SystemSummaryViewComponent implements OnInit, OnDestroy {
 
    ngOnInit(): void {
       this.init();
+   }
+
+   ngAfterViewChecked(): void {
       this.calcGridCols();
    }
 
