@@ -1,4 +1,4 @@
-<div class="w-100 h-100" #chartContainer>
+<div class="w-100 h-100" (window:resize)="fixChartSize(chartModel)">
   <div echarts class="chartRegion" *ngIf="!!chartModel"
        [initOpts]="chartModel.initOpts"
        [options]="chartModel.options"></div>
@@ -7,5 +7,3 @@
 <div class="loading-spinner" *ngIf="loading">
   <mat-spinner></mat-spinner>
 </div>
-
-

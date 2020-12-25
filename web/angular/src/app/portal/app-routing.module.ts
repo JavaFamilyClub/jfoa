@@ -32,6 +32,10 @@ const appRoutes: Routes = [
             component: ArticleViewComponent
          },
          {
+            path: "article-write",
+            loadChildren: () => import("./write-article/write-article-app.module").then(m => m.WriteArticleAppModule)
+         },
+         {
             path: "subjectVote",
             loadChildren: () => import("./subject-vote/subject-vote-app.module").then(m => m.SubjectVoteAppModule)
          },

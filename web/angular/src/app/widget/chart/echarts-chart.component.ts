@@ -54,15 +54,12 @@ export class EchartsChartComponent implements OnInit {
       Tool.trimObjectByNull(chartModel);
    }
 
-   private fixChartSize(chartModel: EChartModel): void {
+   fixChartSize(chartModel: EChartModel): void {
       if(!this.autoAdaptSize || !!!chartModel || !!chartModel.initOpts?.height
          || !!!this.hostRef?.nativeElement)
       {
          return;
       }
-
-      // const clientHeight = this.hostRef.nativeElement.clientHeight - this.vPadding;
-      // const clientWidth = this.hostRef.nativeElement.clientWidth - this.hPadding;
 
       const bounds = this.hostRef.nativeElement.getBoundingClientRect();
 

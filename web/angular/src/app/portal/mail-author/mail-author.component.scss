@@ -41,7 +41,7 @@
   padding-right: 25px;
 }
 
-::ng-deep .second-toolbar > #logo, .fr-second-toolbar > #fr-logo {
+::ng-deep #fr-logo, .second-toolbar > #logo, .fr-second-toolbar > #fr-logo {
   display: none !important;
 }
 
