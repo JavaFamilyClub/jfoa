@@ -32,7 +32,7 @@ export class DebounceService {
    constructor(private zone: NgZone) {
    }
 
-   debounce(key: string, fn: DebounceFn, delay: number, args: any[],
+   debounce(key: string, fn: DebounceFn, delay: number, args: any[] = null,
             reducer: DebounceReducer = defaultReducer): void
    {
       let next = {callback: fn, args};

@@ -12,7 +12,8 @@
  * person.
  */
 
-import { Component, ElementRef, Input, OnInit } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Size } from "../../common/data/size";
 import { Tool } from "../../common/util/tool";
 import { ModelService } from "../services/model.service";
 import { EChartModel } from "./model/echart-model";
@@ -26,10 +27,12 @@ export class EchartsChartComponent implements OnInit {
    _chartModel: EChartModel;
    @Input() url: string;
    @Input() autoAdaptSize = true;
+   @Input() autoSize = true;
    @Input() hPadding = 20;
    @Input() vPadding = 10;
+
    _loading = true;
-   loadingTimer: any;
+   eChartsInstance: any;
 
    constructor(private modelService: ModelService,
                private readonly hostRef: ElementRef)
@@ -43,6 +46,10 @@ export class EchartsChartComponent implements OnInit {
 
    get chartModel(): EChartModel {
       return this._chartModel;
+   }
+
+   chartInit(eChartsInstance: any): void {
+      this.eChartsInstance = eChartsInstance;
    }
 
    /**
@@ -61,14 +68,34 @@ export class EchartsChartComponent implements OnInit {
          return;
       }
 
+      this.doResizeChart(chartModel);
+   }
+
+   getBox(): Size {
       const bounds = this.hostRef.nativeElement.getBoundingClientRect();
 
       if(!!!bounds) {
          return;
       }
 
-      const clientHeight = bounds.height - this.vPadding;
-      const clientWidth = bounds.width - this.hPadding;
+      const height = bounds.height - this.vPadding;
+      const width = bounds.width - this.hPadding;
+
+      return {
+         width,
+         height
+      };
+   }
+
+   private doResizeChart(chartModel: EChartModel) {
+      const size = this.getBox();
+
+      if(!!!size || !!!chartModel) {
+         return;
+      }
+
+      const clientHeight = size.height - this.vPadding;
+      const clientWidth = size.width - this.hPadding;
 
       chartModel.initOpts.height = clientHeight;
       chartModel.initOpts.width = clientWidth;
@@ -94,12 +121,25 @@ export class EchartsChartComponent implements OnInit {
          return true;
       }
 
-      if(!!!this.loadingTimer) {
-         this.loadingTimer = setTimeout(() => {
-            this._loading = false;
-         }, 500);
+      return this._loading;
+   }
+
+   autoResize(): void {
+      if(!this.autoSize) {
+         return;
       }
 
-      return this._loading;
+      const size = this.getBox();
+
+      if(!!this.eChartsInstance && !!size) {
+         this.eChartsInstance.resize({
+            width: size.width,
+            height: size.height
+         });
+      }
+   }
+
+   chartLoaded(): void {
+      this._loading = false;
    }
 }

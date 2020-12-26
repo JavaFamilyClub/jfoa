@@ -1,6 +1,8 @@
-<div class="w-100 h-100" (window:resize)="fixChartSize(chartModel)">
+<div class="w-100 h-100" (window:resize)="autoResize()">
   <div echarts class="chartRegion" *ngIf="!!chartModel"
        [initOpts]="chartModel.initOpts"
+       (chartInit)="chartInit($event)"
+       (chartFinished)="chartLoaded()"
        [options]="chartModel.options"></div>
 </div>
 
