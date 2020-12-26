@@ -19,6 +19,7 @@
 - iText
 - OAuth 2.0
 - Quartz
+- JMX
 
 ## 2 `Web`
 - Angular 10+

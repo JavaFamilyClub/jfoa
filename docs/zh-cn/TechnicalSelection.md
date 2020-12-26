@@ -19,6 +19,7 @@
 - iText(PDF 导出)
 - OAuth 2.0(GitHub 等第三方登录)
 - Quartz(任务调度)
+- JMX(后台监控)
 
 ## 2 `Web`
 - Angular 10+(前端基础框架)
