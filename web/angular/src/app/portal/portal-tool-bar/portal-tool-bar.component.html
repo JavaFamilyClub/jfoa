@@ -98,7 +98,7 @@
 
           <mat-divider></mat-divider>
 
-          <a *ngIf="principal?.authenticated" mat-menu-item routerLink="/em"
+          <a [disabled]="!principal?.authenticated" mat-menu-item routerLink="/em"
             >{{'security.link.em' | translate}}</a>
 
           <mat-divider></mat-divider>

@@ -337,7 +337,7 @@ export namespace Tool {
       return event.ctrlKey;
     }
 
-    export function trimObjectByNull(obj: any): void {
+    export function trimObjectByNull(obj: any, deleteEmptyObj = false): void {
        if(typeof obj !== "object" || obj === null) {
           return;
        }
@@ -350,10 +350,10 @@ export namespace Tool {
           if(val === undefined || val === null) {
              delete obj[key];
           }
-          else if (typeof val === "object") {
+          else if(typeof val === "object") {
              Tool.trimObjectByNull(obj[key]);
 
-             if (Object.keys(obj[key]).length < 1) {
+             if(deleteEmptyObj && Object.keys(obj[key]).length < 1) {
                 delete obj[key];
              }
           }
