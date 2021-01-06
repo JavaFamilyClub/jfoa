@@ -18,6 +18,8 @@ import club.javafamily.commons.utils.VerificationCodeUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -154,5 +156,22 @@ public final class WebMvcUtil {
       return Objects.equals(serverCode, code);
    }
 
+   public static String redirectOrElse(HttpServletRequest request,
+                                       String defaultRoute)
+   {
+      SavedRequest savedRequest = WebUtils.getSavedRequest(request);
+
+      if(savedRequest != null && StringUtils.hasText(savedRequest.getRequestUrl())) {
+         String requestUrl = savedRequest.getRequestUrl();
+
+         return REDIRECT + requestUrl;
+      }
+
+      assert defaultRoute != null;
+
+      return REDIRECT + defaultRoute;
+   }
+
+   private static final String REDIRECT = "redirect:";
    private static final Logger LOGGER = LoggerFactory.getLogger(WebMvcUtil.class);
 }

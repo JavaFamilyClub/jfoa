@@ -20,12 +20,14 @@ import club.javafamily.echarts.model.EChartModel;
 import club.javafamily.runner.service.ServerDumpService;
 import club.javafamily.runner.util.SecurityUtil;
 import club.javafamily.runner.util.WebMvcUtil;
+import club.javafamily.runner.web.em.monitor.model.MonitorJvmDetailModel;
 import club.javafamily.runner.web.em.monitor.model.SystemMonitorSummaryModel;
 import club.javafamily.runner.web.widget.echarts.EChartsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.Date;
 
 @RestController
@@ -93,6 +95,19 @@ public class SystemSummaryController {
    @GetMapping("/em/monitor/system/gc")
    public void gc() {
       System.gc();
+   }
+
+   @GetMapping("/em/monitor/system/jvm/detail")
+   public MonitorJvmDetailModel getJvmDetailModel() {
+      MonitorJvmDetailModel model = new MonitorJvmDetailModel();
+
+      String classpath = serverDumpService.classpath();
+
+      String[] classpathParts = classpath.split(File.pathSeparator);
+
+      model.setClasspath(classpathParts);
+
+      return model;
    }
 
    private final ServerDumpService serverDumpService;

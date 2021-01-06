@@ -139,4 +139,9 @@ export class EmUrlConstants {
     */
    public static readonly SYSTEM_SUMMARY_CPU_CHART = "/em/monitor/system/summary/chart/cpu";
 
+   /**
+    * Getting em system monitor jvm detail model
+    */
+   public static readonly MONITOR_JVM_DETAIL = "/em/monitor/system/jvm/detail";
+
 }

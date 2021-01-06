@@ -24,11 +24,13 @@ import { WidgetModule } from "../../../widget/widget.module";
 import { EmSystemMonitorRoutingModule } from "./em-system-monitor-routing.module";
 import { SystemMonitorComponent } from "./system-monitor.component";
 import { SystemSummaryViewComponent } from "./system-summary-view/system-summary-view.component";
+import { JvmDetailViewComponent } from './jvm-detail-view/jvm-detail-view.component';
 
 @NgModule({
    declarations: [
       SystemMonitorComponent,
       SystemSummaryViewComponent,
+      JvmDetailViewComponent,
    ],
    imports: [
       CommonModule,

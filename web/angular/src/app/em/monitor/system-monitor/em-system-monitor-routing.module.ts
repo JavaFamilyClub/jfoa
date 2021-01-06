@@ -14,6 +14,7 @@
 
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { JvmDetailViewComponent } from "./jvm-detail-view/jvm-detail-view.component";
 import { SystemMonitorComponent } from "./system-monitor.component";
 import { SystemSummaryViewComponent } from "./system-summary-view/system-summary-view.component";
 
@@ -25,6 +26,10 @@ const appRoutes: Routes = [
          {
             path: "summary",
             component: SystemSummaryViewComponent
+         },
+         {
+            path: "jvm",
+            component: JvmDetailViewComponent
          },
          {
             path: "**",

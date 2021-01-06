@@ -14,15 +14,16 @@
 
 package club.javafamily.runner.controller;
 
+import club.javafamily.commons.enums.Gender;
+import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.config.OAuthUsernamePasswordToken;
 import club.javafamily.runner.domain.Customer;
 import club.javafamily.runner.dto.AccessTokenResponse;
 import club.javafamily.runner.dto.GithubUser;
-import club.javafamily.commons.enums.Gender;
-import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.rest.github.GithubProvider;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.I18nUtil;
+import club.javafamily.runner.util.WebMvcUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -33,6 +34,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Controller
@@ -56,14 +58,15 @@ public class GithubLoginController {
 
    @GetMapping("/public/oauth/github/callback")
    public String callback(@RequestParam("code") String code,
-                          @RequestParam("state") String state)
+                          @RequestParam("state") String state,
+                          HttpServletRequest request)
    {
       AccessTokenResponse accessTokenResponse
          = githubProvider.queryAccessToken(code, state);
 
       authentication(accessTokenResponse);
 
-      return "redirect:/";
+      return WebMvcUtil.redirectOrElse(request, "/");
    }
 
    private void authentication(AccessTokenResponse accessTokenResponse) {

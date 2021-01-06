@@ -51,7 +51,7 @@ public class ServerMBean {
    }
 
    @ManagedAttribute(description = "Server Memory Usage Percent")
-   public int memoryPercent() {
+   public int getMemoryPercent() {
       long totalMemory = operatingSystemMXBean.getTotalPhysicalMemorySize();
       long freeMemory = operatingSystemMXBean.getFreePhysicalMemorySize();
       double memoryPercent = Tool.getPercent(totalMemory, totalMemory - freeMemory);
@@ -60,14 +60,14 @@ public class ServerMBean {
    }
 
    @ManagedAttribute(description = "Used memory, in MB")
-   public long memoryUsageMB() {
+   public long getMemoryUsageMB() {
       long used = usedMemory();
 
       return Math.round(1.0D * used / BYTE_TO_MB);
    }
 
    @ManagedAttribute(description = "Server Heap Usage Percent")
-   public int heapPercent() {
+   public int getHeapPercent() {
       long totalMemory = runtime.totalMemory();
       long freeMemory = runtime.freeMemory();
       double memoryPercent = Tool.getPercent(totalMemory, totalMemory - freeMemory);
@@ -76,7 +76,7 @@ public class ServerMBean {
    }
 
    @ManagedAttribute(description = "Used heap memory, in MB")
-   public long heapUsageMB() {
+   public long getHeapUsageMB() {
       long totalMemory = runtime.totalMemory();
       long freeMemory = runtime.freeMemory();
       long used = totalMemory - freeMemory;
@@ -85,55 +85,55 @@ public class ServerMBean {
    }
 
    @ManagedAttribute(description = "Total heap memory, in MB")
-   public long heapTotalMB() {
+   public long getHeapTotalMB() {
       long totalMemory = runtime.totalMemory();
 
       return Math.round(1.0D * totalMemory / BYTE_TO_MB);
    }
 
    @ManagedAttribute(description = "CPU Memory Usage Percent")
-   public int cpuUsagePercent() {
+   public int getCpuUsagePercent() {
       return (int) (100 * operatingSystemMXBean.getSystemCpuLoad());
    }
 
    @ManagedAttribute(description = "Live threads count including both daemon and non-daemon threads")
-   public int threadCount() {
+   public int getThreadCount() {
       return threadMXBean.getThreadCount();
    }
 
    @ManagedAttribute(description = "Current loaded class count")
-   public int currentLoadedClassCount() {
+   public int getCurrentLoadedClassCount() {
       return classLoadingMXBean.getLoadedClassCount();
    }
 
    @ManagedAttribute(description = "All gc total count")
-   public long gcTotalCount() {
+   public long getGcTotalCount() {
       return gcMXBeans.stream()
          .collect(Collectors.summarizingLong(GarbageCollectorMXBean::getCollectionCount))
          .getSum();
    }
 
    @ManagedAttribute(description = "All gc total time milliseconds")
-   public long gcTotalTime() {
+   public long getGcTotalTime() {
       return gcMXBeans.stream()
          .collect(Collectors.summarizingLong(GarbageCollectorMXBean::getCollectionTime))
          .getSum();
    }
 
    @ManagedAttribute(description = "Server uptime")
-   public String serverUptime() {
+   public String getServerUptime() {
       long uptime = runtimeMXBean.getUptime();
 
       return I18nUtil.parseTime(uptime);
    }
 
    @ManagedAttribute(description = "Classpath")
-   public String classPath() {
+   public String getClassPath() {
       return runtimeMXBean.getClassPath();
    }
 
    @ManagedAttribute(description = "JVM Version")
-   public String jvmVersion() {
+   public String getJvmVersion() {
       return runtimeMXBean.getSpecVersion() +
          ": " +
          runtimeMXBean.getVmName() +
@@ -144,7 +144,7 @@ public class ServerMBean {
    }
 
    @ManagedAttribute(description = "Run app with arguments")
-   public List<String> startArguments() {
+   public List<String> getStartArguments() {
       return runtimeMXBean.getInputArguments();
    }
 

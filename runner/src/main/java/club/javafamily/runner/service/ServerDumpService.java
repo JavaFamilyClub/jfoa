@@ -50,14 +50,14 @@ public class ServerDumpService {
     * Dump server info to redis.
     */
    public void dumpServerProperties() {
-      int cpuUsage = serverMBean.cpuUsagePercent();
-      int memoryUsagePercent = serverMBean.memoryPercent();
-      long memoryUsageMB = serverMBean.memoryUsageMB();
-      int threadCount = serverMBean.threadCount();
-      long gcTotalCount = serverMBean.gcTotalCount();
-      long gcTotalTime = serverMBean.gcTotalTime();
-      long heapUsageMB = serverMBean.heapUsageMB();
-      int currentLoadedClassCount = serverMBean.currentLoadedClassCount();
+      int cpuUsage = serverMBean.getCpuUsagePercent();
+      int memoryUsagePercent = serverMBean.getMemoryPercent();
+      long memoryUsageMB = serverMBean.getMemoryUsageMB();
+      int threadCount = serverMBean.getThreadCount();
+      long gcTotalCount = serverMBean.getGcTotalCount();
+      long gcTotalTime = serverMBean.getGcTotalTime();
+      long heapUsageMB = serverMBean.getHeapUsageMB();
+      int currentLoadedClassCount = serverMBean.getCurrentLoadedClassCount();
       Date date = new Date();
 
       ServerDumpInfo info = new ServerDumpInfo(date, cpuUsage, memoryUsagePercent,
@@ -68,20 +68,24 @@ public class ServerDumpService {
          serverProperties.getDumpCount(), SYSTEM_MONITOR_EXPIRED_TIME);
    }
 
+   public String classpath() {
+      return serverMBean.getClassPath();
+   }
+
    public int cpuUsagePercent() {
-      return serverMBean.cpuUsagePercent();
+      return serverMBean.getCpuUsagePercent();
    }
 
    public int memoryPercent() {
-      return serverMBean.memoryPercent();
+      return serverMBean.getMemoryPercent();
    }
 
    public String serverUptime() {
-      return serverMBean.serverUptime();
+      return serverMBean.getServerUptime();
    }
 
    public long heapPercent() {
-      return serverMBean.heapPercent();
+      return serverMBean.getHeapPercent();
    }
 
    public ThreadInfo[] dumpAllThreads() {

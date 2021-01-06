@@ -1,0 +1,18 @@
+<div *ngIf="!!model" class="jvm-detail-container">
+
+  <mat-card>
+    <mat-card-content>
+      <table class="w-100" cellpadding="5">
+        <tr>
+          <th class="align-top" [rowSpan]="model.classpath.length + 1">Classpath:</th>
+        </tr>
+        <tr *ngFor="let part of model.classpath">
+          <td>{{part}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <hr>
+
+</div>

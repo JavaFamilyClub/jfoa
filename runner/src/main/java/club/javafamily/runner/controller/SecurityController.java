@@ -14,22 +14,21 @@
 
 package club.javafamily.runner.controller;
 
+import club.javafamily.commons.enums.ActionType;
 import club.javafamily.runner.annotation.Audit;
 import club.javafamily.runner.annotation.AuditObject;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.runner.common.model.amqp.RegisterUserInfo;
 import club.javafamily.runner.common.service.RedisClient;
 import club.javafamily.runner.domain.Customer;
-import club.javafamily.commons.enums.ActionType;
 import club.javafamily.runner.enums.ResourceEnum;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.*;
 import club.javafamily.runner.vo.EmailCustomerVO;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.web.util.SavedRequest;
-import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,16 +70,8 @@ public class SecurityController {
          currentUser.login(token);
       }
 
-      SavedRequest savedRequest = WebUtils.getSavedRequest(request);
-
-      if(savedRequest != null && StringUtils.hasText(savedRequest.getRequestUrl())) {
-         String requestUrl = savedRequest.getRequestUrl();
-
-         return "redirect:" + requestUrl;
-      }
-
-      // redirect index page when login success.
-      return "redirect:/";
+      // redirect current page or index page when login success.
+      return WebMvcUtil.redirectOrElse(request, "/");
    }
 
    @GetMapping("signup")
