@@ -41,6 +41,7 @@ public class ServerMBean {
       = ManagementFactory.getGarbageCollectorMXBeans();
 
    private static final int BYTE_TO_MB = 1024 * 1024;
+   private static final String SPLIT = " -- ";
 
    private long usedMemory() {
       long totalMemory = operatingSystemMXBean.getTotalPhysicalMemorySize();
@@ -124,6 +125,27 @@ public class ServerMBean {
       long uptime = runtimeMXBean.getUptime();
 
       return I18nUtil.parseTime(uptime);
+   }
+
+   @ManagedAttribute(description = "Classpath")
+   public String classPath() {
+      return runtimeMXBean.getClassPath();
+   }
+
+   @ManagedAttribute(description = "JVM Version")
+   public String jvmVersion() {
+      return runtimeMXBean.getSpecVersion() +
+         ": " +
+         runtimeMXBean.getVmName() +
+         SPLIT +
+         runtimeMXBean.getVmVendor() +
+         SPLIT +
+         runtimeMXBean.getVmVersion();
+   }
+
+   @ManagedAttribute(description = "Run app with arguments")
+   public List<String> startArguments() {
+      return runtimeMXBean.getInputArguments();
    }
 
    @ManagedOperation(description = "dump all threads")
