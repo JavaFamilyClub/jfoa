@@ -1,0 +1,8 @@
+######################################################################
+#     Default Access Control File for Remote JMX(TM) Monitoring
+######################################################################
+
+JackLi   readonly
+dreamli   readwrite \
+              create javax.management.monitor.*,javax.management.timer.* \
+              unregister

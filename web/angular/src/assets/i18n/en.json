@@ -181,6 +181,9 @@
             "heapPercent": "Heap Memory Percent (%)",
             "getThreadDump": "Get Thread Dump",
             "GC": "GC",
+            "jdkVersion": "JDK Version",
+            "Classpath": "Classpath",
+            "vmArgs": "VM Arguments",
             "gcRunMsg": "This is merely a recommendation that the JVM perform gc, not necessarily immediately.",
             "reConnectMsg": "Connect server error. re-connect?"
          }

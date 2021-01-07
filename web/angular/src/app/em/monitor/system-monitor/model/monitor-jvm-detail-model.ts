@@ -13,5 +13,7 @@
  */
 
 export interface MonitorJvmDetailModel {
+   jvmVersion: string;
    classpath: string[];
+   vmArgs: string[];
 }

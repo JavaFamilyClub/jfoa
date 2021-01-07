@@ -9,11 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.management.remote.*;
+import java.io.IOException;
 import java.security.Security;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.TimeZone;
+import java.util.*;
 
 public class TestToolStatic {
 
@@ -53,6 +54,24 @@ public class TestToolStatic {
    @Test
    public void enumTests() {
       Assertions.assertEquals(ResourceEnum.PAGE_EM.getPermissionFlag(), ResourceEnum.PAGE_EM.name(), "ResourceEnum.getPermissionFlag error.");
+   }
+
+   @Test
+   public void jmx() {
+      String hostName = "127.0.0.1";
+      int portNum = 10888;
+
+      try {
+         JMXServiceURL u = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://"
+            + hostName + ":" + portNum + "/jmxrmi");
+
+         Map<String, Object> auth = new HashMap<>();
+         auth.put(JMXConnector.CREDENTIALS, new String[] { "dreamli", "dreamLi0812" });
+
+         JMXConnector c = JMXConnectorFactory.connect(u, auth);
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
    }
 
    private static final Logger LOGGER = LoggerFactory.getLogger(TestToolStatic.class);

@@ -72,6 +72,14 @@ public class ServerDumpService {
       return serverMBean.getClassPath();
    }
 
+   public String jvmVersion() {
+      return serverMBean.getJvmVersion();
+   }
+
+   public List<String> vmArguments() {
+      return serverMBean.getStartArguments();
+   }
+
    public int cpuUsagePercent() {
       return serverMBean.getCpuUsagePercent();
    }

@@ -14,8 +14,28 @@
 
 package club.javafamily.runner.web.em.monitor.model;
 
+import java.util.List;
+
 public class MonitorJvmDetailModel {
+   private String jvmVersion;
    private String[] classpath;
+   private List<String> vmArgs;
+
+   public List<String> getVmArgs() {
+      return vmArgs;
+   }
+
+   public void setVmArgs(List<String> vmArgs) {
+      this.vmArgs = vmArgs;
+   }
+
+   public String getJvmVersion() {
+      return jvmVersion;
+   }
+
+   public void setJvmVersion(String jvmVersion) {
+      this.jvmVersion = jvmVersion;
+   }
 
    public String[] getClasspath() {
       return classpath;

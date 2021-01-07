@@ -181,6 +181,9 @@
             "heapPercent": "堆内存使用率 (%)",
             "getThreadDump": "获取线程转储",
             "GC": "GC",
+            "jdkVersion": "JDK 版本",
+            "Classpath": "类路径",
+            "vmArgs": "虚拟机参数",
             "gcRunMsg": "这仅仅只是建议 JVM 执行垃圾回收, 并不一定是立即执行的.",
             "reConnectMsg": "服务连接失败, 重新连接?"
          }

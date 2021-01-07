@@ -176,11 +176,23 @@ task server() {
             ? ''
             : '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
 
+         def hostName = productionBuild
+            ? '101.133.167.196'
+            : '127.0.0.1'
+
+         def remotePwdFilePath = "$buildDir/resources/main/config/ssl/jmxremote.password"
+         def remoteAccessFilePath = "$buildDir/resources/main/config/ssl/jmxremote.access"
+
          main = 'club.javafamily.runner.RunnerApplication'
          jvmArgs = [
             "-Dspring.profiles.active=${envMode}",
             "-Djava.io.tmpdir=$buildDir/server-temp",
-            '-Djava.rmi.server.hostname=127.0.0.1',
+            "-Djava.rmi.server.hostname=${hostName}",
+            '-Dcom.sun.management.jmxremote.port=10888',
+            '-Dcom.sun.management.jmxremote.ssl=false',
+            '-Dcom.sun.management.jmxremote.authenticate=true',
+            "-Dcom.sun.management.jmxremote.access.file=${remoteAccessFilePath}",
+            "-Dcom.sun.management.jmxremote.password.file=${remotePwdFilePath}",
             debugCmd]
          args = []
       }

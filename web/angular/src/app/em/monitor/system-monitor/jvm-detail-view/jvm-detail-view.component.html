@@ -4,7 +4,23 @@
     <mat-card-content>
       <table class="w-100" cellpadding="5">
         <tr>
-          <th class="align-top" [rowSpan]="model.classpath.length + 1">Classpath:</th>
+          <th>{{'em.system.summary.jdkVersion' | translate}}:</th>
+          <td>{{model.jvmVersion}}</td>
+        </tr>
+
+        <tr>
+          <th class="align-top" [rowSpan]="model.vmArgs.length + 1"
+            >{{'em.system.summary.vmArgs' | translate}}:</th>
+        </tr>
+
+        <tr *ngFor="let vmArg of model.vmArgs">
+          <td>{{vmArg}}</td>
+        </tr>
+
+        <tr>
+          <th class="align-top"
+              [rowSpan]="model.classpath.length + 1"
+            >{{'em.system.summary.Classpath' | translate}}:</th>
         </tr>
         <tr *ngFor="let part of model.classpath">
           <td>{{part}}</td>

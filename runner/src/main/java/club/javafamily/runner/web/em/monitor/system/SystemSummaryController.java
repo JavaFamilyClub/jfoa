@@ -105,7 +105,9 @@ public class SystemSummaryController {
 
       String[] classpathParts = classpath.split(File.pathSeparator);
 
+      model.setJvmVersion(serverDumpService.jvmVersion());
       model.setClasspath(classpathParts);
+      model.setVmArgs(serverDumpService.vmArguments());
 
       return model;
    }
