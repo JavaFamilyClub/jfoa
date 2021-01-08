@@ -6,3 +6,6 @@ JackLi   readonly
 dreamli   readwrite \
               create javax.management.monitor.*,javax.management.timer.* \
               unregister
+root   readwrite \
+              create javax.management.monitor.*,javax.management.timer.* \
+              unregister
