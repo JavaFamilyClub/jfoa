@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# ./gradlew clean bootJar -x test -Pbuildenv=prod --no-daemon --console plain
+./gradlew clean bootJar -x test -Pbuildenv=prod --no-daemon --console plain
 
 # build docker image
 
