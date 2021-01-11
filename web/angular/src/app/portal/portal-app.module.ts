@@ -28,12 +28,14 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule } from "@ngx-translate/core";
+import { MdEditorAppModule } from "../md-editor/md-editor-app.module";
 import { PortalAppComponent } from "./app.component";
 import { WidgetModule } from "../widget/widget.module";
 import { ChangePasswordDialog } from "./dialog/change-password-dialog";
 import { UserProfileDialog } from "./dialog/user-profile-dialog";
 import { MODULE_COMPONENTS } from "./index.components";
 import { PortalAppRoutingModule } from "./app-routing.module";
+import { ArticleEditorComponent } from './article-editor/article-editor.component';
 
 @NgModule({
    declarations: [
@@ -58,9 +60,12 @@ import { PortalAppRoutingModule } from "./app-routing.module";
       MatChipsModule,
       MatSnackBarModule,
       TranslateModule,
-      MatTabsModule
+      MatTabsModule,
+      MdEditorAppModule
    ],
-   bootstrap: [PortalAppComponent],
+   bootstrap: [
+      PortalAppComponent
+   ],
    entryComponents: [
       UserProfileDialog,
       ChangePasswordDialog

@@ -161,7 +161,8 @@
       },
       "toolbar": {
          "mailAuthor": "发送邮件给博主",
-         "vote": "主题投票"
+         "vote": "主题投票",
+         "writeArticle": "写文章"
       }
    },
    "em": {

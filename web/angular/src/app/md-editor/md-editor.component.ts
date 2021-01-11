@@ -12,7 +12,7 @@
  * person.
  */
 
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 
 @Component({
    selector: "md-editor",
@@ -23,6 +23,7 @@ export class MdEditorComponent implements OnInit {
    @Input() content: string;
    @Input() placeholder: string;
    @Input() height: string;
+   @Output() onContentChanged = new EventEmitter<string>();
    loaded = false;
    enablePreview = false;
 

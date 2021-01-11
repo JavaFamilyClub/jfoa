@@ -29,6 +29,12 @@
        *ngIf="!!principal">
     <div class="d-inline-block">
 
+      <button mat-button aria-label="Write Article"
+              routerLink="article-editor"
+              [title]="'portal.toolbar.writeArticle' | translate"
+              class="title-bar-btn"
+      >{{'portal.toolbar.writeArticle' | translate}}</button>
+
       <button mat-button [matMenuTriggerFor]="supportMatMenu"
         aria-label="Support" [title]="'Support' | translate"
         class="title-bar-btn">{{'Support' | translate}}</button>

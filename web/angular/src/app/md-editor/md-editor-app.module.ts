@@ -40,7 +40,9 @@ import { MdEditorComponent } from "./md-editor.component";
       FroalaEditorModule,
       FroalaViewModule
    ],
-   bootstrap: [MdEditorComponent],
+   bootstrap: [
+      MdEditorComponent
+   ],
    entryComponents: [
    ],
    exports: [

@@ -161,7 +161,8 @@
       },
       "toolbar": {
          "mailAuthor": "Mail Author",
-         "vote": "Subject to vote"
+         "vote": "Subject to vote",
+         "writeArticle": "Write Article"
       }
    },
    "em": {

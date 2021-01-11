@@ -15,6 +15,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { PortalAppComponent } from "./app.component";
+import { ArticleEditorComponent } from "./article-editor/article-editor.component";
 import { ArticleViewComponent } from "./article-view/article-view.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 
@@ -30,6 +31,10 @@ const appRoutes: Routes = [
          {
             path: "article/:articleId",
             component: ArticleViewComponent
+         },
+         {
+            path: "article-editor",
+            component: ArticleEditorComponent
          },
          {
             path: "article-write",

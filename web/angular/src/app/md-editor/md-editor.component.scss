@@ -9,3 +9,18 @@
    height: 100%;
 }
 
+::ng-deep #fr-logo, .second-toolbar > #logo, .fr-second-toolbar > #fr-logo {
+   display: none !important;
+}
+
+::ng-deep .fr-wrapper > div[style*='z-index:9999'] {
+   position: absolute;
+   top: -10000px;
+   opacity: 0;
+   //display: none;
+}
+
+::ng-deep .fr-wrapper > .fr-placeholder {
+   //padding-top: 0 !important;
+}
+
