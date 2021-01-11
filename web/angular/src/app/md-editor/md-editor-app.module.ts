@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2021, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
  * proprietary to JavaFamily Technology Corp. This software is furnished
@@ -19,44 +19,36 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { TranslateModule } from "@ngx-translate/core";
 import { FroalaEditorModule, FroalaViewModule } from "angular-froala-wysiwyg";
-import { MdEditorAppModule } from "../../md-editor/md-editor-app.module";
-import { WidgetModule } from "../../widget/widget.module";
-import { AppRoutingModule } from "./app-routing.module";
-import { MailAuthorComponent } from "./mail-author.component";
+import { MODULE_COMPONENTS } from "./index.components";
+import { MdEditorComponent } from "./md-editor.component";
 
 @NgModule({
    declarations: [
-      MailAuthorComponent
+      MODULE_COMPONENTS
    ],
    imports: [
       CommonModule,
       FormsModule,
-      AppRoutingModule,
-      WidgetModule,
       ReactiveFormsModule,
       NgbModule,
-      MatSnackBarModule,
       MatFormFieldModule,
       MatInputModule,
       MatButtonModule,
       MatIconModule,
-      MatProgressSpinnerModule,
       FroalaEditorModule,
-      FroalaViewModule,
-      TranslateModule,
-      MdEditorAppModule
+      FroalaViewModule
    ],
-   bootstrap: [MailAuthorComponent],
+   bootstrap: [MdEditorComponent],
    entryComponents: [
+   ],
+   exports: [
+      MODULE_COMPONENTS
    ],
    providers: [
    ]
 })
-export class MailAuthorAppModule {
+export class MdEditorAppModule {
 }
 

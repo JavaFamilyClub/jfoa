@@ -76,9 +76,7 @@ import { InputNameDialogComponent } from "./dialog/input-name-dialog/input-name-
    declarations: [
       ...MODULE_COMPONENTS,
       ...MODULE_PIPES,
-      ...MODULE_DIRECTIVES,
-      MatTreeViewComponent,
-      InputNameDialogComponent
+      ...MODULE_DIRECTIVES
    ],
    entryComponents: [
       FixedDropdownComponent,

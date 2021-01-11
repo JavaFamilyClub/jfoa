@@ -1,0 +1,18 @@
+<div class="md-editor-container">
+  <div class="md-editor-toolbar">
+
+  </div>
+
+  <div class="md-editor-body" *ngIf="loaded">
+    <div class="md-editor-design-view" [class.d-inline]="enablePreview">
+      <textarea matInput #froalaContainer
+                [(ngModel)]="content"
+                [placeholder]="placeholder || ''"
+                [froalaEditor]="options"></textarea>
+    </div>
+
+    <div class="md-editor-preview-view" [class.d-inline]="enablePreview">
+    </div>
+
+  </div>
+</div>

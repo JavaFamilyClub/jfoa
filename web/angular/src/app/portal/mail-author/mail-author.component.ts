@@ -111,7 +111,7 @@ export class MailAuthorComponent {
 
    private get sign(): string {
       return "<br><hr><p>---- "
-         + this.principalService.principal?.userName
-         + "(" + this.principalService.principal?.account + ")</p>";
+         + this.principal?.userName ?? ""
+         + "(" + this.principal?.account ?? "" + ")</p>";
    }
 }
