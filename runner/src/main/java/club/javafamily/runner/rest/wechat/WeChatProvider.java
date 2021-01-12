@@ -14,8 +14,7 @@
 
 package club.javafamily.runner.rest.wechat;
 
-import club.javafamily.runner.dto.AccessTokenResponse;
-import club.javafamily.runner.dto.WeChatUser;
+import club.javafamily.runner.dto.*;
 import club.javafamily.runner.rest.QueryEngine;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -51,7 +50,8 @@ public class WeChatProvider implements QueryEngine<WeChatUser> {
    }
 
    @Override
-   public <R> R getEmail(AccessTokenResponse accessTokenResponse) {
+   public OAuthNotifyIdentifier getIdentifier(AccessTokenResponse accessTokenResponse) {
       return null;
    }
+
 }
