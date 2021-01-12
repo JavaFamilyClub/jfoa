@@ -13,23 +13,28 @@
  */
 
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
-import { MdEditorState } from "./md-editor-state";
+import { TextEditorState } from "./text-editor-state";
+
+const MIN_HEIGHT = 50;
 
 @Component({
-   selector: "md-editor",
-   templateUrl: "./md-editor.component.html",
-   styleUrls: ["./md-editor.component.scss"]
+   selector: "rich-text-editor",
+   templateUrl: "./rich-text-editor.component.html",
+   styleUrls: ["./rich-text-editor.component.scss"]
 })
-export class MdEditorComponent implements OnInit {
+export class RichTextEditorComponent implements OnInit {
    @Input() content: string;
    @Input() changeModeDisabled = false;
-   @Input() state = MdEditorState.ALL;
+   @Input() state = TextEditorState.ALL;
    @Input() placeholder: string;
    @Input() height: string;
    @Output() onContentChanged = new EventEmitter<string>();
-   loaded = false;
 
-   MdEditorState = MdEditorState;
+   @ViewChild("mdEditorBody", { static: true}) mdEditorBody: ElementRef;
+   @ViewChild("froalaContainer") froalaContainer: ElementRef;
+   MdEditorState = TextEditorState;
+
+   viewInit = false;
 
    constructor() {
    }
@@ -42,11 +47,21 @@ export class MdEditorComponent implements OnInit {
       if(!!this.height) {
          this.options.height = this.height;
       }
+      else if(!!this.mdEditorBody) {
+         /**
+          * -50: top toolbar
+          * -38: bottom toolbar
+          */
+         const height =  this.mdEditorBody.nativeElement.clientHeight
+            - 50 - 38;
 
-      this.loaded = true;
+         if(height > MIN_HEIGHT) {
+            this.options.height = height;
+         }
+      }
+
+      this.viewInit = true;
    }
-
-   @ViewChild("froalaContainer") froalaContainer: ElementRef;
 
    options: any = {
       language: "zh_cn",

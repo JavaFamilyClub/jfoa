@@ -162,7 +162,9 @@
       "toolbar": {
          "mailAuthor": "发送邮件给博主",
          "vote": "主题投票",
-         "writeArticle": "写文章"
+         "writeArticle": "写文章",
+         "richEditor": "富文本编辑器",
+         "mdEditor": "Markdown 编辑器"
       }
    },
    "em": {

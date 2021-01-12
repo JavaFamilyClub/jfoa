@@ -130,6 +130,13 @@ task watch(type: NpmTask, dependsOn: npmInstall) {
    args = ['run', 'build:watch']
 }
 
+task buildFont(type: NpmTask, dependsOn: npmInstall) {
+   group 'build'
+   description 'Build font package'
+
+   args = ['run', 'build:font']
+}
+
 task jar(type: Jar, dependsOn: compileProduction) {
    group 'build'
    description = 'Assembles the JAR file containing the compiled resources'

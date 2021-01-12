@@ -1,0 +1,43 @@
+<div class="rich-editor-container">
+  <div class="rich-editor-toolbar">
+    <div class="rich-editor-toolbar-right">
+      <section class="rich-editor-toolbar-right-section" *ngIf="!changeModeDisabled">
+        <label class="rich-editor-toolbar-right-margin">View Mode:</label>
+
+        <mat-radio-group [(ngModel)]="state">
+          <mat-radio-button class="rich-editor-toolbar-right-margin" [value]="MdEditorState.EDIT">
+            Edit
+          </mat-radio-button>
+          <mat-radio-button class="rich-editor-toolbar-right-margin" [value]="MdEditorState.PREVIEW">
+            Preview
+          </mat-radio-button>
+          <mat-radio-button class="rich-editor-toolbar-right-margin" [value]="MdEditorState.ALL">
+            Edit & Preview
+          </mat-radio-button>
+        </mat-radio-group>
+      </section>
+    </div>
+  </div>
+
+  <div class="rich-editor-body" #mdEditorBody>
+    <split-pane [sizes]="[50, 50]" [gutterSize]="10">
+      <div class="rich-editor-design-view split-item-container split"
+           [class.w-50]="state == MdEditorState.ALL"
+           [class.w-100]="state == MdEditorState.EDIT"
+           *ngIf="state == MdEditorState.EDIT || state == MdEditorState.ALL">
+      <textarea matInput #froalaContainer *ngIf="viewInit"
+                [(ngModel)]="content"
+                [placeholder]="placeholder || ''"
+                [froalaEditor]="options"></textarea>
+      </div>
+
+      <div class="rich-editor-preview-view split-item-container split border-gray-0 border-radius-6 p-3"
+           [class.w-50]="state == MdEditorState.ALL"
+           [class.w-100]="state == MdEditorState.PREVIEW"
+           *ngIf="state == MdEditorState.PREVIEW || state == MdEditorState.ALL">
+        <div [froalaView]="content" *ngIf="viewInit"></div>
+      </div>
+    </split-pane>
+
+  </div>
+</div>

@@ -162,7 +162,9 @@
       "toolbar": {
          "mailAuthor": "Mail Author",
          "vote": "Subject to vote",
-         "writeArticle": "Write Article"
+         "writeArticle": "Write Article",
+         "richEditor": "Rich Editor",
+         "mdEditor": "Markdown Editor"
       }
    },
    "em": {

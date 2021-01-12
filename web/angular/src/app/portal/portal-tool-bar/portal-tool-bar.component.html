@@ -29,15 +29,16 @@
        *ngIf="!!principal">
     <div class="d-inline-block">
 
-      <button mat-button aria-label="Write Article"
-              routerLink="article-editor"
-              [title]="'portal.toolbar.writeArticle' | translate"
-              class="title-bar-btn"
-      >{{'portal.toolbar.writeArticle' | translate}}</button>
-
       <button mat-button [matMenuTriggerFor]="supportMatMenu"
         aria-label="Support" [title]="'Support' | translate"
         class="title-bar-btn">{{'Support' | translate}}</button>
+
+      <button mat-icon-button aria-label="Write Article"
+              [matMenuTriggerFor]="writeArticleMenu"
+              class="tile-bar-icon-size title-bar-btn"
+              [title]="'portal.toolbar.writeArticle' | translate">
+        <mat-icon class="icon-write"></mat-icon>
+      </button>
 
       <button mat-icon-button *ngIf="principal?.authenticated"
               routerLink="./mailAuthor"
@@ -88,6 +89,19 @@
             </button>
           </ng-container>
 
+        </ng-template>
+      </mat-menu>
+
+      <mat-menu #writeArticleMenu="matMenu">
+        <ng-template matMenuContent>
+          <button mat-button aria-label="Rich Editor"
+                  routerLink="article-editor"
+                  [title]="'portal.toolbar.richEditor' | translate"
+          >{{'portal.toolbar.richEditor' | translate}}</button>
+
+          <button mat-button aria-label="Markdown Editor"
+                  [title]="'portal.toolbar.mdEditor' | translate"
+          >{{'portal.toolbar.mdEditor' | translate}}</button>
         </ng-template>
       </mat-menu>
 

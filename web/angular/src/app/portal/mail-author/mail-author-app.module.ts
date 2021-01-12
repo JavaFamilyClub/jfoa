@@ -24,7 +24,6 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule } from "@ngx-translate/core";
 import { FroalaEditorModule, FroalaViewModule } from "angular-froala-wysiwyg";
-import { MdEditorAppModule } from "../../md-editor/md-editor-app.module";
 import { WidgetModule } from "../../widget/widget.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { MailAuthorComponent } from "./mail-author.component";
@@ -48,8 +47,7 @@ import { MailAuthorComponent } from "./mail-author.component";
       MatProgressSpinnerModule,
       FroalaEditorModule,
       FroalaViewModule,
-      TranslateModule,
-      MdEditorAppModule
+      TranslateModule
    ],
    bootstrap: [MailAuthorComponent],
    entryComponents: [

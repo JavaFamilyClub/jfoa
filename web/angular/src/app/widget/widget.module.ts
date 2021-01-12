@@ -23,11 +23,13 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatTreeModule } from "@angular/material/tree";
 import { TranslateModule } from "@ngx-translate/core";
+import { FroalaEditorModule, FroalaViewModule } from "angular-froala-wysiwyg";
 import { NgxEchartsModule } from "ngx-echarts";
 import { MatMessageDialog } from "./dialog/mat-message-dialog";
 import { ExportDialog } from "./export-dialog/export-dialog";
@@ -47,8 +49,6 @@ import { TooltipComponent } from "./tooltip/tooltip.component";
 import { MessageDialog } from "./dialog/message-dialog.component";
 import { FixedDropdownContextmenuComponent } from "./fixed-dropdown/fixed-dropdown-contextmenu.component";
 import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.component";
-import { MatTreeViewComponent } from "./tree/mat-tree-view/mat-tree-view.component";
-import { InputNameDialogComponent } from "./dialog/input-name-dialog/input-name-dialog.component";
 
 @NgModule({
    imports: [
@@ -67,11 +67,14 @@ import { InputNameDialogComponent } from "./dialog/input-name-dialog/input-name-
       TranslateModule,
       MatTreeModule,
       MatIconModule,
+      FroalaEditorModule,
+      FroalaViewModule,
       NgxEchartsModule.forRoot({
          echarts: () => import("echarts")
       }),
       MatCheckboxModule,
-      MatProgressSpinnerModule
+      MatProgressSpinnerModule,
+      MatRadioModule
    ],
    declarations: [
       ...MODULE_COMPONENTS,
