@@ -40,8 +40,10 @@ public final class PDFUtil {
 
    // by JackLi: font byte can't reuse.
    // multi-thread export check <code>document.close()</code> will throw check exception
-   private static final ThreadLocal<byte[]> DEFAULT_PDF_TEXT_FONT = new ThreadLocal<>();
-   private static final ThreadLocal<byte[]> DEFAULT_PDF_BOLD_FONT = new ThreadLocal<>();
+   private static final ThreadLocal<byte[]> DEFAULT_PDF_TEXT_FONT
+      = ThreadLocal.withInitial(() -> defaultTextFontData);
+   private static final ThreadLocal<byte[]> DEFAULT_PDF_BOLD_FONT
+      = ThreadLocal.withInitial(() -> defaultBoldFontData);
 
    static {
       initDefaultFontData();
