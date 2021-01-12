@@ -19,6 +19,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FroalaEditorModule, FroalaViewModule } from "angular-froala-wysiwyg";
 import { MODULE_COMPONENTS } from "./index.components";

@@ -40,6 +40,7 @@ public class Customer implements Serializable, Cloneable {
    private String email;
    private Gender gender = Gender.Unknown;
    private UserType type = UserType.User;
+   private String phone;
    private boolean active;
    @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
    @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = Tool.DEFAULT_TIME_ZONE_STR)
@@ -88,6 +89,14 @@ public class Customer implements Serializable, Cloneable {
 
    public void setEmail(String email) {
       this.email = email;
+   }
+
+   public String getPhone() {
+      return phone;
+   }
+
+   public void setPhone(String phone) {
+      this.phone = phone;
    }
 
    public Set<Role> getRoles() {

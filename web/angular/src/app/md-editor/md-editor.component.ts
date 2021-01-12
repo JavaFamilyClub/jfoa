@@ -13,6 +13,7 @@
  */
 
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import { MdEditorState } from "./md-editor-state";
 
 @Component({
    selector: "md-editor",
@@ -21,11 +22,14 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 })
 export class MdEditorComponent implements OnInit {
    @Input() content: string;
+   @Input() changeModeDisabled = false;
+   @Input() state = MdEditorState.ALL;
    @Input() placeholder: string;
    @Input() height: string;
    @Output() onContentChanged = new EventEmitter<string>();
    loaded = false;
-   enablePreview = false;
+
+   MdEditorState = MdEditorState;
 
    constructor() {
    }

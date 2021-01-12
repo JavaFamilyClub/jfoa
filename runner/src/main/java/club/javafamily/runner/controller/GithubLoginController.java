@@ -18,8 +18,7 @@ import club.javafamily.commons.enums.Gender;
 import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.config.OAuthUsernamePasswordToken;
 import club.javafamily.runner.domain.Customer;
-import club.javafamily.runner.dto.AccessTokenResponse;
-import club.javafamily.runner.dto.GithubUser;
+import club.javafamily.runner.dto.*;
 import club.javafamily.runner.rest.github.GithubProvider;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.I18nUtil;
@@ -31,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -76,9 +76,20 @@ public class GithubLoginController {
       }
 
       GithubUser user = githubProvider.getUser(accessTokenResponse);
+      OAuthNotifyIdentifier identifier = githubProvider.getIdentifier(accessTokenResponse);
 
       String email = user.getEmail();
-      String account = UserType.GitHub.getLabel() + ":" + user.getLogin();
+      String phone = null;
+
+      if(identifier != null) {
+         if(StringUtils.isEmpty(email)) {
+            email = identifier.getEmail();
+         }
+
+         phone = identifier.getPhone();
+      }
+
+      String account = UserType.GitHub.getLabel() + ":" + user.getAccount();
 
       Customer customer = customerService.getCustomerByAccount(account);
 
@@ -88,6 +99,7 @@ public class GithubLoginController {
          customer.setAccount(account);
          customer.setName(user.getName());
          customer.setEmail(email);
+         customer.setPhone(phone);
          customer.setGender(Gender.Unknown);
          customer.setActive(true);
          customer.setType(UserType.GitHub);

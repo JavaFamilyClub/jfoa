@@ -23,8 +23,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Lazy
@@ -108,6 +107,27 @@ public class GithubProvider implements QueryEngine<GithubUser> {
    @Override
    public Class<GithubUser> getUserClass() {
       return GithubUser.class;
+   }
+
+   @Override
+   public OAuthNotifyIdentifier getIdentifier(AccessTokenResponse accessTokenResponse) {
+      GitHubEmailResponse result = null;
+      GitHubEmailResponse[] emails = getEmail(accessTokenResponse, GitHubEmailResponse[].class);
+
+      if(emails != null) {
+         for(GitHubEmailResponse email : emails) {
+            // make sure at least one email address has selected.
+            if((result == null && (email.isVerified() || email.isPrimary()))) {
+               result = email;
+            }
+            else if(email.isVerified() && email.isPrimary()) {
+               result = email; // found major.
+               break;
+            }
+         }
+      }
+
+      return result;
    }
 
    private final RestTemplate restTemplate;

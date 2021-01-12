@@ -17,6 +17,7 @@ import { ActivatedRoute } from "@angular/router";
 import { PortalUrlConstants } from "../../common/constants/url/portal-url-constants";
 import { BaseSubscription } from "../../widget/base/BaseSubscription";
 import { ModelService } from "../../widget/services/model.service";
+import { MdEditorState } from 'src/app/md-editor/md-editor-state';
 
 @Component({
    selector: "article-view",
@@ -26,7 +27,10 @@ import { ModelService } from "../../widget/services/model.service";
 export class ArticleViewComponent extends BaseSubscription implements OnInit, OnDestroy {
    private url: string;
    loaded: boolean = false;
+   content: string;
    @ViewChild("articleContent", {static: true}) articleContent: ElementRef;
+
+   MdEditorState = MdEditorState;
 
    constructor(private renderer: Renderer2,
                private route: ActivatedRoute,

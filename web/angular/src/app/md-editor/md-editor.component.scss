@@ -9,6 +9,23 @@
    height: 100%;
 }
 
+.md-editor-toolbar-right {
+   display: flex;
+   align-items: center;
+   flex-direction: row-reverse;
+   vertical-align: middle;
+}
+
+.md-editor-toolbar-right-section {
+   display: flex;
+   align-content: center;
+   align-items: center;
+}
+
+.md-editor-toolbar-right-margin {
+   margin: 10px;
+}
+
 ::ng-deep #fr-logo, .second-toolbar > #logo, .fr-second-toolbar > #fr-logo {
    display: none !important;
 }

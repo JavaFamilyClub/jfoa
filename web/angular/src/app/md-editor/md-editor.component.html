@@ -1,17 +1,39 @@
 <div class="md-editor-container">
   <div class="md-editor-toolbar">
+    <div class="md-editor-toolbar-right">
+      <section class="md-editor-toolbar-right-section" *ngIf="!changeModeDisabled">
+        <label class="md-editor-toolbar-right-margin">View Mode:</label>
 
+        <mat-radio-group [(ngModel)]="state">
+          <mat-radio-button class="md-editor-toolbar-right-margin" [value]="MdEditorState.EDIT">
+            Edit
+          </mat-radio-button>
+          <mat-radio-button class="md-editor-toolbar-right-margin" [value]="MdEditorState.PREVIEW">
+            Preview
+          </mat-radio-button>
+          <mat-radio-button class="md-editor-toolbar-right-margin" [value]="MdEditorState.ALL">
+            Edit & Preview
+          </mat-radio-button>
+        </mat-radio-group>
+      </section>
+    </div>
   </div>
 
   <div class="md-editor-body" *ngIf="loaded">
-    <div class="md-editor-design-view" [class.d-inline]="enablePreview">
+
+    <div class="md-editor-design-view"
+         *ngIf="state == MdEditorState.EDIT || state == MdEditorState.ALL"
+         [class.d-inline]="state == MdEditorState.ALL">
       <textarea matInput #froalaContainer
                 [(ngModel)]="content"
                 [placeholder]="placeholder || ''"
                 [froalaEditor]="options"></textarea>
     </div>
 
-    <div class="md-editor-preview-view" [class.d-inline]="enablePreview">
+    <div class="md-editor-preview-view"
+         *ngIf="state == MdEditorState.PREVIEW || state == MdEditorState.ALL"
+         [class.d-inline]="state == MdEditorState.ALL">
+      <div [froalaView]="content"></div>
     </div>
 
   </div>

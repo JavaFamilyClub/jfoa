@@ -19,7 +19,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
 public enum UserType {
    User(0, "User"),
-   GitHub(1, "GitHub");
+   GitHub(1, "GitHub"),
+   WeChat(1, "WeChat")
+   ;
 
    UserType(int type, String label) {
       this.type = type;

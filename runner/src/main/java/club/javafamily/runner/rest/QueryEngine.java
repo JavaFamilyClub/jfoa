@@ -117,6 +117,11 @@ public interface QueryEngine <T extends RestUser> {
       }
    }
 
+   /**
+    * OAuth getting user identifier
+    */
+   OAuthNotifyIdentifier getIdentifier(AccessTokenResponse accessTokenResponse);
+
    default <R> R getEmail(AccessTokenResponse accessTokenResponse,
                           Class<R> clazz)
    {

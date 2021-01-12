@@ -1,8 +1,8 @@
 <div class="article-view-body w-100 h-100">
 
   <div class="article-content w-100 h-100">
-    <iframe sandbox="allow-scripts" #articleContent class="w-100 h-100"
-            (load)="showContent()"></iframe>
+    <md-editor [content]="content" [changeModeDisabled]="false"
+               [state]="MdEditorState.PREVIEW"></md-editor>
 
     <span *ngIf="!loaded">{{'Loading' | translate}}</span>
   </div>
