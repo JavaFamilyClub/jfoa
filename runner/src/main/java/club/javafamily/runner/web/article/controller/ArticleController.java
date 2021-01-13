@@ -12,25 +12,13 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
+package club.javafamily.runner.web.article.controller;
 
-@Component({
-   selector: "article-editor",
-   templateUrl: "./article-editor.component.html",
-   styleUrls: ["./article-editor.component.scss"]
-})
-export class ArticleEditorComponent implements OnInit {
-   content: string = "";
-   placeholder: string = this.translate.instant("portal.toolbar.writeArticle");
+import club.javafamily.runner.util.SecurityUtil;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-   constructor(private translate: TranslateService) {
-   }
-
-   ngOnInit(): void {
-   }
-
-   apply(content: string): void {
-      // TODO store article
-   }
+@RestController
+@RequestMapping(SecurityUtil.API_VERSION)
+public class ArticleController {
 }

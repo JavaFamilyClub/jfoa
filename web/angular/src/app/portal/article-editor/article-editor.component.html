@@ -1,5 +1,6 @@
 <div class="w-100 h-100">
   <rich-text-editor [content]="content"
                     [placeholder]="placeholder"
+                    (onApply)="apply($event)"
   ></rich-text-editor>
 </div>

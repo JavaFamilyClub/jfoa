@@ -12,25 +12,17 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
+package club.javafamily.runner.dao;
 
-@Component({
-   selector: "article-editor",
-   templateUrl: "./article-editor.component.html",
-   styleUrls: ["./article-editor.component.scss"]
-})
-export class ArticleEditorComponent implements OnInit {
-   content: string = "";
-   placeholder: string = this.translate.instant("portal.toolbar.writeArticle");
+import club.javafamily.runner.domain.ArticleTag;
+import org.springframework.stereotype.Repository;
 
-   constructor(private translate: TranslateService) {
+@Repository
+public class ArticleTagDao extends BaseDao<ArticleTag, Integer> {
+
+   @Override
+   public Class<ArticleTag> getClazz() {
+      return ArticleTag.class;
    }
 
-   ngOnInit(): void {
-   }
-
-   apply(content: string): void {
-      // TODO store article
-   }
 }

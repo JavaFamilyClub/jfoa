@@ -12,25 +12,7 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
+package club.javafamily.runner.web.article.model;
 
-@Component({
-   selector: "article-editor",
-   templateUrl: "./article-editor.component.html",
-   styleUrls: ["./article-editor.component.scss"]
-})
-export class ArticleEditorComponent implements OnInit {
-   content: string = "";
-   placeholder: string = this.translate.instant("portal.toolbar.writeArticle");
-
-   constructor(private translate: TranslateService) {
-   }
-
-   ngOnInit(): void {
-   }
-
-   apply(content: string): void {
-      // TODO store article
-   }
+public class EditArticleModel {
 }

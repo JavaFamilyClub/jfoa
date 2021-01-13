@@ -12,25 +12,33 @@
  * person.
  */
 
-import { Component, OnInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
+package club.javafamily.runner.domain;
 
-@Component({
-   selector: "article-editor",
-   templateUrl: "./article-editor.component.html",
-   styleUrls: ["./article-editor.component.scss"]
-})
-export class ArticleEditorComponent implements OnInit {
-   content: string = "";
-   placeholder: string = this.translate.instant("portal.toolbar.writeArticle");
+import javax.persistence.*;
+import java.io.Serializable;
 
-   constructor(private translate: TranslateService) {
+@Entity(name = "t_article_tag")
+public class ArticleTag implements Serializable {
+
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Integer id;
+
+   private String tag;
+
+   public Integer getId() {
+      return id;
    }
 
-   ngOnInit(): void {
+   public void setId(Integer id) {
+      this.id = id;
    }
 
-   apply(content: string): void {
-      // TODO store article
+   public String getTag() {
+      return tag;
+   }
+
+   public void setTag(String tag) {
+      this.tag = tag;
    }
 }
