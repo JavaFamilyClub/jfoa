@@ -13,6 +13,7 @@
  */
 
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import { SplitPaneComponent } from "../split/split-pane.component";
 import { TextEditorState } from "./text-editor-state";
 
 const MIN_HEIGHT = 50;
@@ -29,10 +30,13 @@ export class RichTextEditorComponent implements OnInit {
    @Input() placeholder: string;
    @Input() height: string;
    @Output() onContentChanged = new EventEmitter<string>();
+   @Output() onApply = new EventEmitter<string>();
+   @Output() onCancel = new EventEmitter<void>();
 
    @ViewChild("mdEditorBody", { static: true}) mdEditorBody: ElementRef;
    @ViewChild("froalaContainer") froalaContainer: ElementRef;
-   MdEditorState = TextEditorState;
+   @ViewChild(SplitPaneComponent) splitPane: SplitPaneComponent;
+   TextEditorState = TextEditorState;
 
    viewInit = false;
 
@@ -55,9 +59,7 @@ export class RichTextEditorComponent implements OnInit {
          const height =  this.mdEditorBody.nativeElement.clientHeight
             - 50 - 38;
 
-         if(height > MIN_HEIGHT) {
-            this.options.height = height;
-         }
+         this.options.height = Math.max(height, MIN_HEIGHT);
       }
 
       this.viewInit = true;
@@ -83,4 +85,31 @@ export class RichTextEditorComponent implements OnInit {
       embedlyEditButtons: []
    };
 
+   changeState(state: TextEditorState): void {
+      this.state = state;
+
+      if(!!!this.splitPane) {
+         return;
+      }
+
+      switch(state) {
+         case TextEditorState.EDIT:
+            this.splitPane.setSizes([100, 0]);
+            break;
+         case TextEditorState.PREVIEW:
+            this.splitPane.setSizes([0, 100]);
+            break;
+         default:
+            this.splitPane.setSizes([50, 50]);
+      }
+   }
+
+   apply(apply: boolean = false): void {
+      if(apply) {
+         this.onApply.emit(this.content);
+      }
+      else {
+         this.onCancel.emit();
+      }
+   }
 }

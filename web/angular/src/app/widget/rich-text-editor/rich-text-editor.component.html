@@ -1,42 +1,69 @@
 <div class="rich-editor-container">
   <div class="rich-editor-toolbar">
     <div class="rich-editor-toolbar-right">
-      <section class="rich-editor-toolbar-right-section" *ngIf="!changeModeDisabled">
-        <label class="rich-editor-toolbar-right-margin">View Mode:</label>
 
-        <mat-radio-group [(ngModel)]="state">
-          <mat-radio-button class="rich-editor-toolbar-right-margin" [value]="MdEditorState.EDIT">
-            Edit
-          </mat-radio-button>
-          <mat-radio-button class="rich-editor-toolbar-right-margin" [value]="MdEditorState.PREVIEW">
-            Preview
-          </mat-radio-button>
-          <mat-radio-button class="rich-editor-toolbar-right-margin" [value]="MdEditorState.ALL">
-            Edit & Preview
-          </mat-radio-button>
-        </mat-radio-group>
+      <section class="rich-editor-toolbar-right-section mr-2" *ngIf="!changeModeDisabled">
+        <button mat-icon-button aria-label="Edit"
+                class="tile-bar-icon-size title-bar-btn"
+                [class.selected]="state == TextEditorState.EDIT"
+                (click)="changeState(TextEditorState.EDIT)"
+                [title]="'Edit' | translate">
+          <mat-icon class="icon-file-edit"></mat-icon>
+        </button>
+
+        <button mat-icon-button
+                [attr.aria-label]="'common.editAndPreview' | translate"
+                [class.selected]="state == TextEditorState.ALL"
+                (click)="changeState(TextEditorState.ALL)"
+                class="tile-bar-icon-size title-bar-btn"
+                [title]="'common.editAndPreview' | translate">
+          <mat-icon class="icon-book-outline"></mat-icon>
+        </button>
+
+        <button mat-icon-button aria-label="Preview"
+                [class.selected]="state == TextEditorState.PREVIEW"
+                (click)="changeState(TextEditorState.PREVIEW)"
+                class="tile-bar-icon-size title-bar-btn"
+                [title]="'Preview' | translate">
+          <mat-icon class="icon-eye-preview"></mat-icon>
+        </button>
       </section>
+
+      <mat-divider [vertical]="true"></mat-divider>
+
+      <section class="rich-editor-toolbar-right-section rich-editor-toolbar-right-icon-padding-16">
+        <button mat-icon-button aria-label="Cancel"
+                class="tile-bar-icon-size title-bar-btn"
+                (click)="apply(true)"
+                [title]="'Cancel' | translate">
+          <mat-icon class="icon-cancel"></mat-icon>
+        </button>
+
+        <button mat-icon-button aria-label="Finish"
+                class="tile-bar-icon-size title-bar-btn"
+                (click)="apply()"
+                [title]="'Finish' | translate">
+          <mat-icon class="icon-finish"></mat-icon>
+        </button>
+      </section>
+
     </div>
   </div>
 
   <div class="rich-editor-body" #mdEditorBody>
-    <split-pane [sizes]="[50, 50]" [gutterSize]="10">
-      <div class="rich-editor-design-view split-item-container split"
-           [class.w-50]="state == MdEditorState.ALL"
-           [class.w-100]="state == MdEditorState.EDIT"
-           *ngIf="state == MdEditorState.EDIT || state == MdEditorState.ALL">
+
+    <split-pane [sizes]="[50, 50]" [gutterSize]="6" [minSize]="0">
+      <div class="rich-editor-design-view split-item-container split overflow-hidden">
       <textarea matInput #froalaContainer *ngIf="viewInit"
                 [(ngModel)]="content"
                 [placeholder]="placeholder || ''"
                 [froalaEditor]="options"></textarea>
       </div>
 
-      <div class="rich-editor-preview-view split-item-container split border-gray-0 border-radius-6 p-3"
-           [class.w-50]="state == MdEditorState.ALL"
-           [class.w-100]="state == MdEditorState.PREVIEW"
-           *ngIf="state == MdEditorState.PREVIEW || state == MdEditorState.ALL">
-        <div [froalaView]="content" *ngIf="viewInit"></div>
+      <div class="rich-editor-preview-view split-item-container split border-gray-0 border-radius-6 p-3">
+        <div class="w-100" [froalaView]="content" *ngIf="viewInit"></div>
       </div>
+
     </split-pane>
 
   </div>

@@ -5,6 +5,9 @@
 
 .rich-editor-toolbar {
    height: 52px;
+   display: flex;
+   align-items: center;
+   justify-content: right;
 }
 
 .rich-editor-body {
@@ -14,9 +17,11 @@
 
 .rich-editor-toolbar-right {
    display: flex;
-   align-items: center;
-   flex-direction: row-reverse;
-   vertical-align: middle;
+   //flex-direction: row-reverse;
+}
+
+.rich-editor-toolbar-right-icon-padding-16 {
+   padding-right: 16px;
 }
 
 .rich-editor-toolbar-right-section {

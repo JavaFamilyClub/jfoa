@@ -46,6 +46,7 @@
    "Error": "错误",
    "Cancel": "取消",
    "CANCEL": "取消",
+   "Finish": "完成",
    "Confirm": "确认",
    "confirmWarn": "您确定要删除{{0}}?",
    "Account": "账户",
@@ -57,6 +58,7 @@
    "Users": "用户",
    "Date": "日期",
    "Search": "搜索",
+   "Edit": "编辑",
    "Delete": "删除",
    "Access": "访问",
    "Notify": "通知",
@@ -262,6 +264,7 @@
       }
    },
    "common": {
+      "editAndPreview": "编辑与预览",
       "verifyCode": "验证码",
       "changeVerifyCode": "点击切换验证码",
       "createUser": "创建用户",

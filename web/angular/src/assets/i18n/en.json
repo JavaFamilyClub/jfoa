@@ -46,6 +46,7 @@
    "Error": "Error",
    "Cancel": "Cancel",
    "CANCEL": "CANCEL",
+   "Finish": "Finish",
    "Confirm": "Confirm",
    "confirmWarn": "Do you want to delete {{0}}?",
    "Account": "Account",
@@ -57,6 +58,7 @@
    "Users": "Users",
    "Date": "Date",
    "Search": "Search",
+   "Edit": "Edit",
    "Delete": "Delete",
    "Access": "Access",
    "Notify": "Notify",
@@ -262,6 +264,7 @@
       }
    },
    "common": {
+      "editAndPreview": "Edit and Preview",
       "verifyCode": "Verification Code",
       "changeVerifyCode": "Click to Change Verification Code",
       "createUser": "Create User",

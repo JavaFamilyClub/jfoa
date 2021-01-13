@@ -1,4 +1,4 @@
-$jfoa-font-cache-buster: "f1y7xwm3yhxm9jjy2pzayh17b8";
+$jfoa-font-cache-buster: "q6dh9tzck483ktr9tp2uh8jcpw";
 
 $icon-account: "\ea01";
 $icon-alarm: "\ea02";
@@ -6,32 +6,38 @@ $icon-arrow-down: "\ea03";
 $icon-arrow-left: "\ea04";
 $icon-arrow-right: "\ea05";
 $icon-arrow-up: "\ea06";
-$icon-clear_circle: "\ea07";
-$icon-edit: "\ea08";
-$icon-en2zh: "\ea09";
-$icon-export_import: "\ea0a";
-$icon-export: "\ea0b";
-$icon-file-select: "\ea0c";
-$icon-group: "\ea0d";
-$icon-help: "\ea0e";
-$icon-home: "\ea0f";
-$icon-like: "\ea10";
-$icon-logout: "\ea11";
-$icon-mail-send: "\ea12";
-$icon-mail-write: "\ea13";
-$icon-menu-off: "\ea14";
-$icon-menu-on: "\ea15";
-$icon-monitor: "\ea16";
-$icon-notify: "\ea17";
-$icon-pressing: "\ea18";
-$icon-refresh: "\ea19";
-$icon-role: "\ea1a";
-$icon-search: "\ea1b";
-$icon-section-achieve: "\ea1c";
-$icon-setting: "\ea1d";
-$icon-volume_up: "\ea1e";
-$icon-write: "\ea1f";
-$icon-zh2en: "\ea20";
+$icon-book-outline: "\ea07";
+$icon-cancel: "\ea08";
+$icon-clear_circle: "\ea09";
+$icon-edit: "\ea0a";
+$icon-en2zh: "\ea0b";
+$icon-error: "\ea0c";
+$icon-export_import: "\ea0d";
+$icon-export: "\ea0e";
+$icon-eye-preview: "\ea0f";
+$icon-file-edit: "\ea10";
+$icon-file-select: "\ea11";
+$icon-finish: "\ea12";
+$icon-group: "\ea13";
+$icon-help: "\ea14";
+$icon-home: "\ea15";
+$icon-like: "\ea16";
+$icon-logout: "\ea17";
+$icon-mail-send: "\ea18";
+$icon-mail-write: "\ea19";
+$icon-menu-off: "\ea1a";
+$icon-menu-on: "\ea1b";
+$icon-monitor: "\ea1c";
+$icon-notify: "\ea1d";
+$icon-pressing: "\ea1e";
+$icon-refresh: "\ea1f";
+$icon-role: "\ea20";
+$icon-search: "\ea21";
+$icon-section-achieve: "\ea22";
+$icon-setting: "\ea23";
+$icon-volume_up: "\ea24";
+$icon-write: "\ea25";
+$icon-zh2en: "\ea26";
 
 $jfoa-base-map: (
   icon-account: $icon-account,
@@ -40,12 +46,18 @@ $jfoa-base-map: (
   icon-arrow-left: $icon-arrow-left,
   icon-arrow-right: $icon-arrow-right,
   icon-arrow-up: $icon-arrow-up,
+  icon-book-outline: $icon-book-outline,
+  icon-cancel: $icon-cancel,
   icon-clear_circle: $icon-clear_circle,
   icon-edit: $icon-edit,
   icon-en2zh: $icon-en2zh,
+  icon-error: $icon-error,
   icon-export_import: $icon-export_import,
   icon-export: $icon-export,
+  icon-eye-preview: $icon-eye-preview,
+  icon-file-edit: $icon-file-edit,
   icon-file-select: $icon-file-select,
+  icon-finish: $icon-finish,
   icon-group: $icon-group,
   icon-help: $icon-help,
   icon-home: $icon-home,
