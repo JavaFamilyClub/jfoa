@@ -14,11 +14,45 @@
 
 package club.javafamily.runner.web.article.controller;
 
+import club.javafamily.runner.domain.Article;
+import club.javafamily.runner.service.ArticleService;
+import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import club.javafamily.runner.web.article.model.EditArticleModel;
+import org.apache.shiro.authz.annotation.RequiresUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(SecurityUtil.API_VERSION)
 public class ArticleController {
+
+   @RequiresUser
+   @PostMapping("/portal/article")
+   public Integer writeArticle(EditArticleModel model) {
+      Article article = model.convertToDomain();
+      article.setCustomer(userService.getCurrentCustomer());
+
+      return articleService.insert(article);
+   }
+
+   @GetMapping("/portal/article/list/{offset}/{total}")
+   public List<Article> getArticleList(@PathVariable("offset") int offset,
+                                       @PathVariable("total") int total)
+   {
+      return articleService.getRange(offset, total);
+   }
+
+   @Autowired
+   public ArticleController(CustomerService userService,
+                            ArticleService articleService)
+   {
+      this.userService = userService;
+      this.articleService = articleService;
+   }
+
+   private final CustomerService userService;
+   private final ArticleService articleService;
 }

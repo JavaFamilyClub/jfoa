@@ -104,6 +104,9 @@ public abstract class BaseDao<T, R extends Serializable> implements TableLensDao
       }
    }
 
+   /**
+    * @return the generated identifier
+    */
    @Override
    @SuppressWarnings("all")
    public R insert(T entity) {

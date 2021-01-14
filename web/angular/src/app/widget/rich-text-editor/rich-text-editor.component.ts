@@ -13,6 +13,7 @@
  */
 
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import { TextEditorModel } from "../model/text-editor-model";
 import { SplitPaneComponent } from "../split/split-pane.component";
 import { TextEditorState } from "./text-editor-state";
 
@@ -24,13 +25,14 @@ const MIN_HEIGHT = 50;
    styleUrls: ["./rich-text-editor.component.scss"]
 })
 export class RichTextEditorComponent implements OnInit {
-   @Input() content: string;
+   @Input() model: TextEditorModel;
+   @Input() hiddenToolbar = false;
    @Input() changeModeDisabled = false;
    @Input() state = TextEditorState.ALL;
    @Input() placeholder: string;
    @Input() height: string;
    @Output() onContentChanged = new EventEmitter<string>();
-   @Output() onApply = new EventEmitter<string>();
+   @Output() onApply = new EventEmitter<TextEditorModel>();
    @Output() onCancel = new EventEmitter<void>();
 
    @ViewChild("mdEditorBody", { static: true}) mdEditorBody: ElementRef;
@@ -85,6 +87,14 @@ export class RichTextEditorComponent implements OnInit {
       embedlyEditButtons: []
    };
 
+   get content(): string {
+      return this.model.content;
+   }
+
+   set content(content: string) {
+      this.model.content = content;
+   }
+
    changeState(state: TextEditorState): void {
       this.state = state;
 
@@ -106,7 +116,7 @@ export class RichTextEditorComponent implements OnInit {
 
    apply(apply: boolean = false): void {
       if(apply) {
-         this.onApply.emit(this.content);
+         this.onApply.emit(this.model);
       }
       else {
          this.onCancel.emit();

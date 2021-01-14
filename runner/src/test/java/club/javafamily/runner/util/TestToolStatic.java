@@ -58,7 +58,7 @@ public class TestToolStatic {
 
    @Test
    public void jmx() {
-      String hostName = "127.0.0.1";
+      String hostName = "101.133.167.196";
       int portNum = 10888;
 
       try {

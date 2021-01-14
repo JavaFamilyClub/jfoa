@@ -14,6 +14,10 @@
 
 import { Component, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { PortalUrlConstants } from "../../common/constants/url/portal-url-constants";
+import { ArticleType } from "../../common/enum/article-type";
+import { ModelService } from "../../widget/services/model.service";
+import { EditArticleModel } from "../article-model/edit-article-model";
 
 @Component({
    selector: "article-editor",
@@ -21,16 +25,29 @@ import { TranslateService } from "@ngx-translate/core";
    styleUrls: ["./article-editor.component.scss"]
 })
 export class ArticleEditorComponent implements OnInit {
-   content: string = "";
+   model: EditArticleModel;
    placeholder: string = this.translate.instant("portal.toolbar.writeArticle");
 
-   constructor(private translate: TranslateService) {
+   constructor(private translate: TranslateService,
+               private modelService: ModelService)
+   {
    }
 
    ngOnInit(): void {
+      this.model = {
+         type: ArticleType.Rich,
+         title: "",
+         description: "",
+         tags: [],
+         content: ""
+      };
    }
 
-   apply(content: string): void {
-      // TODO store article
+   apply(): void {
+      this.modelService.sendModel(PortalUrlConstants.ARTICLE, this.model)
+         .subscribe(response => {
+            console.log("==article id==", response.body);
+            // TODO prompt preview result.
+         });
    }
 }

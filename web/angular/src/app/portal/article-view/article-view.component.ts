@@ -15,6 +15,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { PortalUrlConstants } from "../../common/constants/url/portal-url-constants";
+import { TextEditorModel } from "../../widget/model/text-editor-model";
 import { TextEditorState } from "../../widget/rich-text-editor/text-editor-state";
 import { BaseSubscription } from "../../widget/base/BaseSubscription";
 import { ModelService } from "../../widget/services/model.service";
@@ -28,6 +29,7 @@ export class ArticleViewComponent extends BaseSubscription implements OnInit, On
    private url: string;
    loaded: boolean = false;
    content: string;
+   model: TextEditorModel;
    @ViewChild("articleContent", {static: true}) articleContent: ElementRef;
 
    TextEditorState = TextEditorState;

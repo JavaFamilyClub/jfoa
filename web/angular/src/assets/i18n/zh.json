@@ -244,6 +244,12 @@
          "updateNotMatch": "要更新的角色 ID 不匹配. id: {{0}}, role.id: {{1}}"
       }
    },
+   "article": {
+      "title": "文章标题",
+      "error": {
+         "required": "文章标题是必填项"
+      }
+   },
    "security": {
       "link": {
          "em": "企业管理",

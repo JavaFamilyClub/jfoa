@@ -19,6 +19,9 @@ import club.javafamily.runner.domain.Article;
 import club.javafamily.runner.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
@@ -28,24 +31,35 @@ public class ArticleServiceImpl implements ArticleService {
       this.articleDao = articleDao;
    }
 
+   @Transactional(readOnly = true)
    @Override
    public Article get(Integer id) {
       return articleDao.get(id);
    }
 
+   @Transactional
    @Override
    public void delete(Article obj) {
       articleDao.delete(obj);
    }
 
+   @Transactional
    @Override
    public void update(Article obj) {
       articleDao.update(obj);
    }
 
+   @Transactional
    @Override
    public Integer insert(Article obj) {
       return articleDao.insert(obj);
+   }
+
+   @Transactional(readOnly = true)
+   @Override
+   public List<Article> getRange(int offset, int total) {
+      // TODO query by range
+      return articleDao.getAll();
    }
 
    private final ArticleDao articleDao;

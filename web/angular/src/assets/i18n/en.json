@@ -244,6 +244,12 @@
          "updateNotMatch": "Update role id is not match. id: {{0}}, role.id: {{1}}"
       }
    },
+   "article": {
+      "title": "Article Title",
+      "error": {
+         "required": "Article title is required"
+      }
+   },
    "security": {
       "link": {
          "em": "Enterprise Management",

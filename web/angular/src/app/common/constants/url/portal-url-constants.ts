@@ -34,4 +34,14 @@ export class PortalUrlConstants {
     */
    public static readonly ACHIEVE_ARTICLE = "/public/achieve/sr/article/";
 
+   /**
+    * Article
+    */
+   public static readonly ARTICLE = "/portal/article";
+
+   /**
+    * Article List
+    */
+   public static readonly ARTICLE_LIST = "/portal/article/list/";
+
 }

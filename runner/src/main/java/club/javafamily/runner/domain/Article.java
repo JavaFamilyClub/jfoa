@@ -15,6 +15,7 @@
 package club.javafamily.runner.domain;
 
 import club.javafamily.commons.utils.Tool;
+import club.javafamily.runner.enums.ArticleType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,6 +31,8 @@ public class Article implements Serializable {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer id;
+
+   private ArticleType type;
 
    private String title;
 
@@ -56,6 +59,14 @@ public class Article implements Serializable {
 
    public void setId(Integer id) {
       this.id = id;
+   }
+
+   public ArticleType getType() {
+      return type;
+   }
+
+   public void setType(ArticleType type) {
+      this.type = type;
    }
 
    public String getTitle() {

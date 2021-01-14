@@ -1,37 +1,54 @@
 <div class="rich-editor-container">
-  <div class="rich-editor-toolbar">
+  <div class="rich-editor-toolbar" *ngIf="!hiddenToolbar">
+    <div class="rich-editor-toolbar-left">
+      <mat-form-field>
+        <input matInput type="text" name="title"
+               required placeholder="{{'article.title' | translate}}"
+               [(ngModel)]="model.title"
+               #titleControl="ngModel" >
+
+        <mat-error *ngIf="titleControl.hasError('required')">
+          {{'article.error.required' | translate}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
     <div class="rich-editor-toolbar-right">
 
-      <section class="rich-editor-toolbar-right-section mr-2" *ngIf="!changeModeDisabled">
-        <button mat-icon-button aria-label="Edit"
-                class="tile-bar-icon-size title-bar-btn"
-                [class.selected]="state == TextEditorState.EDIT"
-                (click)="changeState(TextEditorState.EDIT)"
-                [title]="'Edit' | translate">
-          <mat-icon class="icon-file-edit"></mat-icon>
-        </button>
+      <ng-container *ngIf="!changeModeDisabled">
 
-        <button mat-icon-button
-                [attr.aria-label]="'common.editAndPreview' | translate"
-                [class.selected]="state == TextEditorState.ALL"
-                (click)="changeState(TextEditorState.ALL)"
-                class="tile-bar-icon-size title-bar-btn"
-                [title]="'common.editAndPreview' | translate">
-          <mat-icon class="icon-book-outline"></mat-icon>
-        </button>
+        <section class="rich-editor-toolbar-right-section mr-2">
+          <button mat-icon-button aria-label="Edit"
+                  class="tile-bar-icon-size title-bar-btn"
+                  [class.selected]="state == TextEditorState.EDIT"
+                  (click)="changeState(TextEditorState.EDIT)"
+                  [title]="'Edit' | translate">
+            <mat-icon class="icon-file-edit"></mat-icon>
+          </button>
 
-        <button mat-icon-button aria-label="Preview"
-                [class.selected]="state == TextEditorState.PREVIEW"
-                (click)="changeState(TextEditorState.PREVIEW)"
-                class="tile-bar-icon-size title-bar-btn"
-                [title]="'Preview' | translate">
-          <mat-icon class="icon-eye-preview"></mat-icon>
-        </button>
-      </section>
+          <button mat-icon-button
+                  [attr.aria-label]="'common.editAndPreview' | translate"
+                  [class.selected]="state == TextEditorState.ALL"
+                  (click)="changeState(TextEditorState.ALL)"
+                  class="tile-bar-icon-size title-bar-btn"
+                  [title]="'common.editAndPreview' | translate">
+            <mat-icon class="icon-book-outline"></mat-icon>
+          </button>
 
-      <mat-divider [vertical]="true"></mat-divider>
+          <button mat-icon-button aria-label="Preview"
+                  [class.selected]="state == TextEditorState.PREVIEW"
+                  (click)="changeState(TextEditorState.PREVIEW)"
+                  class="tile-bar-icon-size title-bar-btn"
+                  [title]="'Preview' | translate">
+            <mat-icon class="icon-eye-preview"></mat-icon>
+          </button>
+        </section>
 
-      <section class="rich-editor-toolbar-right-section rich-editor-toolbar-right-icon-padding-16">
+        <mat-divider [vertical]="true"></mat-divider>
+
+      </ng-container>
+
+      <section class="rich-editor-toolbar-right-section">
         <button mat-icon-button aria-label="Cancel"
                 class="tile-bar-icon-size title-bar-btn"
                 (click)="apply()"
@@ -42,6 +59,7 @@
         <button mat-icon-button aria-label="Finish"
                 class="tile-bar-icon-size title-bar-btn"
                 (click)="apply(true)"
+                [disabled]="titleControl?.invalid"
                 [title]="'Finish' | translate">
           <mat-icon class="icon-finish"></mat-icon>
         </button>
@@ -54,7 +72,7 @@
 
     <split-pane [sizes]="[50, 50]" [gutterSize]="6" [minSize]="0">
       <div class="rich-editor-design-view split-item-container split overflow-hidden">
-      <textarea matInput #froalaContainer *ngIf="viewInit"
+      <textarea matInput #froalaContainer *ngIf="viewInit && !!model"
                 [(ngModel)]="content"
                 [placeholder]="placeholder || ''"
                 [froalaEditor]="options"></textarea>

@@ -12,20 +12,12 @@
  * person.
  */
 
-package club.javafamily.runner.service;
+package club.javafamily.runner.enums;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public interface CRUDService <T> {
-
-   T get(Integer id);
-
-   void delete(T obj);
-
-   void update(T obj);
-
-   Integer insert(T obj);
-
-   List<T> getRange(int offset, int total);
-
+@JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
+public enum ArticleType {
+   Rich,
+   Markdown
 }

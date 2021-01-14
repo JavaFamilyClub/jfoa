@@ -12,20 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.service;
-
-import java.util.List;
-
-public interface CRUDService <T> {
-
-   T get(Integer id);
-
-   void delete(T obj);
-
-   void update(T obj);
-
-   Integer insert(T obj);
-
-   List<T> getRange(int offset, int total);
-
+export interface ArticleTag {
+   id: number;
+   tag: string;
 }

@@ -4,24 +4,25 @@
 }
 
 .rich-editor-toolbar {
-   height: 52px;
+   height: 70px;
    display: flex;
    align-items: center;
    justify-content: right;
+   padding: 0 16px;
 }
 
 .rich-editor-body {
    width: 100%;
-   height: calc(100% - 52px);
+   height: calc(100% - 70px);
+}
+
+.rich-editor-toolbar-left {
+   flex-grow: 1;
 }
 
 .rich-editor-toolbar-right {
    display: flex;
    //flex-direction: row-reverse;
-}
-
-.rich-editor-toolbar-right-icon-padding-16 {
-   padding-right: 16px;
 }
 
 .rich-editor-toolbar-right-section {

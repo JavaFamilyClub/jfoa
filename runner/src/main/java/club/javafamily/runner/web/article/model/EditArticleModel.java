@@ -14,5 +14,59 @@
 
 package club.javafamily.runner.web.article.model;
 
+import club.javafamily.runner.domain.Article;
+import club.javafamily.runner.domain.ArticleTag;
+
+import java.util.Date;
+import java.util.Set;
+
 public class EditArticleModel {
+   private String title;
+   private String description;
+   private Set<ArticleTag> tags;
+   private String content;
+
+   public String getTitle() {
+      return title;
+   }
+
+   public void setTitle(String title) {
+      this.title = title;
+   }
+
+   public String getDescription() {
+      return description;
+   }
+
+   public void setDescription(String description) {
+      this.description = description;
+   }
+
+   public Set<ArticleTag> getTags() {
+      return tags;
+   }
+
+   public void setTags(Set<ArticleTag> tags) {
+      this.tags = tags;
+   }
+
+   public String getContent() {
+      return content;
+   }
+
+   public void setContent(String content) {
+      this.content = content;
+   }
+
+   public Article convertToDomain() {
+      Article article = new Article();
+
+      article.setTitle(this.title);
+      article.setDescription(this.description);
+      article.setTags(this.tags);
+      article.setContent(this.content);
+      article.setCreateDate(new Date());
+
+      return article;
+   }
 }

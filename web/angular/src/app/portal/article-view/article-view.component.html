@@ -1,7 +1,7 @@
 <div class="article-view-body w-100 h-100">
 
   <div class="article-content w-100 h-100">
-    <rich-text-editor [content]="content" [changeModeDisabled]="false"
+    <rich-text-editor [model]="model"
                       [state]="TextEditorState.PREVIEW"></rich-text-editor>
 
     <span *ngIf="!loaded">{{'Loading' | translate}}</span>

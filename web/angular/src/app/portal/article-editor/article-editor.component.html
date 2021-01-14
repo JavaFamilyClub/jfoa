@@ -1,6 +1,7 @@
-<div class="w-100 h-100">
-  <rich-text-editor [content]="content"
+<div class="w-100 h-100" *ngIf="!!model">
+
+  <rich-text-editor [model]="model"
                     [placeholder]="placeholder"
-                    (onApply)="apply($event)"
+                    (onApply)="apply()"
   ></rich-text-editor>
 </div>

@@ -12,20 +12,12 @@
  * person.
  */
 
-package club.javafamily.runner.service;
+import { ArticleType } from "../../common/enum/article-type";
+import { ArticleTag } from "../../domain/article-tag";
+import { TextEditorModel } from "../../widget/model/text-editor-model";
 
-import java.util.List;
-
-public interface CRUDService <T> {
-
-   T get(Integer id);
-
-   void delete(T obj);
-
-   void update(T obj);
-
-   Integer insert(T obj);
-
-   List<T> getRange(int offset, int total);
-
+export interface EditArticleModel extends TextEditorModel {
+   type: ArticleType;
+   description: string;
+   tags: ArticleTag[];
 }
