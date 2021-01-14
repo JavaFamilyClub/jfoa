@@ -24,7 +24,7 @@ const MIN_HEIGHT = 50;
    templateUrl: "./rich-text-editor.component.html",
    styleUrls: ["./rich-text-editor.component.scss"]
 })
-export class RichTextEditorComponent implements OnInit, AfterViewInit {
+export class RichTextEditorComponent implements OnInit {
    @Input() model: TextEditorModel;
    @Input() hiddenToolbar = false;
    @Input() changeModeDisabled = false;
@@ -34,7 +34,6 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit {
    @Input() height: string;
    @Output() onContentChanged = new EventEmitter<string>();
    @Output() onApply = new EventEmitter<TextEditorModel>();
-   @Output() onCancel = new EventEmitter<void>();
 
    @ViewChild("mdEditorBody", { static: true}) mdEditorBody: ElementRef;
    @ViewChild("froalaContainer") froalaContainer: ElementRef;
@@ -43,9 +42,6 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit {
    defaultSplitSizes = [50, 50];
 
    viewInit = false;
-
-   constructor() {
-   }
 
    ngOnInit(): void {
       if(!!this.placeholder) {
@@ -122,15 +118,8 @@ export class RichTextEditorComponent implements OnInit, AfterViewInit {
       }
    }
 
-   apply(apply: boolean = false): void {
-      if(apply) {
-         this.onApply.emit(this.model);
-      }
-      else {
-         this.onCancel.emit();
-      }
+   apply(): void {
+      this.onApply.emit(this.model);
    }
 
-   ngAfterViewInit(): void {
-   }
 }

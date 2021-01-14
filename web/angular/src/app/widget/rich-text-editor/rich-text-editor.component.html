@@ -49,18 +49,11 @@
 
       </ng-container>
 
-      <section class="rich-editor-toolbar-right-section"
+      <section class="rich-editor-toolbar-right-section rich-editor-toolbar-right-padding"
                *ngIf="!hiddenApplyBtns">
-        <button mat-icon-button aria-label="Cancel"
-                class="tile-bar-icon-size title-bar-btn"
-                (click)="apply()"
-                [title]="'Cancel' | translate">
-          <mat-icon class="icon-cancel"></mat-icon>
-        </button>
-
         <button mat-icon-button aria-label="Finish"
                 class="tile-bar-icon-size title-bar-btn"
-                (click)="apply(true)"
+                (click)="apply()"
                 [disabled]="titleControl?.invalid"
                 [title]="'Finish' | translate">
           <mat-icon class="icon-finish"></mat-icon>
