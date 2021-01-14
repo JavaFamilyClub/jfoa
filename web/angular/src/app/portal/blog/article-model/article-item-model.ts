@@ -12,25 +12,15 @@
  * person.
  */
 
-package club.javafamily.runner.web.article.model;
+import { ArticleType } from "../../../common/enum/article-type";
+import { ArticleTag } from "../../../domain/article-tag";
 
-import club.javafamily.runner.domain.Article;
-
-public class ArticleDto extends ArticleItem {
-
-   private String content;
-
-   public ArticleDto(Article article) {
-      super(article);
-      this.content = article.getContent();
-   }
-
-   public String getContent() {
-      return content;
-   }
-
-   public void setContent(String content) {
-      this.content = content;
-   }
-
+export interface ArticleItemModel {
+   id: number;
+   type: ArticleType;
+   title: string;
+   description: string;
+   tags: ArticleTag[];
+   user: string;
+   createDate: string;
 }

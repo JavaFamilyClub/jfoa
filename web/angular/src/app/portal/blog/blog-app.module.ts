@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 import { WidgetModule } from "../../widget/widget.module";
 import { ArticleEditorComponent } from "./article-editor/article-editor.component";
+import { ArticleItemComponent } from "./article-list/article-item/article-item.component";
 import { ArticleListComponent } from "./article-list/article-list.component";
 import { ArticleViewComponent } from "./article-view/article-view.component";
 import { BlogAppRouting } from "./blog-app-routing.module";
@@ -28,7 +29,8 @@ import { BlogRootComponent } from "./blog-root.component";
       BlogRootComponent,
       ArticleListComponent,
       ArticleViewComponent,
-      ArticleEditorComponent
+      ArticleEditorComponent,
+      ArticleItemComponent
    ],
    imports: [
       CommonModule,

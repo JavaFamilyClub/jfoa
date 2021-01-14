@@ -1,1 +1,5 @@
-blog view...
+<div class="p-3" *ngIf="!!articles">
+  <div *ngFor="let item of articles">
+    <article-item [item]="item"></article-item>
+  </div>
+</div>

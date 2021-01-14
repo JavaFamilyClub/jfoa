@@ -12,25 +12,24 @@
  * person.
  */
 
-package club.javafamily.runner.web.article.model;
+import { Component, HostListener, Input } from "@angular/core";
+import { Router } from "@angular/router";
+import { BaseSubscription } from "../../../../widget/base/BaseSubscription";
+import { ArticleItemModel } from "../../article-model/article-item-model";
 
-import club.javafamily.runner.domain.Article;
+@Component({
+   selector: "article-item",
+   templateUrl: "./article-item.component.html",
+   styleUrls: ["./article-item.component.scss"]
+})
+export class ArticleItemComponent {
+   @Input() item: ArticleItemModel;
 
-public class ArticleDto extends ArticleItem {
-
-   private String content;
-
-   public ArticleDto(Article article) {
-      super(article);
-      this.content = article.getContent();
+   constructor(private router: Router) {
    }
 
-   public String getContent() {
-      return content;
+   @HostListener("click")
+   public click(): void {
+      this.router.navigateByUrl("/portal/blog/article/" + this.item.id).then();
    }
-
-   public void setContent(String content) {
-      this.content = content;
-   }
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2021, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
  * proprietary to JavaFamily Technology Corp. This software is furnished
@@ -20,6 +20,7 @@ import { TextEditorState } from "../../../widget/rich-text-editor/text-editor-st
 import { BaseSubscription } from "../../../widget/base/BaseSubscription";
 import { ModelService } from "../../../widget/services/model.service";
 import { ArticleDtoModel } from "../article-model/article-dto-model";
+import { ArticleItemModel } from "../article-model/article-item-model";
 import { EditArticleModel } from "../article-model/edit-article-model";
 
 @Component({
@@ -28,5 +29,22 @@ import { EditArticleModel } from "../article-model/edit-article-model";
    styleUrls: ["./article-list.component.scss"]
 })
 export class ArticleListComponent extends BaseSubscription {
+   articles: ArticleItemModel[];
+
+   constructor(private modelService: ModelService) {
+      super();
+      this.refresh();
+   }
+
+   private refresh(offset = 0, setup = 10): void {
+      this.modelService.getModel<ArticleItemModel[]>(
+         PortalUrlConstants.ARTICLE_LIST + offset + "/" + setup)
+         .subscribe(articles =>
+      {
+         this.articles = articles;
+      });
+   }
+
+
 
 }
