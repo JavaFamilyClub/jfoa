@@ -20,8 +20,6 @@
  */
 
 import { Type } from "@angular/core";
-import { ArticleEditorComponent } from "./article-editor/article-editor.component";
-import { ArticleViewComponent } from "./article-view/article-view.component";
 import { ChangePasswordDialog } from "./dialog/change-password-dialog";
 import { UserProfileDialog } from "./dialog/user-profile-dialog";
 import { PortalToolBarComponent } from "./portal-tool-bar/portal-tool-bar.component";
@@ -32,6 +30,4 @@ export const MODULE_COMPONENTS: Type<any>[] = [
    WelcomeComponent,
    UserProfileDialog,
    ChangePasswordDialog,
-   ArticleViewComponent,
-   ArticleEditorComponent
 ];

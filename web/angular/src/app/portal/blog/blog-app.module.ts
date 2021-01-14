@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2021, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
  * proprietary to JavaFamily Technology Corp. This software is furnished
@@ -17,27 +17,33 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 import { WidgetModule } from "../../widget/widget.module";
-import { AppRoutingModule } from "./app-routing.module";
-import { WriteArticleComponent } from "./write-article.component";
+import { ArticleEditorComponent } from "./article-editor/article-editor.component";
+import { ArticleListComponent } from "./article-list/article-list.component";
+import { ArticleViewComponent } from "./article-view/article-view.component";
+import { BlogAppRouting } from "./blog-app-routing.module";
+import { BlogRootComponent } from "./blog-root.component";
 
 @NgModule({
    declarations: [
-      WriteArticleComponent
+      BlogRootComponent,
+      ArticleListComponent,
+      ArticleViewComponent,
+      ArticleEditorComponent
    ],
    imports: [
       CommonModule,
       FormsModule,
       WidgetModule,
-      AppRoutingModule,
+      BlogAppRouting,
       ReactiveFormsModule,
       TranslateModule
    ],
-   bootstrap: [WriteArticleComponent],
+   bootstrap: [BlogRootComponent],
    entryComponents: [
    ],
    providers: [
    ]
 })
-export class WriteArticleAppModule {
+export class BlogAppModule {
 }
 

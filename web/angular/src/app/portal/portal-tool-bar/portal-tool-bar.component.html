@@ -22,6 +22,11 @@
        [title]="'portal.toolbar.vote' | translate"
        routerLink="./subjectVote"
     >{{'portal.toolbar.vote' | translate}}</a>
+
+    <a mat-button [attr.aria-label]="'Blog' | translate"
+       [title]="'Blog' | translate"
+       routerLink="./blog"
+    >{{'Blog' | translate}}</a>
   </div>
 
   <div class="btn-group title-bar-align-right"
@@ -30,10 +35,12 @@
     <div class="d-inline-block">
 
       <button mat-button [matMenuTriggerFor]="supportMatMenu"
-        aria-label="Support" [title]="'Support' | translate"
-        class="title-bar-btn">{{'Support' | translate}}</button>
+              aria-label="Support" [title]="'Support' | translate"
+              class="title-bar-btn">{{'Support' | translate}}</button>
 
-      <button mat-icon-button aria-label="Write Article"
+      <button mat-icon-button
+              #writeArticleTrigger="matMenuTrigger"
+              aria-label="Write Article"
               [matMenuTriggerFor]="writeArticleMenu"
               class="tile-bar-icon-size title-bar-btn"
               [title]="'portal.toolbar.writeArticle' | translate">
@@ -95,7 +102,7 @@
       <mat-menu #writeArticleMenu="matMenu">
         <ng-template matMenuContent>
           <button mat-button aria-label="Rich Editor"
-                  routerLink="article-editor"
+                  routerLink="blog/article-editor"
                   [title]="'portal.toolbar.richEditor' | translate"
           >{{'portal.toolbar.richEditor' | translate}}</button>
 

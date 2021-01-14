@@ -12,7 +12,8 @@
  * person.
  */
 
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
+import { MatMenuTrigger } from "@angular/material/menu";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
@@ -119,5 +120,9 @@ export class PortalToolBarComponent {
 
    logout(): void {
       this.principalService.logout().then();
+   }
+
+   closeMenu(event: MouseEvent) {
+      console.log("====================", event);
    }
 }

@@ -14,16 +14,33 @@
 
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { WriteArticleComponent } from "./write-article.component";
+import { ArticleEditorComponent } from "./article-editor/article-editor.component";
+import { ArticleListComponent } from "./article-list/article-list.component";
+import { ArticleViewComponent } from "./article-view/article-view.component";
+import { BlogRootComponent } from "./blog-root.component";
 
 const appRoutes: Routes = [
    {
       path: "",
-      component: WriteArticleComponent
-   },
-   {
-      path: "**",
-      redirectTo: ""
+      component: BlogRootComponent,
+      children: [
+         {
+            path: "",
+            component: ArticleListComponent
+         },
+         {
+            path: "article/:articleId",
+            component: ArticleViewComponent
+         },
+         {
+            path: "article-editor",
+            component: ArticleEditorComponent
+         },
+         {
+            path: "**",
+            redirectTo: ""
+         }
+      ]
    }
 ];
 
@@ -35,5 +52,5 @@ const appRoutes: Routes = [
       RouterModule
    ]
 })
-export class AppRoutingModule {
+export class BlogAppRouting {
 }

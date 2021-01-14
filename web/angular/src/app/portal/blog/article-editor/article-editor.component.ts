@@ -16,10 +16,10 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
-import { PortalUrlConstants } from "../../common/constants/url/portal-url-constants";
-import { ArticleType } from "../../common/enum/article-type";
-import { ComponentTool } from "../../common/util/component-tool";
-import { ModelService } from "../../widget/services/model.service";
+import { PortalUrlConstants } from "../../../common/constants/url/portal-url-constants";
+import { ArticleType } from "../../../common/enum/article-type";
+import { ComponentTool } from "../../../common/util/component-tool";
+import { ModelService } from "../../../widget/services/model.service";
 import { EditArticleModel } from "../article-model/edit-article-model";
 
 @Component({
@@ -59,7 +59,7 @@ export class ArticleEditorComponent implements OnInit {
                this.translate.instant("article.submitSuccessMsg")).then(result =>
             {
                if(result == "ok") {
-                  this.router.navigate(["/portal/article/" + articleId], {
+                  this.router.navigate(["/portal/blog/article/" + articleId], {
                      relativeTo: this.activatedRoute
                   }).then();
                }

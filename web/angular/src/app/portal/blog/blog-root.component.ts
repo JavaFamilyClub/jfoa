@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
  * proprietary to JavaFamily Technology Corp. This software is furnished
@@ -12,12 +12,11 @@
  * person.
  */
 
-import { ArticleType } from "../../common/enum/article-type";
-import { ArticleTag } from "../../domain/article-tag";
-import { TextEditorModel } from "../../widget/model/text-editor-model";
+import { Component } from "@angular/core";
 
-export interface EditArticleModel extends TextEditorModel {
-   type: ArticleType;
-   description: string;
-   tags: ArticleTag[];
+@Component({
+   selector: "blog-root",
+   templateUrl: "./blog-root.component.html"
+})
+export class BlogRootComponent {
 }
