@@ -8,6 +8,7 @@
    "OK": "OK",
    "Ok": "Ok",
    "Ip": "Ip",
+   "Success": "Success",
    "System": "System",
    "Runtime": "Runtime",
    "Summary": "Summary",
@@ -246,6 +247,7 @@
    },
    "article": {
       "title": "Article Title",
+      "submitSuccessMsg": "Submit successfully, go to preview this article?",
       "error": {
          "required": "Article title is required"
       }

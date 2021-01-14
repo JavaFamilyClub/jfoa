@@ -14,18 +14,57 @@
 
 package club.javafamily.runner.web.article.model;
 
+import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.domain.Article;
 import club.javafamily.runner.domain.ArticleTag;
 import club.javafamily.runner.enums.ArticleType;
+import club.javafamily.runner.util.SecurityUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
-public class EditArticleModel {
-   private String title;
+public class ArticleDto {
+   private Integer id;
    private ArticleType type;
+   private String title;
    private String description;
    private List<ArticleTag> tags;
    private String content;
+   private String user;
+   @DateTimeFormat(pattern = Tool.DEFAULT_DATETIME_FORMAT)
+   @JsonFormat(pattern=Tool.DEFAULT_DATETIME_FORMAT, timezone = Tool.DEFAULT_TIME_ZONE_STR)
+   private Date createDate;
+
+   public ArticleDto(Article article) {
+      this.id = article.getId();
+      this.title = article.getTitle();
+      this.description = article.getDescription();
+      this.content = article.getContent();
+      this.createDate = article.getCreateDate();
+      this.tags = article.getTags();
+      this.user = article.getCustomer() != null
+         ? article.getCustomer().getName()
+         : SecurityUtil.Anonymous;
+      this.type = article.getType();
+   }
+
+   public Integer getId() {
+      return id;
+   }
+
+   public void setId(Integer id) {
+      this.id = id;
+   }
+
+   public ArticleType getType() {
+      return type;
+   }
+
+   public void setType(ArticleType type) {
+      this.type = type;
+   }
 
    public String getTitle() {
       return title;
@@ -59,24 +98,19 @@ public class EditArticleModel {
       this.content = content;
    }
 
-   public ArticleType getType() {
-      return type;
+   public String getUser() {
+      return user;
    }
 
-   public void setType(ArticleType type) {
-      this.type = type;
+   public void setUser(String user) {
+      this.user = user;
    }
 
-   public Article convertToDomain() {
-      Article article = new Article();
+   public Date getCreateDate() {
+      return createDate;
+   }
 
-      article.setType(this.type);
-      article.setTitle(this.title);
-      article.setDescription(this.description);
-      article.setTags(this.tags);
-      article.setContent(this.content);
-      article.setCreateDate(new Date());
-
-      return article;
+   public void setCreateDate(Date createDate) {
+      this.createDate = createDate;
    }
 }

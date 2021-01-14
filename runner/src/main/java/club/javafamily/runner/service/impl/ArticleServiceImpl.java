@@ -17,6 +17,7 @@ package club.javafamily.runner.service.impl;
 import club.javafamily.runner.dao.ArticleDao;
 import club.javafamily.runner.domain.Article;
 import club.javafamily.runner.service.ArticleService;
+import club.javafamily.runner.web.article.model.ArticleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,14 @@ public class ArticleServiceImpl implements ArticleService {
    @Autowired
    public ArticleServiceImpl(ArticleDao articleDao) {
       this.articleDao = articleDao;
+   }
+
+   @Transactional(readOnly = true)
+   @Override
+   public ArticleDto getArticle(Integer id) {
+      Article article = get(id);
+
+      return new ArticleDto(article);
    }
 
    @Transactional(readOnly = true)

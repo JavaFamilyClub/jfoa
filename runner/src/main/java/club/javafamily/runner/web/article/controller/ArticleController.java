@@ -18,8 +18,8 @@ import club.javafamily.runner.domain.Article;
 import club.javafamily.runner.service.ArticleService;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
+import club.javafamily.runner.web.article.model.ArticleDto;
 import club.javafamily.runner.web.article.model.EditArticleModel;
-import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,18 +29,22 @@ import java.util.List;
 @RequestMapping(SecurityUtil.API_VERSION)
 public class ArticleController {
 
-   @RequiresUser
-   @PostMapping("/portal/article")
-   public Integer writeArticle(EditArticleModel model) {
+   @PostMapping("/api/portal/article")
+   public Integer writeArticle(@RequestBody EditArticleModel model) {
       Article article = model.convertToDomain();
       article.setCustomer(userService.getCurrentCustomer());
 
       return articleService.insert(article);
    }
 
-   @GetMapping("/portal/article/list/{offset}/{total}")
-   public List<Article> getArticleList(@PathVariable("offset") int offset,
-                                       @PathVariable("total") int total)
+   @GetMapping("/api/portal/article/{id}")
+   public ArticleDto getArticle(@PathVariable("id") Integer id) {
+      return articleService.getArticle(id);
+   }
+
+   @GetMapping("/api/portal/article/list/{offset}/{total}")
+   public List<Article> getArticleList(@PathVariable("offset") Integer offset,
+                                       @PathVariable("total") Integer total)
    {
       return articleService.getRange(offset, total);
    }

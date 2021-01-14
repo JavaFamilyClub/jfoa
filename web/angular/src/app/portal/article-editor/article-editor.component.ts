@@ -13,9 +13,12 @@
  */
 
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
 import { PortalUrlConstants } from "../../common/constants/url/portal-url-constants";
 import { ArticleType } from "../../common/enum/article-type";
+import { ComponentTool } from "../../common/util/component-tool";
 import { ModelService } from "../../widget/services/model.service";
 import { EditArticleModel } from "../article-model/edit-article-model";
 
@@ -28,7 +31,10 @@ export class ArticleEditorComponent implements OnInit {
    model: EditArticleModel;
    placeholder: string = this.translate.instant("portal.toolbar.writeArticle");
 
-   constructor(private translate: TranslateService,
+   constructor(private router: Router,
+               private activatedRoute: ActivatedRoute,
+               private modalService: NgbModal,
+               private translate: TranslateService,
                private modelService: ModelService)
    {
    }
@@ -46,8 +52,18 @@ export class ArticleEditorComponent implements OnInit {
    apply(): void {
       this.modelService.sendModel(PortalUrlConstants.ARTICLE, this.model)
          .subscribe(response => {
-            console.log("==article id==", response.body);
-            // TODO prompt preview result.
+            const articleId = response.body;
+
+            ComponentTool.showConfirmDialog(this.modalService,
+               this.translate.instant("Success"),
+               this.translate.instant("article.submitSuccessMsg")).then(result =>
+            {
+               if(result == "ok") {
+                  this.router.navigate(["/portal/article/" + articleId], {
+                     relativeTo: this.activatedRoute
+                  }).then();
+               }
+            });
          });
    }
 }

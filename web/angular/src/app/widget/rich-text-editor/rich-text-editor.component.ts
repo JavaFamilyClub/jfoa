@@ -12,7 +12,7 @@
  * person.
  */
 
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { TextEditorModel } from "../model/text-editor-model";
 import { SplitPaneComponent } from "../split/split-pane.component";
 import { TextEditorState } from "./text-editor-state";
@@ -24,10 +24,11 @@ const MIN_HEIGHT = 50;
    templateUrl: "./rich-text-editor.component.html",
    styleUrls: ["./rich-text-editor.component.scss"]
 })
-export class RichTextEditorComponent implements OnInit {
+export class RichTextEditorComponent implements OnInit, AfterViewInit {
    @Input() model: TextEditorModel;
    @Input() hiddenToolbar = false;
    @Input() changeModeDisabled = false;
+   @Input() hiddenApplyBtns = false;
    @Input() state = TextEditorState.ALL;
    @Input() placeholder: string;
    @Input() height: string;
@@ -39,6 +40,7 @@ export class RichTextEditorComponent implements OnInit {
    @ViewChild("froalaContainer") froalaContainer: ElementRef;
    @ViewChild(SplitPaneComponent) splitPane: SplitPaneComponent;
    TextEditorState = TextEditorState;
+   defaultSplitSizes = [50, 50];
 
    viewInit = false;
 
@@ -63,6 +65,8 @@ export class RichTextEditorComponent implements OnInit {
 
          this.options.height = Math.max(height, MIN_HEIGHT);
       }
+
+      this.defaultSplitSizes = this.getSplitSize(this.state);
 
       this.viewInit = true;
    }
@@ -98,19 +102,23 @@ export class RichTextEditorComponent implements OnInit {
    changeState(state: TextEditorState): void {
       this.state = state;
 
+      console.log("=============splitPane========", this.splitPane);
+
       if(!!!this.splitPane) {
          return;
       }
 
+      this.splitPane.setSizes(this.getSplitSize(state));
+   }
+
+   getSplitSize(state: TextEditorState): number[] {
       switch(state) {
          case TextEditorState.EDIT:
-            this.splitPane.setSizes([100, 0]);
-            break;
+            return [100, 0];
          case TextEditorState.PREVIEW:
-            this.splitPane.setSizes([0, 100]);
-            break;
+            return [0, 100];
          default:
-            this.splitPane.setSizes([50, 50]);
+            return [50, 50];
       }
    }
 
@@ -121,5 +129,8 @@ export class RichTextEditorComponent implements OnInit {
       else {
          this.onCancel.emit();
       }
+   }
+
+   ngAfterViewInit(): void {
    }
 }

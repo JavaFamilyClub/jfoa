@@ -37,11 +37,11 @@ export class PortalUrlConstants {
    /**
     * Article
     */
-   public static readonly ARTICLE = "/portal/article";
+   public static readonly ARTICLE = "/api/portal/article";
 
    /**
     * Article List
     */
-   public static readonly ARTICLE_LIST = "/portal/article/list/";
+   public static readonly ARTICLE_LIST = "/api/portal/article/list/";
 
 }

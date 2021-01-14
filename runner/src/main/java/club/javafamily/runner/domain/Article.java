@@ -23,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity(name = "t_article")
 public class Article implements Serializable {
@@ -39,9 +39,10 @@ public class Article implements Serializable {
    private String description;
 
    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-   @ManyToMany(targetEntity = ArticleTag.class)
-   private Set<ArticleTag> tags;
+   @ManyToMany(targetEntity = ArticleTag.class, fetch = FetchType.EAGER)
+   private List<ArticleTag> tags;
 
+   @Column(columnDefinition = "CLOB", length = 32766)
    private String content;
 
    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
@@ -85,14 +86,15 @@ public class Article implements Serializable {
       this.description = description;
    }
 
-   public Set<ArticleTag> getTags() {
+   public List<ArticleTag> getTags() {
       return tags;
    }
 
-   public void setTags(Set<ArticleTag> tags) {
+   public void setTags(List<ArticleTag> tags) {
       this.tags = tags;
    }
 
+   @Column(columnDefinition = "CLOB", length = 65532)
    public String getContent() {
       return content;
    }

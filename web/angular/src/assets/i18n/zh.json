@@ -8,6 +8,7 @@
    "OK": "确定",
    "Ok": "确定",
    "Ip": "IP 地址",
+   "Success": "成功",
    "System": "系统",
    "Runtime": "运行",
    "Summary": "概览",
@@ -246,6 +247,7 @@
    },
    "article": {
       "title": "文章标题",
+      "submitSuccessMsg": "提交成功, 前往预览该文章?",
       "error": {
          "required": "文章标题是必填项"
       }

@@ -5,6 +5,7 @@
         <input matInput type="text" name="title"
                required placeholder="{{'article.title' | translate}}"
                [(ngModel)]="model.title"
+               [readonly]="state == TextEditorState.PREVIEW"
                #titleControl="ngModel" >
 
         <mat-error *ngIf="titleControl.hasError('required')">
@@ -48,7 +49,8 @@
 
       </ng-container>
 
-      <section class="rich-editor-toolbar-right-section">
+      <section class="rich-editor-toolbar-right-section"
+               *ngIf="!hiddenApplyBtns">
         <button mat-icon-button aria-label="Cancel"
                 class="tile-bar-icon-size title-bar-btn"
                 (click)="apply()"
@@ -70,7 +72,7 @@
 
   <div class="rich-editor-body" #mdEditorBody>
 
-    <split-pane [sizes]="[50, 50]" [gutterSize]="6" [minSize]="0">
+    <split-pane [sizes]="defaultSplitSizes" [gutterSize]="6" [minSize]="0">
       <div class="rich-editor-design-view split-item-container split overflow-hidden">
       <textarea matInput #froalaContainer *ngIf="viewInit && !!model"
                 [(ngModel)]="content"

@@ -19,6 +19,8 @@ import { TextEditorModel } from "../../widget/model/text-editor-model";
 import { TextEditorState } from "../../widget/rich-text-editor/text-editor-state";
 import { BaseSubscription } from "../../widget/base/BaseSubscription";
 import { ModelService } from "../../widget/services/model.service";
+import { ArticleDtoModel } from "../article-model/article-dto-model";
+import { EditArticleModel } from "../article-model/edit-article-model";
 
 @Component({
    selector: "article-view",
@@ -26,10 +28,9 @@ import { ModelService } from "../../widget/services/model.service";
    styleUrls: ["./article-view.component.scss"]
 })
 export class ArticleViewComponent extends BaseSubscription implements OnInit, OnDestroy {
-   private url: string;
+   article: ArticleDtoModel;
    loaded: boolean = false;
    content: string;
-   model: TextEditorModel;
    @ViewChild("articleContent", {static: true}) articleContent: ElementRef;
 
    TextEditorState = TextEditorState;
@@ -45,16 +46,11 @@ export class ArticleViewComponent extends BaseSubscription implements OnInit, On
       this.subscriptions.add(this.route.paramMap.subscribe(params => {
          const articleId = params.get("articleId");
 
-         this.modelService.getModel(PortalUrlConstants.ACHIEVE_ARTICLE + articleId)
-            .subscribe(achievedSr =>
+         this.modelService.getModel<ArticleDtoModel>(PortalUrlConstants.ARTICLE + "/" + articleId)
+            .subscribe(article =>
          {
-            const articleUri = achievedSr?.["url"];
-
-            if(!!articleUri && articleUri !== this.url) {
-               this.hiddenContent();
-               this.url = articleUri;
-               this.articleContent.nativeElement.setAttribute("src", this.url);
-            }
+            this.article = article;
+            this.loaded = true;
          });
 
       }));
@@ -64,13 +60,4 @@ export class ArticleViewComponent extends BaseSubscription implements OnInit, On
       super.ngOnDestroy();
    }
 
-   showContent(): void {
-      this.loaded = true;
-      this.renderer.setStyle(this.articleContent.nativeElement, "display", "block");
-   }
-
-   hiddenContent(): void {
-      this.renderer.setStyle(this.articleContent.nativeElement, "display", "none");
-      this.loaded = false;
-   }
 }

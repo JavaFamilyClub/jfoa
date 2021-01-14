@@ -12,13 +12,9 @@
  * person.
  */
 
-package club.javafamily.runner.service;
+import { EditArticleModel } from "./edit-article-model";
 
-import club.javafamily.runner.domain.Article;
-import club.javafamily.runner.web.article.model.ArticleDto;
-
-public interface ArticleService extends CRUDService<Article> {
-
-   ArticleDto getArticle(Integer id);
-
+export interface ArticleDtoModel extends EditArticleModel {
+   id: number;
+   user: number;
 }

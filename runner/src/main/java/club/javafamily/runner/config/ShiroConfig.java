@@ -127,6 +127,7 @@ public class ShiroConfig {
       // mail author
       filterChainMap.put("/app/portal/mailAuthor", "authc");
       // portal and others.
+      filterChainMap.put("/app/portal/**", "anon");
       filterChainMap.put("/app/**", "anon");
 
       // login
@@ -143,6 +144,8 @@ public class ShiroConfig {
       filterChainMap.put("/public/**", "anon");
       filterChainMap.put(API_VERSION + "/public/**", "anon");
       filterChainMap.put(CLIENT_API_VERSION + "/public/**", "anon");
+      filterChainMap.put(API_VERSION + "/api/**", "anon");
+      filterChainMap.put(CLIENT_API_VERSION + "/api/**", "anon");
 
       // error page
       filterChainMap.put("/error/**", "anon");
