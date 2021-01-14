@@ -38,7 +38,7 @@
               aria-label="Support" [title]="'Support' | translate"
               class="title-bar-btn">{{'Support' | translate}}</button>
 
-      <button mat-icon-button
+      <button mat-icon-button *ngIf="principal?.authenticated"
               #writeArticleTrigger="matMenuTrigger"
               aria-label="Write Article"
               [matMenuTriggerFor]="writeArticleMenu"
