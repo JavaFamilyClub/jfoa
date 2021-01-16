@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
@@ -38,6 +39,16 @@ public class ArticleServiceImpl implements ArticleService {
       Article article = get(id);
 
       return new ArticleDto(article);
+   }
+
+   @Transactional(readOnly = true)
+   @Override
+   public List<ArticleDto> getRangeArticle(int offset, int total) {
+      List<Article> articles = getRange(offset, total);
+
+      return articles.stream()
+         .map(ArticleDto::new)
+         .collect(Collectors.toList());
    }
 
    @Transactional(readOnly = true)

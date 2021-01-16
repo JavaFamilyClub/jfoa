@@ -43,10 +43,10 @@ public class ArticleController {
    }
 
    @GetMapping("/api/portal/article/list/{offset}/{total}")
-   public List<Article> getArticleList(@PathVariable("offset") Integer offset,
-                                       @PathVariable("total") Integer total)
+   public List<ArticleDto> getArticleList(@PathVariable("offset") Integer offset,
+                                          @PathVariable("total") Integer total)
    {
-      return articleService.getRange(offset, total);
+      return articleService.getRangeArticle(offset, total);
    }
 
    @Autowired

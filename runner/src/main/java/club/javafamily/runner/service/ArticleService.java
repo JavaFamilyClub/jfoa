@@ -17,8 +17,14 @@ package club.javafamily.runner.service;
 import club.javafamily.runner.domain.Article;
 import club.javafamily.runner.web.article.model.ArticleDto;
 
+import java.util.List;
+
 public interface ArticleService extends CRUDService<Article> {
 
    ArticleDto getArticle(Integer id);
+
+   List<ArticleDto> getRangeArticle(int offset, int total);
+
+
 
 }

@@ -35,6 +35,7 @@ let Split = require("split.js/dist/split.js");
 export class SplitPaneComponent implements OnInit {
    @Input() public sizes: number[];
    @Input() public minSize = 100;
+   @Input() draggable = true;
    @Input() public gutterSize = 6;
    @Input() public snapOffset = 30;
    @Input() public direction = "horizontal";
@@ -88,7 +89,12 @@ export class SplitPaneComponent implements OnInit {
          direction: this.direction,
          cursor: this.cursor,
          onDrag: (event: any) => {
-            this.onDrag.emit(event);
+            if(this.draggable) {
+               this.onDrag.emit(event);
+            }
+            else {
+               this.setSizes(this.sizes);
+            }
          },
          onDragStart: (event: any) => {
             this.onDragStart.emit(event);

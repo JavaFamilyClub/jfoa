@@ -13,6 +13,7 @@
  */
 
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { TextEditorModel } from "../model/text-editor-model";
 import { SplitPaneComponent } from "../split/split-pane.component";
 import { TextEditorState } from "./text-editor-state";
@@ -40,10 +41,18 @@ export class RichTextEditorComponent implements OnInit {
    @ViewChild(SplitPaneComponent) splitPane: SplitPaneComponent;
    TextEditorState = TextEditorState;
    defaultSplitSizes = [50, 50];
+   form: FormGroup;
 
    viewInit = false;
 
+   constructor(private fb: FormBuilder) {
+   }
+
    ngOnInit(): void {
+      this.form = this.fb.group({
+         "titleControl": this.fb.control(this.model.title, [ Validators.required ])
+      });
+
       if(!!this.placeholder) {
          this.options.placeholderText = this.placeholder;
       }
@@ -65,6 +74,10 @@ export class RichTextEditorComponent implements OnInit {
       this.defaultSplitSizes = this.getSplitSize(this.state);
 
       this.viewInit = true;
+   }
+
+   get titleControl(): AbstractControl {
+      return this.form.get("titleControl");
    }
 
    options: any = {

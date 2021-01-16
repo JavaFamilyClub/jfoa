@@ -1,11 +1,19 @@
 <div class="article-view-body w-100 h-100">
 
-  <div class="article-content w-100 h-100" *ngIf="!!article && loaded">
+  <div class="article-view-left">
+    <strong>{{article.user}}</strong>
+  </div>
+
+  <div class="article-view-center h-100" *ngIf="!!article && loaded">
     <rich-text-editor [model]="article" [changeModeDisabled]="true"
                       [hiddenApplyBtns]="true"
                       [state]="TextEditorState.PREVIEW"></rich-text-editor>
 
     <span *ngIf="!loaded">{{'Loading' | translate}}</span>
+  </div>
+
+  <div class="article-view-right">
+    <div>Category</div>
   </div>
 
 </div>

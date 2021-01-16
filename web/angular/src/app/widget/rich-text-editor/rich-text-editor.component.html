@@ -1,17 +1,26 @@
 <div class="rich-editor-container">
   <div class="rich-editor-toolbar" *ngIf="!hiddenToolbar">
     <div class="rich-editor-toolbar-left">
-      <mat-form-field>
-        <input matInput type="text" name="title"
-               required placeholder="{{'article.title' | translate}}"
-               [(ngModel)]="model.title"
-               [readonly]="state == TextEditorState.PREVIEW"
-               #titleControl="ngModel" >
 
-        <mat-error *ngIf="titleControl.hasError('required')">
-          {{'article.error.required' | translate}}
-        </mat-error>
-      </mat-form-field>
+      <ng-container *ngIf="state == TextEditorState.PREVIEW">
+        <h4>{{model.title}}</h4>
+      </ng-container>
+
+      <form [formGroup]="form"
+            [style.display]="state == TextEditorState.PREVIEW ? 'none' : null">
+        <mat-form-field>
+          <input matInput type="text" name="title"
+                 required placeholder="{{'article.title' | translate}}"
+                 [(ngModel)]="model.title"
+                 [readonly]="state == TextEditorState.PREVIEW"
+                 formControlName="titleControl" >
+
+          <mat-error *ngIf="titleControl.hasError('required')">
+            {{'article.error.required' | translate}}
+          </mat-error>
+        </mat-form-field>
+      </form>
+
     </div>
 
     <div class="rich-editor-toolbar-right">
@@ -65,9 +74,12 @@
 
   <div class="rich-editor-body" #mdEditorBody>
 
-    <split-pane [sizes]="defaultSplitSizes" [gutterSize]="6" [minSize]="0">
+    <split-pane [sizes]="defaultSplitSizes"
+                [draggable]="state != TextEditorState.PREVIEW"
+                [gutterSize]="state == TextEditorState.PREVIEW ? 0 : 6"
+                [minSize]="0">
       <div class="rich-editor-design-view split-item-container split overflow-hidden">
-      <textarea matInput #froalaContainer *ngIf="viewInit && !!model"
+        <textarea matInput #froalaContainer *ngIf="viewInit && !!model"
                 [(ngModel)]="content"
                 [placeholder]="placeholder || ''"
                 [froalaEditor]="options"></textarea>

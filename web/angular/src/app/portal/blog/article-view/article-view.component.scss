@@ -1,6 +1,15 @@
 
-.article-iframe-default-hidden {
-   width: 100%;
-   height: 100%;
-   display: none;
+.article-view-left {
+   float: left;
+   width: 20%;
+}
+
+.article-view-center {
+   float: left;
+   width: 60%;
+}
+
+.article-view-right {
+   width: 20%;
+   float: right;
 }
