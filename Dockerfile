@@ -11,7 +11,7 @@ VOLUME /tmp
 
 # add jar to container and renaming to app.jar
 ADD ./javafamily-oa-*.jar app.jar
-ADD ./ssl ssl
+ADD ./ssl/ /ssl/
 # env
 ARG JF_JASYPT_ENCRYPTOR
 ENV JF_JASYPT_ENCRYPTOR=$JF_JASYPT_ENCRYPTOR
