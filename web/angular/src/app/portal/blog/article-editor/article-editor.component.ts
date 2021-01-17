@@ -49,8 +49,8 @@ export class ArticleEditorComponent implements OnInit {
       };
    }
 
-   apply(): void {
-      this.modelService.sendModel(PortalUrlConstants.ARTICLE, this.model)
+   apply(model: EditArticleModel): void {
+      this.modelService.sendModel(PortalUrlConstants.ARTICLE, model)
          .subscribe(response => {
             const articleId = response.body;
 

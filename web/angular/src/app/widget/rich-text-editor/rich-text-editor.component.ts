@@ -14,6 +14,7 @@
 
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { Tool } from "../../common/util/tool";
 import { TextEditorModel } from "../model/text-editor-model";
 import { SplitPaneComponent } from "../split/split-pane.component";
 import { TextEditorState } from "./text-editor-state";
@@ -51,6 +52,10 @@ export class RichTextEditorComponent implements OnInit {
    ngOnInit(): void {
       this.form = this.fb.group({
          "titleControl": this.fb.control(this.model.title, [ Validators.required ])
+      });
+
+      this.titleControl?.valueChanges.subscribe(title => {
+         this.model.title = title;
       });
 
       if(!!this.placeholder) {
@@ -111,8 +116,6 @@ export class RichTextEditorComponent implements OnInit {
    changeState(state: TextEditorState): void {
       this.state = state;
 
-      console.log("=============splitPane========", this.splitPane);
-
       if(!!!this.splitPane) {
          return;
       }
@@ -132,7 +135,11 @@ export class RichTextEditorComponent implements OnInit {
    }
 
    apply(): void {
-      this.onApply.emit(this.model);
+      const model = Tool.clone(this.model);
+      model.content = model.content.replace(
+         /<p .*>Powered by <a .*>Froala Editor<\/a><\/p>/, "");
+
+      this.onApply.emit(model);
    }
 
 }
