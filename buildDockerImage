@@ -9,6 +9,9 @@ echo JF_JASYPT_ENCRYPTOR Token is: $JF_JASYPT_ENCRYPTOR
 echo Starting copy ssl to docker root...
 cp -r runner/build/resources/main/config/ssl runner/build/libs/ssl
 
+echo Change JMX file permission
+chmod 0400 runner/build/libs/ssl/jmxremote.password
+
 docker build \
 -t javafamily/jfoa \
 --build-arg JF_JASYPT_ENCRYPTOR=$JF_JASYPT_ENCRYPTOR \

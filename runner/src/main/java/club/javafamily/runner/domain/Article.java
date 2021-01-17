@@ -42,7 +42,8 @@ public class Article implements Serializable {
    @ManyToMany(targetEntity = ArticleTag.class, fetch = FetchType.EAGER)
    private List<ArticleTag> tags;
 
-   @Column(columnDefinition = "CLOB", length = 32766)
+//   @Column(columnDefinition = "CLOB", length = 32766)
+   @Lob
    private String content;
 
    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
@@ -94,7 +95,6 @@ public class Article implements Serializable {
       this.tags = tags;
    }
 
-   @Column(columnDefinition = "CLOB", length = 65532)
    public String getContent() {
       return content;
    }
