@@ -33,7 +33,7 @@ const appRoutes: Routes = [
             component: ArticleViewComponent
          },
          {
-            path: "article-editor",
+            path: "article-editor/:type",
             component: ArticleEditorComponent
          },
          {

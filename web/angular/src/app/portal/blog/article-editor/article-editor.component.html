@@ -1,7 +1,13 @@
 <div class="w-100 h-100" *ngIf="!!model">
+  <ng-container *ngIf="model.type == ArticleType.Rich; else mdEditor">
+    <rich-text-editor [model]="model"
+                      [placeholder]="placeholder"
+                      (onApply)="apply($event)"
+    ></rich-text-editor>
+  </ng-container>
 
-  <rich-text-editor [model]="model"
-                    [placeholder]="placeholder"
-                    (onApply)="apply($event)"
-  ></rich-text-editor>
+  <ng-template #mdEditor>
+    <md-text-editor></md-text-editor>
+  </ng-template>
+
 </div>

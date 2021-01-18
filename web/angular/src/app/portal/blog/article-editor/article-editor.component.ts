@@ -19,6 +19,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { PortalUrlConstants } from "../../../common/constants/url/portal-url-constants";
 import { ArticleType } from "../../../common/enum/article-type";
 import { ComponentTool } from "../../../common/util/component-tool";
+import { BaseSubscription } from "../../../widget/base/BaseSubscription";
 import { ModelService } from "../../../widget/services/model.service";
 import { EditArticleModel } from "../article-model/edit-article-model";
 
@@ -27,26 +28,34 @@ import { EditArticleModel } from "../article-model/edit-article-model";
    templateUrl: "./article-editor.component.html",
    styleUrls: ["./article-editor.component.scss"]
 })
-export class ArticleEditorComponent implements OnInit {
+export class ArticleEditorComponent extends BaseSubscription implements OnInit {
    model: EditArticleModel;
    placeholder: string = this.translate.instant("portal.toolbar.writeArticle");
 
+   ArticleType = ArticleType;
+
    constructor(private router: Router,
+               private route: ActivatedRoute,
                private activatedRoute: ActivatedRoute,
                private modalService: NgbModal,
                private translate: TranslateService,
                private modelService: ModelService)
    {
+      super();
    }
 
    ngOnInit(): void {
-      this.model = {
-         type: ArticleType.Rich,
-         title: "",
-         description: "",
-         tags: [],
-         content: ""
-      };
+      this.subscriptions.add(this.route.paramMap.subscribe(params => {
+         const type = params.get("type");
+
+         this.model = {
+            type: type == ArticleType.Rich.valueOf() + "" ? ArticleType.Rich : ArticleType.Markdown,
+            title: "",
+            description: "",
+            tags: [],
+            content: ""
+         };
+      }));
    }
 
    apply(model: EditArticleModel): void {
