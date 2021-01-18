@@ -20,6 +20,7 @@ import { PortalUrlConstants } from "../../../common/constants/url/portal-url-con
 import { ArticleType } from "../../../common/enum/article-type";
 import { ComponentTool } from "../../../common/util/component-tool";
 import { BaseSubscription } from "../../../widget/base/BaseSubscription";
+import { TextEditorModel } from "../../../widget/model/text-editor-model";
 import { ModelService } from "../../../widget/services/model.service";
 import { EditArticleModel } from "../article-model/edit-article-model";
 
@@ -35,17 +36,16 @@ export class ArticleEditorComponent extends BaseSubscription implements OnInit {
    ArticleType = ArticleType;
 
    constructor(private router: Router,
-               private route: ActivatedRoute,
-               private activatedRoute: ActivatedRoute,
                private modalService: NgbModal,
+               private modelService: ModelService,
                private translate: TranslateService,
-               private modelService: ModelService)
+               private activatedRoute: ActivatedRoute)
    {
       super();
    }
 
    ngOnInit(): void {
-      this.subscriptions.add(this.route.paramMap.subscribe(params => {
+      this.subscriptions.add(this.activatedRoute.paramMap.subscribe(params => {
          const type = params.get("type");
 
          this.model = {
@@ -58,7 +58,7 @@ export class ArticleEditorComponent extends BaseSubscription implements OnInit {
       }));
    }
 
-   apply(model: EditArticleModel): void {
+   apply(model: TextEditorModel): void {
       this.modelService.sendModel(PortalUrlConstants.ARTICLE, model)
          .subscribe(response => {
             const articleId = response.body;

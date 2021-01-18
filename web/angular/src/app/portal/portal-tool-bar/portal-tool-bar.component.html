@@ -102,12 +102,12 @@
       <mat-menu #writeArticleMenu="matMenu">
         <ng-template matMenuContent>
           <button mat-button aria-label="Rich Editor"
-                  routerLink="blog/article-editor"
+                  (click)="writeArticle(true)"
                   [title]="'portal.toolbar.richEditor' | translate"
           >{{'portal.toolbar.richEditor' | translate}}</button>
 
           <button mat-button aria-label="Markdown Editor"
-                  [disabled]="true"
+                  (click)="writeArticle()"
                   [title]="'portal.toolbar.mdEditor' | translate"
           >{{'portal.toolbar.mdEditor' | translate}}</button>
         </ng-template>

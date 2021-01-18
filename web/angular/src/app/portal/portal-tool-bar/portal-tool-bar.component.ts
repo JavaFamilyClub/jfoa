@@ -12,12 +12,12 @@
  * person.
  */
 
-import { Component, ViewChild } from "@angular/core";
-import { MatMenuTrigger } from "@angular/material/menu";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
 import { JfoaEnvConstants } from "../../common/constants/jfoa-env-constants";
+import { ArticleType } from "../../common/enum/article-type";
 import { UserType } from "../../common/enum/user-type";
 import { ComponentTool } from "../../common/util/component-tool";
 import { GuiTool } from "../../common/util/gui-tool";
@@ -39,8 +39,8 @@ const USER_PROFILE_UTI = "/user/profile";
 })
 export class PortalToolBarComponent {
 
-   constructor(private modalService: NgbModal,
-               private router: Router,
+   constructor(private router: Router,
+               private modalService: NgbModal,
                private modelService: ModelService,
                private translate: TranslateService,
                private principalService: PrincipalService)
@@ -122,7 +122,10 @@ export class PortalToolBarComponent {
       this.principalService.logout().then();
    }
 
-   closeMenu(event: MouseEvent) {
-      console.log("====================", event);
+   writeArticle(rich: boolean = false): void {
+      const type = rich ? ArticleType.Rich.valueOf()
+         : ArticleType.Markdown.valueOf();
+
+      this.router.navigate(["/portal/blog/article-editor/" + type]).then();
    }
 }
