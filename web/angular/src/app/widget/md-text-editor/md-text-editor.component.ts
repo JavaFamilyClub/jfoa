@@ -22,7 +22,7 @@ import { SplitPaneComponent } from "../split/split-pane.component";
 import { TextEditorState } from '../rich-text-editor/text-editor-state';
 import { MdEditorConfig } from "./md-editor-config";
 
-declare const editormd: any;
+const EditorMD = require("editor.md/editormd.js");
 
 const MIN_HEIGHT = 50;
 
@@ -43,7 +43,6 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
    @Output() onApply = new EventEmitter<TextEditorModel>();
    @ViewChild("mdEditor") mdEditor: ElementRef;
    @ViewChild("mdEditorBody", { static: true}) mdEditorBody: ElementRef;
-   // @ViewChild("froalaContainer") froalaContainer: ElementRef;
    @ViewChild(SplitPaneComponent) splitPane: SplitPaneComponent;
    TextEditorState = TextEditorState;
    defaultSplitSizes = [50, 50];
@@ -93,7 +92,7 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
    }
 
    initMarkdown() {
-      this.editor = editormd("article-markdown-editor", this.editorConfig);
+      this.editor = EditorMD("article-markdown-editor", this.editorConfig);
    }
 
    get titleControl(): AbstractControl {
