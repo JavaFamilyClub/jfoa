@@ -31,6 +31,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatTreeModule } from "@angular/material/tree";
 import { TranslateModule } from "@ngx-translate/core";
 import { FroalaEditorModule, FroalaViewModule } from "angular-froala-wysiwyg";
+import { EditorMdModule } from "editor.md";
 import { NgxEchartsModule } from "ngx-echarts";
 import { MatMessageDialog } from "./dialog/mat-message-dialog";
 import { ExportDialog } from "./export-dialog/export-dialog";
@@ -70,6 +71,7 @@ import { FixedDropdownComponent } from "./fixed-dropdown/fixed-dropdown.componen
       MatIconModule,
       FroalaEditorModule,
       FroalaViewModule,
+      EditorMdModule,
       NgxEchartsModule.forRoot({
          echarts: () => import("echarts")
       }),

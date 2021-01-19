@@ -37,7 +37,7 @@ export class RichTextEditorComponent implements OnInit {
    @Output() onContentChanged = new EventEmitter<string>();
    @Output() onApply = new EventEmitter<TextEditorModel>();
 
-   @ViewChild("mdEditorBody", { static: true}) mdEditorBody: ElementRef;
+   @ViewChild("richEditorBody", { static: true}) richEditorBody: ElementRef;
    @ViewChild("froalaContainer") froalaContainer: ElementRef;
    @ViewChild(SplitPaneComponent) splitPane: SplitPaneComponent;
    TextEditorState = TextEditorState;
@@ -65,12 +65,12 @@ export class RichTextEditorComponent implements OnInit {
       if(!!this.height) {
          this.options.height = this.height;
       }
-      else if(!!this.mdEditorBody) {
+      else if(!!this.richEditorBody) {
          /**
           * -50: top toolbar
           * -38: bottom toolbar
           */
-         const height =  this.mdEditorBody.nativeElement.clientHeight
+         const height =  this.richEditorBody.nativeElement.clientHeight
             - 50 - 38;
 
          this.options.height = Math.max(height, MIN_HEIGHT);
