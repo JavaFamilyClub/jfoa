@@ -24,6 +24,7 @@
               "src/jfoa-icon.ico",
               "src/assets",
               "src/assets/icons/fonts",
+              "./node_modules/editor.md/fonts",
               "src/el-main.js",
               "src/package.json"
             ],
