@@ -14,30 +14,32 @@
 
 export class MdEditorConfig {
    public width = "100%";
-   public height = "280";
-   public path = "./node_modules/editor.md/lib/";
+   public height = "100%";
+   public path = "assets/editor.md/lib/";
    public codeFold: true;
    public searchReplace = true;
    public toolbar = true;
-   public emoji = true;
+   public emoji = false;
    public taskList = false;
-   public tex = true;// 数学公式类默认不解析
+   public tex = true; // 数学公式类默认不解析
    public readOnly = false;
    public tocm = true;
    public watch = true;
    public previewCodeHighlight = true;
    public saveHTMLToTextarea = true;
    public markdown = "";
-   public flowChart = true;//流程图
+   public flowChart = true; //流程图
    public syncScrolling = true;
-   public sequenceDiagram = false;//UML时序图
+   public sequenceDiagram = false; //UML时序图
    public imageUpload = true;
    public imageFormats = ["jpg", "jpeg", "gif", "png", "bmp", "webp"];
    public imageUploadURL = "";
-   public htmlDecode = "style,script,iframe";  // you can filter tags decode
-   public editorFunction = "";//定义调用的方法
+   public htmlDecode = "style,script,iframe"; // you can filter tags decode
+   public editorFunction = ""; //定义调用的方法
+   public onchange: () => void;
 
-   constructor(height?: string) {
+   constructor(onchange?: () => void, height?: string) {
+      this.onchange = onchange;
       this.height = height || this.height;
    }
 }

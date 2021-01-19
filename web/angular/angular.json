@@ -24,7 +24,6 @@
               "src/jfoa-icon.ico",
               "src/assets",
               "src/assets/icons/fonts",
-              "./node_modules/editor.md/fonts",
               "src/el-main.js",
               "src/package.json"
             ],
@@ -36,7 +35,8 @@
               "./node_modules/froala-editor/css/froala_style.min.css",
               "./node_modules/froala-editor/css/plugins/colors.min.css",
 
-              "./node_modules/editor.md/css/editormd.css",
+              "src/assets/editor.md/css/editormd.css",
+
               "src/styles.scss"
             ],
             "allowedCommonJsDependencies": [
@@ -52,9 +52,9 @@
               "./node_modules/froala-editor/js/plugins/colors.min.js",
 
               "./node_modules/jquery/dist/jquery.js",
-              "./node_modules/editor.md/editormd.min.js",
-              "./node_modules/editor.md/lib/marked.min.js",
-              "./node_modules/editor.md/lib/prettify.min.js"
+              "src/assets/editor.md/editormd.min.js",
+              "src/assets/editor.md/lib/marked.min.js",
+              "src/assets/editor.md/lib/prettify.min.js"
             ]
           },
           "configurations": {

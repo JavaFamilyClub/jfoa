@@ -24,39 +24,6 @@
 
     <div class="rich-editor-toolbar-right">
 
-      <ng-container *ngIf="!changeModeDisabled">
-
-        <section class="rich-editor-toolbar-right-section mr-2">
-          <button mat-icon-button aria-label="Edit"
-                  class="tile-bar-icon-size title-bar-btn"
-                  [class.selected]="state == TextEditorState.EDIT"
-                  (click)="changeState(TextEditorState.EDIT)"
-                  [title]="'Edit' | translate">
-            <mat-icon class="icon-file-edit"></mat-icon>
-          </button>
-
-          <button mat-icon-button
-                  [attr.aria-label]="'common.editAndPreview' | translate"
-                  [class.selected]="state == TextEditorState.ALL"
-                  (click)="changeState(TextEditorState.ALL)"
-                  class="tile-bar-icon-size title-bar-btn"
-                  [title]="'common.editAndPreview' | translate">
-            <mat-icon class="icon-book-outline"></mat-icon>
-          </button>
-
-          <button mat-icon-button aria-label="Preview"
-                  [class.selected]="state == TextEditorState.PREVIEW"
-                  (click)="changeState(TextEditorState.PREVIEW)"
-                  class="tile-bar-icon-size title-bar-btn"
-                  [title]="'Preview' | translate">
-            <mat-icon class="icon-eye-preview"></mat-icon>
-          </button>
-        </section>
-
-        <mat-divider [vertical]="true"></mat-divider>
-
-      </ng-container>
-
       <section class="rich-editor-toolbar-right-section rich-editor-toolbar-right-padding"
                *ngIf="!hiddenApplyBtns">
         <button mat-icon-button aria-label="Finish"
@@ -77,11 +44,10 @@
                 [draggable]="state != TextEditorState.PREVIEW"
                 [gutterSize]="state == TextEditorState.PREVIEW ? 0 : 6"
                 [minSize]="0">
-      <div class="rich-editor-design-view split-item-container split overflow-hidden">
-        <textarea #mdEditor id="article-markdown-editor" class="d-none"></textarea>
-      </div>
-
-      <div class="rich-editor-preview-view split-item-container split border-gray-0 border-radius-6 p-3">
+      <div id="article-markdown-editor-container"
+        class="rich-editor-design-view split-item-container split overflow-hidden">
+        <textarea #mdEditor id="markdown" class="d-none"
+          [placeholder]="placeholder"></textarea>
       </div>
 
     </split-pane>

@@ -17,14 +17,13 @@ import {
    Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild
 } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Tool } from "../../common/util/tool";
 import { TextEditorModel } from "../model/text-editor-model";
 import { SplitPaneComponent } from "../split/split-pane.component";
-import { TextEditorState } from '../rich-text-editor/text-editor-state';
+import { TextEditorState } from "../rich-text-editor/text-editor-state";
 import { MdEditorConfig } from "./md-editor-config";
 
-const EditorMD = require("editor.md/editormd.js");
-
-const MIN_HEIGHT = 50;
+declare const editormd: any;
 
 @Component({
   selector: "md-text-editor",
@@ -48,7 +47,15 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
    defaultSplitSizes = [50, 50];
    form: FormGroup;
    editor: any;
-   editorConfig: MdEditorConfig = new MdEditorConfig();
+   editorConfig: MdEditorConfig = new MdEditorConfig(() => {
+      if(!!this.model && !!this.mdEditor) {
+         this.model.content = this.mdEditor.nativeElement.innerText;
+      }
+      else {
+         console.error("This model is ", this.model,
+            " this mdEditor is ", this.mdEditor);
+      }
+   });
 
    viewInit = false;
 
@@ -57,7 +64,7 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
 
    ngOnInit(): void {
       this.form = this.fb.group({
-         "titleControl": this.fb.control(this.model.title, [ Validators.required ])
+         "titleControl": this.fb.control(this.model?.title, [ Validators.required ])
       });
 
       this.titleControl?.valueChanges.subscribe(title => {
@@ -72,14 +79,9 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
          this.editorConfig.height = this.height;
       }
       else if(!!this.mdEditorBody) {
-         /**
-          * -50: top toolbar
-          * -38: bottom toolbar
-          */
-         const height =  this.mdEditorBody.nativeElement.clientHeight
-            - 50 - 38;
+         const height =  this.mdEditorBody.nativeElement.clientHeight;
 
-         this.editorConfig.height = "" + Math.max(height, MIN_HEIGHT);
+         // this.editorConfig.height = "" + Math.max(height, MIN_HEIGHT);
       }
 
       this.defaultSplitSizes = this.getSplitSize(this.state);
@@ -92,7 +94,7 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
    }
 
    initMarkdown() {
-      this.editor = EditorMD("article-markdown-editor", this.editorConfig);
+      this.editor = editormd("article-markdown-editor-container", this.editorConfig);
    }
 
    get titleControl(): AbstractControl {
@@ -105,16 +107,6 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
 
    set content(content: string) {
       this.model.content = content;
-   }
-
-   changeState(state: TextEditorState): void {
-      this.state = state;
-
-      if(!!!this.splitPane) {
-         return;
-      }
-
-      this.splitPane.setSizes(this.getSplitSize(state));
    }
 
    getSplitSize(state: TextEditorState): number[] {
