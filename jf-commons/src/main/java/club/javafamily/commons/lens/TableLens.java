@@ -55,6 +55,13 @@ public interface TableLens {
    }
 
    /**
+    * decoration tableLens.
+    */
+   default TableLens getTable() {
+      return null;
+   }
+
+   /**
     * Check is empty lens.
     */
    default boolean isEmpty() {

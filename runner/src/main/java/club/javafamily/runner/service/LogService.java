@@ -16,7 +16,4 @@ public interface LogService extends ExportableService {
 
    <T extends Comparable<T>> List<Log> getAll(DaoFilter<T> filter);
 
-   <R extends Comparable<R>> void export(HttpServletResponse response,
-                                         ExportType exportType,
-                                         DaoFilter<R> filter) throws Exception;
 }

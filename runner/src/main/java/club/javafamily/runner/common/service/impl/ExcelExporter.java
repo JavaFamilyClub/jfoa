@@ -16,7 +16,6 @@ package club.javafamily.runner.common.service.impl;
 
 import club.javafamily.commons.lens.ExportTableLens;
 import club.javafamily.commons.utils.ExcelUtil;
-import club.javafamily.commons.utils.ExportUtil;
 import club.javafamily.runner.common.service.Exporter;
 import club.javafamily.commons.enums.ExportType;
 import org.apache.poi.hssf.usermodel.HSSFWorkbookFactory;
@@ -24,8 +23,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
 
 @Service("excelExporter")
 public class ExcelExporter implements Exporter {
@@ -37,12 +35,10 @@ public class ExcelExporter implements Exporter {
 
    @Override
    public void export(ExportTableLens tableLens,
-                      HttpServletResponse response,
+                      OutputStream out,
                       ExportType exportType)
       throws Exception
    {
-      ServletOutputStream out = response.getOutputStream();
-
       Workbook workbook;
 
       if(exportType == ExportType.Excel) {
@@ -77,10 +73,6 @@ public class ExcelExporter implements Exporter {
             ExcelUtil.fillData(helper, cell, tableLens.getObject(r, c).getValue());
          }
       }
-
-      String fileName = tableLens.getTableName();
-      fileName = ExcelUtil.buildExcelName(fileName, exportType);
-      ExportUtil.writeDownloadHeader(response, fileName);
 
       workbook.write(out);
       out.flush();

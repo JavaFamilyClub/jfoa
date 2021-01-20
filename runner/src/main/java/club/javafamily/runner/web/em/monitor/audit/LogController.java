@@ -15,6 +15,7 @@
 package club.javafamily.runner.web.em.monitor.audit;
 
 import club.javafamily.runner.common.filter.DateRangeFilter;
+import club.javafamily.runner.common.service.ExportService;
 import club.javafamily.runner.domain.Log;
 import club.javafamily.commons.enums.ExportType;
 import club.javafamily.runner.service.LogService;
@@ -56,13 +57,15 @@ public class LogController {
 
       DateRangeFilter rangeFilter = DateRangeFilter.build(startDate, endDate);
 
-      logService.export(response, exportType, rangeFilter);
+      exportService.export(logService, rangeFilter, response, exportType);
    }
 
    @Autowired
-   public LogController(LogService logService) {
+   public LogController(LogService logService, ExportService exportService) {
       this.logService = logService;
+      this.exportService = exportService;
    }
 
    private final LogService logService;
+   private final ExportService exportService;
 }

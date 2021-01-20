@@ -15,13 +15,17 @@
 package club.javafamily.runner.common.service;
 
 import club.javafamily.commons.lens.ExportTableLens;
+import club.javafamily.commons.utils.ExportUtil;
 import club.javafamily.runner.common.MessageException;
 import club.javafamily.commons.enums.ExportType;
+import club.javafamily.runner.common.filter.DaoFilter;
+import club.javafamily.runner.service.ExportableService;
 import club.javafamily.runner.util.I18nUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 @Service
@@ -30,6 +34,16 @@ public class ExportService {
    @Autowired
    public ExportService(List<Exporter> exporters) {
       this.exporters = exporters;
+   }
+
+   public <R extends Comparable<R>> void export(ExportableService service,
+                                                DaoFilter<R> filter,
+                                                HttpServletResponse response,
+                                                ExportType exportType)
+      throws Exception
+   {
+      ExportTableLens tableLens = service.getTableLens(filter);
+      export(tableLens, response, exportType);
    }
 
    public void export(ExportTableLens tableLens,
@@ -48,7 +62,13 @@ public class ExportService {
             I18nUtil.getString("em.audit.noExporterError", exportType.getLabel()));
       }
 
-      exporter.export(tableLens, response, exportType);
+      ByteArrayOutputStream out = new ByteArrayOutputStream();
+      exporter.export(tableLens, out, exportType);
+
+      String fileName = tableLens.getTableName() + exportType.getSuffix();
+      ExportUtil.writeDownloadHeader(response, fileName);
+
+      out.writeTo(response.getOutputStream());
    }
 
    private List<Exporter> exporters;

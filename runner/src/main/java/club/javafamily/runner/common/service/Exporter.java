@@ -18,13 +18,14 @@ import club.javafamily.commons.lens.ExportTableLens;
 import club.javafamily.commons.enums.ExportType;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
 
 public interface Exporter {
 
    boolean isAccept(ExportType exportType);
 
    void export(ExportTableLens tableLens,
-               HttpServletResponse response,
+               OutputStream out,
                ExportType exportType)
       throws Exception;
 }

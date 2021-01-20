@@ -21,6 +21,7 @@ import { BaseSubscription } from "../../../widget/base/BaseSubscription";
 import { ModelService } from "../../../widget/services/model.service";
 import { ArticleDtoModel } from "../article-model/article-dto-model";
 import { EditArticleModel } from "../article-model/edit-article-model";
+import { ArticleType } from 'src/app/common/enum/article-type';
 
 @Component({
    selector: "article-view",
@@ -34,6 +35,7 @@ export class ArticleViewComponent extends BaseSubscription implements OnInit, On
    @ViewChild("articleContent", {static: true}) articleContent: ElementRef;
 
    TextEditorState = TextEditorState;
+   ArticleType = ArticleType;
 
    constructor(private renderer: Renderer2,
                private route: ActivatedRoute,

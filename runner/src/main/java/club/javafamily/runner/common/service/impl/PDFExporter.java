@@ -1,9 +1,22 @@
+/*
+ * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
+ *
+ * The software and information contained herein are copyrighted and
+ * proprietary to JavaFamily Technology Corp. This software is furnished
+ * pursuant to a written license agreement and may be used, copied,
+ * transmitted, and stored only in accordance with the terms of such
+ * license and with the inclusion of the above copyright notice. Please
+ * refer to the file "COPYRIGHT" for further copyright and licensing
+ * information. This software and information or any other copies
+ * thereof may not be provided or otherwise made available to any other
+ * person.
+ */
+
 package club.javafamily.runner.common.service.impl;
 
 import club.javafamily.commons.enums.ExportType;
 import club.javafamily.commons.lens.ExportTableLens;
 import club.javafamily.commons.lens.LensTool;
-import club.javafamily.commons.utils.ExportUtil;
 import club.javafamily.commons.utils.PDFUtil;
 import club.javafamily.runner.common.service.Exporter;
 import com.itextpdf.kernel.colors.DeviceRgb;
@@ -19,8 +32,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
+import java.io.OutputStream;
 
 /**
  * iText7 export pdf support.
@@ -36,12 +49,12 @@ public class PDFExporter implements Exporter {
 
    @Override
    public void export(ExportTableLens tableLens,
-                      HttpServletResponse response,
+                      OutputStream out,
                       ExportType exportType)
       throws Exception
    {
       // 创建一个指向文件或者 out 流的 PDFWriter, 该 writer 会监听 PdfDocument
-      PdfWriter pdfWriter = new PdfWriter(response.getOutputStream());
+      PdfWriter pdfWriter = new PdfWriter(out);
       // 创建 PdfDocument 代表要创建的 PDF 文件, 管理要写入的内容和相关信息
       PdfDocument pdf = new PdfDocument(pdfWriter);
       // 创建一个 A4 大小的文档, 代表 PDF 的一页
@@ -80,9 +93,6 @@ public class PDFExporter implements Exporter {
 
       // 将 table 写入 Document
       document.add(table);
-
-      String fileName = tableLens.getTableName() + exportType.getSuffix();
-      ExportUtil.writeDownloadHeader(response, fileName);
 
       // 关闭文档流
       document.close();

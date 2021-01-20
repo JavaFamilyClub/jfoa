@@ -13,13 +13,10 @@
  */
 
 import {
-   AfterViewInit,
-   Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild
+   AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild
 } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Tool } from "../../common/util/tool";
 import { TextEditorModel } from "../model/text-editor-model";
-import { SplitPaneComponent } from "../split/split-pane.component";
 import { TextEditorState } from "../rich-text-editor/text-editor-state";
 import { MdEditorConfig } from "./md-editor-config";
 
@@ -42,14 +39,14 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
    @Output() onApply = new EventEmitter<TextEditorModel>();
    @ViewChild("mdEditor") mdEditor: ElementRef;
    @ViewChild("mdEditorBody", { static: true}) mdEditorBody: ElementRef;
-   @ViewChild(SplitPaneComponent) splitPane: SplitPaneComponent;
    TextEditorState = TextEditorState;
-   defaultSplitSizes = [50, 50];
    form: FormGroup;
    editor: any;
    editorConfig: MdEditorConfig = new MdEditorConfig(() => {
       if(!!this.model && !!this.mdEditor) {
          this.model.content = this.mdEditor.nativeElement.innerText;
+
+         this.onContentChanged.emit(this.model.content);
       }
       else {
          console.error("This model is ", this.model,
@@ -71,20 +68,15 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
          this.model.title = title;
       });
 
-      if(!!this.placeholder) {
-         // this.options.placeholderText = this.placeholder;
-      }
-
       if(!!this.height) {
          this.editorConfig.height = this.height;
       }
-      else if(!!this.mdEditorBody) {
-         const height =  this.mdEditorBody.nativeElement.clientHeight;
 
-         // this.editorConfig.height = "" + Math.max(height, MIN_HEIGHT);
+      if(this.state == TextEditorState.PREVIEW) {
+         this.editorConfig.markdown = this.model?.content || "";
       }
 
-      this.defaultSplitSizes = this.getSplitSize(this.state);
+      this.changeState(this.state);
 
       this.viewInit = true;
    }
@@ -109,14 +101,22 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
       this.model.content = content;
    }
 
-   getSplitSize(state: TextEditorState): number[] {
-      switch(state) {
-         case TextEditorState.EDIT:
-            return [100, 0];
-         case TextEditorState.PREVIEW:
-            return [0, 100];
-         default:
-            return [50, 50];
+   changeState(state: TextEditorState): void {
+      this.state = state;
+
+      if(!!!this.editor?.state) {
+         return;
+      }
+
+      if(state == TextEditorState.PREVIEW) {
+         this.editor.state.preview = true;
+      }
+      else if(state == TextEditorState.EDIT) {
+         this.editor.state.preview = false;
+      }
+      else {
+         // edit & preview.
+         this.editor.state.preview = false;
       }
    }
 
