@@ -8,11 +8,26 @@
   </div>
 
   <div class="article-list-center p-2">
-    <ng-container *ngIf="!!articles">
-      <div *ngFor="let item of articles">
-        <article-item [item]="item"></article-item>
-      </div>
+    <ng-container *ngIf="!!articles; else emptyArticles">
+
+      <mat-list>
+        <mat-list-item *ngIf="!noMore">
+          <div class="align-content-center" mat-line>
+            <button mat-button (click)="refresh()">您有新的推荐内容, 点击查看</button>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item *ngFor="let item of articles">
+          <article-item [item]="item"></article-item>
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+      </mat-list>
     </ng-container>
+
+    <ng-template #emptyArticles>
+      <span>空空如也... 去<a routerLink="article-editor/1">写一篇</a>...</span>
+    </ng-template>
   </div>
 
   <div class="article-list-right">

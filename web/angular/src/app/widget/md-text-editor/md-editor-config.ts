@@ -25,6 +25,8 @@ export class MdEditorConfig {
    public readOnly = false;
    public tocm = true;
    public watch = true;
+   public editor = true;
+   public preview = true;
    public previewCodeHighlight = true;
    public saveHTMLToTextarea = true;
    public markdown = "";

@@ -15,6 +15,8 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
 import { TranslateModule } from "@ngx-translate/core";
 import { WidgetModule } from "../../widget/widget.module";
 import { ArticleEditorComponent } from "./article-editor/article-editor.component";
@@ -38,7 +40,9 @@ import { BlogRootComponent } from "./blog-root.component";
       WidgetModule,
       BlogAppRouting,
       ReactiveFormsModule,
-      TranslateModule
+      TranslateModule,
+      MatListModule,
+      MatIconModule
    ],
    bootstrap: [BlogRootComponent],
    entryComponents: [

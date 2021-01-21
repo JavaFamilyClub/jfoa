@@ -49,7 +49,7 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
          this.onContentChanged.emit(this.model.content);
       }
       else {
-         console.error("This model is ", this.model,
+         console.error("Init MdEditorConfig error. This model is ", this.model,
             " this mdEditor is ", this.mdEditor);
       }
    });
@@ -104,19 +104,22 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
    changeState(state: TextEditorState): void {
       this.state = state;
 
-      if(!!!this.editor?.state) {
+      if(!!!this.editorConfig) {
          return;
       }
 
       if(state == TextEditorState.PREVIEW) {
-         this.editor.state.preview = true;
+         this.editorConfig.preview = true;
+         this.editorConfig.editor = false;
       }
       else if(state == TextEditorState.EDIT) {
-         this.editor.state.preview = false;
+         this.editorConfig.preview = false;
+         this.editorConfig.editor = true;
       }
       else {
          // edit & preview.
-         this.editor.state.preview = false;
+         this.editorConfig.preview = true;
+         this.editorConfig.editor = true;
       }
    }
 

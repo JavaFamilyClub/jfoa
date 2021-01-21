@@ -30,21 +30,32 @@ import { EditArticleModel } from "../article-model/edit-article-model";
 })
 export class ArticleListComponent extends BaseSubscription {
    articles: ArticleItemModel[];
+   offset = 0;
+   setup = 10;
+   noMore = false;
 
    constructor(private modelService: ModelService) {
       super();
       this.refresh();
    }
 
-   private refresh(offset = 0, setup = 10): void {
+   refresh(): void {
       this.modelService.getModel<ArticleItemModel[]>(
-         PortalUrlConstants.ARTICLE_LIST + offset + "/" + setup)
+         PortalUrlConstants.ARTICLE_LIST + this.offset + "/" + this.setup)
          .subscribe(articles =>
       {
-         this.articles = articles;
+         this.articles = articles.concat(this.articles);
+
+         if(articles.length < this.setup) {
+            this.offset = 0;
+            this.noMore = true;
+         }
+         else {
+            this.articles = articles;
+            this.offset += this.setup;
+            this.noMore = false;
+         }
       });
    }
-
-
 
 }
