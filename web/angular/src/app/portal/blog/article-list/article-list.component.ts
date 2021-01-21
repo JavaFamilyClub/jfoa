@@ -44,7 +44,8 @@ export class ArticleListComponent extends BaseSubscription {
          PortalUrlConstants.ARTICLE_LIST + this.offset + "/" + this.setup)
          .subscribe(articles =>
       {
-         this.articles = articles.concat(this.articles);
+         this.articles = articles.concat(this.articles)
+            ?.filter(article => !!article);
 
          if(articles.length < this.setup) {
             this.offset = 0;

@@ -1,9 +1,10 @@
-
-<div class="font-weight-bold" mat-line>{{item.title}}</div>
-<div mat-line>
+<ng-container *ngIf="item">
+  <div class="font-weight-bold" mat-line>{{item.title}}</div>
+  <div mat-line>
   <span>
-    <mat-icon class="icon-account"></mat-icon>
+    <mat-icon class="icon-account tile-bar-icon-size"></mat-icon>
     <span>{{item.user}}</span>
   </span>
-  <span *ngIf="item.description" class="color-gray">{{item.description}}</span>
-</div>
+    <span *ngIf="item.description" class="color-gray">{{item.description}}</span>
+  </div>
+</ng-container>

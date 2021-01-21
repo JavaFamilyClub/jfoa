@@ -36,6 +36,7 @@
               "./node_modules/froala-editor/css/plugins/colors.min.css",
 
               "src/assets/editor.md/css/editormd.css",
+              "src/assets/editor.md/css/editormd.preview.css",
 
               "src/styles.scss"
             ],
@@ -54,6 +55,8 @@
               "./node_modules/jquery/dist/jquery.js",
               "src/assets/editor.md/editormd.min.js",
               "src/assets/editor.md/lib/marked.min.js",
+              "src/assets/editor.md/lib/flowchart.min.js",
+              "src/assets/editor.md/lib/jquery.flowchart.min.js",
               "src/assets/editor.md/lib/prettify.min.js"
             ]
           },

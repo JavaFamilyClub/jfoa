@@ -41,9 +41,10 @@
   <div class="rich-editor-body" #mdEditorBody>
 
     <div id="article-markdown-editor-container"
-         class="rich-editor-design-view split-item-container split overflow-hidden">
+         class="rich-editor-design-view">
         <textarea #mdEditor id="markdown" class="d-none"
-                  [placeholder]="placeholder"></textarea>
+                  [placeholder]="placeholder"
+        >{{model.content}}</textarea>
     </div>
 
   </div>

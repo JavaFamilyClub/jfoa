@@ -15,6 +15,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { TranslateModule } from "@ngx-translate/core";
@@ -42,7 +43,8 @@ import { BlogRootComponent } from "./blog-root.component";
       ReactiveFormsModule,
       TranslateModule,
       MatListModule,
-      MatIconModule
+      MatIconModule,
+      MatButtonModule
    ],
    bootstrap: [BlogRootComponent],
    entryComponents: [

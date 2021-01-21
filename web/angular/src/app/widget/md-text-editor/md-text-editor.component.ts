@@ -12,9 +12,7 @@
  * person.
  */
 
-import {
-   AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild
-} from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TextEditorModel } from "../model/text-editor-model";
 import { TextEditorState } from "../rich-text-editor/text-editor-state";
@@ -44,7 +42,7 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
    editor: any;
    editorConfig: MdEditorConfig = new MdEditorConfig(() => {
       if(!!this.model && !!this.mdEditor) {
-         this.model.content = this.mdEditor.nativeElement.innerText;
+         this.model.content = this.editor.getMarkdown();
 
          this.onContentChanged.emit(this.model.content);
       }
@@ -86,7 +84,12 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
    }
 
    initMarkdown() {
-      this.editor = editormd("article-markdown-editor-container", this.editorConfig);
+      if(this.state == TextEditorState.PREVIEW) {
+         this.editor = editormd.markdownToHTML("article-markdown-editor-container", this.editorConfig);
+      }
+      else {
+         this.editor = editormd("article-markdown-editor-container", this.editorConfig);
+      }
    }
 
    get titleControl(): AbstractControl {
@@ -111,14 +114,17 @@ export class MdTextEditorComponent implements OnInit, AfterViewInit {
       if(state == TextEditorState.PREVIEW) {
          this.editorConfig.preview = true;
          this.editorConfig.editor = false;
+         this.editorConfig.readOnly = true;
       }
       else if(state == TextEditorState.EDIT) {
          this.editorConfig.preview = false;
+         this.editorConfig.readOnly = false;
          this.editorConfig.editor = true;
       }
       else {
          // edit & preview.
          this.editorConfig.preview = true;
+         this.editorConfig.readOnly = false;
          this.editorConfig.editor = true;
       }
    }

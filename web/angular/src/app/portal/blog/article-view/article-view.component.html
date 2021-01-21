@@ -5,9 +5,6 @@
   </div>
 
   <div class="article-view-center h-100" *ngIf="!!article && loaded">
-    <rich-text-editor [model]="article" [changeModeDisabled]="true"
-                      [hiddenApplyBtns]="true"
-                      [state]="TextEditorState.PREVIEW"></rich-text-editor>
 
     <ng-container *ngIf="article.type == ArticleType.Rich; else mdEditor">
       <rich-text-editor [model]="article" [changeModeDisabled]="true"
