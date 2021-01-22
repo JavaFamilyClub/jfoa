@@ -29,6 +29,7 @@
 - Angular-Material(基础样式库)
 - SockJS, StompJS(WebSocket 支持)
 - Froala Editor(富文本编辑器)
+- Editor.md(Markdown 编辑器)
 - Ngx-translate(国际化)
 - ECharts(绘制图标)
 

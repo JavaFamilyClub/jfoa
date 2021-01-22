@@ -16,7 +16,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
+import { Observable } from "rxjs";
 import { PortalUrlConstants } from "../../../common/constants/url/portal-url-constants";
+import { GuiTool } from "../../../common/util/gui-tool";
 import { InputNameDialogComponent } from "../../../widget/dialog/input-name-dialog/input-name-dialog.component";
 import { ModelService } from "../../../widget/services/model.service";
 import { SubjectRequestVo } from "../model/subject-request-vo";
@@ -86,10 +88,12 @@ export class SubjectItemViewComponent implements OnInit {
    }
 
    achieve(): void {
-      this.modelService.getModel(PortalUrlConstants.ACHIEVE_ARTICLE + this.model.id)
-         .subscribe(achievedSr =>
-      {
-         const articleUri = achievedSr?.["url"];
+      this.getAchieveModel().subscribe(achievedModel => {
+         if(!!!achievedModel) {
+            return;
+         }
+
+         const articleUri = achievedModel.url;
 
          this.dialog.open(InputNameDialogComponent, {
             minWidth: "30%",
@@ -114,15 +118,22 @@ export class SubjectItemViewComponent implements OnInit {
       });
    }
 
+   private getAchieveModel(): Observable<{id: number, url: string}> {
+      return this.modelService.getModel(PortalUrlConstants.ACHIEVE_ARTICLE + this.model.id);
+   }
+
    preview(event?: MouseEvent): void {
       if(!!event) {
          event.stopPropagation();
          event.preventDefault();
       }
 
-      this.router.navigateByUrl("portal/article/" + this.model.id,
-         {
-            skipLocationChange: true
-         }).then();
+      this.getAchieveModel().subscribe(achievedModel => {
+         if(!!!achievedModel) {
+            return;
+         }
+
+         GuiTool.openBrowserTab(achievedModel.url, null, GuiTool.SELF_WINDOW);
+      });
    }
 }

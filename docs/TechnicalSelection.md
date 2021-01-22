@@ -29,6 +29,7 @@
 - Angular-Material
 - SockJS, StompJS(for WebSocket)
 - Froala Editor
+- Editor.md
 - Ngx-translate
 - ECharts
 

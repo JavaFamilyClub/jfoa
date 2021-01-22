@@ -33,6 +33,8 @@ export namespace GuiTool {
 
    export let scrollbarWidth: number;
 
+   export const SELF_WINDOW = "_self";
+
    /**
     * Return the text width in pixels.
     */
