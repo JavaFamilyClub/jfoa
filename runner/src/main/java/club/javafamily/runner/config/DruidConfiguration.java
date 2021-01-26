@@ -34,9 +34,7 @@ public class DruidConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "ds.druid")
     public DataSource dataSource() {
-       DruidDataSource druid = new DruidDataSource();
-
-       return druid;
+       return new DruidDataSource();
     }
 
     // 1. Config servlet of Druid

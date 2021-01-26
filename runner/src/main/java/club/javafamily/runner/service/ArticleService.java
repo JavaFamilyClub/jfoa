@@ -15,7 +15,7 @@
 package club.javafamily.runner.service;
 
 import club.javafamily.runner.domain.Article;
-import club.javafamily.runner.web.article.model.ArticleDto;
+import club.javafamily.runner.web.portal.article.model.ArticleDto;
 
 import java.util.List;
 

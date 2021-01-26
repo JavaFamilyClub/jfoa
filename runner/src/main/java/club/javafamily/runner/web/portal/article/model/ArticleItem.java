@@ -12,7 +12,7 @@
  * person.
  */
 
-package club.javafamily.runner.web.article.model;
+package club.javafamily.runner.web.portal.article.model;
 
 import club.javafamily.commons.utils.Tool;
 import club.javafamily.runner.domain.Article;

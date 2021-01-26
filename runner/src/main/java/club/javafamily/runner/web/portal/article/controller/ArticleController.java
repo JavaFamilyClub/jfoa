@@ -12,14 +12,14 @@
  * person.
  */
 
-package club.javafamily.runner.web.article.controller;
+package club.javafamily.runner.web.portal.article.controller;
 
 import club.javafamily.runner.domain.Article;
 import club.javafamily.runner.service.ArticleService;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.SecurityUtil;
-import club.javafamily.runner.web.article.model.ArticleDto;
-import club.javafamily.runner.web.article.model.EditArticleModel;
+import club.javafamily.runner.web.portal.article.model.ArticleDto;
+import club.javafamily.runner.web.portal.article.model.EditArticleModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -124,8 +124,11 @@ public class ShiroConfig {
       // web control
       // em
       filterChainMap.put("/app/em/**", "authc");
-      // mail author
+      // write article and mail author
+      // TODO should control by permission
       filterChainMap.put("/app/portal/mailAuthor", "authc");
+      filterChainMap.put("/app/portal/blog/article-editor/**", "authc");
+
       // portal and others.
       filterChainMap.put("/app/portal/**", "anon");
       filterChainMap.put("/app/**", "anon");
@@ -174,8 +177,11 @@ public class ShiroConfig {
     * 用于映射匹配权限注解.
     */
    @Bean
-   public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-      AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+   public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(
+      SecurityManager securityManager)
+   {
+      AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor
+         = new AuthorizationAttributeSourceAdvisor();
       authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
 
       return authorizationAttributeSourceAdvisor;
