@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.rest;
 
+import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.controller.model.OAuthAuthenticationException;
 import club.javafamily.runner.dto.*;
 import org.slf4j.Logger;
@@ -25,6 +26,20 @@ import org.springframework.web.client.*;
 import java.util.Collections;
 
 public interface QueryEngine <T extends RestUser> {
+
+   UserType getUserType();
+
+   /**
+    * match queryEngine predicate
+    */
+   default boolean isAccept(UserType userType) {
+      return getUserType() == userType;
+   }
+
+   /**
+    * Getting Authorize redirect url.
+    */
+   String getAuthorizeUrl();
 
    /**
     * query driver
@@ -80,6 +95,14 @@ public interface QueryEngine <T extends RestUser> {
 
       return restTemplate.execute(url, HttpMethod.GET,
          requestCallback, responseExtractor);
+   }
+
+   AccessTokenDTO buildAccessTokenDTO(String code, String state);
+
+   default AccessTokenResponse queryAccessToken(String code, String state) {
+      AccessTokenDTO accessTokenDTO = buildAccessTokenDTO(code, state);
+
+      return queryAccessToken(accessTokenDTO);
    }
 
    /**

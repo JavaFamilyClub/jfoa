@@ -20,7 +20,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum UserType {
    User(0, "User"),
    GitHub(1, "GitHub"),
-   WeChat(1, "WeChat")
+   WeChat(2, "WeChat"),
+   DingTalk(3, "DingTalk"),
    ;
 
    UserType(int type, String label) {

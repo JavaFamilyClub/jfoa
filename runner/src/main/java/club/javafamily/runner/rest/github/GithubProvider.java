@@ -14,6 +14,7 @@
 
 package club.javafamily.runner.rest.github;
 
+import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.controller.model.OAuthAuthenticationException;
 import club.javafamily.runner.dto.*;
 import club.javafamily.runner.properties.OAuthProperties;
@@ -40,6 +41,7 @@ public class GithubProvider implements QueryEngine<GithubUser> {
       this.oAuthProperties = oAuthProperties;
    }
 
+   @Override
    public String getAuthorizeUrl() {
       assert oAuthProperties.getGithub() != null;
       Map<String, String> params = new HashMap<>();
@@ -47,7 +49,7 @@ public class GithubProvider implements QueryEngine<GithubUser> {
       params.put("redirect_uri", oAuthProperties.getCallback());
       params.put("scope", "user:email");
       params.put("response_type", "code");
-      params.put("state", "1"); // TODO generate state
+      params.put("state", UserType.GitHub.name());
 
       return this.getAuthorizeUrl(params);
    }
@@ -67,11 +69,12 @@ public class GithubProvider implements QueryEngine<GithubUser> {
       return sb.toString();
    }
 
-   public AccessTokenResponse queryAccessToken(String code, String state) {
+   @Override
+   public AccessTokenDTO buildAccessTokenDTO(String code, String state) {
       assert oAuthProperties.getGithub() != null;
 
-      if(!"1".equals(state)) {
-         throw new OAuthAuthenticationException("OAuth Authentication State is not match.");
+      if(!UserType.GitHub.name().equals(state)) {
+         throw new OAuthAuthenticationException("OAuth Authentication State is not match: " + state);
       }
 
       AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
@@ -81,7 +84,12 @@ public class GithubProvider implements QueryEngine<GithubUser> {
       accessTokenDTO.setState(state);
       accessTokenDTO.setRedirect_uri(oAuthProperties.getCallback());
 
-      return queryAccessToken(accessTokenDTO);
+      return accessTokenDTO;
+   }
+
+   @Override
+   public UserType getUserType() {
+      return UserType.GitHub;
    }
 
    @Override

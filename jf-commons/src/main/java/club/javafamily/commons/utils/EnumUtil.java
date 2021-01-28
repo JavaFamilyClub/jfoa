@@ -15,22 +15,50 @@
 package club.javafamily.commons.utils;
 
 import org.apache.commons.lang3.EnumUtils;
+import org.springframework.lang.NonNull;
+
+import java.util.function.Predicate;
 
 public final class EnumUtil {
 
-   public static <T extends Enum<T>> T matchEnum(Class<T> clazz,
-                                              String parseStr)
+   public static <E extends Enum<E>> E matchEnum(@NonNull final Class<E> clazz,
+                                                 String enumName)
    {
-      return matchEnum(clazz, parseStr, null);
+      return matchEnum(clazz, enumName, null);
    }
 
-   public static <T extends Enum<T>> T matchEnum(Class<T> clazz,
+   public static <E extends Enum<E>> E matchEnum(@NonNull final Class<E> clazz,
                                                  String enumName,
-                                                 T defaultEnum)
+                                                 E defaultEnum)
    {
-      T anEnum = EnumUtils.getEnum(clazz, enumName);
+      E anEnum = EnumUtils.getEnum(clazz, enumName);
 
       return anEnum != null ? anEnum : defaultEnum;
+   }
+
+   public static <E extends Enum<E>> E matchEnum(@NonNull final Class<E> enumClass,
+                                                 @NonNull Predicate<E> predicate)
+   {
+      return matchEnum(enumClass, predicate, null);
+   }
+
+   public static <E extends Enum<E>> E matchEnum(@NonNull final Class<E> enumClass,
+                                                 @NonNull Predicate<E> predicate,
+                                                 E defaultEnum)
+   {
+      if (!enumClass.isEnum()) {
+         return null;
+      }
+
+      E[] enumConstants = enumClass.getEnumConstants();
+
+      for(E enumConstant : enumConstants) {
+         if(predicate.test(enumConstant)) {
+            return enumConstant;
+         }
+      }
+
+      return defaultEnum;
    }
 
 }
