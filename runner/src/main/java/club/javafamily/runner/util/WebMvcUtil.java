@@ -172,6 +172,10 @@ public final class WebMvcUtil {
       return REDIRECT + defaultRoute;
    }
 
+   public static String redirect(String uri) {
+      return REDIRECT + Objects.toString(uri, "");
+   }
+
    private static final String REDIRECT = "redirect:";
    private static final Logger LOGGER = LoggerFactory.getLogger(WebMvcUtil.class);
 }

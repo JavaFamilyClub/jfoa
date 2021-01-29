@@ -5,13 +5,13 @@
 > 页面链接请求地址规范为:
 
 ```http request
-/public/oauth/${restName}/auth
+/public/oauth/auth
 ```
 
 > for example:
 
 ```http request
-https://javafamily.club/public/oauth/github/auth
+https://javafamily.club/public/oauth/auth
 ```
 
 > 页面链接需要自己请求转发到 `rest` 服务器的认证接口.
@@ -21,13 +21,13 @@ https://javafamily.club/public/oauth/github/auth
 > 服务器认证回调地址规范为:
 
 ```http request
-/public/oauth/${restName}/callback
+/public/oauth/callback
 ```
 
 > for example:
 
 ```http request
-https://javafamily.club/public/oauth/github/callback
+https://javafamily.club/public/oauth/callback
 ```
 
 > 在回调中需要做如下工作:

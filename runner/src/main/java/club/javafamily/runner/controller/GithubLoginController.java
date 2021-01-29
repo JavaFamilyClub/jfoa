@@ -37,6 +37,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+/**
+ * Deprecated: for all rest authentication, we should using same
+ * api to authentication.
+ *
+ * so, oauth authentication should using {@link OAuthLoginController },
+ * this class will deleted after {@link OAuthLoginController } tested.
+ */
+@Deprecated
 @Controller
 @Lazy
 public class GithubLoginController {
@@ -53,7 +61,7 @@ public class GithubLoginController {
    public String auth() {
       String authorizeUrl = githubProvider.getAuthorizeUrl();
 
-      return "redirect:" + authorizeUrl;
+      return WebMvcUtil.redirect(authorizeUrl);
    }
 
    @GetMapping("/public/oauth/github/callback")

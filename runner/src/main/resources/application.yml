@@ -7,11 +7,15 @@ jfoa:
       override: false
 
    oauth:
-      callback: https://javafamily.club/public/oauth/github/callback
+      callback: https://javafamily.club/public/oauth/callback
 
       github:
          client-id: ${JF_GITHUB_CLIENT_ID}
          client-secrets: ${JF_GITHUB_CLIENT_SECRETS}
+
+      dingTalk:
+         client-id: ''
+         client-secrets: ''
 
    thread:
       maxSize: 10
@@ -128,7 +132,7 @@ server:
 
 jfoa:
    oauth:
-      callback: https://javafamily.club/public/oauth/github/callback
+      callback: https://javafamily.club/public/oauth/callback
 
       github:
          client-id: ${JF_GITHUB_CLIENT_ID}
@@ -173,11 +177,15 @@ server:
 
 jfoa:
    oauth:
-      callback: http://localhost/public/oauth/github/callback
+      callback: http://localhost/public/oauth/callback
 
       github:
          client-id: ${DEV_JF_GITHUB_CLIENT_ID}
          client-secrets: ${DEV_JF_GITHUB_CLIENT_SECRETS}
+
+      dingTalk:
+         client-id: ''
+         client-secrets: ''
 
 spring:
    profiles: dev

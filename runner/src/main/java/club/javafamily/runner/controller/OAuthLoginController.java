@@ -58,7 +58,7 @@ public class OAuthLoginController {
 
       String authorizeUrl = queryEngine.getAuthorizeUrl();
 
-      return "redirect:" + authorizeUrl;
+      return WebMvcUtil.redirect(authorizeUrl);
    }
 
    private QueryEngine<? extends RestUser> getQueryEngine(String type) {

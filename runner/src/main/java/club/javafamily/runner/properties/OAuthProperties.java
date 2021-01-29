@@ -25,6 +25,9 @@ public class OAuthProperties {
    @NestedConfigurationProperty
    private GithubOAuthProperties github = new GithubOAuthProperties();
 
+   @NestedConfigurationProperty
+   private DingTalkOAuthProperties dingTalk = new DingTalkOAuthProperties();
+
    public String getCallback() {
       return callback;
    }
@@ -41,24 +44,17 @@ public class OAuthProperties {
       this.github = github;
    }
 
-   public static class GithubOAuthProperties {
-      private String clientId;
-      private String clientSecrets;
+   public DingTalkOAuthProperties getDingTalk() {
+      return dingTalk;
+   }
 
-      public String getClientId() {
-         return clientId;
-      }
+   public void setDingTalk(DingTalkOAuthProperties dingTalk) {
+      this.dingTalk = dingTalk;
+   }
 
-      public void setClientId(String clientId) {
-         this.clientId = clientId;
-      }
+   public static class GithubOAuthProperties extends BaseOAuthProperties {
+   }
 
-      public String getClientSecrets() {
-         return clientSecrets;
-      }
-
-      public void setClientSecrets(String clientSecrets) {
-         this.clientSecrets = clientSecrets;
-      }
+   public static class DingTalkOAuthProperties extends BaseOAuthProperties {
    }
 }

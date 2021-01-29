@@ -54,16 +54,24 @@
       },
       {
          "name": "jfoa.oauth.github.client-id",
-         "description": "Description for jfoa.oauth.github.client-id."
+         "description": "Description for github jfoa.oauth.github.client-id."
       },
       {
          "name": "jfoa.oauth.github.client-secrets",
-         "description": "Description for jfoa.oauth.github.client-secrets."
+         "description": "Description for github jfoa.oauth.github.client-secrets."
+      },
+      {
+         "name": "jfoa.oauth.dingTalk.client-id",
+         "description": "Description for dingTalk jfoa.oauth.dingTalk.client-id."
+      },
+      {
+         "name": "jfoa.oauth.dingTalk.client-secrets",
+         "description": "Description for dingTalk jfoa.oauth.dingTalk.client-secrets."
       },
       {
          "name": "jfoa.oauth.callback",
          "description": "Description for jfoa.oauth.callback.",
-         "defaultValue": "https://javafamily.club/public/oauth/github/callback"
+         "defaultValue": "https://javafamily.club/public/oauth/callback"
       },
       {
          "name": "jfoa.server.dump-interval",
