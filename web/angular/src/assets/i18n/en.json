@@ -258,6 +258,7 @@
          "em": "Enterprise Management",
          "sign-in": "Sign in",
          "sign-in-by-gitHub": "Sign in by GitHub",
+         "sign-in-by-dingtalk": "Sign in by DingTalk",
          "sign-up": "Sign up",
          "sign-out": "Sign out"
       },

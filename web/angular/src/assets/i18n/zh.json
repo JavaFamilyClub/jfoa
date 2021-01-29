@@ -258,6 +258,7 @@
          "em": "企业管理",
          "sign-in": "登录",
          "sign-in-by-gitHub": "通过 GitHub 登录",
+         "sign-in-by-dingtalk": "通过 DingTalk 登录",
          "sign-up": "注册",
          "sign-out": "注销"
       },
