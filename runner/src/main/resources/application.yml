@@ -10,12 +10,14 @@ jfoa:
       callback: https://javafamily.club/public/oauth/callback
 
       github:
+         url: https://github.com/login/oauth/authorize
          client-id: ${JF_GITHUB_CLIENT_ID}
          client-secrets: ${JF_GITHUB_CLIENT_SECRETS}
 
       dingTalk:
-         client-id: ''
-         client-secrets: ''
+         url: 'https://oapi.dingtalk.com/connect/qrconnect'
+         client-id: 'dingoabphullwtsdwq60ts'
+         client-secrets: 'OpcVkD2v333jgbvsrJu4aQzv7jKgK4HKy4uBb9gX0au4Bavoyy61YEEs-iO2eNra'
 
    thread:
       maxSize: 10
@@ -184,8 +186,9 @@ jfoa:
          client-secrets: ${DEV_JF_GITHUB_CLIENT_SECRETS}
 
       dingTalk:
-         client-id: ''
-         client-secrets: ''
+         url: 'https://oapi.dingtalk.com/connect/qrconnect'
+         client-id: 'dingoawl9vntxkndtiwjfr'
+         client-secrets: '8DHr6Sy8vVTCvU-a_IM7E2B0X8-W-pxGT-5arUkHBqNCUvW36QpEH1EWtraapOg7'
 
 spring:
    profiles: dev

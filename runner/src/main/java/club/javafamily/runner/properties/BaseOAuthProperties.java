@@ -17,6 +17,7 @@ package club.javafamily.runner.properties;
 public class BaseOAuthProperties {
    protected String clientId;
    protected String clientSecrets;
+   protected String url;
 
    public String getClientId() {
       return clientId;
@@ -32,5 +33,13 @@ public class BaseOAuthProperties {
 
    public void setClientSecrets(String clientSecrets) {
       this.clientSecrets = clientSecrets;
+   }
+
+   public String getUrl() {
+      return url;
+   }
+
+   public void setUrl(String url) {
+      this.url = url;
    }
 }

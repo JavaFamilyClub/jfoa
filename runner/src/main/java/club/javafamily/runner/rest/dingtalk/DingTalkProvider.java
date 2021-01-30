@@ -16,27 +16,55 @@ package club.javafamily.runner.rest.dingtalk;
 
 import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.dto.*;
+import club.javafamily.runner.properties.BaseOAuthProperties;
+import club.javafamily.runner.properties.OAuthProperties;
 import club.javafamily.runner.rest.QueryEngine;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Lazy
 @Service("dingTalkProvider")
 public class DingTalkProvider implements QueryEngine<DingTalkUser> {
-   @Override
-   public UserType getUserType() {
-      return null;
+
+   @Autowired
+   public DingTalkProvider(RestTemplate restTemplate,
+                           OAuthProperties oAuthProperties)
+   {
+      this.restTemplate = restTemplate;
+      this.oAuthProperties = oAuthProperties;
    }
 
    @Override
-   public String getAuthorizeUrl() {
-      return null;
+   public UserType getUserType() {
+      return UserType.DingTalk;
+   }
+
+   @Override
+   public BaseOAuthProperties getProps() {
+      return this.oAuthProperties.getDingTalk();
+   }
+
+   @Override
+   public Map<String, String> getAuthorizeParams() {
+      Map<String, String> params = new HashMap<>();
+
+      params.put("appid", getProps().getClientId());
+      params.put("scope", "snsapi_login");
+      params.put("response_type", "code");
+      params.put("state", getUserType().name());
+      params.put("redirect_uri", oAuthProperties.getCallback());
+
+      return params;
    }
 
    @Override
    public RestTemplate getRestTemplate() {
-      return null;
+      return this.restTemplate;
    }
 
    @Override
@@ -68,4 +96,7 @@ public class DingTalkProvider implements QueryEngine<DingTalkUser> {
    public OAuthNotifyIdentifier getIdentifier(AccessTokenResponse accessTokenResponse) {
       return null;
    }
+
+   private final RestTemplate restTemplate;
+   private final OAuthProperties oAuthProperties;
 }

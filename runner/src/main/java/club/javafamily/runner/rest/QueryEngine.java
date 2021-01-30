@@ -17,6 +17,7 @@ package club.javafamily.runner.rest;
 import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.controller.model.OAuthAuthenticationException;
 import club.javafamily.runner.dto.*;
+import club.javafamily.runner.properties.BaseOAuthProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -24,6 +25,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.*;
 
 import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public interface QueryEngine <T extends RestUser> {
 
@@ -37,9 +40,34 @@ public interface QueryEngine <T extends RestUser> {
    }
 
    /**
-    * Getting Authorize redirect url.
+    * Getting properties config.
     */
-   String getAuthorizeUrl();
+   BaseOAuthProperties getProps();
+
+   /**
+    * Getting params of Authorize redirect url.
+    */
+   Map<String, String> getAuthorizeParams();
+
+   /**
+    * Build authorize url.
+    */
+   default String getAuthorizeUrl() {
+      Map<String, String> params = getAuthorizeParams();
+      StringBuilder sb = new StringBuilder();
+
+      sb.append(getProps().getUrl());
+      sb.append("?");
+
+      String paramsStr = params == null ? ""
+         : params.entrySet().stream()
+         .map(kv -> kv.getKey() + "=" + kv.getValue())
+         .collect(Collectors.joining("&"));
+
+      sb.append(paramsStr);
+
+      return sb.toString();
+   }
 
    /**
     * query driver

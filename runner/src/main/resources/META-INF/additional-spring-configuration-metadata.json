@@ -57,8 +57,16 @@
          "description": "Description for github jfoa.oauth.github.client-id."
       },
       {
+         "name": "jfoa.oauth.github.url",
+         "description": "Description for github login authentication url."
+      },
+      {
          "name": "jfoa.oauth.github.client-secrets",
          "description": "Description for github jfoa.oauth.github.client-secrets."
+      },
+      {
+         "name": "jfoa.oauth.dingTalk.url",
+         "description": "Description for dingTalk login authentication url."
       },
       {
          "name": "jfoa.oauth.dingTalk.client-id",

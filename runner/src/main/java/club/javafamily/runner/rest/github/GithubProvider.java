@@ -17,6 +17,7 @@ package club.javafamily.runner.rest.github;
 import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.controller.model.OAuthAuthenticationException;
 import club.javafamily.runner.dto.*;
+import club.javafamily.runner.properties.BaseOAuthProperties;
 import club.javafamily.runner.properties.OAuthProperties;
 import club.javafamily.runner.rest.QueryEngine;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 @Lazy
 @Service("githubProvider")
 public class GithubProvider implements QueryEngine<GithubUser> {
-
-   private static final String AUTHORIZE_URL = "https://github.com/login/oauth/authorize";
 
    @Autowired
    public GithubProvider(RestTemplate restTemplate,
@@ -41,32 +40,25 @@ public class GithubProvider implements QueryEngine<GithubUser> {
       this.oAuthProperties = oAuthProperties;
    }
 
+   private OAuthProperties.GithubOAuthProperties githubProp() {
+      return oAuthProperties.getGithub();
+   }
+
    @Override
-   public String getAuthorizeUrl() {
-      assert oAuthProperties.getGithub() != null;
+   public BaseOAuthProperties getProps() {
+      return githubProp();
+   }
+
+   @Override
+   public Map<String, String> getAuthorizeParams() {
       Map<String, String> params = new HashMap<>();
-      params.put("client_id", oAuthProperties.getGithub().getClientId());
+      params.put("client_id", githubProp().getClientId());
       params.put("redirect_uri", oAuthProperties.getCallback());
       params.put("scope", "user:email");
       params.put("response_type", "code");
-      params.put("state", UserType.GitHub.name());
+      params.put("state", getUserType().name());
 
-      return this.getAuthorizeUrl(params);
-   }
-
-   public String getAuthorizeUrl(Map<String, String> params) {
-      StringBuilder sb = new StringBuilder();
-
-      sb.append(AUTHORIZE_URL);
-      sb.append("?");
-
-      String paramsStr = params.entrySet().stream()
-         .map(kv -> kv.getKey() + "=" + kv.getValue())
-         .collect(Collectors.joining("&"));
-
-      sb.append(paramsStr);
-
-      return sb.toString();
+      return params;
    }
 
    @Override
@@ -78,8 +70,8 @@ public class GithubProvider implements QueryEngine<GithubUser> {
       }
 
       AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
-      accessTokenDTO.setClient_id(this.oAuthProperties.getGithub().getClientId());
-      accessTokenDTO.setClient_secret(this.oAuthProperties.getGithub().getClientSecrets());
+      accessTokenDTO.setClient_id(githubProp().getClientId());
+      accessTokenDTO.setClient_secret(githubProp().getClientSecrets());
       accessTokenDTO.setCode(code);
       accessTokenDTO.setState(state);
       accessTokenDTO.setRedirect_uri(oAuthProperties.getCallback());
