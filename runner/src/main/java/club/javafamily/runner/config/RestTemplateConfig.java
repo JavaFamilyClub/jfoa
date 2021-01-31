@@ -31,7 +31,6 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicHeaderElementIterator;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.ssl.SSLContextBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,6 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.*;
 import java.nio.charset.Charset;
-import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.*;
@@ -244,7 +242,8 @@ public class RestTemplateConfig {
    private void modifyDefaultCharset(RestTemplate restTemplate) {
       List<HttpMessageConverter<?>> converterList = restTemplate.getMessageConverters();
       HttpMessageConverter<?> converterTarget = null;
-      for (HttpMessageConverter<?> item : converterList) {
+
+      for(HttpMessageConverter<?> item : converterList) {
          if (StringHttpMessageConverter.class == item.getClass()) {
             converterTarget = item;
             break;

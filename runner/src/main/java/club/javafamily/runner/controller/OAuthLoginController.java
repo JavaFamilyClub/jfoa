@@ -14,15 +14,14 @@
 
 package club.javafamily.runner.controller;
 
-import club.javafamily.commons.enums.Gender;
 import club.javafamily.commons.enums.UserType;
 import club.javafamily.commons.utils.EnumUtil;
 import club.javafamily.runner.config.OAuthUsernamePasswordToken;
 import club.javafamily.runner.controller.model.OAuthAuthenticationException;
 import club.javafamily.runner.domain.Customer;
-import club.javafamily.runner.dto.*;
 import club.javafamily.runner.rest.QueryEngine;
 import club.javafamily.runner.rest.QueryEngineFactory;
+import club.javafamily.runner.rest.dto.*;
 import club.javafamily.runner.service.CustomerService;
 import club.javafamily.runner.util.I18nUtil;
 import club.javafamily.runner.util.WebMvcUtil;
@@ -95,6 +94,11 @@ public class OAuthLoginController {
       }
 
       RestUser user = queryEngine.getUser(accessTokenResponse);
+
+      if(user == null || StringUtils.isEmpty(user.getAccount())) {
+         throw new OAuthAuthenticationException("User info is empty.");
+      }
+
       OAuthNotifyIdentifier identifier = queryEngine.getIdentifier(accessTokenResponse);
 
       String email = user.getEmail();
@@ -121,7 +125,7 @@ public class OAuthLoginController {
          customer.setName(user.getName());
          customer.setEmail(email);
          customer.setPhone(phone);
-         customer.setGender(Gender.Unknown);
+         customer.setGender(user.getGender());
          customer.setActive(true);
          customer.setType(userType);
          customer.setRegisterDate(new Date());

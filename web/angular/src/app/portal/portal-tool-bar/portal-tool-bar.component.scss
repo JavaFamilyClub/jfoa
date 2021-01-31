@@ -5,3 +5,7 @@
 .portal-toolbar-text-links {
    margin-left: 15px;
 }
+
+*.mat-button-disabled {
+   color: rgba(255, 255, 255, .3) !important;
+}

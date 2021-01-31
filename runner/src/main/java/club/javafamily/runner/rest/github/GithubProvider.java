@@ -16,13 +16,15 @@ package club.javafamily.runner.rest.github;
 
 import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.controller.model.OAuthAuthenticationException;
-import club.javafamily.runner.dto.*;
 import club.javafamily.runner.properties.BaseOAuthProperties;
 import club.javafamily.runner.properties.OAuthProperties;
 import club.javafamily.runner.rest.QueryEngine;
+import club.javafamily.runner.rest.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -50,6 +52,11 @@ public class GithubProvider implements QueryEngine<GithubUser> {
    }
 
    @Override
+   public Class<? extends AccessTokenResponse> accessTokenResponse() {
+      return GitHubAccessTokenResponse.class;
+   }
+
+   @Override
    public Map<String, String> getAuthorizeParams() {
       Map<String, String> params = new HashMap<>();
       params.put("client_id", githubProp().getClientId());
@@ -63,13 +70,13 @@ public class GithubProvider implements QueryEngine<GithubUser> {
 
    @Override
    public AccessTokenDTO buildAccessTokenDTO(String code, String state) {
-      assert oAuthProperties.getGithub() != null;
+      assert getProps() != null;
 
       if(!UserType.GitHub.name().equals(state)) {
          throw new OAuthAuthenticationException("OAuth Authentication State is not match: " + state);
       }
 
-      AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
+      GitHubAccessTokenDTO accessTokenDTO = new GitHubAccessTokenDTO();
       accessTokenDTO.setClient_id(githubProp().getClientId());
       accessTokenDTO.setClient_secret(githubProp().getClientSecrets());
       accessTokenDTO.setCode(code);
@@ -90,12 +97,17 @@ public class GithubProvider implements QueryEngine<GithubUser> {
    }
 
    @Override
+   public RequestMethod accessTokenMethod() {
+      return RequestMethod.POST;
+   }
+
+   @Override
    public String getAccessTokenUrl() {
       return "https://github.com/login/oauth/access_token";
    }
 
    @Override
-   public String getUserInfoUrl() {
+   public String getUserInfoUrl(AccessTokenResponse accessTokenResponse) {
       return "https://api.github.com/user";
    }
 
@@ -128,6 +140,17 @@ public class GithubProvider implements QueryEngine<GithubUser> {
       }
 
       return result;
+   }
+
+   @Override
+   public HttpHeaders queryResourceHeader(AccessTokenResponse token) {
+      HttpHeaders headers = new HttpHeaders();
+
+      headers.set(authorizationParamName(),
+         ((GitHubAccessTokenResponse) token).getToken_type()
+            + " " + token.getAccess_token());
+
+      return headers;
    }
 
    private final RestTemplate restTemplate;

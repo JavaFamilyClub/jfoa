@@ -12,34 +12,27 @@
  * person.
  */
 
-package club.javafamily.runner.dto;
+package club.javafamily.runner.rest.dto;
 
-import club.javafamily.commons.enums.Gender;
-import club.javafamily.commons.enums.UserType;
+import java.io.Serializable;
 
-public class WeChatUser implements RestUser {
-   @Override
-   public String getName() {
-      return null;
+public class AccessTokenDTO implements Serializable {
+   private String code;
+   private String state;
+
+   public String getCode() {
+      return code;
    }
 
-   @Override
-   public String getAccount() {
-      return null;
+   public void setCode(String code) {
+      this.code = code;
    }
 
-   @Override
-   public String getEmail() {
-      return null;
+   public String getState() {
+      return state;
    }
 
-   @Override
-   public UserType getUserType() {
-      return null;
-   }
-
-   @Override
-   public Gender getGender() {
-      return null;
+   public void setState(String state) {
+      this.state = state;
    }
 }

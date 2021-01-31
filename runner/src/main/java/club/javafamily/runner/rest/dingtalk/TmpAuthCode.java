@@ -12,16 +12,25 @@
  * person.
  */
 
-package club.javafamily.runner.dto;
+package club.javafamily.runner.rest.dingtalk;
 
-public interface OAuthNotifyIdentifier {
+import java.io.Serializable;
 
-   default String getPhone() {
-      return null;
+public class TmpAuthCode implements Serializable {
+   private String tmp_auth_code;
+
+   public TmpAuthCode() {
    }
 
-   default String getEmail() {
-      return null;
+   public TmpAuthCode(String tmp_auth_code) {
+      this.tmp_auth_code = tmp_auth_code;
    }
 
+   public String getTmp_auth_code() {
+      return tmp_auth_code;
+   }
+
+   public void setTmp_auth_code(String tmp_auth_code) {
+      this.tmp_auth_code = tmp_auth_code;
+   }
 }

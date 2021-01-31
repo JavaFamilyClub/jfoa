@@ -12,7 +12,9 @@
  * person.
  */
 
-package club.javafamily.runner.dto;
+package club.javafamily.runner.rest.github;
+
+import club.javafamily.runner.rest.dto.OAuthNotifyIdentifier;
 
 public class GitHubEmailResponse implements OAuthNotifyIdentifier {
    private String email;

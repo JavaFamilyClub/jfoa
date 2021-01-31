@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, JavaFamily Technology Corp, All Rights Reserved.
+ * Copyright (c) 2021, JavaFamily Technology Corp, All Rights Reserved.
  *
  * The software and information contained herein are copyrighted and
  * proprietary to JavaFamily Technology Corp. This software is furnished
@@ -12,10 +12,10 @@
  * person.
  */
 
-package club.javafamily.runner.dto;
+package club.javafamily.runner.rest.github;
 
-import club.javafamily.commons.enums.Gender;
 import club.javafamily.commons.enums.UserType;
+import club.javafamily.runner.rest.dto.RestUser;
 
 public class GithubUser implements RestUser {
    private String name; // nick name
@@ -71,11 +71,6 @@ public class GithubUser implements RestUser {
    @Override
    public UserType getUserType() {
       return UserType.GitHub;
-   }
-
-   @Override
-   public Gender getGender() {
-      return Gender.Unknown;
    }
 
    public void setEmail(String email) {

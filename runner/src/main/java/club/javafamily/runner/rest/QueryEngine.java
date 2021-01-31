@@ -16,16 +16,16 @@ package club.javafamily.runner.rest;
 
 import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.controller.model.OAuthAuthenticationException;
-import club.javafamily.runner.dto.*;
 import club.javafamily.runner.properties.BaseOAuthProperties;
+import club.javafamily.runner.rest.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.*;
 
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public interface QueryEngine <T extends RestUser> {
@@ -43,6 +43,8 @@ public interface QueryEngine <T extends RestUser> {
     * Getting properties config.
     */
    BaseOAuthProperties getProps();
+
+   Class<? extends AccessTokenResponse> accessTokenResponse();
 
    /**
     * Getting params of Authorize redirect url.
@@ -75,14 +77,23 @@ public interface QueryEngine <T extends RestUser> {
    RestTemplate getRestTemplate();
 
    /**
+    * Getting accessToken method.
+    * @return
+    */
+   default RequestMethod accessTokenMethod() {
+      return RequestMethod.GET;
+   }
+
+   /**
     * fetch access token url
     */
    String getAccessTokenUrl();
 
    /**
     * fetch user info url
+    * @param accessTokenResponse
     */
-   String getUserInfoUrl();
+   String getUserInfoUrl(AccessTokenResponse accessTokenResponse);
 
    /**
     * fetch email url
@@ -113,7 +124,10 @@ public interface QueryEngine <T extends RestUser> {
    {
       RestTemplate restTemplate = getRestTemplate();
       headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-      headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+      List<MediaType> accept = new ArrayList<>();
+      accept.add(MediaType.APPLICATION_JSON);
+      accept.add(MediaType.ALL);
+      headers.setAccept(accept);
 
       HttpEntity<R> request = new HttpEntity<>(headers);
       RequestCallback requestCallback = restTemplate.httpEntityCallback(request, returnType);
@@ -139,12 +153,17 @@ public interface QueryEngine <T extends RestUser> {
    default AccessTokenResponse queryAccessToken(AccessTokenDTO accessTokenDTO) {
       RestTemplate restTemplate = getRestTemplate();
 
-      HttpHeaders headers = new HttpHeaders();
-      headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-      HttpEntity<AccessTokenDTO> requestBody = new HttpEntity<>(accessTokenDTO, headers);
+      RequestMethod method = accessTokenMethod();
+      AccessTokenResponse accessTokenResponse;
 
-      AccessTokenResponse accessTokenResponse = restTemplate.postForObject(
-         getAccessTokenUrl(), requestBody, AccessTokenResponse.class);
+      if(method == RequestMethod.POST) {
+         accessTokenResponse = postForObject(
+            getAccessTokenUrl(), accessTokenDTO, accessTokenResponse());
+      }
+      else {
+         accessTokenResponse = restTemplate.getForObject(
+            getAccessTokenUrl(), accessTokenResponse());
+      }
 
       if(accessTokenResponse == null
          || StringUtils.isEmpty(accessTokenResponse.getAccess_token()))
@@ -152,11 +171,33 @@ public interface QueryEngine <T extends RestUser> {
          throw new OAuthAuthenticationException("OAuth Authentication Failed.");
       }
 
+      accessTokenResponse = accessTokenPostProcessor(accessTokenDTO, accessTokenResponse);
+
+      return accessTokenResponse;
+   }
+
+   default <S, B> S postForObject(String url, B body, Class<S> responseClass) {
+      HttpHeaders headers = getBaseHttpHeaders();
+      HttpEntity<B> requestBody = new HttpEntity<>(body, headers);
+
+      return getRestTemplate().postForObject(url, requestBody, responseClass);
+   }
+
+   default HttpHeaders getBaseHttpHeaders() {
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+      return headers;
+   }
+
+   default AccessTokenResponse accessTokenPostProcessor(
+      AccessTokenDTO accessTokenDTO, AccessTokenResponse accessTokenResponse)
+   {
       return accessTokenResponse;
    }
 
    default T getUser(AccessTokenResponse accessTokenResponse) {
-      String url = getUserInfoUrl();
+      String url = getUserInfoUrl(accessTokenResponse);
       HttpHeaders headers = queryResourceHeader(accessTokenResponse);
 
       try{
@@ -177,6 +218,11 @@ public interface QueryEngine <T extends RestUser> {
                           Class<R> clazz)
    {
       String url = getEmailUrl();
+
+      if(StringUtils.isEmpty(url)) {
+         return null;
+      }
+
       HttpHeaders headers = queryResourceHeader(accessTokenResponse);
 
       try{
@@ -189,12 +235,7 @@ public interface QueryEngine <T extends RestUser> {
    }
 
    default HttpHeaders queryResourceHeader(AccessTokenResponse token) {
-      HttpHeaders headers = new HttpHeaders();
-      headers.set(authorizationParamName(),
-         token.getToken_type()
-            + " " + token.getAccess_token());
-
-      return headers;
+      return new HttpHeaders();
    }
 
    Logger LOGGER = LoggerFactory.getLogger(QueryEngine.class);

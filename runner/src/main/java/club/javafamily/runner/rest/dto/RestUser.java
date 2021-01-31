@@ -12,35 +12,23 @@
  * person.
  */
 
-package club.javafamily.runner.dto;
+package club.javafamily.runner.rest.dto;
 
 import club.javafamily.commons.enums.Gender;
 import club.javafamily.commons.enums.UserType;
 
-public class DingTalkUser implements RestUser {
+import java.io.Serializable;
 
-   @Override
-   public String getName() {
-      return null;
-   }
+public interface RestUser extends Serializable {
+   String getName();
 
-   @Override
-   public String getAccount() {
-      return null;
-   }
+   String getAccount();
 
-   @Override
-   public String getEmail() {
-      return null;
-   }
+   String getEmail();
 
-   @Override
-   public UserType getUserType() {
-      return null;
-   }
+   UserType getUserType();
 
-   @Override
-   public Gender getGender() {
-      return null;
+   default Gender getGender() {
+      return Gender.Unknown;
    }
 }

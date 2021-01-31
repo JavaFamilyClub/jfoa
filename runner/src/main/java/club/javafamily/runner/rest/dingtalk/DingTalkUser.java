@@ -12,32 +12,36 @@
  * person.
  */
 
-package club.javafamily.runner.rest;
+package club.javafamily.runner.rest.dingtalk;
 
 import club.javafamily.commons.enums.UserType;
 import club.javafamily.runner.rest.dto.RestUser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
+public class DingTalkUser implements RestUser {
+   private String errcode;
+   private String errmsg;
+   @JsonProperty(value = "user_info")
+   private DingTalkUserInfo user_info;
 
-@Component
-public class QueryEngineFactory {
+   @Override
+   public String getName() {
+      return user_info.getNick();
+   }
 
-   public QueryEngine<? extends RestUser> getQueryEngine(UserType userType) {
-      for(QueryEngine<? extends RestUser> queryEngine : queryEngines) {
-         if(queryEngine.isAccept(userType)) {
-            return queryEngine;
-         }
-      }
+   @Override
+   public String getAccount() {
+      return user_info.getDingId();
+   }
 
+   @Override
+   public String getEmail() {
       return null;
    }
 
-   @Autowired
-   public QueryEngineFactory(List<QueryEngine<? extends RestUser>> queryEngines) {
-      this.queryEngines = queryEngines;
+   @Override
+   public UserType getUserType() {
+      return UserType.DingTalk;
    }
 
-   private final List<QueryEngine<? extends RestUser>> queryEngines;
 }
