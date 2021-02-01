@@ -18,6 +18,7 @@ import java.io.Serializable;
 
 public class AccessTokenResponse implements Serializable {
    private String access_token;
+   private AccessTokenDTO accessTokenDTO;
 
    public String getAccess_token() {
       return access_token;
@@ -25,6 +26,14 @@ public class AccessTokenResponse implements Serializable {
 
    public void setAccess_token(String access_token) {
       this.access_token = access_token;
+   }
+
+   public AccessTokenDTO getAccessTokenDTO() {
+      return accessTokenDTO;
+   }
+
+   public void setAccessTokenDTO(AccessTokenDTO accessTokenDTO) {
+      this.accessTokenDTO = accessTokenDTO;
    }
 
    @Override

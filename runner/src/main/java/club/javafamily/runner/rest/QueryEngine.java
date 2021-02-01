@@ -93,7 +93,7 @@ public interface QueryEngine <T extends RestUser> {
     * fetch user info url
     * @param accessTokenResponse
     */
-   String getUserInfoUrl(AccessTokenResponse accessTokenResponse);
+   String getUserInfoUrl(AccessTokenResponse accessTokenResponse) throws Exception;
 
    /**
     * fetch email url
@@ -171,6 +171,8 @@ public interface QueryEngine <T extends RestUser> {
          throw new OAuthAuthenticationException("OAuth Authentication Failed.");
       }
 
+      accessTokenResponse.setAccessTokenDTO(accessTokenDTO);
+
       accessTokenResponse = accessTokenPostProcessor(accessTokenDTO, accessTokenResponse);
 
       return accessTokenResponse;
@@ -196,12 +198,17 @@ public interface QueryEngine <T extends RestUser> {
       return accessTokenResponse;
    }
 
-   default T getUser(AccessTokenResponse accessTokenResponse) {
+   default T getUser(AccessTokenResponse accessTokenResponse) throws Exception {
       String url = getUserInfoUrl(accessTokenResponse);
+
+      return getForObject(url, getUserClass(), accessTokenResponse);
+   }
+
+   default <N> N getForObject(String url, Class<N> returnClass, AccessTokenResponse accessTokenResponse) {
       HttpHeaders headers = queryResourceHeader(accessTokenResponse);
 
       try{
-         return getForObject(url, getUserClass(), headers);
+         return getForObject(url, returnClass, headers);
       }
       catch(Exception e) {
          e.printStackTrace();

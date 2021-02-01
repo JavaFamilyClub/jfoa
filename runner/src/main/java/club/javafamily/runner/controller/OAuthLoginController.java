@@ -74,6 +74,7 @@ public class OAuthLoginController {
    public String callback(@RequestParam("code") String code,
                           @RequestParam("state") String state,
                           HttpServletRequest request)
+      throws Exception
    {
       QueryEngine<? extends RestUser> queryEngine = getQueryEngine(state);
 
@@ -87,6 +88,7 @@ public class OAuthLoginController {
 
    private void authentication(QueryEngine<? extends RestUser> queryEngine,
                                AccessTokenResponse accessTokenResponse)
+      throws Exception
    {
       if(accessTokenResponse == null) {
          LOGGER.error("AccessTokenResponse is null.");

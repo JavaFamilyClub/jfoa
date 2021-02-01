@@ -20,6 +20,7 @@ public class DingTalkAccessTokenResponse extends AccessTokenResponse {
    private String errcode;
    private String errmsg;
    private String expires_in;
+   private String authCode;
 
    public String getErrcode() {
       return errcode;
@@ -43,5 +44,13 @@ public class DingTalkAccessTokenResponse extends AccessTokenResponse {
 
    public void setExpires_in(String expires_in) {
       this.expires_in = expires_in;
+   }
+
+   public String getAuthCode() {
+      return authCode;
+   }
+
+   public void setAuthCode(String authCode) {
+      this.authCode = authCode;
    }
 }

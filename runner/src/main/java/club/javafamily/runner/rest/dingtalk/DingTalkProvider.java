@@ -20,6 +20,10 @@ import club.javafamily.runner.properties.BaseOAuthProperties;
 import club.javafamily.runner.properties.OAuthProperties;
 import club.javafamily.runner.rest.QueryEngine;
 import club.javafamily.runner.rest.dto.*;
+import com.dingtalk.api.DefaultDingTalkClient;
+import com.dingtalk.api.DingTalkClient;
+import com.dingtalk.api.request.*;
+import com.dingtalk.api.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -87,28 +91,77 @@ public class DingTalkProvider implements QueryEngine<DingTalkUser> {
    public AccessTokenResponse accessTokenPostProcessor(AccessTokenDTO accessTokenDTO,
                                                        AccessTokenResponse accessTokenResponse)
    {
-      String uri = "https://oapi.dingtalk.com/sns/get_persistent_code?access_token="
-         + accessTokenResponse.getAccess_token();
+//      String uri = "https://oapi.dingtalk.com/sns/get_persistent_code?access_token="
+//         + accessTokenResponse.getAccess_token();
+//
+//      TmpAuthResponse ampAuthResponse = postForObject(
+//         uri, new TmpAuthCode(accessTokenDTO.getCode()), TmpAuthResponse.class);
+//
+//      // getting sns_token
+//      uri = "https://oapi.dingtalk.com/sns/get_sns_token?access_token="
+//         + accessTokenResponse.getAccess_token();
+//
+//      DingTalkSnsTokenResponse snsTokenResponse = postForObject(
+//         uri, ampAuthResponse, DingTalkSnsTokenResponse.class);
 
-      TmpAuthResponse ampAuthResponse = postForObject(
-         uri, new TmpAuthCode(accessTokenDTO.getCode()), TmpAuthResponse.class);
-
-      // getting sns_token
-      uri = "https://oapi.dingtalk.com/sns/get_sns_token?access_token="
-         + accessTokenResponse.getAccess_token();
-
-      DingTalkSnsTokenResponse snsTokenResponse = postForObject(
-         uri, ampAuthResponse, DingTalkSnsTokenResponse.class);
-
-      accessTokenResponse.setAccess_token(snsTokenResponse.getSns_token());
+//      accessTokenResponse.setAccess_token(snsTokenResponse.getSns_token());
 
       return accessTokenResponse;
    }
 
    @Override
-   public String getUserInfoUrl(AccessTokenResponse accessTokenResponse) {
-      return "https://oapi.dingtalk.com/sns/getuserinfo?sns_token="
-         + accessTokenResponse.getAccess_token();
+   public String getUserInfoUrl(AccessTokenResponse accessTokenResponse) throws Exception {
+//      String snsUnionidUri = "https://oapi.dingtalk.com/sns/getuserinfo?sns_token="
+//         + accessTokenResponse.getAccess_token();
+//
+//      DingUserSnsInfo snsInfo = getForObject(
+//         snsUnionidUri, DingUserSnsInfo.class, accessTokenResponse);
+//
+//      String unionid = snsInfo.unionid();
+//
+//      String unionidAccessTokenUri = "https://oapi.dingtalk.com/gettoken" +
+//         "?appkey=ding63jbqyuf4kprisez" +
+//         "&appsecret=pEryLKS7UgVXH-ZSat5bk0oez7Z70OvNZ2DpmMVbbLHUdJ_-l3zU0rPM3TqVnGmZ";
+//
+//      AccessTokenResponse unionidAccessTokenResponse = getForObject(
+//         unionidAccessTokenUri, accessTokenResponse(), getBaseHttpHeaders());
+//
+//      String userIdUri = "https://oapi.dingtalk.com/topapi/user/getbyunionid?access_token="
+//         + unionidAccessTokenResponse.getAccess_token();
+//
+//      DingGetUserIdResponse userIdResponse = postForObject(
+//         userIdUri, new UnionidObject(unionid), DingGetUserIdResponse.class);
+
+      // query params: lang (default: zh_CN)
+//      return "https://oapi.dingtalk.com/user/get?access_token="
+//         + accessTokenResponse.getAccess_token()
+//         + "&userid=" + userIdResponse.getUserid();
+
+      DefaultDingTalkClient client2 = new DefaultDingTalkClient("https://oapi.dingtalk.com/sns/getuserinfo_bycode");
+      OapiSnsGetuserinfoBycodeRequest reqBycodeRequest = new OapiSnsGetuserinfoBycodeRequest();
+      // 通过扫描二维码，跳转指定的redirect_uri后，向url中追加的code临时授权码
+      reqBycodeRequest.setTmpAuthCode(accessTokenResponse.getAccessTokenDTO().getCode());
+      OapiSnsGetuserinfoBycodeResponse bycodeResponse
+         = client2.execute(reqBycodeRequest, getProps().getClientId(), getProps().getClientSecrets());
+
+      DefaultDingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/service/get_corp_token");
+      OapiServiceGetCorpTokenRequest req = new OapiServiceGetCorpTokenRequest();
+      req.setAuthCorpid("ding9c92b8c37659ccaef5bf40eda33b7ba0");
+      OapiServiceGetCorpTokenResponse execute = client.execute(req, "ding63jbqyuf4kprisez", "pEryLKS7UgVXH-ZSat5bk0oez7Z70OvNZ2DpmMVbbLHUdJ_-l3zU0rPM3TqVnGmZ", "suiteTicket");
+
+
+      // 根据unionid获取userid
+      String unionid = bycodeResponse.getUserInfo().getUnionid();
+      DingTalkClient clientDingTalkClient = new DefaultDingTalkClient("https://oapi.dingtalk.com/topapi/user/getbyunionid");
+      OapiUserGetbyunionidRequest reqGetbyunionidRequest = new OapiUserGetbyunionidRequest();
+      reqGetbyunionidRequest.setUnionid(unionid);
+      OapiUserGetbyunionidResponse oapiUserGetbyunionidResponse
+         = clientDingTalkClient.execute(reqGetbyunionidRequest, accessTokenResponse.getAccess_token());
+
+      // query params: lang (default: zh_CN)
+      return "https://oapi.dingtalk.com/user/get?access_token="
+         + accessTokenResponse.getAccess_token()
+         + "&userid=" + oapiUserGetbyunionidResponse.getResult().getUserid();
    }
 
    @Override

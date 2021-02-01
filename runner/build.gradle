@@ -45,6 +45,8 @@ dependencies {
    implementation project(":jf-commons")
    implementation project(":jf-echarts")
 
+   implementation files("./lib/taobao-sdk-java.jar")
+
    // Spring
    implementation 'org.springframework.boot:spring-boot-starter-web'
    // ORM
