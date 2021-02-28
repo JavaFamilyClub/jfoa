@@ -92,6 +92,12 @@
          "type": "java.lang.Integer",
          "description": "The count of auto dump server info.",
          "defaultValue": 60
+      },
+      {
+         "name": "jfoa.server.sslEnable",
+         "type": "java.lang.Boolean",
+         "description": "Enable Https.",
+         "defaultValue": false
       }
    ],
    "hints": [

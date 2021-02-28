@@ -14,7 +14,7 @@
 
 package club.javafamily.runner.config;
 
-import club.javafamily.runner.common.constants.Profiles;
+import club.javafamily.runner.config.conditional.ConditionalOnHttpsEnabled;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
@@ -26,7 +26,11 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.context.annotation.*;
 
 @Configuration
-@Profile(Profiles.PRODUCTION)
+/**
+ * Configuration by properties 'jfoa.server.sslEnable'
+ */
+//@Profile(Profiles.PRODUCTION)
+@Conditional(ConditionalOnHttpsEnabled.class)
 public class HttpsConfiguration {
 
    /**

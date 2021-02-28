@@ -20,6 +20,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class MainServerProperties {
    private long dumpInterval = 1000L;
    private int dumpCount = 60;
+   private boolean sslEnable;
 
    public long getDumpInterval() {
       return dumpInterval;
@@ -35,5 +36,13 @@ public class MainServerProperties {
 
    public void setDumpCount(int dumpCount) {
       this.dumpCount = dumpCount;
+   }
+
+   public boolean isSslEnable() {
+      return sslEnable;
+   }
+
+   public void setSslEnable(boolean sslEnable) {
+      this.sslEnable = sslEnable;
    }
 }
