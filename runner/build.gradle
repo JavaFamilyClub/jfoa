@@ -45,6 +45,7 @@ dependencies {
    implementation project(":jf-commons")
    implementation project(":jf-echarts")
 
+   // rest
    implementation files("./lib/taobao-sdk-java.jar")
 
    // Spring

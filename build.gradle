@@ -39,7 +39,7 @@ allprojects {
          jasyptVersion = '3.0.3'
          ognlVersion = '3.2.14'
 
-         // log version
+         // test version
          jupiterVersion = '5.6.2'
 
          // web version
@@ -53,6 +53,8 @@ allprojects {
          commonsLang3Version = '3.8.1'
          jacksonVersion = '2.9.9'
          tomcatVersion = '9.0.21'
+         // json
+         jsonPathVersion = '2.4.0'
 
          // env
          webModule = project.hasProperty('webModule') ? project.property('webModule') : 'web:angular'

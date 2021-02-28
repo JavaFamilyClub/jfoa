@@ -15,6 +15,7 @@
 package club.javafamily.runner.rest.dingtalk;
 
 import club.javafamily.commons.enums.UserType;
+import club.javafamily.commons.utils.JsonPathUtils;
 import club.javafamily.runner.controller.model.OAuthAuthenticationException;
 import club.javafamily.runner.properties.BaseOAuthProperties;
 import club.javafamily.runner.properties.OAuthProperties;
@@ -137,30 +138,41 @@ public class DingTalkProvider implements QueryEngine<DingTalkUser> {
 //         + accessTokenResponse.getAccess_token()
 //         + "&userid=" + userIdResponse.getUserid();
 
-      DefaultDingTalkClient client2 = new DefaultDingTalkClient("https://oapi.dingtalk.com/sns/getuserinfo_bycode");
+      DefaultDingTalkClient client2 = new DefaultDingTalkClient("https://oapi.dingtalk.com/sns/getuserinfo_bycode?accessKey=dingoawl9vntxkndtiwjfr");
       OapiSnsGetuserinfoBycodeRequest reqBycodeRequest = new OapiSnsGetuserinfoBycodeRequest();
       // 通过扫描二维码，跳转指定的redirect_uri后，向url中追加的code临时授权码
       reqBycodeRequest.setTmpAuthCode(accessTokenResponse.getAccessTokenDTO().getCode());
       OapiSnsGetuserinfoBycodeResponse bycodeResponse
-         = client2.execute(reqBycodeRequest, getProps().getClientId(), getProps().getClientSecrets());
+         = client2.execute(reqBycodeRequest, getProps().getClientId(),
+         getProps().getClientSecrets());
 
-      DefaultDingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/service/get_corp_token");
-      OapiServiceGetCorpTokenRequest req = new OapiServiceGetCorpTokenRequest();
-      req.setAuthCorpid("ding9c92b8c37659ccaef5bf40eda33b7ba0");
-      OapiServiceGetCorpTokenResponse execute = client.execute(req, "ding63jbqyuf4kprisez", "pEryLKS7UgVXH-ZSat5bk0oez7Z70OvNZ2DpmMVbbLHUdJ_-l3zU0rPM3TqVnGmZ", "suiteTicket");
-
+//      DefaultDingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/service/get_corp_token");
+//      OapiServiceGetCorpTokenRequest req = new OapiServiceGetCorpTokenRequest();
+//      req.setAuthCorpid("ding9c92b8c37659ccaef5bf40eda33b7ba0");
+//      OapiServiceGetCorpTokenResponse execute = client.execute(req, "ding63jbqyuf4kprisez", "pEryLKS7UgVXH-ZSat5bk0oez7Z70OvNZ2DpmMVbbLHUdJ_-l3zU0rPM3TqVnGmZ", "suiteTicket");
 
       // 根据unionid获取userid
+      //    --- 先根据企业内部应用的 appId 和 appSecure 获取 Access Token
+      DingTalkClient atClient = new DefaultDingTalkClient("https://oapi.dingtalk.com/gettoken");
+      OapiGettokenRequest request = new OapiGettokenRequest();
+      request.setAppkey("ding63jbqyuf4kprisez");
+      request.setAppsecret("pEryLKS7UgVXH-ZSat5bk0oez7Z70OvNZ2DpmMVbbLHUdJ_-l3zU0rPM3TqVnGmZ");
+      request.setHttpMethod("GET");
+      OapiGettokenResponse response = atClient.execute(request);
+      String getUserIdAccessToken = JsonPathUtils.parsePath(response.getBody(), "$.access_token");
+
       String unionid = bycodeResponse.getUserInfo().getUnionid();
-      DingTalkClient clientDingTalkClient = new DefaultDingTalkClient("https://oapi.dingtalk.com/topapi/user/getbyunionid");
+//      DingTalkClient clientDingTalkClient = new DefaultDingTalkClient("https://oapi.dingtalk.com/topapi/user/getbyunionid");
+      DingTalkClient clientDingTalkClient = new DefaultDingTalkClient("https://oapi.dingtalk.com/user/getUseridByUnionid");
       OapiUserGetbyunionidRequest reqGetbyunionidRequest = new OapiUserGetbyunionidRequest();
       reqGetbyunionidRequest.setUnionid(unionid);
+      reqGetbyunionidRequest.setHttpMethod("GET");
       OapiUserGetbyunionidResponse oapiUserGetbyunionidResponse
-         = clientDingTalkClient.execute(reqGetbyunionidRequest, accessTokenResponse.getAccess_token());
+         = clientDingTalkClient.execute(reqGetbyunionidRequest, getUserIdAccessToken);
 
       // query params: lang (default: zh_CN)
       return "https://oapi.dingtalk.com/user/get?access_token="
-         + accessTokenResponse.getAccess_token()
+         + getUserIdAccessToken
          + "&userid=" + oapiUserGetbyunionidResponse.getResult().getUserid();
    }
 

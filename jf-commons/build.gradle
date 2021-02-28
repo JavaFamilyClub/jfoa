@@ -18,6 +18,10 @@ repositories {
 }
 
 dependencies {
+   implementation("com.jayway.jsonpath:json-path:${jsonPathVersion}") {
+      exclude(group: 'org.slf4j', module: 'slf4j-api')
+   }
+
    // spring
    compileOnly "org.springframework:spring-core:${springVersion}"
    compileOnly "org.springframework:spring-expression:${springVersion}"
