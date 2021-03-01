@@ -32,6 +32,10 @@ allprojects {
          luceneVersion = '7.7.3' // 8+ for jdk11
          iTextVersion = '7.1.13'
 
+         // plugins
+         // FastDFS
+         fastDFSVersion = '1.26.2'
+
          // tools version
          urlRewriteFilterversion = '4.0.4'
          httpClientVersion = '4.5.13'

@@ -7,7 +7,7 @@ jfoa:
       override: false
 
    oauth:
-      callback: https://javafamily.club/public/oauth/callback
+      callback: http://javafamily.club/public/oauth/callback
 
       github:
          url: https://github.com/login/oauth/authorize
@@ -137,7 +137,7 @@ server:
 
 jfoa:
    oauth:
-      callback: https://javafamily.club/public/oauth/callback
+      callback: http://javafamily.club/public/oauth/callback
 
       github:
          client-id: ${JF_GITHUB_CLIENT_ID}

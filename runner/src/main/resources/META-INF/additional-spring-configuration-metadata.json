@@ -79,7 +79,7 @@
       {
          "name": "jfoa.oauth.callback",
          "description": "Description for jfoa.oauth.callback.",
-         "defaultValue": "https://javafamily.club/public/oauth/callback"
+         "defaultValue": "http://javafamily.club/public/oauth/callback"
       },
       {
          "name": "jfoa.server.dump-interval",

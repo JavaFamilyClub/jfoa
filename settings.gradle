@@ -2,6 +2,8 @@ rootProject.name = 'jfoa'
 
 include 'jf-commons'
 
+include 'dfs'
+
 include 'jf-echarts'
 
 include 'runner', 'web:angular'
