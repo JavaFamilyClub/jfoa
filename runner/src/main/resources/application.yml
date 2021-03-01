@@ -123,8 +123,9 @@ server:
 
 ---
 
+# related ssl enable config by property 'jfoa.server.sslEnable'
 server:
-   port: 443
+   port: 80
 
 # SSL
    ssl:
