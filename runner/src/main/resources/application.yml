@@ -123,12 +123,14 @@ server:
 
 ---
 
-# related ssl enable config by property 'jfoa.server.sslEnable'
+# related ssl enable config by property 'jfoa.server.sslEnable' and `server.ssl.enabled`
 server:
    port: 80
 
 # SSL
    ssl:
+      # disable ssl default
+      enabled: false
       key-store: classpath:/config/ssl/javafamily.club.pfx
       key-store-password: jj5qDzz4
       key-store-type: PKCS12
