@@ -25,7 +25,7 @@
 
 ### 0.2 Online Demo
 
-> Please visit [https://javafamily.club](https://javafamily.club) preview.
+> Please visit [www.javafamily.club](https://javafamily.club) preview.
 
 ### 1. Build Project
 #### 1.1 Build Develop Environment
