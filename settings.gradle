@@ -1,5 +1,7 @@
 rootProject.name = 'jfoa'
 
+include 'jf-dependencies'
+
 include 'jf-commons'
 
 include 'dfs'

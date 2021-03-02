@@ -25,10 +25,12 @@ configurations {
    }
 
    api
-   tools
-   developmentOnly
-   compile.extendsFrom(api)
-   compileOnly.extendsFrom(tools, annotationProcessor)
+//   tools
+//   developmentOnly
+//   compile.extendsFrom(api)
+//   compileOnly.extendsFrom(tools, annotationProcessor)
+//   compileClasspath.extendsFrom(api)
+//   runtimeClasspath.extendsFrom(api)
 }
 
 repositories {
@@ -42,73 +44,26 @@ repositories {
 
 dependencies {
    // api
+   implementation project(":jf-dependencies")
    implementation project(":jf-commons")
    implementation project(":jf-echarts")
 
-   // rest
-   implementation files("./lib/taobao-sdk-java.jar")
-
-   // Spring
-   implementation 'org.springframework.boot:spring-boot-starter-web'
-   // ORM
-   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-   // Java Mail
-   implementation 'org.springframework.boot:spring-boot-starter-mail'
-   // AMQP
-   implementation 'org.springframework.boot:spring-boot-starter-amqp'
-   // WebSocket
-   implementation 'org.springframework.boot:spring-boot-starter-websocket'
-   // Quartz
-   implementation 'org.springframework.boot:spring-boot-starter-quartz'
+   // datasource
+   implementation "com.alibaba:druid:${druidVersion}"
+   runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
+   runtimeOnly 'com.h2database:h2' // for test and develop mode
 
    // template
    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
    implementation "ognl:ognl:${ognlVersion}"
-
-   // Cache
-   implementation 'org.springframework.boot:spring-boot-starter-cache'
-   implementation 'net.sf.ehcache:ehcache'
-   implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-
-   // datasource
-   runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
-   runtimeOnly 'com.h2database:h2' // for test and develop mode
-   implementation "com.alibaba:druid:${druidVersion}"
-
-   // security
-   implementation("org.apache.shiro:shiro-ehcache:${shiroVersion}") {
-      exclude(group: 'net.sf.ehcache')
-   }
-   implementation "org.apache.shiro:shiro-spring:${shiroVersion}"
-   implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:${jasyptVersion}"
-
-   // poi
-   implementation "org.apache.poi:poi:${poiVersion}"
-   implementation "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
-   implementation "org.apache.poi:poi-ooxml:${poiVersion}"
-
-   // iText
-   implementation "com.itextpdf:itext7-core:${iTextVersion}"
-
-   // lucene
-   implementation "org.apache.lucene:lucene-core:${luceneVersion}"
-   implementation "org.apache.lucene:lucene-queryparser:${luceneVersion}"
-   implementation "org.apache.lucene:lucene-analyzers-common:${luceneVersion}"
 
    // tools
    implementation "org.apache.commons:commons-lang3"
 //   implementation 'org.springframework.boot:spring-boot-devtools'
    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-   // springfox swagger
-   implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
-   implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
-
    // urlrewritefilter
    implementation "org.tuckey:urlrewritefilter:${urlRewriteFilterversion}"
-
-   // http client
-   implementation "org.apache.httpcomponents:httpclient:${httpClientVersion}"
 
    // webjars
    implementation "org.webjars:jquery:${jqueryVersion}"

@@ -6,8 +6,9 @@ buildscript {
 }
 
 plugins {
+   id 'org.springframework.boot' version '2.1.6.RELEASE'
+   id 'io.spring.dependency-management' version '1.0.9.RELEASE'
    id 'java'
-   id 'jacoco'
 }
 
 sourceCompatibility = '1.8'
@@ -18,16 +19,18 @@ repositories {
 }
 
 dependencies {
+   implementation project(":jf-dependencies")
+
    // fastDFS
    implementation "com.github.tobato:fastdfs-client:${fastDFSVersion}"
 
-   compileOnly "org.springframework:spring-core:${springVersion}"
-   compileOnly "org.springframework:spring-web:${springVersion}"
-   compileOnly "org.springframework:spring-context:${springVersion}"
-//   compileOnly "org.springframework:spring-expression:${springVersion}"
-//   compileOnly 'org.springframework.boot:spring-boot-starter-web'
-
    // test
+   testImplementation('org.springframework.boot:spring-boot-starter-test') {
+      exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+
    testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}") {
       exclude group: 'org.junit.platform', module: 'junit-platform-commons'
    }
@@ -50,7 +53,3 @@ test {
       events "passed", "skipped", "failed"
    }
 }
-
-check.dependsOn jacocoTestReport
-
-jar.enabled=true

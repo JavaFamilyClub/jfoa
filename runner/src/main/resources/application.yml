@@ -55,6 +55,12 @@ spring:
          config: classpath:ehcache.xml
       type: ehcache
 
+   # multipart config
+   servlet:
+      multipart:
+         max-file-size: 10MB
+         max-request-size: 10MB
+
    # Rabbitmq
    rabbitmq:
       host: javafamily.club

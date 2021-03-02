@@ -1,0 +1,128 @@
+buildscript {
+   repositories {
+//      maven {
+//         url 'http://maven.aliyun.com/nexus/content/groups/public'
+//      }
+
+      jcenter()
+      mavenCentral()
+   }
+}
+
+plugins {
+   id 'org.springframework.boot' version '2.1.6.RELEASE'
+   id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+   id 'java'
+//   id 'java-library'
+}
+
+sourceCompatibility = '1.8'
+
+configurations {
+   all {
+      exclude group: 'commons-logging'
+      exclude group: 'log4j'
+   }
+}
+
+repositories {
+//   maven {
+//      url 'http://maven.aliyun.com/nexus/content/groups/public'
+//   }
+
+   jcenter()
+   mavenCentral()
+}
+
+dependencies {
+   // rest
+   api files("./lib/taobao-sdk-java.jar")
+
+   // Spring
+   api 'org.springframework.boot:spring-boot-starter-web'
+   // ORM
+   api('org.springframework.boot:spring-boot-starter-data-jpa') {
+      exclude(group: 'com.zaxxer')
+   }
+   // Java Mail
+   api 'org.springframework.boot:spring-boot-starter-mail'
+   // AMQP
+   api 'org.springframework.boot:spring-boot-starter-amqp'
+   // WebSocket
+   api 'org.springframework.boot:spring-boot-starter-websocket'
+   // Quartz
+   api 'org.springframework.boot:spring-boot-starter-quartz'
+
+   // Cache
+   api 'org.springframework.boot:spring-boot-starter-cache'
+   api 'net.sf.ehcache:ehcache'
+   api 'org.springframework.boot:spring-boot-starter-data-redis'
+
+   // security
+   api("org.apache.shiro:shiro-ehcache:${shiroVersion}") {
+      exclude(group: 'net.sf.ehcache')
+   }
+   api "org.apache.shiro:shiro-spring:${shiroVersion}"
+   api "com.github.ulisesbocchio:jasypt-spring-boot-starter:${jasyptVersion}"
+
+   // poi
+   api "org.apache.poi:poi:${poiVersion}"
+   api "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
+   api "org.apache.poi:poi-ooxml:${poiVersion}"
+
+   // iText
+   api "com.itextpdf:itext7-core:${iTextVersion}"
+
+   // lucene
+   api "org.apache.lucene:lucene-core:${luceneVersion}"
+   api "org.apache.lucene:lucene-queryparser:${luceneVersion}"
+   api "org.apache.lucene:lucene-analyzers-common:${luceneVersion}"
+
+   // tools
+   api "org.apache.commons:commons-lang3"
+   annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+   // http client
+   api "org.apache.httpcomponents:httpclient:${httpClientVersion}"
+
+   // springfox swagger
+   api "io.springfox:springfox-swagger2:${swaggerVersion}"
+   api "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+
+   // test
+   testImplementation('org.springframework.boot:spring-boot-starter-test') {
+      exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+
+   testImplementation("org.junit.jupiter:junit-jupiter-api:${jupiterVersion}") {
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+   testImplementation("org.junit.jupiter:junit-jupiter-params:${jupiterVersion}") {
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+
+   testImplementation("org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}") {
+      exclude group: 'org.junit.platform', module: 'junit-platform-engine'
+      exclude group: 'org.junit.platform', module: 'junit-platform-commons'
+   }
+   testImplementation "org.junit.platform:junit-platform-engine:${junitEngineVersion}"
+   testImplementation "org.junit.platform:junit-platform-commons:${junitEngineVersion}"
+}
+
+test {
+   useJUnitPlatform()
+
+   testLogging {
+      events "passed", "skipped", "failed"
+   }
+}
+
+bootJar {
+   enabled = false
+}
+
+jar {
+   enabled = true
+}
