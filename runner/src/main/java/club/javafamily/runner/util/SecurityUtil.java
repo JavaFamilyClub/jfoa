@@ -15,6 +15,7 @@
 package club.javafamily.runner.util;
 
 import club.javafamily.commons.enums.PermissionEnum;
+import club.javafamily.commons.utils.CoreSecurityUtil;
 import club.javafamily.runner.domain.*;
 import club.javafamily.runner.enums.ResourceEnum;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -25,25 +26,7 @@ import java.util.stream.Collectors;
 
 import static club.javafamily.commons.enums.PermissionEnum.*;
 
-public final class SecurityUtil {
-   // api
-   public static final String API_VERSION = "/api/1.0";
-   public static final String CLIENT_API_VERSION = "/client/api/1.0";
-
-   public static final String Author_Email = "javafamily.club@outlook.com";
-
-   // user constant
-   public static final String Admin = "admin";
-   public static final String Anonymous = "Anonymous";
-
-   // role constant
-   public static final String Administrator = "Administrator";
-
-   // permission constant
-   public static final String SYSTEM_PERMISSION_FLAG = "system";
-   public static final String ADMINISTRATOR_PERMISSION_FLAG = "admin";
-   public static final String USER_PERMISSION_FLAG = "user";
-
+public final class SecurityUtil extends CoreSecurityUtil {
    public static final String ALL_PERMISSION = "*";
    public static final String PART_DIVIDER_TOKEN = ":";
    public static final String SUBPART_DIVIDER_TOKEN = ",";

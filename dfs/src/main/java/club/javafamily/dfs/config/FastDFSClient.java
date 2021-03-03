@@ -118,24 +118,23 @@ public class FastDFSClient {
     */
    public String uploadFile(byte[] bytes, String fileExtension) {
       ByteArrayInputStream stream = new ByteArrayInputStream(bytes);
-      StorePath storePath = fastFileStorageClient.uploadFile(stream, bytes.length, fileExtension, null);
+      StorePath storePath = fastFileStorageClient.uploadFile(
+         stream, bytes.length, fileExtension, null);
+
       return storePath.getFullPath();
    }
 
    /**
-    * @param fileUrl 文件访问地址
-    * @param file 文件保存路径
+    * @param fileUrl file url
+    * @param out output stream
     */
-   public boolean downloadFile(String fileUrl, File file) throws IOException {
-      try {
-         StorePath storePath = StorePath.praseFromUrl(fileUrl);
-         byte[] bytes = fastFileStorageClient.downloadFile(storePath.getGroup(), storePath.getPath(), new DownloadByteArray());
-         FileOutputStream stream = new FileOutputStream(file);
-         stream.write(bytes);
-      }
-      catch (Exception e) {
-         throw e;
-      }
+   public boolean downloadFile(String fileUrl, OutputStream out) throws IOException {
+      StorePath storePath = StorePath.praseFromUrl(fileUrl);
+      byte[] bytes = fastFileStorageClient.downloadFile(
+         storePath.getGroup(), storePath.getPath(),
+         new DownloadByteArray());
+      out.write(bytes);
+
       return true;
    }
 

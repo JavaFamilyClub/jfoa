@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
    implementation project(":jf-dependencies")
+   implementation project(":jf-commons")
 
    // fastDFS
    implementation "com.github.tobato:fastdfs-client:${fastDFSVersion}"

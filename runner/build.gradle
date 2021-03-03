@@ -47,6 +47,7 @@ dependencies {
    implementation project(":jf-dependencies")
    implementation project(":jf-commons")
    implementation project(":jf-echarts")
+   implementation project(":dfs")
 
    // datasource
    implementation "com.alibaba:druid:${druidVersion}"
@@ -129,7 +130,7 @@ task server() {
    doLast {
       javaexec {
          classpath sourceSets.main.runtimeClasspath
-         def envMode = productionBuild ? 'prod' : 'dev'
+         def envMode = productionBuild ? 'prod, fastdfs' : 'dev, fastdfs'
          def debugCmd = productionBuild
             ? ''
             : '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
