@@ -9,6 +9,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/JavaFamilyClub/jfoa)
 ![GitHub License](https://img.shields.io/github/license/JavaFamilyClub/jfoa)
 [![Join the chat](https://badges.gitter.im/javafamilychat/jfoa.svg)](https://gitter.im/javafamilychat/jfoa?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Chat on QQ](https://img.shields.io/badge/chat-on%20QQ-ff69b4.svg)](https://jq.qq.com/?_wv=1027&k=d3NIuw7P)
 
 ### 0. Preface
 ### 0.0 Environment
