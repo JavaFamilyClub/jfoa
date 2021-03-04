@@ -34,6 +34,7 @@ dependencies {
 
    // jackson
    compileOnly "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+   testCompileOnly "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 
    // tomcat
    compileOnly "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"

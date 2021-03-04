@@ -28,8 +28,8 @@ import java.io.IOException;
 @RequestMapping(CoreSecurityUtil.API_VERSION)
 public class DfsController {
 
-   @GetMapping("/public/dfs/img/{imgPath}")
-   public void getImage(@PathVariable("imgPath") String imgPath,
+   @GetMapping("/public/dfs/img")
+   public void getImage(@RequestParam("path") String imgPath,
                         HttpServletResponse response) throws IOException
    {
       ServletOutputStream out = response.getOutputStream();
