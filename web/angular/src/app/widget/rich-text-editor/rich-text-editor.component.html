@@ -81,6 +81,7 @@
         <textarea matInput #froalaContainer *ngIf="viewInit && !!model"
                 [(ngModel)]="content"
                 [placeholder]="placeholder || ''"
+                [ngModelOptions]="options"
                 [froalaEditor]="options"></textarea>
       </div>
 

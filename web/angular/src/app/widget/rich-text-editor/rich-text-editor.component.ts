@@ -85,11 +85,18 @@ export class RichTextEditorComponent implements OnInit {
       return this.form.get("titleControl");
    }
 
-   options: any = {
+   get options() {
+      return this._options;
+   }
+
+   _options: any = {
       language: "zh_cn",
-      placeholderText: "",
+      placeholderText: "Write Content",
       height: "280",
-      toolbarButtonsXS: ["undo", "redo", "|", "bold", "italic", "underline", "|", "fontSize", "align", "color"],
+      toolbarButtons: [
+         "bold", "italic", "underline", "paragraphFormat", "align", "color", "fontSize", "insertImage", "insertTable", "undo", "redo"
+      ],
+      toolbarButtonsXS: ["undo", "redo", "|", "bold", "italic", "underline", "|", "insertImage", "insertTable", "|", "fontSize", "align", "color"],
       pasteAllowedStyleProps: ["font-size", "color"],
       htmlAllowComments: false,
       fontSizeDefaultSelection: "16",

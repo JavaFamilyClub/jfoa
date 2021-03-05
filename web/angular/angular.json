@@ -22,9 +22,12 @@
               "src/favicon.ico",
               "src/favicon.icns",
               "src/jfoa-icon.ico",
+
               "src/assets",
               "src/assets/icons/fonts",
+
               "src/el-main.js",
+
               "src/package.json"
             ],
             "styles": [
@@ -34,6 +37,7 @@
               "./node_modules/froala-editor/css/froala_editor.css",
               "./node_modules/froala-editor/css/froala_style.min.css",
               "./node_modules/froala-editor/css/plugins/colors.min.css",
+              "./node_modules/froala-editor/css/plugins/image.css",
 
               "src/assets/editor.md/css/editormd.css",
               "src/assets/editor.md/css/editormd.preview.css",
@@ -51,6 +55,7 @@
             "scripts": [
               "./node_modules/froala-editor/js/froala_editor.pkgd.min.js",
               "./node_modules/froala-editor/js/plugins/colors.min.js",
+              "./node_modules/froala-editor/js/plugins/image.min.js",
 
               "./node_modules/jquery/dist/jquery.js",
               "src/assets/editor.md/editormd.min.js",
