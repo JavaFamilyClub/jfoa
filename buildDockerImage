@@ -9,12 +9,6 @@ echo JF_JASYPT_ENCRYPTOR Token is: $JF_JASYPT_ENCRYPTOR
 echo Starting copy ssl to docker root...
 cp -r runner/build/resources/main/config/ssl runner/build/libs/ssl
 
-echo Starting copy web resources to web docker root...
-cp -r runner/build/resources/main/static/app web/build/imageRoot/app
-
-mkdir web/build/imageRoot
-cp -r web/nginx-conf web/build/imageRoot/conf
-
 echo Change JMX file permission
 chmod 0400 runner/build/libs/ssl/jmxremote.password
 
@@ -28,11 +22,3 @@ docker build \
 -f ./Dockerfile \
 -m 1g \
 --no-cache ./runner/build/libs/
-
-echo Starting build jfoa-web image.
-
-docker build \
--t javafamily/jfoa-web \
--f ./web/angular/Dockerfile \
--m 1g \
---no-cache ./web/angular/build/imageRoot/

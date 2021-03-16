@@ -7,18 +7,20 @@ FROM nginx
 MAINTAINER JavaFamily <javafamily.club@outlook.com>
 
 # temp folder. link locale:/var/lib/docker to container:/tmp
-VOLUME /tmp
+#VOLUME /tmp
+#RUN ls
+#RUN pwd
+
+COPY ./app/ /data/app/
+
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
 
 # env
-ENV DATA_DIR /app
+ENV DATA_DIR /data/app
 ENV LOG_DIR /log/nginx
 
 RUN mkdir /log/nginx -p
-
-ADD app /app
-
-ADD conf/nginx.conf /etc/nginx/nginx.conf
-ADD conf/default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 

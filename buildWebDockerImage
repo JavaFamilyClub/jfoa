@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+#./gradlew cleanAll :web:angular:build -x test -Pbuildenv=prod --no-daemon --console=plain
+
+# build docker image
+rm -rf ./web/angular/build/imageRoot
+mkdir ./web/angular/build/imageRoot
+
+echo Starting copy web resources to web docker root...
+\cp -rf runner/build/resources/main/static/app web/angular/build/imageRoot/app
+
+\cp -rf web/nginx-conf web/angular/build/imageRoot/conf
+
+echo Starting build jfoa-web image.
+
+docker build \
+-t javafamily/jfoa-web \
+-f ./web/angular/Dockerfile \
+-m 1g \
+--no-cache ./web/angular/build/imageRoot/

@@ -1,0 +1,53 @@
+
+# docker publish reference:
+# https://docs.github.com/en/free-pro-team@latest/actions/guides/publishing-docker-images
+
+name: docker-web
+
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**/*'
+      - '.github/**/*'
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**/*'
+      - '.github/**/*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      JF_JASYPT_ENCRYPTOR: ${{ secrets.JF_JASYPT_ENCRYPTOR }}
+      JF_GITHUB_CLIENT_ID: ${{ secrets.JF_GITHUB_CLIENT_ID }}
+      JF_GITHUB_CLIENT_SECRETS: ${{ secrets.JF_GITHUB_CLIENT_SECRETS }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew buildWebDockerImage Dockerfile
+
+    - name: Build Docker Image with Gradle
+      run: ./buildWebDockerImage
+
+    - name: Push image to docker hub
+      run: |
+        docker login -u javafamily -p ${{ secrets.JF_DOCKER_HUB_PWD }}
+        docker push javafamily/jfoa-web:latest
+        docker logout
+
+    - name: Clean Env
+      run: ./gradlew cleanAll
