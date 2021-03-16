@@ -11,6 +11,8 @@ cp -r runner/build/resources/main/config/ssl runner/build/libs/ssl
 
 echo Starting copy web resources to web docker root...
 cp -r runner/build/resources/main/static/app web/build/imageRoot/app
+
+mkdir web/build/imageRoot
 cp -r web/nginx-conf web/build/imageRoot/conf
 
 echo Change JMX file permission
