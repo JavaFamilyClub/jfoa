@@ -24,3 +24,9 @@ docker build \
 -f ./Dockerfile \
 -m 1g \
 --no-cache ./runner/build/libs/
+
+docker build \
+-t javafamily/jfoa-web \
+-f ./web/angular/Dockerfile \
+-m 1g \
+--no-cache ./web/angular/build/imageRoot/
