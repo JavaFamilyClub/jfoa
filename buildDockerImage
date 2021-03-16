@@ -16,6 +16,8 @@ cp -r web/nginx-conf web/build/imageRoot/conf
 echo Change JMX file permission
 chmod 0400 runner/build/libs/ssl/jmxremote.password
 
+echo Starting build jfoa image.
+
 docker build \
 -t javafamily/jfoa \
 --build-arg JF_JASYPT_ENCRYPTOR=$JF_JASYPT_ENCRYPTOR \
@@ -24,6 +26,8 @@ docker build \
 -f ./Dockerfile \
 -m 1g \
 --no-cache ./runner/build/libs/
+
+echo Starting build jfoa-web image.
 
 docker build \
 -t javafamily/jfoa-web \
