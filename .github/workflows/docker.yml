@@ -47,6 +47,7 @@ jobs:
       run: |
         docker login -u javafamily -p ${{ secrets.JF_DOCKER_HUB_PWD }}
         docker push javafamily/jfoa:latest
+        docker push javafamily/jfoa-web:latest
         docker logout
 
     - name: Clean Env
