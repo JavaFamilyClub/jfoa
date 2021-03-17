@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-#./gradlew cleanAll :web:angular:build -x test -Pbuildenv=prod --no-daemon --console=plain
+./gradlew cleanAll :web:angular:build -x test -Pbuildenv=prod --no-daemon --console=plain
 
 # build docker image
 rm -rf ./web/angular/build/imageRoot
