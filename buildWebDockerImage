@@ -4,7 +4,7 @@
 
 # build docker image
 rm -rf ./web/angular/build/imageRoot
-mkdir ./web/angular/build/imageRoot
+mkdir -p ./web/angular/build/imageRoot
 
 echo Starting copy web resources to web docker root...
 \cp -rf runner/build/resources/main/static/app web/angular/build/imageRoot/app
