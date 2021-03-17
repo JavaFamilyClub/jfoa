@@ -184,7 +184,7 @@ ds:
 ---
 
 server:
-   port: 80
+   port: 8080
 
 jfoa:
    oauth:
