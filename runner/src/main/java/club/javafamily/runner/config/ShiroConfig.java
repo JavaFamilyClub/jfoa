@@ -153,6 +153,9 @@ public class ShiroConfig {
       // error page
       filterChainMap.put("/error/**", "anon");
 
+      // oauth
+      filterChainMap.put("/wb_e26919bbb00c4f57.txt", "anon");
+
       // logout filter
       filterChainMap.put("/logout", "logout");
 
